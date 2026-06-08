@@ -1,5 +1,6 @@
 import { useState } from 'react'
 import Icon from '../components/Icon'
+import SEO from '../components/SEO'
 import { createRecord } from '../lib/airtable'
 
 export default function Contact() {
