@@ -1,4 +1,5 @@
 import { Link } from 'react-router-dom'
+import SEO from '../components/SEO'
 
 const results = [
   { duration: '6 semaines', zone: 'Ovale & mâchoire', tag: 'Résultat 6 sem.' },
@@ -39,7 +40,7 @@ const testimonials = [
 ]
 
 const stats = [
-  { number: '1 500+', label: 'Femmes transformées' },
+  { number: '1 000+', label: 'Femmes transformées' },
   { number: '4.9/5', label: 'Satisfaction moyenne' },
   { number: '21j', label: 'Premiers résultats visibles' },
   { number: '97%', label: 'Recommanderaient RESET' },
@@ -48,6 +49,11 @@ const stats = [
 export default function Transformations() {
   return (
     <>
+      <SEO
+        title="Transformations & Résultats"
+        description="Découvrez les transformations réelles des femmes accompagnées par Laury avec la méthode RESET™. Témoignages et résultats visibles dès 6 semaines."
+        path="/transformations"
+      />
       {/* Hero */}
       <section className="relative pt-40 pb-20 px-[5%] overflow-hidden">
         <div className="absolute inset-0 bg-gradient-to-b from-creme via-white to-white pointer-events-none" />
@@ -130,11 +136,8 @@ export default function Transformations() {
         <div className="max-w-[1400px] mx-auto">
           <div className="text-center mb-16 animate-on-scroll" data-anim="scale">
             <div className="section-badge justify-center">Verbatim clientes</div>
-            <h2 className="font-display text-[clamp(2rem,5vw,3.5rem)] font-black tracking-tighter text-noir mb-1">
-              CE QU'ELLES
-            </h2>
-            <h2 className="font-serif italic text-[clamp(1.8rem,4vw,2.5rem)] text-corail font-semibold mb-4">
-              en disent
+            <h2 className="font-display text-[clamp(2rem,5vw,3.5rem)] font-black tracking-tighter text-noir mb-4">
+              CE QU'ELLES <span className="font-serif italic text-corail font-semibold">en disent</span>
             </h2>
             <p className="text-gris mt-3 text-sm font-serif italic">Ces phrases viennent directement des clientes de Laury — non éditées.</p>
           </div>
@@ -173,14 +176,11 @@ export default function Transformations() {
         <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[400px] h-[400px] bg-corail/8 rounded-full blur-3xl pointer-events-none animate-pulse-soft" />
 
         <div className="max-w-xl mx-auto relative z-10 animate-on-scroll" data-anim="scale">
-          <h2 className="font-display text-[clamp(2rem,5vw,3rem)] font-black tracking-tighter mb-2">
-            ET TOI, C'EST
-          </h2>
-          <h2 className="font-serif italic text-[clamp(1.5rem,4vw,2.5rem)] text-corail font-semibold mb-6">
-            quand ?
+          <h2 className="font-display text-[clamp(2rem,5vw,3rem)] font-black tracking-tighter mb-6">
+            ET TOI, C'EST <span className="font-serif italic text-corail font-semibold">quand ?</span>
           </h2>
           <p className="text-white/50 mb-8 text-[16px]">Ces résultats peuvent être les tiens. Inscris-toi pour être prévenue dès qu'une place se libère.</p>
-          <Link to="/vip" className="btn-corail text-base px-8 py-4">
+          <Link to="/liste-attente" className="btn-corail text-base px-8 py-4">
             Rejoindre la liste d'attente →
           </Link>
         </div>

@@ -8,7 +8,7 @@ export default function MentionsLegales() {
         <h1 className="animate-on-scroll font-display text-[clamp(2rem,5vw,3.5rem)] font-black tracking-tighter text-noir mb-4">
           MENTIONS LÉGALES
         </h1>
-        <p className="text-gris text-sm mb-12">Dernière mise à jour : 13 octobre 2025</p>
+        <p className="text-gris text-sm mb-12">Dernière mise à jour : juin 2026</p>
 
         <div className="space-y-10 text-[15px] text-gris leading-relaxed">
           <div>
@@ -31,7 +31,7 @@ export default function MentionsLegales() {
 
           <div>
             <h2 className="font-display font-black text-xl tracking-tight text-noir mb-3">Article 3 — Hébergement</h2>
-            <p><strong>Hébergeur :</strong> Systeme.io</p>
+            <p><strong>Hébergeur :</strong> Railway (Railway Corporation — 548 Market St, San Francisco, CA 94104, USA — <a href="https://railway.app" className="text-corail hover:underline" target="_blank" rel="noopener noreferrer">railway.app</a>)</p>
           </div>
 
           <div>
@@ -62,7 +62,7 @@ export default function MentionsLegales() {
 
           <div>
             <h2 className="font-display font-black text-xl tracking-tight text-noir mb-3">Article 8 — Cookies</h2>
-            <p>Ce site utilise des cookies strictement nécessaires, fonctionnels, analytiques et marketing. Vous pouvez modifier vos préférences via les paramètres de votre navigateur.</p>
+            <p>Ce site n'utilise aucun cookie de tracking, d'analyse ou de marketing. Seuls des cookies strictement nécessaires au fonctionnement technique peuvent être utilisés.</p>
           </div>
 
           <div>
@@ -76,7 +76,7 @@ export default function MentionsLegales() {
           </div>
 
           <div className="pt-6 border-t border-noir/8">
-            <p className="text-gris/50 text-xs">© 2025 — Laury Anater — YoGyFace · TRACKS CONSULTANCY - F.Z.C · Trade Licence 44373 · Tous droits réservés</p>
+            <p className="text-gris/50 text-xs">© 2026 — Laury Anater — YoGyFace · TRACKS CONSULTANCY - F.Z.C · Trade Licence 44373 · Tous droits réservés</p>
           </div>
         </div>
       </div>

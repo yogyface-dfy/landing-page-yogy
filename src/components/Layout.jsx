@@ -1,7 +1,24 @@
 import { Outlet, useLocation } from 'react-router-dom'
 import { useEffect, useCallback } from 'react'
+import { Helmet } from 'react-helmet-async'
 import Navbar from './Navbar'
 import Footer from './Footer'
+
+/* JSON-LD structured data for Google rich results */
+const jsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'HealthAndBeautyBusiness',
+  name: 'YoGyFace',
+  description: 'Méthode RESET™ de yoga du visage par Laury. Programmes personnalisés pour tonifier, lifter et rajeunir le visage naturellement.',
+  url: 'https://yogyface.fr',
+  logo: 'https://yogyface.fr/favicon.png',
+  founder: { '@type': 'Person', name: 'Laury Anater' },
+  email: 'contact@yogyface.fr',
+  sameAs: [
+    'https://www.instagram.com/yogyface/',
+    'https://www.youtube.com/@LauryYoGyFace',
+  ],
+}
 
 export default function Layout() {
   const { pathname } = useLocation()
@@ -58,6 +75,9 @@ export default function Layout() {
 
   return (
     <div className="grain font-sans text-noir antialiased overflow-x-hidden">
+      <Helmet>
+        <script type="application/ld+json">{JSON.stringify(jsonLd)}</script>
+      </Helmet>
       <Navbar />
       <main>
         <Outlet />

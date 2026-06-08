@@ -6,7 +6,7 @@ export default function CGV() {
         <h1 className="animate-on-scroll font-display text-[clamp(2rem,5vw,3.5rem)] font-black tracking-tighter text-noir mb-4">
           CONDITIONS GÉNÉRALES DE VENTE
         </h1>
-        <p className="text-gris text-sm mb-12">YogyFace RESET — Programme de Yoga du Visage · Mise à jour : 13 octobre 2025</p>
+        <p className="text-gris text-sm mb-12">YogyFace RESET — Programme de Yoga du Visage · Mise à jour : juin 2026</p>
 
         <div className="space-y-10 text-[15px] text-gris leading-relaxed">
           <div>
@@ -106,7 +106,7 @@ export default function CGV() {
           </div>
 
           <div className="pt-6 border-t border-noir/8">
-            <p className="text-gris/50 text-xs">© 2025 — Laury Anater — YoGyFace · TRACKS CONSULTANCY - F.Z.C · Trade Licence 44373 · Tous droits réservés</p>
+            <p className="text-gris/50 text-xs">© 2026 — Laury Anater — YoGyFace · TRACKS CONSULTANCY - F.Z.C · Trade Licence 44373 · Tous droits réservés</p>
           </div>
         </div>
       </div>

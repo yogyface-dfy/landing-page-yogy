@@ -1,5 +1,7 @@
 import { useState } from 'react'
 import { Link } from 'react-router-dom'
+import { Helmet } from 'react-helmet-async'
+import SEO from '../components/SEO'
 
 const faqs = [
   {
@@ -72,6 +74,23 @@ function FAQItem({ question, answer, index }) {
 export default function FAQ() {
   return (
     <>
+      <SEO
+        title="FAQ — Questions Fréquentes"
+        description="Trouvez les réponses à vos questions sur le yoga du visage, la méthode RESET™ de Laury et les programmes YoGyFace. Résultats, durée, fonctionnement."
+        path="/faq"
+      />
+      {/* FAQ JSON-LD for Google rich results */}
+      <Helmet>
+        <script type="application/ld+json">{JSON.stringify({
+          '@context': 'https://schema.org',
+          '@type': 'FAQPage',
+          mainEntity: faqs.map(f => ({
+            '@type': 'Question',
+            name: f.q,
+            acceptedAnswer: { '@type': 'Answer', text: f.a },
+          })),
+        })}</script>
+      </Helmet>
       {/* Hero */}
       <section className="relative pt-40 pb-16 px-[5%] overflow-hidden">
         <div className="absolute -top-16 -left-16 w-48 h-48 bg-bleu/15 rounded-full blur-3xl pointer-events-none animate-float" />
@@ -108,8 +127,7 @@ export default function FAQ() {
         <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[300px] h-[300px] bg-rose/20 rounded-full blur-3xl pointer-events-none animate-pulse-soft" />
 
         <div className="max-w-md mx-auto relative z-10 animate-on-scroll" data-anim="scale">
-          <h2 className="font-display font-black text-2xl tracking-tight mb-1">Tu as d'autres</h2>
-          <h2 className="font-serif italic text-xl text-corail font-semibold mb-4">questions ?</h2>
+          <h2 className="font-display font-black text-2xl tracking-tight mb-4">Tu as d'autres <span className="font-serif italic text-corail font-semibold">questions ?</span></h2>
           <p className="text-gris text-[15px] mb-6">Je réponds personnellement à contact@yogyface.fr ou via Instagram Direct.</p>
           <Link to="/contact" className="btn-primary px-7 py-3.5">
             Me contacter

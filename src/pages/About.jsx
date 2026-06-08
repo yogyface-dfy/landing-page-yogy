@@ -1,5 +1,6 @@
 import { Link } from 'react-router-dom'
 import Icon from '../components/Icon'
+import SEO from '../components/SEO'
 
 const steps = [
   {
@@ -24,7 +25,7 @@ const steps = [
   {
     num: '04',
     title: 'AUJOURD\'HUI',
-    text: 'Plus de 1 500 femmes m\'ont fait confiance. Je crée chaque programme à la main, personnalisé pour chaque visage. Mon objectif : te donner l\'autonomie totale pour les 20 prochaines années.',
+    text: 'Plus de 1 000 femmes m\'ont fait confiance. Je crée chaque programme à la main, personnalisé pour chaque visage. Mon objectif : te donner l\'autonomie totale pour les 20 prochaines années.',
     image: null,
   },
 ]
@@ -44,14 +45,19 @@ const laury_quotes = [
 ]
 
 const parcoursPhotos = [
-  { src: '/laury-narumi.png', alt: 'Laury avec Era Narumi — échange d\'expertise' },
-  { src: '/laury-sylvie.png', alt: 'Laury — certification yoga du visage avec Sylvie LeFranc' },
-  { src: '/laury-fumiko.png', alt: 'Laury — formation avec Fumiko Takatsu' },
+  { src: '/laury-narumi.png', alt: 'Laury avec Era Narumi', name: 'Era Narumi', desc: 'Experte japonaise reconnue pour sa maîtrise des fascias et ses techniques uniques de modelage facial.' },
+  { src: '/laury-sylvie.png', alt: 'Laury avec Sylvie LeFranc', name: 'Sylvie LeFranc', desc: 'Référence en France dans le domaine du yoga du visage. Formatrice professionnelle et pionnière.' },
+  { src: '/laury-fumiko.png', alt: 'Laury avec Fumiko Takatsu', name: 'Fumiko Takatsu', desc: 'Japonaise, fondatrice du Face Yoga Method — la méthode de yoga du visage la plus connue au monde.' },
 ]
 
 export default function About() {
   return (
     <>
+      <SEO
+        title="Mon Parcours — Laury"
+        description="Découvrez le parcours de Laury, fondatrice de YoGyFace. Formée auprès des plus grandes expertes mondiales du yoga du visage, elle a créé la méthode RESET™."
+        path="/about"
+      />
       {/* Hero */}
       <section className="relative pt-28 md:pt-32 pb-16 md:pb-20 px-[5%] overflow-hidden">
         <div className="absolute inset-0 bg-gradient-to-b from-rose/20 via-white to-white pointer-events-none" />
@@ -63,11 +69,8 @@ export default function About() {
             <div className="order-2 md:order-1">
               <div className="animate-on-scroll section-badge" data-anim="fade" data-delay="100">Fondatrice</div>
               <div className="animate-on-scroll" data-anim="scale" data-delay="200">
-                <h1 className="font-display text-[clamp(2.2rem,7vw,5rem)] font-black leading-[0.9] tracking-tighter text-noir mb-2">
-                  MON
-                </h1>
-                <h1 className="font-serif italic text-[clamp(1.8rem,6vw,4rem)] text-corail/70 font-semibold mb-4 md:mb-6">
-                  Parcours
+                <h1 className="font-display text-[clamp(2.2rem,7vw,5rem)] font-black leading-[0.9] tracking-tighter text-noir mb-4 md:mb-6">
+                  MON <span className="font-serif italic text-corail/70 font-semibold">Parcours</span>
                 </h1>
               </div>
               <p className="animate-on-scroll text-gris text-[15px] md:text-[17px] leading-relaxed max-w-md" data-delay="400">
@@ -131,11 +134,8 @@ export default function About() {
         <div className="max-w-[1400px] mx-auto">
           <div className="text-center mb-10 md:mb-16 animate-on-scroll" data-anim="scale">
             <div className="section-badge justify-center">Formations & rencontres</div>
-            <h2 className="font-display text-[clamp(1.8rem,5vw,3.5rem)] font-black tracking-tighter text-noir mb-1">
-              MES
-            </h2>
-            <h2 className="font-serif italic text-[clamp(1.5rem,4vw,2.5rem)] text-corail font-semibold mb-3 md:mb-4">
-              Inspirations
+            <h2 className="font-display text-[clamp(1.8rem,5vw,3.5rem)] font-black tracking-tighter text-noir leading-none">
+              MES <span className="font-serif italic text-[clamp(1.5rem,4vw,2.5rem)] text-corail font-semibold">Inspirations</span>
             </h2>
             <p className="text-gris text-[14px] md:text-[16px] mt-3 md:mt-4 max-w-xl mx-auto">
               J'ai eu la chance d'apprendre auprès des meilleures expertes du yoga du visage et du bien-être. Chaque rencontre a nourri ma méthode.
@@ -145,17 +145,20 @@ export default function About() {
             {parcoursPhotos.map((photo, i) => (
               <div
                 key={photo.src}
-                className="animate-on-scroll img-zoom card-hover rounded-2xl overflow-hidden border border-noir/5 hover:border-corail/15"
+                className="animate-on-scroll card-hover rounded-2xl overflow-hidden border border-noir/5 hover:border-corail/15 flex flex-col"
                 data-anim="scale"
                 data-delay={`${i * 150}`}
               >
-                <img
-                  src={photo.src}
-                  alt={photo.alt}
-                  className="w-full h-auto"
-                />
-                <div className="p-3 md:p-4 bg-white">
-                  <p className="text-gris text-xs md:text-sm">{photo.alt}</p>
+                <div className="aspect-[3/4] overflow-hidden">
+                  <img
+                    src={photo.src}
+                    alt={photo.alt}
+                    className="w-full h-full object-cover transition-transform duration-500 hover:scale-105"
+                  />
+                </div>
+                <div className="p-4 md:p-5 bg-white flex-1">
+                  <h4 className="font-display font-black text-base md:text-lg tracking-tight text-noir mb-1">{photo.name}</h4>
+                  <p className="text-gris text-xs md:text-sm leading-relaxed">{photo.desc}</p>
                 </div>
               </div>
             ))}
@@ -203,11 +206,8 @@ export default function About() {
         <div className="max-w-[1400px] mx-auto">
           <div className="text-center mb-10 md:mb-16 animate-on-scroll" data-anim="scale">
             <div className="section-badge justify-center">Mon équipe d'experts</div>
-            <h2 className="font-display text-[clamp(1.8rem,5vw,3.5rem)] font-black tracking-tighter text-noir mb-1">
-              UNE APPROCHE
-            </h2>
-            <h2 className="font-serif italic text-[clamp(1.5rem,4vw,2.5rem)] text-corail font-semibold mb-3 md:mb-4">
-              vraiment holistique
+            <h2 className="font-display text-[clamp(1.8rem,5vw,3.5rem)] font-black tracking-tighter text-noir mb-3 md:mb-4">
+              UNE APPROCHE <span className="font-serif italic text-corail font-semibold">vraiment holistique</span>
             </h2>
             <p className="text-gris text-[14px] md:text-[16px] mt-3 md:mt-4 max-w-xl mx-auto">
               YoGyFace n'est pas un cours de yoga du visage. J'ai réuni des experts qui travaillent avec moi pour s'attaquer à chaque cause du vieillissement facial.
@@ -275,14 +275,11 @@ export default function About() {
         <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[300px] md:w-[400px] h-[300px] md:h-[400px] bg-corail/8 rounded-full blur-3xl pointer-events-none animate-pulse-soft" />
 
         <div className="max-w-xl mx-auto relative z-10 animate-on-scroll" data-anim="scale">
-          <h2 className="font-display text-[clamp(1.8rem,5vw,3rem)] font-black tracking-tighter mb-2">
-            PRÊTE À
-          </h2>
-          <h2 className="font-serif italic text-[clamp(1.5rem,4vw,2.5rem)] text-corail font-semibold mb-4 md:mb-6">
-            commencer ?
+          <h2 className="font-display text-[clamp(1.8rem,5vw,3rem)] font-black tracking-tighter mb-4 md:mb-6">
+            PRÊTE À <span className="font-serif italic text-corail font-semibold">commencer ?</span>
           </h2>
           <p className="text-white/50 mb-6 md:mb-8 text-[14px] md:text-[16px]">Inscris-toi sur la liste d'attente pour être prévenue dès qu'une place se libère.</p>
-          <Link to="/vip" className="btn-corail text-sm md:text-base px-6 md:px-8 py-3.5 md:py-4">
+          <Link to="/liste-attente" className="btn-corail text-sm md:text-base px-6 md:px-8 py-3.5 md:py-4">
             Rejoindre la liste d'attente →
           </Link>
         </div>

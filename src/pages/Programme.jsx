@@ -1,64 +1,109 @@
 import { Link } from 'react-router-dom'
 import Icon from '../components/Icon'
+import SEO from '../components/SEO'
 
-const phases = [
+/* The actual RESET acronym from the method */
+const reset = [
+  { letter: 'R', word: 'Rééduquer', desc: 'Les muscles faciaux hyperactifs qui créent rides et crispations.' },
+  { letter: 'E', word: 'Équilibrer', desc: 'Les tensions et relâchements entre les 57 muscles du visage.' },
+  { letter: 'S', word: 'Stimuler', desc: 'La circulation sanguine et lymphatique pour drainer et oxygéner.' },
+  { letter: 'E', word: 'Éliminer', desc: 'Les habitudes destructrices inconscientes qui vieillissent ton visage.' },
+  { letter: 'T', word: 'Tonifier', desc: 'Durablement pour retrouver fermeté, contours définis et jeunesse.' },
+]
+
+/* The 6 steps of the program (from the actual sales deck) */
+const steps = [
   {
-    week: 'Phase 1 · Semaines 1–4',
-    title: 'Diagnostic & Fondations',
-    desc: 'Bilan révélateur de 130 points : déséquilibres musculaires, zones de perte de volume, ralentissements circulatoires. Ordonnance beauté sur-mesure + introduction aux mouvements fondamentaux (10 min/jour maximum).',
-    tag: 'Ancrage progressif'
+    num: '01',
+    title: 'Diagnostic Personnalisé Révélateur',
+    desc: 'Questionnaire vidéo interactif de 30 minutes : 25 thématiques pour cerner tes besoins, tes habitudes, ton stress, ta skincare. Tu te filmes, tu réalises des tests musculaires, et tu déposes des photos de face et de profil.',
+    tag: 'J+0',
+    detail: 'Une analyse fine et personnalisée de ton visage pour créer ta routine unique.',
   },
   {
-    week: 'Phase 2 · Semaines 5–8',
-    title: 'Reprogrammation Active',
-    desc: 'Activation de la densification musculaire ciblée. Travail de posture faciale et cervicale (tenir sa fourchette droite pour ne pas creuser le cou). Premiers exercices de drainage lymphatique.',
-    tag: 'Muscle & Posture'
+    num: '02',
+    title: 'Ordonnance Beauté Sur-Mesure',
+    desc: 'Un document de 3 à 4 pages qui reprend l\'analyse de tes préoccupations, l\'approche YoGyFace expliquée, des conseils skincare personnalisés et des conseils de mode de vie adaptés à tes besoins.',
+    tag: 'J+3',
+    detail: 'Tes 3 priorités identifiées avec les causes réelles de tes problématiques.',
   },
   {
-    week: 'Phase 3 · Semaines 9–16',
-    title: 'Stimulation Tissulaire',
-    desc: 'Stimulation tissulaire active pour relancer la production de collagène. Techniques de relaxation neuro-faciale pour libérer les tensions de la mâchoire, des trapèzes et du cou qui "tirent" le visage vers le bas.',
-    tag: 'Collagène & Détente'
+    num: '03',
+    title: 'Programme Personnalisé 4 Semaines',
+    desc: 'Semaine 1 : les fondations. Semaine 2 : on va plus loin en douceur. Semaine 3 : tu ne fais plus, tu maîtrises. Semaine 4 : ancrer et transformer pour le reste de ta vie.',
+    tag: '4 semaines',
+    detail: '21 jours pour ancrer une habitude, avec une progression douce de 3 à 10 min/jour.',
   },
   {
-    week: 'Phase 4 · Semaines 17–24',
-    title: 'Tonification & Autonomie',
-    desc: 'Renforcement musculaire avancé des 57 muscles. Ta routine personnalisée finale est maîtrisée. Les gestes deviennent automatiques — comme te laver les dents, mais pour rester jeune. Accès à la bibliothèque de 160+ exercices.',
-    tag: 'Autonomie à vie'
+    num: '04',
+    title: 'Bibliothèque de 160+ Exercices',
+    desc: 'Accès illimité à la bibliothèque d\'exercices répartis par zones : muscles fondamentaux, bouche, joues, regard, front, ovale, buste, cou et correction d\'asymétrie.',
+    tag: 'Accès illimité',
+    detail: 'Tu pioches de nouveaux exercices pour élargir ta pratique une fois ta routine acquise.',
+  },
+  {
+    num: '05',
+    title: '12H de Lives Coaching',
+    desc: 'Lives FAQ pour te rassurer, t\'observer et te corriger les premières semaines. Lives thématiques pour aller plus loin une fois ta routine maîtrisée. 10 créneaux par mois minimum.',
+    tag: '6 mois',
+    detail: 'Laury est vraiment là — ce n\'est pas des vidéos pré-enregistrées.',
+  },
+  {
+    num: '06',
+    title: 'Suivi Évolution & Communauté',
+    desc: 'Questionnaires de suivi à 1, 2, 3 et 6 mois. Groupe WhatsApp privé pour se soutenir. Accès au Club des Marques mensuel avec une marque cosmétique et une experte bien-être.',
+    tag: 'À vie',
+    detail: 'Jamais toute seule dans ton parcours — motivation collective et soutien continu.',
   },
 ]
 
-const included = [
-  { icon: 'microscope', title: 'Diagnostic Révélateur 130 points', desc: 'Analyse individuelle des déséquilibres musculaires, zones de perte de volume et ralentissements circulatoires. Plan d\'action sur-mesure adapté à TON visage.' },
-  { icon: 'phone', title: 'Programme dans l\'app', desc: 'Accès à ta routine personnalisée, bibliothèque de 160+ exercices, vidéos guidées et e-books. Accessible 24h/7j depuis téléphone, tablette ou ordinateur.' },
-  { icon: 'video', title: '12 Coachings Live avec Laury', desc: '12 sessions live (FAQ + thématiques) réparties sur 6 mois. Laury analyse, corrige, répond. Ce n\'est pas des vidéos pré-enregistrées — elle est vraiment là.' },
-  { icon: 'users', title: 'Communauté WhatsApp Privée', desc: 'Groupe de femmes qui se soutiennent mutuellement. Partage d\'expériences, motivation collective, soutien lors des baisses — Laury y est présente aussi.' },
-  { icon: 'graduation', title: 'Interventions d\'Experts', desc: 'Sessions avec le biologiste, le praticien EFT, la spécialiste face tape et l\'expert collagène. Une approche holistique qu\'aucun autre programme n\'offre.' },
-  { icon: 'infinity', title: 'Routine Personnalisée à Vie', desc: 'Ta routine sur-mesure reste accessible à vie. La bibliothèque d\'exercices et les replays sont accessibles 12 mois. Option de prolongation à tarif réduit.' },
+/* What makes the method unique (from slide 219) */
+const unique = [
+  { icon: 'microscope', title: 'Analyse personnalisée', desc: 'J\'analyse TON visage avant de te donner tes routines. Pas les mêmes exercices pour toutes.' },
+  { icon: 'chat', title: 'Accompagnement réel', desc: 'Les autres vendent des vidéos et disparaissent. Moi, je t\'accompagne jusqu\'à l\'ancrage de l\'habitude.' },
+  { icon: 'dna', title: 'Approche neuroscientifique', desc: '21 jours pour ancrer une habitude. Je respecte ce rythme au lieu de te noyer sous 50 exercices dès le départ.' },
+  { icon: 'leaf', title: 'Vision holistique', desc: 'Le visage est le miroir de ton alimentation, respiration, stress et relation à toi-même.' },
+  { icon: 'sparkles', title: 'Transformation profonde', desc: 'Pas qu\'une méthode beauté : une transformation complète de ta relation à toi et ton visage.' },
 ]
 
-const bonuses = [
-  'Facetaping (front & ride du lion)',
-  'Yoga Respiration, Méditation & Étirement',
-  'Routine EFT (libération émotionnelle)',
-  'Méthode P.E.A.U alimentation & collagène',
-  'Quel collagène choisir ?',
-  'Suivi de routine imprimable',
-  'Glossaire de 160 exercices',
+/* Bonus experts — real names from the deck */
+const bonusExperts = [
+  { name: 'Camille Hermann', role: 'Biologiste & dermo-nutritionniste', content: 'Méthode P.E.A.U + Guide Nutrition Anti-Âge' },
+  { name: 'Irina', role: 'Neurothérapeute', content: 'Routine EFT complète — reprogrammation mentale et confiance' },
+  { name: 'Laëtitia', role: 'Formatrice Face Tape', content: 'Application Face Tape : rides du lion, front et sillons' },
+  { name: 'Alicia', role: 'Ancienne danseuse pro & coach yoga', content: '+30 min de routines : respiration, posture, étirements ciblés' },
+  { name: 'Julie (Natis)', role: 'Chimie organique & phytothérapie', content: 'Comprendre le collagène : marin, bovin et biomimétique végétal' },
+]
+
+/* eBooks included */
+const ebooks = [
   '4 règles de nettoyage du visage',
-  '4 secrets de longévité (Zones Bleues)',
-  'Actifs cosmétiques expliqués',
-  'Médecine chinoise & visage',
-  'Do & Don\'t du yoga du visage',
-  'Journal de bord du sommeil',
-  'Checklist des bonnes habitudes',
   '10 règles d\'or pour réussir',
+  'Le pouvoir des habitudes',
+  'Suivi de routine YoGyFace',
+  '4 secrets de longévité (Zones Bleues)',
+  'Affirmations positives',
+  'SPF & Lumière Bleue',
+  'Do & Don\'t du yoga du visage',
+  'Respiration & Langue',
+  'Muscles du visage',
+  'Sommeil & Journal de bord',
+  'Checklist des bonnes habitudes',
+  'La Bible des Actifs cosmétiques',
+  'MTC, Acupression & Kinésiologie',
+  'L\'Hydratation : base de notre énergie',
 ]
 
 export default function Programme() {
   return (
     <>
-      {/* Hero */}
+      <SEO
+        title="Programme — Méthode RESET™"
+        description="Programme de yoga du visage personnalisé par Laury. Diagnostic révélateur, ordonnance beauté sur-mesure, 160+ exercices, 12H de coaching live. 10 min/jour pendant 6 mois."
+        path="/programme"
+      />
+
+      {/* ═══ HERO ═══ */}
       <section className="relative pt-28 md:pt-40 pb-16 md:pb-20 px-[5%] overflow-hidden">
         <div className="absolute inset-0 bg-gradient-to-b from-bleu/20 via-white to-white pointer-events-none" />
         <div className="absolute -top-16 -right-16 w-48 h-48 bg-corail/8 rounded-full blur-3xl pointer-events-none animate-float" />
@@ -76,13 +121,13 @@ export default function Programme() {
                 </h1>
               </div>
               <p className="animate-on-scroll text-gris text-[15px] md:text-[17px] leading-relaxed mb-3 md:mb-4" data-delay="300">
-                6 mois pour reprendre le contrôle total de ton vieillissement facial. En libérant les tensions, corrigeant la posture et activant les bons muscles, tes traits se liftent, ta peau paraît plus fraîche et tout ton visage reprend vie.
+                6 mois pour reprendre le contrôle de ton vieillissement facial. Parce que ton visage est unique, ton accompagnement doit l'être aussi — pas de programme générique, pas d'exercices en vrac.
               </p>
               <p className="animate-on-scroll text-gris/70 text-[13px] md:text-[15px] font-serif italic mb-6 md:mb-8" data-delay="400">
-                Avec 10 minutes par jour, tu verras un vrai changement — et ton entourage aussi.
+                Je ne promets pas du rapide, je promets du définitif. 10 min/jour suffisent.
               </p>
               <div className="animate-on-scroll flex flex-col sm:flex-row gap-3" data-delay="500">
-                <Link to="/vip" className="btn-primary text-sm md:text-base px-6 md:px-7 py-3 md:py-3.5 text-center">
+                <Link to="/liste-attente" className="btn-primary text-sm md:text-base px-6 md:px-7 py-3 md:py-3.5 text-center">
                   Rejoindre la liste d'attente →
                 </Link>
                 <a href="#programme-detail" className="btn-secondary text-sm md:text-base px-6 md:px-7 py-3 md:py-3.5 text-center">
@@ -90,16 +135,11 @@ export default function Programme() {
                 </a>
               </div>
             </div>
-            {/* Photo massage — shown first on mobile */}
             <div className="flex justify-center md:justify-end animate-on-scroll order-1 md:order-2" data-anim="scale" data-delay="300">
               <div className="relative w-full max-w-[280px] md:max-w-[420px]">
                 <div className="absolute -inset-4 bg-gradient-to-br from-bleu/15 to-rose/15 rounded-3xl blur-2xl pointer-events-none opacity-60 hidden md:block" />
                 <div className="img-zoom rounded-2xl md:rounded-3xl overflow-hidden shadow-2xl relative">
-                  <img
-                    src="/laury-massage.png"
-                    alt="Laury — geste de massage facial, relaxation des tempes"
-                    className="w-full h-auto"
-                  />
+                  <img src="/laury-massage.png" alt="Laury — geste de massage facial" className="w-full h-auto" />
                 </div>
               </div>
             </div>
@@ -107,40 +147,67 @@ export default function Programme() {
         </div>
       </section>
 
-      {/* Programme timeline */}
+      {/* ═══ RESET ACRONYM ═══ */}
+      <section className="py-16 md:py-24 px-[5%] bg-noir text-white relative overflow-hidden">
+        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[400px] h-[400px] bg-corail/5 rounded-full blur-3xl pointer-events-none" />
+        <div className="max-w-[1000px] mx-auto relative z-10">
+          <div className="text-center mb-10 md:mb-16 animate-on-scroll" data-anim="fade">
+            <div className="section-badge justify-center text-white/40 border-white/10">La méthode</div>
+            <h2 className="font-display text-[clamp(2rem,6vw,4rem)] font-black tracking-tighter">
+              R.E.S.E.T<span className="text-corail">™</span>
+            </h2>
+            <p className="text-white/50 text-sm md:text-base mt-3 max-w-lg mx-auto">
+              5 piliers fondamentaux qui agissent sur les causes, pas les symptômes.
+            </p>
+          </div>
+          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-5 gap-3 md:gap-4">
+            {reset.map((r, i) => (
+              <div
+                key={r.word}
+                className={`animate-on-scroll text-center p-5 md:p-6 rounded-2xl border border-white/8 hover:border-corail/30 transition-all duration-300 group ${i === 4 ? 'col-span-1 sm:col-span-2 md:col-span-1' : ''}`}
+                data-anim="fade"
+                data-delay={`${i * 80}`}
+              >
+                <span className="font-display font-black text-3xl md:text-4xl text-corail group-hover:scale-110 transition-transform duration-300 inline-block">{r.letter}</span>
+                <h3 className="font-display font-black text-sm md:text-base tracking-tight mt-2 mb-1">{r.word}</h3>
+                <p className="text-white/40 text-xs leading-relaxed">{r.desc}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* ═══ 6 STEPS ═══ */}
       <section id="programme-detail" className="py-16 md:py-28 px-[5%] bg-white relative overflow-hidden">
         <div className="absolute top-12 left-12 w-40 h-40 opacity-[0.03] pointer-events-none hidden md:block"
           style={{ backgroundImage: 'radial-gradient(circle, #1A1A1A 1px, transparent 1px)', backgroundSize: '16px 16px' }} />
 
         <div className="max-w-[900px] mx-auto">
           <div className="text-center mb-12 md:mb-20 animate-on-scroll" data-anim="scale">
-            <div className="section-badge justify-center">Les 4 phases</div>
-            <h2 className="font-display text-[clamp(1.8rem,5vw,3.5rem)] font-black tracking-tighter text-noir mb-1">
-              6 MOIS DE
-            </h2>
-            <h2 className="font-serif italic text-[clamp(1.5rem,4vw,2.5rem)] text-corail font-semibold">
-              transformation
+            <div className="section-badge justify-center">Ton parcours</div>
+            <h2 className="font-display text-[clamp(1.8rem,5vw,3.5rem)] font-black tracking-tighter text-noir">
+              6 ÉTAPES VERS <span className="font-serif italic text-corail font-semibold">ton autonomie</span>
             </h2>
           </div>
-          <div className="space-y-3 md:space-y-4">
-            {phases.map((p, i) => (
+          <div className="space-y-4">
+            {steps.map((s, i) => (
               <div
-                key={p.week}
-                className="animate-on-scroll card-hover flex flex-col md:flex-row gap-3 md:gap-6 p-5 md:p-7 rounded-2xl border border-noir/5 hover:border-corail/20 group"
-                data-anim={i % 2 === 0 ? 'left' : 'right'}
-                data-delay={`${i * 100}`}
+                key={s.num}
+                className="animate-on-scroll card-hover rounded-2xl border border-noir/5 hover:border-corail/20 overflow-hidden group"
+                data-anim="fade"
+                data-delay={`${i * 80}`}
               >
-                {/* Phase label — above on mobile, left on desktop */}
-                <div className="md:shrink-0 md:w-36 md:text-right md:pt-1">
-                  <span className="text-corail text-xs font-semibold leading-relaxed">{p.week}</span>
-                </div>
-                <div className="hidden md:block w-px bg-gradient-to-b from-corail/40 to-corail/5 shrink-0" />
-                <div>
-                  <div className="flex flex-wrap items-center gap-2 md:gap-3 mb-2">
-                    <h3 className="font-display font-black text-base md:text-lg tracking-tight">{p.title}</h3>
-                    <span className="px-2 md:px-2.5 py-0.5 rounded-full bg-corail/8 text-corail text-[10px] md:text-[11px] font-semibold group-hover:bg-corail group-hover:text-white transition-all duration-300">{p.tag}</span>
+                <div className="flex flex-col md:flex-row gap-4 md:gap-6 p-5 md:p-7">
+                  <div className="flex items-center md:flex-col md:items-end gap-3 md:gap-1 md:shrink-0 md:w-20">
+                    <span className="w-10 h-10 rounded-xl bg-corail/10 flex items-center justify-center text-corail font-display font-black text-sm">{s.num}</span>
+                    <span className="px-2.5 py-0.5 rounded-full bg-corail/8 text-corail text-[10px] font-semibold">{s.tag}</span>
                   </div>
-                  <p className="text-gris text-[13px] md:text-[15px] leading-relaxed">{p.desc}</p>
+                  <div className="hidden md:block w-px bg-gradient-to-b from-corail/40 to-corail/5 shrink-0" />
+                  <div className="flex-1">
+                    <h3 className="font-display font-black text-base md:text-lg tracking-tight mb-2">{s.title}</h3>
+                    <p className="text-gris text-[13px] md:text-[15px] leading-relaxed mb-2">{s.desc}</p>
+                    <p className="text-corail/70 text-xs font-serif italic">{s.detail}</p>
+                  </div>
                 </div>
               </div>
             ))}
@@ -148,25 +215,24 @@ export default function Programme() {
         </div>
       </section>
 
-      {/* What's included */}
+      {/* ═══ WHAT MAKES IT UNIQUE ═══ */}
       <section className="py-16 md:py-28 px-[5%] bg-creme relative overflow-hidden">
         <div className="absolute bottom-0 right-0 w-64 h-64 bg-bleu/15 rounded-full blur-3xl pointer-events-none animate-float-slow hidden md:block" />
-
         <div className="max-w-[1400px] mx-auto">
           <div className="text-center mb-12 md:mb-20 animate-on-scroll" data-anim="scale">
-            <div className="section-badge justify-center">Ce qui est inclus</div>
-            <h2 className="font-display text-[clamp(1.8rem,5vw,3.5rem)] font-black tracking-tighter text-noir mb-1">
-              L'ÉCOSYSTÈME
+            <div className="section-badge justify-center">Ce qui nous différencie</div>
+            <h2 className="font-display text-[clamp(1.8rem,4vw,3rem)] font-black tracking-tighter text-noir mb-3">
+              POURQUOI YOGYFACE <span className="font-serif italic text-corail font-semibold">et pas un autre ?</span>
             </h2>
-            <h2 className="font-serif italic text-[clamp(1.5rem,4vw,2.5rem)] text-corail font-semibold">
-              complet
-            </h2>
+            <p className="text-gris text-sm md:text-base max-w-2xl mx-auto">
+              Les applications te donnent 50 exercices en vrac. Les autres coachs vendent des vidéos et disparaissent. Imaginerais-tu un cardiologue qui t'opère sans consultation, sans regarder TON cœur ?
+            </p>
           </div>
           <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 md:gap-5">
-            {included.map((item, i) => (
+            {unique.map((item, i) => (
               <div
                 key={item.title}
-                className="animate-on-scroll card-hover bg-white rounded-2xl p-5 md:p-7 border border-noir/5 hover:border-corail/15 group"
+                className={`animate-on-scroll card-hover bg-white rounded-2xl p-5 md:p-7 border border-noir/5 hover:border-corail/15 group ${i === 4 ? 'sm:col-span-2 md:col-span-1' : ''}`}
                 data-anim="scale"
                 data-delay={`${i * 80}`}
               >
@@ -181,46 +247,131 @@ export default function Programme() {
         </div>
       </section>
 
-      {/* Bonus section */}
-      <section className="py-16 md:py-28 px-[5%] bg-white">
-        <div className="max-w-[900px] mx-auto">
-          <div className="text-center mb-8 md:mb-12 animate-on-scroll" data-anim="scale">
-            <div className="section-badge justify-center">Bonus inclus</div>
-            <h2 className="font-display text-[clamp(1.8rem,4vw,3rem)] font-black tracking-tighter text-noir mb-1">
-              LA BIBLIOTHÈQUE
+      {/* ═══ BONUS EXPERTS ═══ */}
+      <section className="py-16 md:py-28 px-[5%] bg-white relative overflow-hidden">
+        <div className="max-w-[1100px] mx-auto">
+          <div className="text-center mb-10 md:mb-16 animate-on-scroll" data-anim="scale">
+            <div className="section-badge justify-center">Inclus dans le programme</div>
+            <h2 className="font-display text-[clamp(1.8rem,5vw,3.5rem)] font-black tracking-tighter text-noir mb-3">
+              5 EXPERTES <span className="font-serif italic text-corail font-semibold">pour aller plus loin</span>
             </h2>
-            <h2 className="font-serif italic text-[clamp(1.3rem,3vw,2rem)] text-corail font-semibold mb-3 md:mb-4">
-              complète
-            </h2>
-            <p className="text-gris mt-2 md:mt-3 font-serif italic text-xs md:text-sm">Tous ces bonus font partie du programme — pas d'upsell caché.</p>
+            <p className="text-gris text-sm md:text-base max-w-lg mx-auto">
+              Parce que prendre soin de toi, c'est aussi nutrition, respiration, émotions et skincare.
+            </p>
           </div>
-          <div className="animate-on-scroll grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-2 md:gap-3" data-anim="scale" data-delay="200">
-            {bonuses.map((bonus, i) => (
+
+          {/* Team photo */}
+          <div className="animate-on-scroll mb-10 md:mb-14" data-anim="scale" data-delay="100">
+            <div className="relative max-w-[700px] mx-auto">
+              <div className="absolute -inset-3 bg-gradient-to-br from-corail/10 to-bleu/10 rounded-3xl blur-2xl pointer-events-none opacity-50 hidden md:block" />
+              <img
+                src="/equipe-expertes.png"
+                alt="L'équipe d'expertes YoGyFace — Laury et ses intervenantes"
+                className="w-full h-auto rounded-2xl md:rounded-3xl shadow-xl relative"
+              />
+            </div>
+          </div>
+
+          <div className="space-y-3">
+            {bonusExperts.map((expert, i) => (
               <div
-                key={bonus}
-                className="flex items-center gap-2.5 p-3 md:p-3.5 rounded-xl bg-creme border border-noir/5 text-xs md:text-sm hover:border-corail/15 hover:bg-rose/10 transition-all duration-300 group"
+                key={expert.name}
+                className="animate-on-scroll card-hover flex flex-col sm:flex-row gap-3 sm:gap-5 p-5 md:p-6 rounded-2xl bg-creme border border-noir/5 hover:border-corail/15 group"
+                data-anim="fade"
+                data-delay={`${i * 80}`}
               >
-                <span className="text-corail text-xs group-hover:scale-125 transition-transform duration-300">✓</span>
-                <span className="text-noir/70 group-hover:text-noir transition-colors duration-300">{bonus}</span>
+                <div className="sm:shrink-0 sm:w-48">
+                  <h4 className="font-display font-black text-sm md:text-base tracking-tight">{expert.name}</h4>
+                  <p className="text-corail text-xs font-semibold">{expert.role}</p>
+                </div>
+                <p className="text-gris text-[13px] md:text-[15px] leading-relaxed">{expert.content}</p>
               </div>
             ))}
           </div>
         </div>
       </section>
 
-      {/* CTA */}
+      {/* ═══ eBOOKS ═══ */}
+      <section className="py-16 md:py-24 px-[5%] bg-creme relative overflow-hidden">
+        <div className="max-w-[1100px] mx-auto">
+          <div className="text-center mb-10 md:mb-14 animate-on-scroll" data-anim="scale">
+            <div className="section-badge justify-center">+20 ressources incluses</div>
+            <h2 className="font-display text-[clamp(1.8rem,4vw,3rem)] font-black tracking-tighter text-noir mb-3">
+              TA BIBLIOTHÈQUE <span className="font-serif italic text-corail font-semibold">d'eBooks & guides</span>
+            </h2>
+            <p className="text-gris text-sm max-w-lg mx-auto">Guides pratiques, fiches anatomiques, trackers et checklists — tout est inclus.</p>
+          </div>
+
+          {/* Visual gallery of eBook covers */}
+          <div className="animate-on-scroll mb-10 md:mb-14" data-anim="fade" data-delay="100">
+            <div className="grid grid-cols-2 md:grid-cols-5 gap-3 md:gap-4">
+              {[
+                { src: '/ebook-muscles.png', alt: 'Visualisation des muscles du visage' },
+                { src: '/ebook-routine.png', alt: 'Suivi de routine YoGyFace' },
+                { src: '/ebook-dodont.png', alt: 'Do & Don\'t du yoga du visage' },
+                { src: '/ebook-regles.png', alt: '10 règles d\'or pour réussir' },
+                { src: '/ebook-longevite.png', alt: '4 secrets de longévité' },
+              ].map((ebook, i) => (
+                <div
+                  key={ebook.src}
+                  className="animate-on-scroll rounded-xl overflow-hidden shadow-lg hover:shadow-2xl hover:-translate-y-1 transition-all duration-300"
+                  data-anim="scale"
+                  data-delay={`${i * 60}`}
+                >
+                  <img src={ebook.src} alt={ebook.alt} className="w-full h-auto" />
+                </div>
+              ))}
+            </div>
+          </div>
+
+          {/* Text list */}
+          <div className="animate-on-scroll grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-2 md:gap-3" data-anim="scale" data-delay="200">
+            {ebooks.map(book => (
+              <div
+                key={book}
+                className="flex items-center gap-2.5 p-3 md:p-3.5 rounded-xl bg-white border border-noir/5 text-xs md:text-sm hover:border-corail/15 hover:bg-rose/10 transition-all duration-300 group"
+              >
+                <span className="text-corail text-xs group-hover:scale-125 transition-transform duration-300">✓</span>
+                <span className="text-noir/70 group-hover:text-noir transition-colors duration-300">{book}</span>
+              </div>
+            ))}
+          </div>
+          <p className="text-center text-gris/50 text-xs mt-4 font-serif italic">Tous les bonus font partie du programme — pas d'upsell caché.</p>
+        </div>
+      </section>
+
+      {/* ═══ GUARANTEE ═══ */}
+      <section className="py-16 md:py-24 px-[5%] bg-white">
+        <div className="max-w-[700px] mx-auto text-center animate-on-scroll" data-anim="scale">
+          <div className="inline-flex items-center justify-center w-14 h-14 rounded-2xl bg-corail/10 text-corail mb-5">
+            <Icon name="shield" size={28} />
+          </div>
+          <h2 className="font-display text-2xl md:text-3xl font-black tracking-tight text-noir mb-3">
+            Garantie satisfaite ou remboursée
+          </h2>
+          <p className="text-gris text-[15px] md:text-[16px] leading-relaxed mb-4">
+            Si après avoir suivi tes 12H de coaching, pratiqué tes routines au minimum 4 fois par semaine et envoyé tes photos de suivi — tu ne vois toujours pas d'amélioration de ton bien-être ou de ta confiance en toi :
+          </p>
+          <p className="text-noir font-display font-black text-lg md:text-xl">
+            Tu m'envoies un email et je te rembourse en totalité.
+          </p>
+          <p className="text-gris/60 text-sm mt-3 font-serif italic">
+            Je veux que tu sois totalement sereine à l'idée de passer le cap.
+          </p>
+        </div>
+      </section>
+
+      {/* ═══ CTA ═══ */}
       <section className="py-16 md:py-24 px-[5%] bg-noir text-white text-center relative overflow-hidden">
         <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[300px] md:w-[400px] h-[300px] md:h-[400px] bg-corail/8 rounded-full blur-3xl pointer-events-none animate-pulse-soft" />
-
         <div className="max-w-xl mx-auto relative z-10 animate-on-scroll" data-anim="scale">
-          <h2 className="font-display text-[clamp(1.8rem,5vw,3rem)] font-black tracking-tighter mb-2">
-            PRÊTE À
+          <h2 className="font-display text-[clamp(1.8rem,5vw,3rem)] font-black tracking-tighter mb-4 md:mb-6">
+            PRÊTE À REPRENDRE <span className="font-serif italic text-corail font-semibold">le contrôle ?</span>
           </h2>
-          <h2 className="font-serif italic text-[clamp(1.5rem,4vw,2.5rem)] text-corail font-semibold mb-4 md:mb-6">
-            commencer ?
-          </h2>
-          <p className="text-white/50 mb-6 md:mb-8 text-[14px] md:text-[16px]">Chaque programme est créé à la main par Laury — les places sont limitées.</p>
-          <Link to="/vip" className="btn-corail text-sm md:text-base px-6 md:px-8 py-3.5 md:py-4">
+          <p className="text-white/50 mb-6 md:mb-8 text-[14px] md:text-[16px]">
+            Chaque programme est créé à la main par Laury — les places sont limitées.
+          </p>
+          <Link to="/liste-attente" className="btn-corail text-sm md:text-base px-6 md:px-8 py-3.5 md:py-4">
             Rejoindre la liste d'attente →
           </Link>
         </div>

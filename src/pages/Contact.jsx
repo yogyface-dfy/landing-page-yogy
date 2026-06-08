@@ -31,6 +31,11 @@ export default function Contact() {
 
   return (
     <>
+      <SEO
+        title="Contact"
+        description="Une question sur YoGyFace ou la méthode RESET™ ? Contacte Laury directement. Réponse sous 48h, du lundi au vendredi."
+        path="/contact"
+      />
       {/* Hero */}
       <section className="relative pt-40 pb-16 px-[5%]">
         <div className="max-w-[600px] mx-auto text-center">

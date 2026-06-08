@@ -54,14 +54,11 @@ export default function Footer() {
           <div>
             <h4 className="text-white/80 font-semibold text-sm mb-5 uppercase tracking-wider text-[11px]">Support</h4>
             <ul className="space-y-3">
-              {[['/faq', 'FAQ'], ['/contact', 'Contact'], ['/vip', 'Liste d\'attente']].map(([href, label]) => (
+              {[['/faq', 'FAQ'], ['/contact', 'Contact'], ['/liste-attente', 'Liste d\'attente']].map(([href, label]) => (
                 <li key={href}>
                   <Link to={href} className="text-white/40 text-sm hover:text-corail transition-colors duration-300">{label}</Link>
                 </li>
               ))}
-              <li>
-                <a href="mailto:contact@yogyface.fr" className="text-white/40 text-sm hover:text-corail transition-colors duration-300">contact@yogyface.fr</a>
-              </li>
             </ul>
           </div>
 

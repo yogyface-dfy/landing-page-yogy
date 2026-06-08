@@ -1,13 +1,14 @@
 import { useState } from 'react'
 import Icon from '../components/Icon'
 import { createRecord } from '../lib/airtable'
+import SEO from '../components/SEO'
 
 const reassurances = [
   'Je crée chaque programme à la main — c\'est pour ça que les places sont limitées',
   '10 min/jour — s\'intègre dans n\'importe quel quotidien',
   'Accessible depuis ton téléphone — pas d\'app à télécharger',
   'Aucun engagement — tu décides librement quand une place se libère',
-  '1 500+ femmes m\'ont déjà fait confiance',
+  '1 000+ femmes m\'ont déjà fait confiance',
 ]
 
 const whyWaitlist = [
@@ -17,7 +18,7 @@ const whyWaitlist = [
   { icon: 'leaf', title: 'Qualité, pas quantité', desc: 'Je préfère accompagner moins de femmes mais mieux. La liste d\'attente me permet de garantir cette qualité.' },
 ]
 
-export default function VIP() {
+export default function ListeAttente() {
   const [form, setForm] = useState({ prenom: '', email: '' })
   const [sent, setSent] = useState(false)
   const [loading, setLoading] = useState(false)
@@ -44,6 +45,11 @@ export default function VIP() {
 
   return (
     <>
+      <SEO
+        title="Liste d'attente — Rejoins YoGyFace"
+        description="Inscris-toi sur la liste d'attente YoGyFace pour être contactée dès qu'une place se libère. Programmes personnalisés de yoga du visage, faits main par Laury."
+        path="/liste-attente"
+      />
       {/* Hero */}
       <section className="relative min-h-screen flex items-center pt-24 pb-16 px-[5%] overflow-hidden">
         <div className="absolute inset-0 bg-gradient-to-b from-rose/25 via-white to-creme pointer-events-none" />
@@ -123,7 +129,7 @@ export default function VIP() {
                   <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><rect x="3" y="11" width="18" height="11" rx="2" /><path d="M7 11V7a5 5 0 0 1 10 0v4" /></svg>
                   <span>Aucun paiement requis. Aucun engagement.</span>
                 </div>
-                <p className="text-center text-gris/30 text-xs mt-2 font-serif italic">1 500+ femmes m'ont déjà fait confiance</p>
+                <p className="text-center text-gris/30 text-xs mt-2 font-serif italic">1 000+ femmes m'ont déjà fait confiance</p>
               </div>
             )}
           </div>
@@ -149,11 +155,8 @@ export default function VIP() {
             <div className="pb-4 md:pb-0">
               <div className="animate-on-scroll" data-anim="fade">
                 <div className="section-badge">Pourquoi une liste d'attente ?</div>
-                <h2 className="font-display text-[clamp(1.8rem,5vw,3.5rem)] font-black tracking-tighter text-noir mb-1">
-                  PARCE QUE JE FAIS
-                </h2>
-                <h2 className="font-serif italic text-[clamp(1.5rem,4vw,2.5rem)] text-corail font-semibold mb-3 md:mb-4">
-                  tout à la main
+                <h2 className="font-display text-[clamp(1.8rem,4vw,3rem)] font-black tracking-tighter text-noir mb-3 md:mb-4">
+                  PARCE QUE JE FAIS <span className="font-serif italic text-corail font-semibold">tout à la main</span>
                 </h2>
                 <p className="text-gris mb-6 md:mb-8 text-[14px] md:text-[16px] leading-relaxed">
                   Contrairement aux programmes génériques, chaque accompagnement YoGyFace est entièrement personnalisé par moi. C'est un choix — celui de la qualité.

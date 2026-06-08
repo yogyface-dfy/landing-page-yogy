@@ -6,7 +6,7 @@ export default function Confidentialite() {
         <h1 className="animate-on-scroll font-display text-[clamp(2rem,5vw,3.5rem)] font-black tracking-tighter text-noir mb-4">
           POLITIQUE DE CONFIDENTIALITÉ
         </h1>
-        <p className="text-gris text-sm mb-12">Mise à jour : 1 novembre 2025</p>
+        <p className="text-gris text-sm mb-12">Mise à jour : juin 2026</p>
 
         <div className="space-y-10 text-[15px] text-gris leading-relaxed">
           <div>
@@ -52,7 +52,7 @@ export default function Confidentialite() {
           <div>
             <h2 className="font-display font-black text-xl tracking-tight text-noir mb-3">Article 5 — Destinataires</h2>
             <p><strong>Nous ne vendons, ne louons et ne partageons jamais vos données avec des tiers à des fins commerciales.</strong></p>
-            <p className="mt-2">Prestataires techniques uniquement : hébergeur, Stripe/Klarna/PayPal (certifiés PCI-DSS), outil d'emailing, Zoom, WhatsApp, Google Analytics (anonymisé). Tous contractuellement engagés au RGPD.</p>
+            <p className="mt-2">Prestataires techniques uniquement : hébergeur (Railway), outil d'emailing, Zoom, WhatsApp. Tous contractuellement engagés au RGPD. Aucun outil de tracking ou de cookies tiers n'est utilisé sur ce site.</p>
           </div>
 
           <div>
@@ -77,13 +77,8 @@ export default function Confidentialite() {
 
           <div>
             <h2 className="font-display font-black text-xl tracking-tight text-noir mb-3">Article 9 — Cookies</h2>
-            <ul className="space-y-1.5 ml-4 list-disc">
-              <li><strong>Strictement nécessaires :</strong> fonctionnement, sécurité</li>
-              <li><strong>Fonctionnels :</strong> préférences utilisateur</li>
-              <li><strong>Analytiques :</strong> audience (Google Analytics anonymisé)</li>
-              <li><strong>Marketing :</strong> publicités personnalisées (réseaux sociaux)</li>
-            </ul>
-            <p className="mt-2">Gestion via le bandeau cookies ou les paramètres de votre navigateur.</p>
+            <p>Ce site <strong>n'utilise aucun cookie</strong> de tracking, d'analyse ou de marketing. Seuls des cookies strictement nécessaires au fonctionnement technique du site peuvent être utilisés (session, sécurité).</p>
+            <p className="mt-2">Aucune bannière de consentement n'est requise car aucune donnée de navigation n'est collectée à des fins publicitaires ou statistiques.</p>
           </div>
 
           <div>
@@ -107,7 +102,7 @@ export default function Confidentialite() {
           </div>
 
           <div className="pt-6 border-t border-noir/8">
-            <p className="text-gris/50 text-xs">© 2025 — Laury Anater — YoGyFace · TRACKS CONSULTANCY - F.Z.C · Trade Licence 44373 · Tous droits réservés</p>
+            <p className="text-gris/50 text-xs">© 2026 — Laury Anater — YoGyFace · TRACKS CONSULTANCY - F.Z.C · Trade Licence 44373 · Tous droits réservés</p>
           </div>
         </div>
       </div>

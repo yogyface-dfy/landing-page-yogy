@@ -1,7 +1,8 @@
 import { Link } from 'react-router-dom'
 import Icon from '../components/Icon'
+import SEO from '../components/SEO'
 
-const stats = ['1 500+ femmes accompagnées', '4.9/5 satisfaction', 'Programmes 100% personnalisés', 'Contact@yogyface.fr']
+const stats = ['1 000+ femmes accompagnées', '4.9/5 satisfaction', 'Programmes 100% personnalisés', 'contact@yogyface.fr']
 
 const features = [
   { label: '10 min/jour' },
@@ -59,6 +60,11 @@ const testimonials = [
 export default function Home() {
   return (
     <>
+      <SEO
+        title="Yoga du Visage & Méthode RESET"
+        description="Reprends le contrôle de ton visage naturellement avec la méthode RESET™ de Laury. Programmes de yoga facial 100% personnalisés, faits main. Tonifie, lifte et rajeunit en 10 min/jour."
+        path="/"
+      />
       {/* ═══ HERO ═══ */}
       <section className="relative min-h-screen flex items-center pt-24 pb-16 px-[5%] overflow-hidden">
         <div className="absolute inset-0 bg-gradient-to-br from-rose/30 via-white to-bleu/20 pointer-events-none" />
@@ -75,9 +81,9 @@ export default function Home() {
               </div>
 
               <div className="overflow-hidden mb-4 md:mb-6">
-                <h1 className="animate-on-scroll font-display text-[clamp(2.2rem,8vw,5.5rem)] font-black leading-[0.9] tracking-tighter text-noir" data-delay="200">
-                  JE T'APPRENDS À<br />REPRENDRE LE<br />CONTRÔLE DE<br />
-                  <span className="text-corail/75">TON VISAGE.</span>
+                <h1 className="animate-on-scroll font-display text-[clamp(2rem,6vw,4.2rem)] font-black leading-[1] tracking-tighter text-noir" data-delay="200">
+                  REPRENDS LE CONTRÔLE DE<br />
+                  <span className="font-serif italic text-corail/75 font-semibold">ton visage.</span>
                 </h1>
               </div>
 
@@ -98,7 +104,7 @@ export default function Home() {
               </div>
 
               <div className="animate-on-scroll flex flex-col sm:flex-row gap-3" data-delay="700">
-                <Link to="/vip" className="btn-primary text-sm md:text-base px-6 md:px-7 py-3 md:py-3.5 text-center">
+                <Link to="/liste-attente" className="btn-primary text-sm md:text-base px-6 md:px-7 py-3 md:py-3.5 text-center">
                   Rejoindre la liste d'attente →
                 </Link>
                 <Link to="/about" className="btn-secondary text-sm md:text-base px-6 md:px-7 py-3 md:py-3.5 text-center">
@@ -110,10 +116,9 @@ export default function Home() {
             {/* Laury photo — shown first on mobile */}
             <div className="flex justify-center md:justify-end order-1 md:order-2">
               <div className="animate-on-scroll relative w-full max-w-[320px] md:max-w-[520px]" data-anim="scale" data-delay="300">
-                <div className="absolute -inset-4 md:-inset-6 bg-gradient-to-br from-corail/15 via-rose/25 to-bleu/15 rounded-3xl blur-3xl pointer-events-none animate-pulse-soft hidden md:block" />
                 <div className="absolute -top-3 -right-3 md:-top-4 md:-right-4 w-16 md:w-24 h-16 md:h-24 border-2 border-corail/20 rounded-2xl pointer-events-none hidden sm:block" />
                 <div className="absolute -bottom-3 -left-3 md:-bottom-4 md:-left-4 w-20 md:w-32 h-20 md:h-32 border-2 border-bleu/20 rounded-2xl pointer-events-none hidden sm:block" />
-                <div className="img-zoom rounded-2xl md:rounded-3xl overflow-hidden shadow-2xl">
+                <div className="rounded-2xl md:rounded-3xl overflow-hidden shadow-2xl">
                   <img
                     src="/laury-hero.png"
                     alt="Laury, fondatrice de YoGyFace"
@@ -160,9 +165,8 @@ export default function Home() {
             <div>
               <div className="animate-on-scroll line-draw" data-anim="fade">
                 <div className="section-badge">Comprendre</div>
-                <h2 className="font-display text-[clamp(1.8rem,5vw,3.5rem)] font-black tracking-tighter text-noir mb-4 md:mb-6">
-                  LE YOGA DU VISAGE,<br />
-                  <span className="font-serif italic font-semibold text-corail">c'est quoi ?</span>
+                <h2 className="font-display text-[clamp(1.8rem,4vw,3rem)] font-black tracking-tighter text-noir mb-4 md:mb-6">
+                  LE YOGA DU VISAGE, <span className="font-serif italic font-semibold text-corail">c'est quoi ?</span>
                 </h2>
               </div>
               <p className="animate-on-scroll text-gris text-[15px] md:text-[16px] leading-relaxed mb-3 md:mb-4" data-delay="100">
@@ -196,17 +200,14 @@ export default function Home() {
       </section>
 
       {/* ═══ CE QUE TU RESSENS ═══ */}
-      <section className="py-16 md:py-28 px-[5%] bg-noir text-white relative overflow-hidden">
-        <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[800px] h-[400px] bg-corail/5 rounded-full blur-3xl pointer-events-none" />
+      <section className="py-16 md:py-28 px-[5%] bg-creme relative overflow-hidden">
+        <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[800px] h-[400px] bg-rose/10 rounded-full blur-3xl pointer-events-none" />
 
         <div className="max-w-[900px] mx-auto text-center relative z-10">
           <div className="animate-on-scroll" data-anim="scale">
-            <div className="section-badge justify-center text-white/30">Tu te reconnais ?</div>
-            <h2 className="font-display text-[clamp(1.5rem,5vw,3.5rem)] font-black tracking-tighter mb-2 md:mb-4">
-              JE REÇOIS CES MESSAGES
-            </h2>
-            <h2 className="font-serif italic text-[clamp(1.2rem,4vw,2.5rem)] text-corail font-semibold mb-6 md:mb-8">
-              tous les jours
+            <div className="section-badge justify-center">Tu te reconnais ?</div>
+            <h2 className="font-display text-[clamp(1.5rem,5vw,3.5rem)] font-black tracking-tighter text-noir mb-2 md:mb-4">
+              JE REÇOIS CES MESSAGES <span className="font-serif italic text-[clamp(1.2rem,4vw,2.5rem)] text-corail font-semibold">tous les jours</span>
             </h2>
           </div>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-3 text-left mt-6 md:mt-10">
@@ -220,14 +221,14 @@ export default function Home() {
             ].map((q, i) => (
               <div
                 key={i}
-                className="animate-on-scroll bg-white/[0.04] backdrop-blur-sm rounded-xl p-4 md:p-5 border border-white/[0.06] italic text-white/60 text-[14px] md:text-[15px] leading-relaxed hover:bg-white/[0.08] hover:border-white/10 transition-all duration-500"
+                className="animate-on-scroll bg-white rounded-xl p-4 md:p-5 border border-noir/5 italic text-gris text-[14px] md:text-[15px] leading-relaxed hover:border-corail/15 hover:shadow-sm transition-all duration-500"
                 data-delay={`${i * 80}`}
               >
                 {q}
               </div>
             ))}
           </div>
-          <p className="animate-on-scroll text-white/30 text-xs md:text-sm mt-8 md:mt-10 max-w-lg mx-auto font-serif italic" data-delay="500">
+          <p className="animate-on-scroll text-gris/40 text-xs md:text-sm mt-8 md:mt-10 max-w-lg mx-auto font-serif italic" data-delay="500">
             Ces phrases viennent directement de femmes qui m'ont contactée — compilées depuis +1000 emails et 5 groupes WhatsApp.
           </p>
         </div>
@@ -240,11 +241,8 @@ export default function Home() {
         <div className="max-w-[1400px] mx-auto">
           <div className="text-center mb-12 md:mb-20 animate-on-scroll" data-anim="scale">
             <div className="section-badge justify-center">Ma méthode</div>
-            <h2 className="font-display text-[clamp(1.8rem,5vw,3.5rem)] font-black tracking-tighter text-noir mb-2">
-              LA MÉTHODE
-            </h2>
-            <h2 className="font-serif italic text-[clamp(1.5rem,4vw,3rem)] text-corail font-semibold mb-4 md:mb-6">
-              RESET™
+            <h2 className="font-display text-[clamp(1.8rem,5vw,3.5rem)] font-black tracking-tighter text-noir mb-4 md:mb-6">
+              LA MÉTHODE <span className="font-serif italic text-corail font-semibold">RESET™</span>
             </h2>
             <p className="text-gris text-[15px] md:text-[17px] max-w-2xl mx-auto leading-relaxed">
               J'ai développé RESET™ autour de 5 piliers fondamentaux. Ce n'est pas du yoga du visage classique — c'est une reprogrammation neuro-faciale complète qui agit sur la cause, pas les symptômes.
@@ -285,11 +283,8 @@ export default function Home() {
             <div>
               <div className="animate-on-scroll line-draw" data-anim="fade" data-delay="200">
                 <div className="section-badge">Pourquoi YoGyFace</div>
-                <h2 className="font-display text-[clamp(1.8rem,5vw,3.5rem)] font-black tracking-tighter text-noir mb-2">
-                  CHAQUE PROGRAMME EST
-                </h2>
-                <h2 className="font-serif italic text-[clamp(1.5rem,4vw,3rem)] text-corail font-semibold mb-4 md:mb-6">
-                  fait main
+                <h2 className="font-display text-[clamp(1.8rem,5vw,3.5rem)] font-black tracking-tighter text-noir mb-4 md:mb-6">
+                  CHAQUE PROGRAMME EST <span className="font-serif italic text-corail font-semibold">fait main</span>
                 </h2>
               </div>
               <p className="animate-on-scroll text-gris text-[15px] md:text-[17px] leading-relaxed mb-4 md:mb-6" data-anim="fade" data-delay="300">
@@ -315,11 +310,8 @@ export default function Home() {
         <div className="max-w-[1400px] mx-auto">
           <div className="text-center mb-10 md:mb-16 animate-on-scroll" data-anim="scale">
             <div className="section-badge justify-center">Résultats réels</div>
-            <h2 className="font-display text-[clamp(1.8rem,5vw,3.5rem)] font-black tracking-tighter text-noir mb-1">
-              ELLES L'ONT
-            </h2>
-            <h2 className="font-serif italic text-[clamp(1.5rem,4vw,2.5rem)] text-corail font-semibold">
-              vécu
+            <h2 className="font-display text-[clamp(1.8rem,5vw,3.5rem)] font-black tracking-tighter text-noir">
+              ELLES L'ONT <span className="font-serif italic text-corail font-semibold">vécu</span>
             </h2>
           </div>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-4 md:gap-6">
@@ -359,17 +351,14 @@ export default function Home() {
 
         <div className="max-w-[700px] mx-auto text-center relative z-10 animate-on-scroll" data-anim="scale">
           <div className="section-badge justify-center">Places limitées</div>
-          <h2 className="font-display text-[clamp(2rem,6vw,4rem)] font-black tracking-tighter text-noir mb-2">
-            ENVIE DE
-          </h2>
-          <h2 className="font-serif italic text-[clamp(1.5rem,5vw,3.5rem)] text-corail font-semibold mb-4 md:mb-6">
-            commencer ?
+          <h2 className="font-display text-[clamp(2rem,6vw,4rem)] font-black tracking-tighter text-noir mb-4 md:mb-6">
+            ENVIE DE <span className="font-serif italic text-corail font-semibold">commencer ?</span>
           </h2>
           <p className="text-gris text-[15px] md:text-[17px] leading-relaxed mb-8 md:mb-10">
             Chaque programme étant créé à la main, je ne peux accompagner qu'un nombre limité de femmes à la fois. Inscris-toi sur la liste d'attente pour être prévenue dès qu'une place se libère.
           </p>
           <div className="flex flex-col sm:flex-row flex-wrap justify-center gap-3">
-            <Link to="/vip" className="btn-corail text-sm md:text-base px-6 md:px-8 py-3.5 md:py-4">
+            <Link to="/liste-attente" className="btn-corail text-sm md:text-base px-6 md:px-8 py-3.5 md:py-4">
               Rejoindre la liste d'attente →
             </Link>
             <Link to="/transformations" className="btn-secondary text-sm md:text-base px-6 md:px-8 py-3.5 md:py-4">
