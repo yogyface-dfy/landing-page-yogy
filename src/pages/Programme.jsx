@@ -186,7 +186,8 @@ export default function Programme() {
           <div className="text-center mb-12 md:mb-20 animate-on-scroll" data-anim="scale">
             <div className="section-badge justify-center">Ton parcours</div>
             <h2 className="font-display text-[clamp(1.8rem,5vw,3.5rem)] font-black tracking-tighter text-noir">
-              6 ÉTAPES VERS <span className="font-serif italic text-corail font-semibold">ton autonomie</span>
+              6 ÉTAPES VERS<br />
+              <span className="font-serif italic text-corail font-semibold">ton autonomie</span>
             </h2>
           </div>
           <div className="space-y-4">
@@ -222,7 +223,8 @@ export default function Programme() {
           <div className="text-center mb-12 md:mb-20 animate-on-scroll" data-anim="scale">
             <div className="section-badge justify-center">Ce qui nous différencie</div>
             <h2 className="font-display text-[clamp(1.8rem,4vw,3rem)] font-black tracking-tighter text-noir mb-3">
-              POURQUOI YOGYFACE <span className="font-serif italic text-corail font-semibold">et pas un autre ?</span>
+              POURQUOI YOGYFACE<br />
+              <span className="font-serif italic text-corail font-semibold">et pas un autre ?</span>
             </h2>
             <p className="text-gris text-sm md:text-base max-w-2xl mx-auto">
               Les applications te donnent 50 exercices en vrac. Les autres coachs vendent des vidéos et disparaissent. Imaginerais-tu un cardiologue qui t'opère sans consultation, sans regarder TON cœur ?
@@ -253,7 +255,8 @@ export default function Programme() {
           <div className="text-center mb-10 md:mb-16 animate-on-scroll" data-anim="scale">
             <div className="section-badge justify-center">Inclus dans le programme</div>
             <h2 className="font-display text-[clamp(1.8rem,5vw,3.5rem)] font-black tracking-tighter text-noir mb-3">
-              5 EXPERTES <span className="font-serif italic text-corail font-semibold">pour aller plus loin</span>
+              5 EXPERTES<br />
+              <span className="font-serif italic text-corail font-semibold">pour aller plus loin</span>
             </h2>
             <p className="text-gris text-sm md:text-base max-w-lg mx-auto">
               Parce que prendre soin de toi, c'est aussi nutrition, respiration, émotions et skincare.
@@ -297,7 +300,8 @@ export default function Programme() {
           <div className="text-center mb-10 md:mb-14 animate-on-scroll" data-anim="scale">
             <div className="section-badge justify-center">+20 ressources incluses</div>
             <h2 className="font-display text-[clamp(1.8rem,4vw,3rem)] font-black tracking-tighter text-noir mb-3">
-              TA BIBLIOTHÈQUE <span className="font-serif italic text-corail font-semibold">d'eBooks & guides</span>
+              TA BIBLIOTHÈQUE<br />
+              <span className="font-serif italic text-corail font-semibold">d'eBooks & guides</span>
             </h2>
             <p className="text-gris text-sm max-w-lg mx-auto">Guides pratiques, fiches anatomiques, trackers et checklists — tout est inclus.</p>
           </div>
@@ -366,7 +370,8 @@ export default function Programme() {
         <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[300px] md:w-[400px] h-[300px] md:h-[400px] bg-corail/8 rounded-full blur-3xl pointer-events-none animate-pulse-soft" />
         <div className="max-w-xl mx-auto relative z-10 animate-on-scroll" data-anim="scale">
           <h2 className="font-display text-[clamp(1.8rem,5vw,3rem)] font-black tracking-tighter mb-4 md:mb-6">
-            PRÊTE À REPRENDRE <span className="font-serif italic text-corail font-semibold">le contrôle ?</span>
+            PRÊTE À REPRENDRE<br />
+            <span className="font-serif italic text-corail font-semibold">le contrôle ?</span>
           </h2>
           <p className="text-white/50 mb-6 md:mb-8 text-[14px] md:text-[16px]">
             Chaque programme est créé à la main par Laury — les places sont limitées.

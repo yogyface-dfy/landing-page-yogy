@@ -156,7 +156,8 @@ export default function ListeAttente() {
               <div className="animate-on-scroll" data-anim="fade">
                 <div className="section-badge">Pourquoi une liste d'attente ?</div>
                 <h2 className="font-display text-[clamp(1.8rem,4vw,3rem)] font-black tracking-tighter text-noir mb-3 md:mb-4">
-                  PARCE QUE JE FAIS <span className="font-serif italic text-corail font-semibold">tout à la main</span>
+                  PARCE QUE JE FAIS<br />
+                  <span className="font-serif italic text-corail font-semibold">tout à la main</span>
                 </h2>
                 <p className="text-gris mb-6 md:mb-8 text-[14px] md:text-[16px] leading-relaxed">
                   Contrairement aux programmes génériques, chaque accompagnement YoGyFace est entièrement personnalisé par moi. C'est un choix — celui de la qualité.

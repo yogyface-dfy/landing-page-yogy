@@ -65,20 +65,19 @@ export default function About() {
         <div className="absolute bottom-0 left-0 w-48 h-48 bg-bleu/10 rounded-full blur-3xl pointer-events-none animate-float-slow hidden md:block" />
 
         <div className="max-w-[1400px] mx-auto relative z-10">
-          <div className="grid md:grid-cols-2 gap-8 md:gap-16 items-center">
+          <div className="grid md:grid-cols-2 gap-8 md:gap-12 items-center">
             <div className="order-2 md:order-1">
               <div className="animate-on-scroll section-badge" data-anim="fade" data-delay="100">Fondatrice</div>
-              <div className="animate-on-scroll" data-anim="scale" data-delay="200">
-                <h1 className="font-display text-[clamp(2.2rem,7vw,5rem)] font-black leading-[0.9] tracking-tighter text-noir mb-4 md:mb-6">
-                  MON <span className="font-serif italic text-corail/70 font-semibold">Parcours</span>
-                </h1>
+              <div className="animate-on-scroll" data-anim="fade" data-delay="200">
+                <h1 className="font-display text-[clamp(2.5rem,7vw,5rem)] font-black leading-[0.9] tracking-tighter text-noir">MON</h1>
+                <p className="font-serif italic text-[clamp(2rem,6vw,4rem)] text-corail/70 font-semibold leading-[1] -ml-1">Parcours</p>
               </div>
-              <p className="animate-on-scroll text-gris text-[15px] md:text-[17px] leading-relaxed max-w-md" data-delay="400">
+              <p className="animate-on-scroll text-gris text-base md:text-lg leading-relaxed max-w-xl mt-4 md:mt-6" data-delay="400">
                 Je suis Laury, fondatrice de YoGyFace. Ce qui a commencé comme une quête personnelle face à mon miroir est devenu une méthode qui transforme des centaines de visages — naturellement.
               </p>
             </div>
             <div className="flex justify-center md:justify-end order-1 md:order-2">
-              <div className="animate-on-scroll relative w-full max-w-[280px] md:max-w-[480px]" data-anim="scale" data-delay="300">
+              <div className="animate-on-scroll relative w-full max-w-[320px] md:max-w-[480px]" data-anim="scale" data-delay="300">
                 <div className="absolute -inset-4 md:-inset-6 bg-gradient-to-br from-corail/10 via-rose/20 to-bleu/10 rounded-3xl blur-3xl pointer-events-none animate-pulse-soft hidden md:block" />
                 <div className="absolute -top-3 -right-3 w-16 md:w-20 h-16 md:h-20 border-2 border-corail/15 rounded-2xl pointer-events-none hidden sm:block" />
                 <div className="absolute -bottom-3 -left-3 w-20 md:w-28 h-20 md:h-28 border-2 border-bleu/15 rounded-2xl pointer-events-none hidden sm:block" />
@@ -135,7 +134,7 @@ export default function About() {
           <div className="text-center mb-10 md:mb-16 animate-on-scroll" data-anim="scale">
             <div className="section-badge justify-center">Formations & rencontres</div>
             <h2 className="font-display text-[clamp(1.8rem,5vw,3.5rem)] font-black tracking-tighter text-noir leading-none">
-              MES <span className="font-serif italic text-[clamp(1.5rem,4vw,2.5rem)] text-corail font-semibold">Inspirations</span>
+              MES INSPIRATIONS
             </h2>
             <p className="text-gris text-[14px] md:text-[16px] mt-3 md:mt-4 max-w-xl mx-auto">
               J'ai eu la chance d'apprendre auprès des meilleures expertes du yoga du visage et du bien-être. Chaque rencontre a nourri ma méthode.
@@ -207,7 +206,8 @@ export default function About() {
           <div className="text-center mb-10 md:mb-16 animate-on-scroll" data-anim="scale">
             <div className="section-badge justify-center">Mon équipe d'experts</div>
             <h2 className="font-display text-[clamp(1.8rem,5vw,3.5rem)] font-black tracking-tighter text-noir mb-3 md:mb-4">
-              UNE APPROCHE <span className="font-serif italic text-corail font-semibold">vraiment holistique</span>
+              UNE APPROCHE<br />
+              <span className="block font-serif italic text-corail font-semibold">vraiment holistique</span>
             </h2>
             <p className="text-gris text-[14px] md:text-[16px] mt-3 md:mt-4 max-w-xl mx-auto">
               YoGyFace n'est pas un cours de yoga du visage. J'ai réuni des experts qui travaillent avec moi pour s'attaquer à chaque cause du vieillissement facial.
@@ -276,7 +276,8 @@ export default function About() {
 
         <div className="max-w-xl mx-auto relative z-10 animate-on-scroll" data-anim="scale">
           <h2 className="font-display text-[clamp(1.8rem,5vw,3rem)] font-black tracking-tighter mb-4 md:mb-6">
-            PRÊTE À <span className="font-serif italic text-corail font-semibold">commencer ?</span>
+            PRÊTE À<br />
+            <span className="font-serif italic text-corail font-semibold">commencer ?</span>
           </h2>
           <p className="text-white/50 mb-6 md:mb-8 text-[14px] md:text-[16px]">Inscris-toi sur la liste d'attente pour être prévenue dès qu'une place se libère.</p>
           <Link to="/liste-attente" className="btn-corail text-sm md:text-base px-6 md:px-8 py-3.5 md:py-4">

@@ -8,7 +8,7 @@ const features = [
   { label: '10 min/jour' },
   { label: 'Sans matériel' },
   { label: '100% naturel' },
-  { label: 'Fait main par Laury' },
+  { label: 'Chaque programme est fait main' },
 ]
 
 const pillars = [
@@ -149,15 +149,14 @@ export default function Home() {
           style={{ backgroundImage: 'radial-gradient(circle, #1A1A1A 1px, transparent 1px)', backgroundSize: '16px 16px' }} />
 
         <div className="max-w-[1400px] mx-auto">
-          <div className="grid md:grid-cols-2 gap-10 md:gap-20 items-center">
+          <div className="grid md:grid-cols-[2fr_3fr] gap-8 md:gap-12 items-center">
             {/* Photo drainage */}
             <div className="animate-on-scroll relative overflow-hidden" data-anim="fade" data-delay="100">
-              <div className="absolute -inset-4 bg-gradient-to-br from-rose/20 to-bleu/10 rounded-3xl blur-2xl pointer-events-none opacity-60 hidden md:block" />
-              <div className="img-zoom rounded-2xl md:rounded-3xl overflow-hidden shadow-xl relative">
+              <div className="img-zoom rounded-2xl md:rounded-3xl overflow-hidden shadow-xl relative mx-auto">
                 <img
                   src="/laury-drainage.png"
                   alt="Laury — geste de drainage lymphatique du cou"
-                  className="w-full h-auto"
+                  className="w-full h-auto object-contain"
                 />
               </div>
             </div>
@@ -166,7 +165,8 @@ export default function Home() {
               <div className="animate-on-scroll line-draw" data-anim="fade">
                 <div className="section-badge">Comprendre</div>
                 <h2 className="font-display text-[clamp(1.8rem,4vw,3rem)] font-black tracking-tighter text-noir mb-4 md:mb-6">
-                  LE YOGA DU VISAGE, <span className="font-serif italic font-semibold text-corail">c'est quoi ?</span>
+                  LE YOGA DU VISAGE,<br />
+                  <span className="font-serif italic font-semibold text-corail">c'est quoi ?</span>
                 </h2>
               </div>
               <p className="animate-on-scroll text-gris text-[15px] md:text-[16px] leading-relaxed mb-3 md:mb-4" data-delay="100">
@@ -207,7 +207,8 @@ export default function Home() {
           <div className="animate-on-scroll" data-anim="scale">
             <div className="section-badge justify-center">Tu te reconnais ?</div>
             <h2 className="font-display text-[clamp(1.5rem,5vw,3.5rem)] font-black tracking-tighter text-noir mb-2 md:mb-4">
-              JE REÇOIS CES MESSAGES <span className="font-serif italic text-[clamp(1.2rem,4vw,2.5rem)] text-corail font-semibold">tous les jours</span>
+              JE REÇOIS CES MESSAGES<br />
+              <span className="font-serif italic text-[clamp(1.2rem,4vw,2.5rem)] text-corail font-semibold">tous les jours</span>
             </h2>
           </div>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-3 text-left mt-6 md:mt-10">
@@ -235,13 +236,13 @@ export default function Home() {
       </section>
 
       {/* ═══ MA MÉTHODE RESET ═══ */}
-      <section className="py-16 md:py-28 px-[5%] bg-creme relative overflow-hidden">
+      <section className="py-12 md:py-20 px-[5%] bg-creme relative overflow-hidden">
         <div className="absolute bottom-0 left-0 w-64 h-64 bg-corail/5 rounded-full blur-3xl pointer-events-none animate-float-slow" />
 
         <div className="max-w-[1400px] mx-auto">
-          <div className="text-center mb-12 md:mb-20 animate-on-scroll" data-anim="scale">
+          <div className="text-center mb-6 md:mb-10 animate-on-scroll" data-anim="scale">
             <div className="section-badge justify-center">Ma méthode</div>
-            <h2 className="font-display text-[clamp(1.8rem,5vw,3.5rem)] font-black tracking-tighter text-noir mb-4 md:mb-6">
+            <h2 className="font-display text-[clamp(1.8rem,5vw,3.5rem)] font-black tracking-tighter text-noir leading-tight mb-2 md:mb-3">
               LA MÉTHODE <span className="font-serif italic text-corail font-semibold">RESET™</span>
             </h2>
             <p className="text-gris text-[15px] md:text-[17px] max-w-2xl mx-auto leading-relaxed">
@@ -272,19 +273,20 @@ export default function Home() {
           style={{ backgroundImage: 'radial-gradient(circle, #1A1A1A 1px, transparent 1px)', backgroundSize: '20px 20px' }} />
 
         <div className="max-w-[1400px] mx-auto">
-          <div className="grid md:grid-cols-2 gap-8 md:gap-16 items-center">
+          <div className="grid md:grid-cols-[2fr_3fr] gap-8 md:gap-12 items-center">
             <div className="animate-on-scroll img-zoom rounded-2xl md:rounded-3xl overflow-hidden" data-anim="fade">
               <img
                 src="/laury-tournage.png"
                 alt="Laury en tournage — création de contenu YoGyFace"
-                className="w-full h-auto"
+                className="w-full h-auto object-contain"
               />
             </div>
             <div>
               <div className="animate-on-scroll line-draw" data-anim="fade" data-delay="200">
                 <div className="section-badge">Pourquoi YoGyFace</div>
-                <h2 className="font-display text-[clamp(1.8rem,5vw,3.5rem)] font-black tracking-tighter text-noir mb-4 md:mb-6">
-                  CHAQUE PROGRAMME EST <span className="font-serif italic text-corail font-semibold">fait main</span>
+                <h2 className="font-display text-[clamp(1.5rem,4vw,2.8rem)] font-black tracking-tighter text-noir mb-3 md:mb-4">
+                  CHAQUE PROGRAMME EST<br />
+                  <span className="font-serif italic text-corail font-semibold">fait main</span>
                 </h2>
               </div>
               <p className="animate-on-scroll text-gris text-[15px] md:text-[17px] leading-relaxed mb-4 md:mb-6" data-anim="fade" data-delay="300">
@@ -308,10 +310,11 @@ export default function Home() {
         <div className="absolute -top-20 -right-20 w-64 h-64 bg-rose/30 rounded-full blur-3xl pointer-events-none animate-float" />
 
         <div className="max-w-[1400px] mx-auto">
-          <div className="text-center mb-10 md:mb-16 animate-on-scroll" data-anim="scale">
+          <div className="text-center mb-6 md:mb-10 animate-on-scroll" data-anim="scale">
             <div className="section-badge justify-center">Résultats réels</div>
             <h2 className="font-display text-[clamp(1.8rem,5vw,3.5rem)] font-black tracking-tighter text-noir">
-              ELLES L'ONT <span className="font-serif italic text-corail font-semibold">vécu</span>
+              ELLES L'ONT<br />
+              <span className="font-serif italic text-corail font-semibold">vécu</span>
             </h2>
           </div>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-4 md:gap-6">
@@ -352,7 +355,7 @@ export default function Home() {
         <div className="max-w-[700px] mx-auto text-center relative z-10 animate-on-scroll" data-anim="scale">
           <div className="section-badge justify-center">Places limitées</div>
           <h2 className="font-display text-[clamp(2rem,6vw,4rem)] font-black tracking-tighter text-noir mb-4 md:mb-6">
-            ENVIE DE <span className="font-serif italic text-corail font-semibold">commencer ?</span>
+            ENVIE DE COMMENCER ?
           </h2>
           <p className="text-gris text-[15px] md:text-[17px] leading-relaxed mb-8 md:mb-10">
             Chaque programme étant créé à la main, je ne peux accompagner qu'un nombre limité de femmes à la fois. Inscris-toi sur la liste d'attente pour être prévenue dès qu'une place se libère.

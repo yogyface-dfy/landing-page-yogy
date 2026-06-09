@@ -137,7 +137,8 @@ export default function Transformations() {
           <div className="text-center mb-16 animate-on-scroll" data-anim="scale">
             <div className="section-badge justify-center">Verbatim clientes</div>
             <h2 className="font-display text-[clamp(2rem,5vw,3.5rem)] font-black tracking-tighter text-noir mb-4">
-              CE QU'ELLES <span className="font-serif italic text-corail font-semibold">en disent</span>
+              CE QU'ELLES<br />
+              <span className="font-serif italic text-corail font-semibold">en disent</span>
             </h2>
             <p className="text-gris mt-3 text-sm font-serif italic">Ces phrases viennent directement des clientes de Laury — non éditées.</p>
           </div>
@@ -177,7 +178,8 @@ export default function Transformations() {
 
         <div className="max-w-xl mx-auto relative z-10 animate-on-scroll" data-anim="scale">
           <h2 className="font-display text-[clamp(2rem,5vw,3rem)] font-black tracking-tighter mb-6">
-            ET TOI, C'EST <span className="font-serif italic text-corail font-semibold">quand ?</span>
+            ET TOI, C'EST<br />
+            <span className="font-serif italic text-corail font-semibold">quand ?</span>
           </h2>
           <p className="text-white/50 mb-8 text-[16px]">Ces résultats peuvent être les tiens. Inscris-toi pour être prévenue dès qu'une place se libère.</p>
           <Link to="/liste-attente" className="btn-corail text-base px-8 py-4">
