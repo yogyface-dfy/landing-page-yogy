@@ -216,6 +216,25 @@ export default function Programme() {
         </div>
       </section>
 
+      {/* ═══ PHOTO BREAK ═══ */}
+      <section className="py-12 md:py-20 px-[5%] bg-white">
+        <div className="max-w-[1400px] mx-auto">
+          <div className="grid md:grid-cols-2 gap-8 md:gap-12 items-center">
+            <div className="animate-on-scroll img-zoom rounded-2xl md:rounded-3xl overflow-hidden shadow-xl" data-anim="fade">
+              <img src="/laury-yeux.png" alt="Laury — exercice ciblé contour des yeux" className="w-full h-auto" />
+            </div>
+            <div className="animate-on-scroll" data-anim="fade" data-delay="200">
+              <blockquote className="border-l-2 border-corail/30 pl-5">
+                <p className="text-gris text-base md:text-lg leading-relaxed font-serif italic mb-3">
+                  "Chaque zone de ton visage a ses propres muscles, ses propres tensions. C'est pour ça que je crée un programme adapté à TON visage — pas un protocole générique."
+                </p>
+                <cite className="text-corail font-semibold text-sm not-italic">— Laury</cite>
+              </blockquote>
+            </div>
+          </div>
+        </div>
+      </section>
+
       {/* ═══ WHAT MAKES IT UNIQUE ═══ */}
       <section className="py-16 md:py-28 px-[5%] bg-creme relative overflow-hidden">
         <div className="absolute bottom-0 right-0 w-64 h-64 bg-bleu/15 rounded-full blur-3xl pointer-events-none animate-float-slow hidden md:block" />

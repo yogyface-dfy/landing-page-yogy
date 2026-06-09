@@ -1,50 +1,72 @@
-import { Link } from 'react-router-dom'
-import SEO from '../components/SEO'
+import { Link } from "react-router-dom";
+import SEO from "../components/SEO";
 
 const results = [
-  { duration: '6 semaines', zone: 'Ovale & mâchoire', tag: 'Résultat 6 sem.' },
-  { duration: '3 mois', zone: 'Rides d\'expression', tag: 'Résultat 3 mois' },
-  { duration: '1 mois', zone: 'Teint & éclat', tag: 'Résultat 1 mois' },
-  { duration: '2 mois', zone: 'Cernes & poches', tag: 'Résultat 2 mois' },
-  { duration: '6 semaines', zone: 'Lifting naturel', tag: 'Résultat 6 sem.' },
-  { duration: '4 mois', zone: 'Relâchement général', tag: 'Résultat 4 mois' },
-  { duration: '3 semaines', zone: 'Gonflement & drainage', tag: 'Résultat 3 sem.' },
-  { duration: '8 semaines', zone: 'Sillons nasogéniens', tag: 'Résultat 8 sem.' },
-]
+  { img: "/ba-01.png", duration: "8 semaines", zone: "Sillons nasogéniens", tag: "Résultat 8 sem." },
+  { img: "/ba-02.png", duration: "6 semaines", zone: "Cernes & poches", tag: "Résultat 6 sem." },
+  { img: "/ba-03.png", duration: "3 mois", zone: "Lifting global", tag: "Résultat 3 mois" },
+  { img: "/ba-04.png", duration: "4 mois", zone: "Rides du front", tag: "Progression 4 mois", triptych: true },
+  { img: "/ba-05.png", duration: "6 semaines", zone: "Ovale & mâchoire", tag: "Résultat 6 sem." },
+  { img: "/ba-06.png", duration: "2 mois", zone: "Jawline & profil", tag: "Résultat 2 mois" },
+  { img: "/ba-07.png", duration: "3 mois", zone: "Cou & relâchement", tag: "Résultat 3 mois" },
+  { img: "/ba-08.png", duration: "6 semaines", zone: "Teint & éclat", tag: "Résultat 6 sem." },
+  { img: "/ba-09.png", duration: "2 mois", zone: "Volume & gonflement", tag: "Résultat 2 mois" },
+  { img: "/ba-10.png", duration: "3 mois", zone: "Ovale du visage", tag: "Résultat 3 mois" },
+  { img: "/ba-11.png", duration: "6 semaines", zone: "Rides d'expression", tag: "Résultat 6 sem." },
+];
 
 const testimonials = [
   {
-    text: 'Après 8 semaines, mon mari m\'a demandé si j\'avais fait quelque chose. Mon ovale est plus défini, mes cernes se sont atténuées. Je ne pensais pas que c\'était possible sans injection.',
-    name: 'Sophie M.', info: '47 ans · 8 semaines · Relâchement & ovale', initial: 'S'
+    text: "Ma ride du lion devient presque invisible, alors qu'elle me dérangeait énormément. La différence la plus impressionnante est pour mes paupières qui tombent vraiment beaucoup moins ! J'arrive maintenant à mettre de l'eye-liner sans galérer. Laury est exceptionnelle. Ses diagnostics sont tellement personnalisés que j'ai l'impression d'être sa « patiente » plutôt que sa cliente.",
+    name: "Jeanne R.",
+    info: "Ride du lion · Paupières · Asymétrie",
+    initial: "J",
+    link: "https://www.trustpilot.com/reviews/6a008d013da13a0d8a16d222",
   },
   {
-    text: 'Je ne me reconnaissais plus sur les photos — je me trouvais moche. Aujourd\'hui je prends des selfies. La méthode RESET m\'a rendu bien plus qu\'un visage, elle m\'a rendu confiance.',
-    name: 'Marie-Claire B.', info: '52 ans · 3 mois · Perte de volume', initial: 'M'
+    text: "Après 8 semaines, mon mari m'a demandé si j'avais fait quelque chose. Mon ovale est plus défini, mes cernes se sont atténuées. Je ne pensais pas que c'était possible sans injection.",
+    name: "Sophie M.",
+    info: "47 ans · 8 semaines · Relâchement & ovale",
+    initial: "S",
   },
   {
-    text: 'J\'avais un côté plus haut que l\'autre, une asymétrie. En 6 semaines de travail ciblé, mon visage s\'est rééquilibré. Je n\'aurais jamais cru que c\'était possible naturellement.',
-    name: 'Nathalie D.', info: '44 ans · 6 semaines · Asymétrie', initial: 'N'
+    text: "Je ne me reconnaissais plus sur les photos — je me trouvais moche. Aujourd'hui je prends des selfies. La méthode RESET m'a rendu bien plus qu'un visage, elle m'a rendu confiance.",
+    name: "Marie-Claire B.",
+    info: "52 ans · 3 mois · Perte de volume",
+    initial: "M",
   },
   {
-    text: 'Je n\'osais plus du tout sourire à cause de mes rides très prononcées autour de la bouche. Maintenant je souris librement. Mon visage a l\'air plus jeune, plus reposé, plus moi.',
-    name: 'Christine R.', info: '51 ans · 2 mois · Rides d\'expression', initial: 'C'
+    text: "J'avais un côté plus haut que l'autre, une asymétrie. En 6 semaines de travail ciblé, mon visage s'est rééquilibré. Je n'aurais jamais cru que c'était possible naturellement.",
+    name: "Nathalie D.",
+    info: "44 ans · 6 semaines · Asymétrie",
+    initial: "N",
   },
   {
-    text: 'J\'avais besoin de me retrouver — je m\'étais complètement oubliée. La méthode de Laury m\'a appris à prendre soin de moi. 10 minutes par jour, rien que pour moi.',
-    name: 'Valérie T.', info: '49 ans · 3 semaines · Bien-être & routines', initial: 'V'
+    text: "Je n'osais plus du tout sourire à cause de mes rides très prononcées autour de la bouche. Maintenant je souris librement. Mon visage a l'air plus jeune, plus reposé, plus moi.",
+    name: "Christine R.",
+    info: "51 ans · 2 mois · Rides d'expression",
+    initial: "C",
   },
   {
-    text: 'J\'avais l\'impression que tout commençait à s\'affaisser vers le bas. Double menton, bajoues légères, la jawline disparaissait. Aujourd\'hui je vois de nouveau la définition de mon ovale.',
-    name: 'Isabelle P.', info: '55 ans · 4 mois · Programme complet', initial: 'I'
+    text: "J'avais besoin de me retrouver — je m'étais complètement oubliée. La méthode de Laury m'a appris à prendre soin de moi. 10 minutes par jour, rien que pour moi.",
+    name: "Valérie T.",
+    info: "49 ans · 3 semaines · Bien-être & routines",
+    initial: "V",
   },
-]
+  {
+    text: "J'avais l'impression que tout commençait à s'affaisser vers le bas. Double menton, bajoues légères, la jawline disparaissait. Aujourd'hui je vois de nouveau la définition de mon ovale.",
+    name: "Isabelle P.",
+    info: "55 ans · 4 mois · Programme complet",
+    initial: "I",
+  },
+];
 
 const stats = [
-  { number: '1 000+', label: 'Femmes transformées' },
-  { number: '4.9/5', label: 'Satisfaction moyenne' },
-  { number: '21j', label: 'Premiers résultats visibles' },
-  { number: '97%', label: 'Recommanderaient RESET' },
-]
+  { number: "1 000+", label: "Femmes transformées" },
+  { number: "4.9/5", label: "Satisfaction moyenne" },
+  { number: "21j", label: "Premiers résultats visibles" },
+  { number: "97%", label: "Recommanderaient RESET" },
+];
 
 export default function Transformations() {
   return (
@@ -55,23 +77,55 @@ export default function Transformations() {
         path="/transformations"
       />
       {/* Hero */}
-      <section className="relative pt-40 pb-20 px-[5%] overflow-hidden">
+      <section className="relative min-h-[85vh] flex items-center pt-24 pb-8 px-[7%] md:px-[10%] overflow-hidden">
         <div className="absolute inset-0 bg-gradient-to-b from-creme via-white to-white pointer-events-none" />
         <div className="absolute -top-16 -left-16 w-48 h-48 bg-rose/20 rounded-full blur-3xl pointer-events-none animate-float" />
 
-        <div className="max-w-[900px] mx-auto text-center relative z-10">
-          <div className="animate-on-scroll section-badge justify-center" data-anim="fade" data-delay="100">Des preuves, pas des promesses</div>
-          <div className="animate-on-scroll" data-anim="scale" data-delay="200">
-            <h1 className="font-display text-[clamp(2.5rem,7vw,5rem)] font-black leading-[0.9] tracking-tighter text-noir mb-2">
-              DES TRANSFORMATIONS
-            </h1>
-            <h1 className="font-serif italic text-[clamp(2rem,5vw,3.5rem)] text-corail font-semibold mb-6">
-              qui se voient
-            </h1>
+        <div className="max-w-[1400px] mx-auto relative z-10 w-full">
+          <div className="grid md:grid-cols-2 gap-8 md:gap-12 items-center">
+            <div>
+              <div
+                className="animate-on-scroll section-badge"
+                data-anim="fade"
+                data-delay="100"
+              >
+                Des preuves, pas des promesses
+              </div>
+              <div
+                className="animate-on-scroll"
+                data-anim="fade"
+                data-delay="200"
+              >
+                <h1 className="font-display text-[clamp(2rem,5vw,3.5rem)] font-black leading-[0.9] tracking-tighter text-noir mb-2">
+                  DES TRANSFORMATIONS
+                </h1>
+                <p className="font-serif italic text-[clamp(2rem,5vw,3.5rem)] text-corail font-semibold mb-4">
+                  qui se voient
+                </p>
+              </div>
+              <p
+                className="animate-on-scroll text-gris text-[15px] md:text-[17px] leading-relaxed max-w-xl"
+                data-delay="400"
+              >
+                Pas de filtres. Pas de retouches. Juste la méthode RESET™ et 10
+                minutes par jour. Ces résultats viennent directement de la
+                communauté YoGyFace.
+              </p>
+            </div>
+            <div
+              className="animate-on-scroll flex justify-center md:justify-end"
+              data-anim="fade"
+              data-delay="300"
+            >
+              <div className="img-zoom rounded-2xl md:rounded-3xl overflow-hidden shadow-xl max-w-[550px]">
+                <img
+                  src="/laury-profil.png"
+                  alt="Laury — profil, geste de drainage du cou"
+                  className="w-full h-auto"
+                />
+              </div>
+            </div>
           </div>
-          <p className="animate-on-scroll text-gris text-[17px] leading-relaxed max-w-xl mx-auto" data-delay="400">
-            Pas de filtres. Pas de retouches. Juste la méthode RESET™ et 10 minutes par jour. Ces résultats viennent directement de la communauté YoGyFace.
-          </p>
         </div>
       </section>
 
@@ -82,8 +136,15 @@ export default function Transformations() {
         <div className="max-w-[1400px] mx-auto relative z-10">
           <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
             {stats.map((s, i) => (
-              <div key={s.label} className="animate-on-scroll text-center" data-anim="scale" data-delay={`${i * 100}`}>
-                <p className="font-display font-black text-[clamp(2rem,5vw,3.5rem)] text-corail">{s.number}</p>
+              <div
+                key={s.label}
+                className="animate-on-scroll text-center"
+                data-anim="scale"
+                data-delay={`${i * 100}`}
+              >
+                <p className="font-display font-black text-[clamp(2rem,5vw,3.5rem)] text-corail">
+                  {s.number}
+                </p>
                 <p className="text-white/40 text-sm mt-1">{s.label}</p>
               </div>
             ))}
@@ -94,10 +155,7 @@ export default function Transformations() {
       {/* Before/After grid */}
       <section className="py-20 px-[5%] bg-white">
         <div className="max-w-[1400px] mx-auto">
-          <p className="text-center text-gris/40 text-sm mb-8 font-serif italic">
-            Photos avant/après de la communauté YoGyFace — à intégrer lors du déploiement final
-          </p>
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6">
             {results.map((r, i) => (
               <div
                 key={i}
@@ -105,23 +163,27 @@ export default function Transformations() {
                 data-anim="scale"
                 data-delay={`${i * 70}`}
               >
-                <div className="aspect-[3/4] bg-gradient-to-b from-creme to-rose/15 flex flex-col">
-                  <div className="flex-1 flex items-center justify-center border-b border-white/50">
-                    <div className="text-center">
-                      <p className="text-xs font-semibold tracking-widest uppercase text-gris/40">Avant</p>
-                      <div className="w-16 h-16 rounded-full bg-gris/8 mx-auto mt-2" />
-                    </div>
-                  </div>
-                  <div className="flex-1 flex items-center justify-center bg-corail/[0.04]">
-                    <div className="text-center">
-                      <p className="text-xs font-semibold tracking-widest uppercase text-corail/40">Après</p>
-                      <div className="w-16 h-16 rounded-full bg-corail/8 mx-auto mt-2" />
-                    </div>
-                  </div>
+                <div className="relative">
+                  <img src={r.img} alt={`Avant/Après — ${r.zone}`} className="w-full h-auto" />
+                  {r.triptych ? (
+                    <>
+                      <div className="absolute top-3 left-3 px-2.5 py-1 rounded-full bg-white/80 backdrop-blur-sm text-[10px] font-semibold uppercase tracking-wider text-gris">Avant</div>
+                      <div className="absolute top-3 left-1/2 -translate-x-1/2 px-2.5 py-1 rounded-full bg-white/80 backdrop-blur-sm text-[10px] font-semibold uppercase tracking-wider text-gris">Pendant</div>
+                      <div className="absolute top-3 right-3 px-2.5 py-1 rounded-full bg-corail/90 backdrop-blur-sm text-[10px] font-semibold uppercase tracking-wider text-white">Après</div>
+                    </>
+                  ) : (
+                    <>
+                      <div className="absolute top-3 left-3 px-2.5 py-1 rounded-full bg-white/80 backdrop-blur-sm text-[10px] font-semibold uppercase tracking-wider text-gris">Avant</div>
+                      <div className="absolute top-3 right-3 px-2.5 py-1 rounded-full bg-corail/90 backdrop-blur-sm text-[10px] font-semibold uppercase tracking-wider text-white">Après</div>
+                    </>
+                  )}
                 </div>
-                <div className="p-3 bg-white">
-                  <p className="text-xs font-semibold text-corail uppercase tracking-wider">{r.tag}</p>
-                  <p className="text-xs text-gris mt-0.5">{r.zone}</p>
+                <div className="p-3 md:p-4 bg-white flex items-center justify-between">
+                  <div>
+                    <p className="text-xs font-semibold text-corail uppercase tracking-wider">{r.tag}</p>
+                    <p className="text-xs text-gris mt-0.5">{r.zone}</p>
+                  </div>
+                  <span className="text-[11px] font-medium text-noir/50 bg-creme px-2.5 py-1 rounded-full">{r.duration}</span>
                 </div>
               </div>
             ))}
@@ -134,13 +196,39 @@ export default function Transformations() {
         <div className="absolute -top-20 -right-20 w-64 h-64 bg-rose/25 rounded-full blur-3xl pointer-events-none animate-float" />
 
         <div className="max-w-[1400px] mx-auto">
-          <div className="text-center mb-16 animate-on-scroll" data-anim="scale">
-            <div className="section-badge justify-center">Verbatim clientes</div>
+          <div
+            className="text-center mb-16 animate-on-scroll"
+            data-anim="scale"
+          >
             <h2 className="font-display text-[clamp(2rem,5vw,3.5rem)] font-black tracking-tighter text-noir mb-4">
-              CE QU'ELLES<br />
-              <span className="font-serif italic text-corail font-semibold">en disent</span>
+              CE QU'ELLES
+              <br />
+              <span className="font-serif italic text-corail font-semibold">
+                en disent
+              </span>
             </h2>
-            <p className="text-gris mt-3 text-sm font-serif italic">Ces phrases viennent directement des clientes de Laury — non éditées.</p>
+            <p className="text-gris mt-3 text-sm font-serif italic mb-6">
+              Ces phrases viennent directement des clientes de Laury — non
+              éditées.
+            </p>
+            {/* Trustpilot */}
+            <div className="flex items-center justify-center gap-3 mt-2">
+              <div className="trustpilot-widget" data-locale="fr-FR" data-template-id="5419b6a8b0d04a076446a9ad" data-businessunit-id="68f5f301affbe7a3ef3d7f12" data-style-height="24px" data-style-width="auto" data-token="88d2e0d6-59e3-40aa-866d-09c7d744a2a8" data-min-review-count="0" data-style-alignment="center">
+                <a href="https://fr.trustpilot.com/review/yogyface.fr" target="_blank" rel="noopener">Trustpilot</a>
+              </div>
+              <a href="https://fr.trustpilot.com/review/yogyface.fr" target="_blank" rel="noopener" className="flex items-center gap-2 text-sm">
+                <span className="font-display font-black text-noir">4.9/5</span>
+                <div className="flex gap-0.5">
+                  {[1,2,3,4,5].map(s => (
+                    <svg key={s} width="20" height="20" viewBox="0 0 24 24" className="text-[#00b67a]">
+                      <rect width="24" height="24" fill="currentColor" />
+                      <path d="M12 2l2.9 6.3L22 9.2l-5 4.6L18.2 21 12 17.3 5.8 21 7 13.8 2 9.2l7.1-.9z" fill="white" style={s === 5 ? { clipPath: 'inset(0 20% 0 0)' } : undefined} />
+                      {s === 5 && <rect x="19.2" width="4.8" height="24" fill="#dcdce6" />}
+                    </svg>
+                  ))}
+                </div>
+              </a>
+            </div>
           </div>
           <div className="grid md:grid-cols-3 gap-5">
             {testimonials.map((t, i) => (
@@ -151,12 +239,19 @@ export default function Transformations() {
               >
                 <div className="flex gap-0.5 mb-4">
                   {[...Array(5)].map((_, j) => (
-                    <svg key={j} className="w-3.5 h-3.5 text-corail/60" fill="currentColor" viewBox="0 0 20 20">
+                    <svg
+                      key={j}
+                      className="w-3.5 h-3.5 text-corail/60"
+                      fill="currentColor"
+                      viewBox="0 0 20 20"
+                    >
                       <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
                     </svg>
                   ))}
                 </div>
-                <p className="text-noir/70 text-[15px] leading-relaxed mb-6 font-serif italic">"{t.text}"</p>
+                <p className="text-noir/70 text-[15px] leading-relaxed mb-4 font-serif italic">
+                  "{t.text}"
+                </p>
                 <div className="flex items-center gap-3">
                   <div className="w-10 h-10 rounded-full bg-gradient-to-br from-corail/20 to-rose/30 flex items-center justify-center text-corail font-bold text-sm">
                     {t.initial}
@@ -164,6 +259,11 @@ export default function Transformations() {
                   <div>
                     <p className="text-noir font-semibold text-sm">{t.name}</p>
                     <p className="text-gris text-xs">{t.info}</p>
+                    {t.link && (
+                      <a href={t.link} target="_blank" rel="noopener" className="text-[11px] text-[#00b67a] font-semibold hover:underline mt-0.5 inline-block">
+                        Voir l'avis complet ↗
+                      </a>
+                    )}
                   </div>
                 </div>
               </div>
@@ -176,17 +276,26 @@ export default function Transformations() {
       <section className="py-24 px-[5%] bg-noir text-white text-center relative overflow-hidden">
         <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[400px] h-[400px] bg-corail/8 rounded-full blur-3xl pointer-events-none animate-pulse-soft" />
 
-        <div className="max-w-xl mx-auto relative z-10 animate-on-scroll" data-anim="scale">
+        <div
+          className="max-w-xl mx-auto relative z-10 animate-on-scroll"
+          data-anim="scale"
+        >
           <h2 className="font-display text-[clamp(2rem,5vw,3rem)] font-black tracking-tighter mb-6">
-            ET TOI, C'EST<br />
-            <span className="font-serif italic text-corail font-semibold">quand ?</span>
+            ET TOI, C'EST
+            <br />
+            <span className="font-serif italic text-corail font-semibold">
+              quand ?
+            </span>
           </h2>
-          <p className="text-white/50 mb-8 text-[16px]">Ces résultats peuvent être les tiens. Inscris-toi pour être prévenue dès qu'une place se libère.</p>
+          <p className="text-white/50 mb-8 text-[16px]">
+            Ces résultats peuvent être les tiens. Inscris-toi pour être prévenue
+            dès qu'une place se libère.
+          </p>
           <Link to="/liste-attente" className="btn-corail text-base px-8 py-4">
             Rejoindre la liste d'attente →
           </Link>
         </div>
       </section>
     </>
-  )
+  );
 }

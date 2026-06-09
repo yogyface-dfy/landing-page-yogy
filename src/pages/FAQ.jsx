@@ -127,6 +127,9 @@ export default function FAQ() {
         <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[300px] h-[300px] bg-rose/20 rounded-full blur-3xl pointer-events-none animate-pulse-soft" />
 
         <div className="max-w-md mx-auto relative z-10 animate-on-scroll" data-anim="scale">
+          <div className="w-24 h-24 mx-auto mb-5 img-zoom rounded-full overflow-hidden shadow-lg">
+            <img src="/laury-fun.png" alt="Laury" className="w-full h-full object-cover" />
+          </div>
           <h2 className="font-display font-black text-2xl tracking-tight mb-4">Tu as d'autres <span className="font-serif italic text-corail font-semibold">questions ?</span></h2>
           <p className="text-gris text-[15px] mb-6">Je réponds personnellement à contact@yogyface.fr ou via Instagram Direct.</p>
           <Link to="/contact" className="btn-primary px-7 py-3.5">
