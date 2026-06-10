@@ -63,19 +63,34 @@ const steps = [
     desc: "Accès illimité à la bibliothèque d'exercices répartis par zones : muscles fondamentaux, bouche, joues, regard, front, ovale, buste, cou et correction d'asymétrie.",
     tag: "Accès illimité",
     detail:
-      "Tu pioches de nouveaux exercices pour élargir ta pratique une fois ta routine acquise.",
+      "Tu pioches de nouveaux exercices pour élargir ta pratique une fois ta routine de base acquise.",
   },
   {
     num: "05",
     title: "12H de Lives Coaching",
-    desc: "Lives FAQ pour te rassurer, t'observer et te corriger les premières semaines. Lives thématiques pour aller plus loin une fois ta routine maîtrisée. 10 créneaux par mois minimum.",
+    // Saut de ligne entre les deux types de lives pour la lisibilité
+    desc: (
+      <>
+        12 lives à répartir sur tes 6 mois de programme. <br /> Lives FAQ pour
+        te rassurer, t'observer et te corriger les premières semaines.
+        <br />
+        Lives thématiques pour aller plus loin une fois ta routine maîtrisée.
+      </>
+    ),
     tag: "6 mois",
-    detail: "Laury est vraiment là — ce n'est pas des vidéos pré-enregistrées.",
+    detail:
+      "Mon équipe de coachs et moi sommes vraiment là pour te guider, te corriger. Ce ne sont pas des vidéos pré-enregistrées.",
   },
   {
     num: "06",
     title: "Suivi Évolution & Communauté",
-    desc: "Questionnaires de suivi à 1, 2, 3 et 6 mois. Groupe WhatsApp privé pour se soutenir. Accès au Club des Marques mensuel avec une marque cosmétique et une experte bien-être.",
+    desc: (
+      <>
+        Questionnaires de suivi à 1, 2, 3 et 6 mois.
+        <br />À vie: Les replays des lives, le groupe WhatsApp privé pour
+        t'aider à progresser et le Club des Marques.
+      </>
+    ),
     tag: "À vie",
     detail:
       "Jamais toute seule dans ton parcours — motivation collective et soutien continu.",
@@ -111,32 +126,60 @@ const unique = [
   },
 ];
 
-/* Bonus experts — real names from the deck */
+/* Chemins SVG des icônes réseaux (mêmes glyphes que le footer) */
+const SOCIAL_ICONS = {
+  Instagram:
+    "M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z",
+  YouTube:
+    "M23.498 6.186a3.016 3.016 0 00-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 00.502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 002.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 002.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z",
+};
+
+/* Bonus experts — real names from the deck (+ liens réseaux) */
 const bonusExperts = [
   {
     name: "Camille Hermann",
     role: "Biologiste & dermo-nutritionniste",
-    content: "Méthode P.E.A.U + Guide Nutrition Anti-Âge",
+    content:
+      "15 ans dans l'industrie dermo-cosmétique (L'Oréal, Clarins, Nuxe), Master en biologie-santé et DU de nutrition (La Sorbonne). Elle t'apprend à prendre soin de ta peau par l'alimentation : sa méthode de l'assiette P.E.A.U et un guide nutrition anti-âge pour agir de l'intérieur sur les rides, les taches et l'éclat.",
+    links: [
+      { label: "Instagram", url: "https://www.instagram.com/veggyglo" },
+      {
+        label: "YouTube",
+        url: "https://www.youtube.com/@camillehermannbiologist",
+      },
+    ],
   },
   {
-    name: "Irina",
+    name: "Irina Sambucini",
     role: "Neurothérapeute",
-    content: "Routine EFT complète — reprogrammation mentale et confiance",
+    content:
+      "Coach certifiée en neurosciences, psychologie positive et EFT. Elle t'aide à libérer les blocages émotionnels et les croyances limitantes qui se cristallisent sur ton visage, pour reprogrammer ton mental, ta confiance et ton estime de toi.",
+    links: [{ label: "Instagram", url: "https://www.instagram.com/irina.smb" }],
   },
   {
     name: "Laëtitia",
     role: "Formatrice Face Tape",
-    content: "Application Face Tape : rides du lion, front et sillons",
+    content:
+      "Créatrice de la Méthode LovelyLift® (Lovely Face Studio), formée notamment auprès de Sylvie Lefranc. Elle te transmet ses applications de face taping ciblées — ride du lion, front, sillons nasogéniens, masséter — pour soutenir et remodeler ton visage entre les séances.",
+    links: [
+      {
+        label: "Instagram",
+        url: "https://www.instagram.com/lovelyface.studio",
+      },
+    ],
   },
   {
-    name: "Alicia",
+    name: "Alicia R",
     role: "Ancienne danseuse pro & coach yoga",
-    content: "+30 min de routines : respiration, posture, étirements ciblés",
+    content:
+      "Son passé de danseuse professionnelle nourrit une approche du corps et du souffle indissociable du visage. Plus de 30 minutes de routines guidées : respiration, posture et étirements ciblés pour relâcher les tensions et ancrer ta pratique.",
   },
   {
-    name: "Julie (Natis)",
+    name: "Julie (Natis-Lab)",
     role: "Chimie organique & phytothérapie",
-    content: "Comprendre le collagène : marin, bovin et biomimétique végétal",
+    content:
+      "Fondatrice de la marque Natis, plus de 20 ans dans les compléments alimentaires, formée en chimie organique (ISIPCA) et en plantes médicinales (École lyonnaise). Elle décrypte le collagène — marin, bovin et son alternative végétale biomimétique — pour t'aider à faire des choix éclairés.",
+    links: [{ label: "Instagram", url: "https://www.instagram.com/natis_lab" }],
   },
 ];
 
@@ -369,13 +412,13 @@ export default function Programme() {
               data-delay="200"
             >
               <blockquote className="border-l-2 border-corail/30 pl-5">
-                <p className="text-gris text-base md:text-lg leading-relaxed font-serif italic mb-3">
+                <p className="text-noir/80 text-xl md:text-2xl leading-relaxed font-serif italic mb-3">
                   "Chaque zone de ton visage a ses propres muscles, ses propres
                   tensions. C'est pour ça que je crée un programme adapté à TON
                   visage — pas un protocole générique."
                 </p>
-                <cite className="text-corail font-semibold text-sm not-italic">
-                  — Laury
+                <cite className="text-corail font-semibold text-base not-italic">
+                  Laury Anater
                 </cite>
               </blockquote>
             </div>
@@ -386,7 +429,7 @@ export default function Programme() {
       {/* ═══ WHAT MAKES IT UNIQUE ═══ */}
       <section className="py-16 md:py-28 px-[5%] bg-creme relative overflow-hidden">
         <div className="absolute bottom-0 right-0 w-64 h-64 bg-bleu/15 rounded-full blur-3xl pointer-events-none animate-float-slow hidden md:block" />
-        <div className="max-w-[1400px] mx-auto">
+        <div className="max-w-[1100px] mx-auto">
           <div
             className="text-center mb-12 md:mb-20 animate-on-scroll"
             data-anim="scale"
@@ -408,11 +451,12 @@ export default function Programme() {
               ?
             </p>
           </div>
-          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 md:gap-5">
+          {/* Grille 6 colonnes : 3 cartes en haut, 2 cartes centrées en bas */}
+          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-6 gap-4 md:gap-5">
             {unique.map((item, i) => (
               <div
                 key={item.title}
-                className={`animate-on-scroll card-hover bg-white rounded-2xl p-5 md:p-7 border border-noir/5 hover:border-corail/15 group ${i === 4 ? "sm:col-span-2 md:col-span-1" : ""}`}
+                className={`animate-on-scroll card-hover bg-white rounded-2xl p-5 md:p-7 border border-noir/5 hover:border-corail/15 group md:col-span-2 ${i === 3 ? "md:col-start-2" : ""} ${i === 4 ? "sm:col-span-2" : ""}`}
                 data-anim="scale"
                 data-delay={`${i * 80}`}
               >
@@ -486,6 +530,30 @@ export default function Programme() {
                   <p className="text-corail text-xs font-semibold">
                     {expert.role}
                   </p>
+                  {/* Liens réseaux de l'experte (icônes) */}
+                  {expert.links && (
+                    <div className="flex gap-2 mt-2">
+                      {expert.links.map((link) => (
+                        <a
+                          key={link.url}
+                          href={link.url}
+                          target="_blank"
+                          rel="noreferrer"
+                          aria-label={`${link.label} de ${expert.name}`}
+                          className="w-8 h-8 rounded-full border border-noir/10 flex items-center justify-center text-noir/50 hover:border-corail hover:text-corail hover:scale-110 transition-all duration-300"
+                        >
+                          <svg
+                            width="14"
+                            height="14"
+                            fill="currentColor"
+                            viewBox="0 0 24 24"
+                          >
+                            <path d={SOCIAL_ICONS[link.label]} />
+                          </svg>
+                        </a>
+                      ))}
+                    </div>
+                  )}
                 </div>
                 <p className="text-gris text-[13px] md:text-[15px] leading-relaxed">
                   {expert.content}
@@ -582,9 +650,6 @@ export default function Programme() {
               </div>
             ))}
           </div>
-          <p className="text-center text-gris/50 text-xs mt-4 font-serif italic">
-            Tous les bonus font partie du programme — pas d'upsell caché.
-          </p>
         </div>
       </section>
 
@@ -598,18 +663,18 @@ export default function Programme() {
             <Icon name="shield" size={28} />
           </div>
           <h2 className="font-display text-2xl md:text-3xl font-black tracking-tight text-noir mb-3">
-            Garantie satisfaite ou remboursée
+            Garantie YoGyFace
           </h2>
           <p className="text-gris text-[15px] md:text-[16px] leading-relaxed mb-4">
-            Si après avoir suivi tes 12H de coaching, pratiqué tes routines au
-            minimum 4 fois par semaine et envoyé tes photos de suivi — tu ne
-            vois toujours pas d'amélioration de ton bien-être ou de ta confiance
-            en toi :
+            Si après avoir suivi tes 6 mois de programme, tes 12h de coaching
+            collectif, pratiqué tes routines au minimum 4 fois par semaine et
+            envoyé tes photos de suivi (1, 2, 3 et 6 mois) — tu ne vois toujours
+            pas d'amélioration de ton bien-être ou de ta confiance en toi :
           </p>
           <p className="text-noir font-display font-black text-lg md:text-xl">
             Tu m'envoies un email et je te rembourse en totalité.
           </p>
-          <p className="text-gris/60 text-sm mt-3 font-serif italic">
+          <p className="text-gris/60 mt-3 font-serif italic">
             Je veux que tu sois totalement sereine à l'idée de passer le cap.
           </p>
         </div>

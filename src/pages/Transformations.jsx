@@ -2,17 +2,73 @@ import { Link } from "react-router-dom";
 import SEO from "../components/SEO";
 
 const results = [
-  { img: "/ba-01.webp", duration: "8 semaines", zone: "Sillons nasogéniens", tag: "Résultat 8 sem." },
-  { img: "/ba-02.webp", duration: "6 semaines", zone: "Cernes & poches", tag: "Résultat 6 sem." },
-  { img: "/ba-03.webp", duration: "3 mois", zone: "Lifting global", tag: "Résultat 3 mois" },
-  { img: "/ba-04.webp", duration: "4 mois", zone: "Rides du front", tag: "Progression 4 mois", triptych: true },
-  { img: "/ba-05.webp", duration: "6 semaines", zone: "Ovale & mâchoire", tag: "Résultat 6 sem." },
-  { img: "/ba-06.webp", duration: "2 mois", zone: "Jawline & profil", tag: "Résultat 2 mois" },
-  { img: "/ba-07.webp", duration: "3 mois", zone: "Cou & relâchement", tag: "Résultat 3 mois" },
-  { img: "/ba-08.webp", duration: "6 semaines", zone: "Teint & éclat", tag: "Résultat 6 sem." },
-  { img: "/ba-09.webp", duration: "2 mois", zone: "Volume & gonflement", tag: "Résultat 2 mois" },
-  { img: "/ba-10.webp", duration: "3 mois", zone: "Ovale du visage", tag: "Résultat 3 mois" },
-  { img: "/ba-11.webp", duration: "6 semaines", zone: "Rides d'expression", tag: "Résultat 6 sem." },
+  {
+    img: "/ba-01.webp",
+    duration: "8 semaines",
+    zone: "Fermeté du cou et relâchement",
+    tag: "Céline",
+  },
+  {
+    img: "/ba-02.webp",
+    duration: "6 semaines",
+    zone: "Double menton et affaissement",
+    tag: "Audrey",
+  },
+  {
+    img: "/ba-03.webp",
+    duration: "3 mois",
+    zone: "Sillons nasogéniens",
+    tag: "Corinne",
+  },
+  {
+    img: "/ba-04.webp",
+    duration: "4 mois",
+    zone: "Affaissement du regard / Paupières tombantes",
+    tag: "Yael",
+    triptych: true,
+  },
+  {
+    img: "/ba-05.webp",
+    duration: "3 mois",
+    zone: "Ovale et Bajoues",
+    tag: "Carine",
+  },
+  {
+    img: "/ba-06.webp",
+    duration: "1 mois",
+    zone: "Double menton et affaissement",
+    tag: "Peggy",
+  },
+  {
+    img: "/ba-07.webp",
+    duration: "3 mois",
+    zone: "Sillons nasogéniens",
+    tag: "Jennifer",
+  },
+  {
+    img: "/ba-08.webp",
+    duration: "6 semaines",
+    zone: "Bas du visage",
+    tag: "Peggy",
+  },
+  {
+    img: "/ba-09.webp",
+    duration: "2 mois",
+    zone: "Volume, Bajoues et asymétrie",
+    tag: "Marie-Laure",
+  },
+  {
+    img: "/ba-11.webp",
+    duration: "6 mois",
+    zone: "Rides du front",
+    tag: "Christelle",
+  },
+  {
+    img: "/ba-10.webp",
+    duration: "1 mois",
+    zone: "Rides d'expression",
+    tag: "Christel",
+  },
 ];
 
 const testimonials = [
@@ -22,6 +78,13 @@ const testimonials = [
     info: "Ride du lion · Paupières · Asymétrie",
     initial: "J",
     link: "https://www.trustpilot.com/reviews/6a008d013da13a0d8a16d222",
+  },
+  {
+    text: "Cela fait maintenant un an que je pratique le yoga du visage avec Laury, et je suis vraiment ravie des résultats. Avant de découvrir le yoga du visage, j'avais eu recours au botox qui m'avait créé de nouvelles problématiques, mais le yoga du visage m'a permis de corriger tout cela. J'ai repris totalement confiance en moi-même, je m'accepte de nouveau dans le miroir. Je recommande à 100 %, sans aucune déception.",
+    name: "Carine",
+    info: "Une renaissance · Après Botox · Confiance retrouvée",
+    initial: "C",
+    link: "https://www.trustpilot.com/reviews/6a29584db820ab188088ce5e",
   },
   {
     text: "Après 8 semaines, mon mari m'a demandé si j'avais fait quelque chose. Mon ovale est plus défini, mes cernes se sont atténuées. Je ne pensais pas que c'était possible sans injection.",
@@ -107,9 +170,10 @@ export default function Transformations() {
                 className="animate-on-scroll text-gris text-[15px] md:text-[17px] leading-relaxed max-w-xl"
                 data-delay="400"
               >
-                Pas de filtres. Pas de retouches. Juste la méthode RESET™ et 10
-                minutes par jour. Ces résultats viennent directement de la
-                communauté YoGyFace.
+                Pas de filtres. Pas de retouches. Tu te rends compte de tes
+                résultats en photos, mois après mois. Ces résultats viennent
+                directement de la communauté YoGyFace, de femmes qui ont suivi
+                RESET™.
               </p>
             </div>
             <div
@@ -164,26 +228,45 @@ export default function Transformations() {
                 data-delay={`${i * 70}`}
               >
                 <div className="relative">
-                  <img src={r.img} alt={`Avant/Après — ${r.zone}`} loading="lazy" className="w-full h-auto" />
+                  <img
+                    src={r.img}
+                    alt={`Avant/Après — ${r.zone}`}
+                    loading="lazy"
+                    className="w-full h-auto"
+                  />
                   {r.triptych ? (
                     <>
-                      <div className="absolute top-2 left-2 md:top-3 md:left-3 px-1.5 py-0.5 md:px-2.5 md:py-1 rounded-full bg-white/80 backdrop-blur-sm text-[9px] md:text-[10px] font-semibold uppercase tracking-wide md:tracking-wider text-gris">Avant</div>
-                      <div className="absolute top-2 md:top-3 left-1/2 -translate-x-1/2 px-1.5 py-0.5 md:px-2.5 md:py-1 rounded-full bg-white/80 backdrop-blur-sm text-[9px] md:text-[10px] font-semibold uppercase tracking-wide md:tracking-wider text-gris">Pendant</div>
-                      <div className="absolute top-2 right-2 md:top-3 md:right-3 px-1.5 py-0.5 md:px-2.5 md:py-1 rounded-full bg-corail/90 backdrop-blur-sm text-[9px] md:text-[10px] font-semibold uppercase tracking-wide md:tracking-wider text-white">Après</div>
+                      <div className="absolute top-2 left-2 md:top-3 md:left-3 px-1.5 py-0.5 md:px-2.5 md:py-1 rounded-full bg-white/80 backdrop-blur-sm text-[9px] md:text-[10px] font-semibold uppercase tracking-wide md:tracking-wider text-gris">
+                        Avant
+                      </div>
+                      <div className="absolute top-2 md:top-3 left-1/2 -translate-x-1/2 px-1.5 py-0.5 md:px-2.5 md:py-1 rounded-full bg-white/80 backdrop-blur-sm text-[9px] md:text-[10px] font-semibold uppercase tracking-wide md:tracking-wider text-gris">
+                        Pendant
+                      </div>
+                      <div className="absolute top-2 right-2 md:top-3 md:right-3 px-1.5 py-0.5 md:px-2.5 md:py-1 rounded-full bg-corail/90 backdrop-blur-sm text-[9px] md:text-[10px] font-semibold uppercase tracking-wide md:tracking-wider text-white">
+                        Après
+                      </div>
                     </>
                   ) : (
                     <>
-                      <div className="absolute top-3 left-3 px-2.5 py-1 rounded-full bg-white/80 backdrop-blur-sm text-[10px] font-semibold uppercase tracking-wider text-gris">Avant</div>
-                      <div className="absolute top-3 right-3 px-2.5 py-1 rounded-full bg-corail/90 backdrop-blur-sm text-[10px] font-semibold uppercase tracking-wider text-white">Après</div>
+                      <div className="absolute top-3 left-3 px-2.5 py-1 rounded-full bg-white/80 backdrop-blur-sm text-[10px] font-semibold uppercase tracking-wider text-gris">
+                        Avant
+                      </div>
+                      <div className="absolute top-3 right-3 px-2.5 py-1 rounded-full bg-corail/90 backdrop-blur-sm text-[10px] font-semibold uppercase tracking-wider text-white">
+                        Après
+                      </div>
                     </>
                   )}
                 </div>
                 <div className="p-3 md:p-4 bg-white flex items-center justify-between">
                   <div>
-                    <p className="text-xs font-semibold text-corail uppercase tracking-wider">{r.tag}</p>
+                    <p className="text-xs font-semibold text-corail uppercase tracking-wider">
+                      {r.tag}
+                    </p>
                     <p className="text-xs text-gris mt-0.5">{r.zone}</p>
                   </div>
-                  <span className="text-[11px] font-medium text-noir/50 bg-creme px-2.5 py-1 rounded-full">{r.duration}</span>
+                  <span className="text-[11px] font-medium text-noir/50 bg-creme px-2.5 py-1 rounded-full">
+                    {r.duration}
+                  </span>
                 </div>
               </div>
             ))}
@@ -213,17 +296,52 @@ export default function Transformations() {
             </p>
             {/* Trustpilot */}
             <div className="flex flex-wrap items-center justify-center gap-3 mt-2">
-              <div className="trustpilot-widget" data-locale="fr-FR" data-template-id="5419b6a8b0d04a076446a9ad" data-businessunit-id="68f5f301affbe7a3ef3d7f12" data-style-height="24px" data-style-width="auto" data-token="88d2e0d6-59e3-40aa-866d-09c7d744a2a8" data-min-review-count="0" data-style-alignment="center">
-                <a href="https://fr.trustpilot.com/review/yogyface.fr" target="_blank" rel="noopener">Trustpilot</a>
+              <div
+                className="trustpilot-widget"
+                data-locale="fr-FR"
+                data-template-id="5419b6a8b0d04a076446a9ad"
+                data-businessunit-id="68f5f301affbe7a3ef3d7f12"
+                data-style-height="24px"
+                data-style-width="auto"
+                data-token="88d2e0d6-59e3-40aa-866d-09c7d744a2a8"
+                data-min-review-count="0"
+                data-style-alignment="center"
+              >
+                <a
+                  href="https://fr.trustpilot.com/review/yogyface.fr"
+                  target="_blank"
+                  rel="noopener"
+                >
+                  Trustpilot
+                </a>
               </div>
-              <a href="https://fr.trustpilot.com/review/yogyface.fr" target="_blank" rel="noopener" className="flex items-center gap-2 text-sm">
+              <a
+                href="https://fr.trustpilot.com/review/yogyface.fr"
+                target="_blank"
+                rel="noopener"
+                className="flex items-center gap-2 text-sm"
+              >
                 <span className="font-display font-black text-noir">4.9/5</span>
                 <div className="flex gap-0.5">
-                  {[1,2,3,4,5].map(s => (
-                    <svg key={s} width="20" height="20" viewBox="0 0 24 24" className="text-[#00b67a]">
+                  {[1, 2, 3, 4, 5].map((s) => (
+                    <svg
+                      key={s}
+                      width="20"
+                      height="20"
+                      viewBox="0 0 24 24"
+                      className="text-[#00b67a]"
+                    >
                       <rect width="24" height="24" fill="currentColor" />
-                      <path d="M12 2l2.9 6.3L22 9.2l-5 4.6L18.2 21 12 17.3 5.8 21 7 13.8 2 9.2l7.1-.9z" fill="white" style={s === 5 ? { clipPath: 'inset(0 20% 0 0)' } : undefined} />
-                      {s === 5 && <rect x="19.2" width="4.8" height="24" fill="#dcdce6" />}
+                      <path
+                        d="M12 2l2.9 6.3L22 9.2l-5 4.6L18.2 21 12 17.3 5.8 21 7 13.8 2 9.2l7.1-.9z"
+                        fill="white"
+                        style={
+                          s === 5 ? { clipPath: "inset(0 20% 0 0)" } : undefined
+                        }
+                      />
+                      {s === 5 && (
+                        <rect x="19.2" width="4.8" height="24" fill="#dcdce6" />
+                      )}
                     </svg>
                   ))}
                 </div>
@@ -260,7 +378,12 @@ export default function Transformations() {
                     <p className="text-noir font-semibold text-sm">{t.name}</p>
                     <p className="text-gris text-xs">{t.info}</p>
                     {t.link && (
-                      <a href={t.link} target="_blank" rel="noopener" className="text-[11px] text-[#00b67a] font-semibold hover:underline mt-0.5 inline-block">
+                      <a
+                        href={t.link}
+                        target="_blank"
+                        rel="noopener"
+                        className="text-[11px] text-[#00b67a] font-semibold hover:underline mt-0.5 inline-block"
+                      >
                         Voir l'avis complet ↗
                       </a>
                     )}
@@ -296,7 +419,13 @@ export default function Transformations() {
           </Link>
           <p className="text-white/30 text-sm mt-6">
             Découvre comment j'obtiens ces résultats avec{" "}
-            <Link to="/programme" className="text-corail/80 font-semibold hover:underline">la méthode RESET™</Link>.
+            <Link
+              to="/programme"
+              className="text-corail/80 font-semibold hover:underline"
+            >
+              la méthode RESET™
+            </Link>
+            .
           </p>
         </div>
       </section>
