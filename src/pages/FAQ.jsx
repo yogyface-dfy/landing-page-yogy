@@ -158,7 +158,7 @@ export default function FAQ() {
         >
           <div className="w-24 h-24 mx-auto mb-5 img-zoom rounded-full overflow-hidden shadow-lg">
             <img
-              src="/laury-fun.png"
+              src="/laury-fun.webp"
               alt="Laury, fondatrice de YoGyFace, souriante"
               loading="lazy"
               className="w-full h-full object-cover"

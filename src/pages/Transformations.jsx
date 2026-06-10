@@ -2,17 +2,17 @@ import { Link } from "react-router-dom";
 import SEO from "../components/SEO";
 
 const results = [
-  { img: "/ba-01.png", duration: "8 semaines", zone: "Sillons nasogéniens", tag: "Résultat 8 sem." },
-  { img: "/ba-02.png", duration: "6 semaines", zone: "Cernes & poches", tag: "Résultat 6 sem." },
-  { img: "/ba-03.jpg", duration: "3 mois", zone: "Lifting global", tag: "Résultat 3 mois" },
-  { img: "/ba-04.png", duration: "4 mois", zone: "Rides du front", tag: "Progression 4 mois", triptych: true },
-  { img: "/ba-05.png", duration: "6 semaines", zone: "Ovale & mâchoire", tag: "Résultat 6 sem." },
-  { img: "/ba-06.png", duration: "2 mois", zone: "Jawline & profil", tag: "Résultat 2 mois" },
-  { img: "/ba-07.png", duration: "3 mois", zone: "Cou & relâchement", tag: "Résultat 3 mois" },
-  { img: "/ba-08.png", duration: "6 semaines", zone: "Teint & éclat", tag: "Résultat 6 sem." },
-  { img: "/ba-09.png", duration: "2 mois", zone: "Volume & gonflement", tag: "Résultat 2 mois" },
-  { img: "/ba-10.png", duration: "3 mois", zone: "Ovale du visage", tag: "Résultat 3 mois" },
-  { img: "/ba-11.png", duration: "6 semaines", zone: "Rides d'expression", tag: "Résultat 6 sem." },
+  { img: "/ba-01.webp", duration: "8 semaines", zone: "Sillons nasogéniens", tag: "Résultat 8 sem." },
+  { img: "/ba-02.webp", duration: "6 semaines", zone: "Cernes & poches", tag: "Résultat 6 sem." },
+  { img: "/ba-03.webp", duration: "3 mois", zone: "Lifting global", tag: "Résultat 3 mois" },
+  { img: "/ba-04.webp", duration: "4 mois", zone: "Rides du front", tag: "Progression 4 mois", triptych: true },
+  { img: "/ba-05.webp", duration: "6 semaines", zone: "Ovale & mâchoire", tag: "Résultat 6 sem." },
+  { img: "/ba-06.webp", duration: "2 mois", zone: "Jawline & profil", tag: "Résultat 2 mois" },
+  { img: "/ba-07.webp", duration: "3 mois", zone: "Cou & relâchement", tag: "Résultat 3 mois" },
+  { img: "/ba-08.webp", duration: "6 semaines", zone: "Teint & éclat", tag: "Résultat 6 sem." },
+  { img: "/ba-09.webp", duration: "2 mois", zone: "Volume & gonflement", tag: "Résultat 2 mois" },
+  { img: "/ba-10.webp", duration: "3 mois", zone: "Ovale du visage", tag: "Résultat 3 mois" },
+  { img: "/ba-11.webp", duration: "6 semaines", zone: "Rides d'expression", tag: "Résultat 6 sem." },
 ];
 
 const testimonials = [
@@ -119,7 +119,7 @@ export default function Transformations() {
             >
               <div className="img-zoom rounded-2xl md:rounded-3xl overflow-hidden shadow-xl max-w-[550px]">
                 <img
-                  src="/laury-profil.png"
+                  src="/laury-profil.webp"
                   alt="Laury — profil, geste de drainage du cou"
                   className="w-full h-auto"
                 />

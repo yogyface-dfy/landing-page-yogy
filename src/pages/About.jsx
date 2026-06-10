@@ -19,7 +19,7 @@ const steps = [
     num: "03",
     title: "LA RECHERCHE",
     text: "Je me forme auprès des grandes références mondiales (Sylvie LeFranc, Ena Narumi, Fumiko Takatsu). Je crée mes premiers ateliers pour Weleda dans les pharmacies en France. Les clientes réclament du suivi personnalisé. J'ai mélangé mon expertise skincare avec l'univers du yoga du visage pour que les femmes obtiennent enfin de vraies transformations",
-    image: "/laury-biotherm.png",
+    image: "/laury-biotherm.webp",
     imageAlt: "Laury en conférence pour Biotherm",
   },
   {
@@ -65,20 +65,20 @@ const lauryQuote2 =
 
 const parcoursPhotos = [
   {
-    src: "/laury-sylvie.png",
+    src: "/laury-sylvie.webp",
     alt: "Laury avec Sylvie LeFranc",
     name: "Sylvie LeFranc",
     desc: "Référence en France dans le domaine du yoga du visage. Formatrice professionnelle et pionnière.",
   },
   {
-    src: "/laury-narumi.png",
+    src: "/laury-narumi.webp",
     alt: "Laury avec Era Narumi",
     name: "Era Narumi",
     desc: "Experte japonaise reconnue pour sa maîtrise des fascias et ses techniques uniques de modelage facial.",
   },
 
   {
-    src: "/laury-fumiko.png",
+    src: "/laury-fumiko.webp",
     alt: "Laury avec Fumiko Takatsu",
     name: "Fumiko Takatsu",
     desc: "Japonaise, fondatrice du Face Yoga Method — la méthode de yoga du visage la plus connue au monde.",
@@ -141,7 +141,7 @@ export default function About() {
                 <div className="absolute -bottom-3 -left-3 w-20 md:w-28 h-20 md:h-28 border-2 border-bleu/15 rounded-2xl pointer-events-none hidden sm:block" />
                 <div className="img-zoom rounded-2xl md:rounded-3xl overflow-hidden shadow-2xl">
                   <img
-                    src="/laury-expertise.png"
+                    src="/laury-expertise.webp"
                     alt="Laury — expertise en anatomie faciale et yoga du visage"
                     className="w-full h-auto"
                   />
@@ -164,7 +164,7 @@ export default function About() {
               data-anim="fade"
             >
               <img
-                src="/laury-bureau.png"
+                src="/laury-bureau.webp"
                 alt="Laury au bureau — création de programmes"
                 loading="lazy"
                 className="w-full h-auto"
@@ -275,7 +275,7 @@ export default function About() {
               <div className="absolute -inset-4 bg-corail/5 rounded-3xl blur-2xl pointer-events-none hidden md:block" />
               <div className="img-zoom rounded-2xl md:rounded-3xl overflow-hidden shadow-2xl relative">
                 <img
-                  src="/laury-livres.png"
+                  src="/laury-livres.webp"
                   alt="Laury — passionnée de science et d'anatomie faciale"
                   loading="lazy"
                   className="w-full h-auto"
@@ -414,7 +414,7 @@ export default function About() {
               data-delay="200"
             >
               <img
-                src="/laury-equipe.png"
+                src="/laury-equipe.webp"
                 alt="L'équipe YoGyFace"
                 loading="lazy"
                 className="w-full h-auto"

@@ -307,7 +307,7 @@ export default function Home() {
                 <div className="absolute -bottom-3 -left-3 md:-bottom-4 md:-left-4 w-20 md:w-32 h-20 md:h-32 border-2 border-bleu/20 rounded-2xl pointer-events-none hidden sm:block" />
                 <div className="rounded-2xl md:rounded-3xl overflow-hidden shadow-2xl">
                   <img
-                    src="/laury-hero.png"
+                    src="/laury-hero.webp"
                     alt="Laury, fondatrice de YoGyFace"
                     fetchpriority="high"
                     width="682"
@@ -359,7 +359,7 @@ export default function Home() {
             >
               <div className="img-zoom rounded-2xl md:rounded-3xl overflow-hidden shadow-xl relative mx-auto">
                 <img
-                  src="/laury-drainage.png"
+                  src="/laury-drainage.webp"
                   alt="Laury — geste de drainage lymphatique du cou"
                   loading="lazy"
                   className="w-full h-auto object-contain"
@@ -582,7 +582,7 @@ export default function Home() {
               data-anim="fade"
             >
               <img
-                src="/laury-ecriture.png"
+                src="/laury-ecriture.webp"
                 alt="Laury qui écrit — création de programmes personnalisés à la main"
                 loading="lazy"
                 className="w-full h-[300px] md:h-auto object-cover md:object-contain object-[50%_18%]"

@@ -1,21 +1,23 @@
-import React from 'react'
+import React, { lazy } from 'react'
 import ReactDOM from 'react-dom/client'
 import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom'
 import { HelmetProvider } from 'react-helmet-async'
 import './index.css'
 import Layout from './components/Layout'
 import Home from './pages/Home'
-import About from './pages/About'
-import Programme from './pages/Programme'
-import Transformations from './pages/Transformations'
-import FAQ from './pages/FAQ'
-import Contact from './pages/Contact'
-import ListeAttente from './pages/ListeAttente'
-import MentionsLegales from './pages/MentionsLegales'
-import CGV from './pages/CGV'
-import Confidentialite from './pages/Confidentialite'
+
+// Code-splitting : pages chargées à la demande (Home reste en eager pour le LCP)
+const About = lazy(() => import('./pages/About'))
+const Programme = lazy(() => import('./pages/Programme'))
+const Transformations = lazy(() => import('./pages/Transformations'))
+const FAQ = lazy(() => import('./pages/FAQ'))
+const Contact = lazy(() => import('./pages/Contact'))
+const ListeAttente = lazy(() => import('./pages/ListeAttente'))
+const MentionsLegales = lazy(() => import('./pages/MentionsLegales'))
+const CGV = lazy(() => import('./pages/CGV'))
+const Confidentialite = lazy(() => import('./pages/Confidentialite'))
 // Événements masqué temporairement (données manquantes) — pages conservées, routes redirigées
-import NotFound from './pages/NotFound'
+const NotFound = lazy(() => import('./pages/NotFound'))
 
 ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>

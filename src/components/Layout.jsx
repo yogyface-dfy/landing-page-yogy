@@ -1,5 +1,5 @@
 import { Outlet, useLocation } from 'react-router-dom'
-import { useEffect, useCallback } from 'react'
+import { useEffect, useCallback, Suspense } from 'react'
 import { Helmet } from 'react-helmet-async'
 import Navbar from './Navbar'
 import Footer from './Footer'
@@ -63,29 +63,43 @@ export default function Layout() {
     return () => { clearInterval(interval); clearTimeout(timeout) }
   }, [pathname])
 
-  /* Enhanced scroll observer — supports data-anim variants and staggered delays */
-  const setupObserver = useCallback(() => {
+  /* Enhanced scroll observer — supports data-anim variants and staggered delays.
+     Crée un observer unique et n'observe que les éléments pas encore visibles. */
+  const createObserver = useCallback(() => {
     const observer = new IntersectionObserver(
       (entries) => {
         entries.forEach(entry => {
           if (entry.isIntersecting) {
             const delay = entry.target.dataset.delay || 0
             setTimeout(() => entry.target.classList.add('visible'), Number(delay))
+            observer.unobserve(entry.target)
           }
         })
       },
       { threshold: 0.08, rootMargin: '0px 0px -40px 0px' }
     )
-    document.querySelectorAll('.animate-on-scroll, .line-draw').forEach(el => observer.observe(el))
-    return () => observer.disconnect()
+    return observer
   }, [])
 
   useEffect(() => {
-    const cleanup = setupObserver()
-    /* Re-observe after images load (layout shifts) */
-    const timer = setTimeout(setupObserver, 500)
-    return () => { cleanup(); clearTimeout(timer) }
-  }, [pathname, setupObserver])
+    const observer = createObserver()
+    const observeNew = () =>
+      document
+        .querySelectorAll('.animate-on-scroll:not(.visible), .line-draw:not(.visible)')
+        .forEach(el => observer.observe(el))
+
+    /* Les pages chargées en lazy (code-splitting) montent APRÈS ce 1er passage :
+       on re-scanne le DOM par petites passes pour observer les éléments dès
+       qu'ils apparaissent, ce qui garantit l'animation progressive partout. */
+    observeNew()
+    let tries = 0
+    const interval = setInterval(() => {
+      observeNew()
+      if (++tries > 30) clearInterval(interval)
+    }, 100)
+
+    return () => { observer.disconnect(); clearInterval(interval) }
+  }, [pathname, createObserver])
 
   /* Parallax on floating decorative elements */
   useEffect(() => {
@@ -117,7 +131,10 @@ export default function Layout() {
       </Helmet>
       <Navbar />
       <main>
-        <Outlet />
+        {/* Suspense : fallback pendant le chargement des chunks de page (code-splitting) */}
+        <Suspense fallback={<div className="min-h-screen" />}>
+          <Outlet />
+        </Suspense>
       </main>
       <Footer />
     </div>

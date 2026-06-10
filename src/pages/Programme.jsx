@@ -233,7 +233,7 @@ export default function Programme() {
                 <div className="absolute -inset-4 bg-gradient-to-br from-bleu/15 to-rose/15 rounded-3xl blur-2xl pointer-events-none opacity-60 hidden md:block" />
                 <div className="img-zoom rounded-2xl md:rounded-3xl overflow-hidden shadow-2xl relative">
                   <img
-                    src="/laury-massage.png"
+                    src="/laury-massage.webp"
                     alt="Laury — geste de massage facial"
                     className="w-full h-auto"
                   />
@@ -359,7 +359,7 @@ export default function Programme() {
               data-anim="fade"
             >
               <img
-                src="/laury-yeux.png"
+                src="/laury-yeux.webp"
                 alt="Laury — exercice ciblé contour des yeux"
                 loading="lazy"
                 className="w-full h-auto"
@@ -465,7 +465,7 @@ export default function Programme() {
             <div className="relative max-w-[700px] mx-auto">
               <div className="absolute -inset-3 bg-gradient-to-br from-corail/10 to-bleu/10 rounded-3xl blur-2xl pointer-events-none opacity-50 hidden md:block" />
               <img
-                src="/equipe-expertes.png"
+                src="/equipe-expertes.webp"
                 alt="L'équipe d'expertes YoGyFace — Laury et ses intervenantes"
                 loading="lazy"
                 className="w-full h-auto rounded-2xl md:rounded-3xl shadow-xl relative"
@@ -530,19 +530,19 @@ export default function Programme() {
             <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-3 md:gap-4">
               {[
                 {
-                  src: "/ebook-muscles.png",
+                  src: "/ebook-muscles.webp",
                   alt: "Visualisation des muscles du visage",
                 },
-                { src: "/ebook-routine.png", alt: "Suivi de routine YoGyFace" },
+                { src: "/ebook-routine.webp", alt: "Suivi de routine YoGyFace" },
                 {
-                  src: "/ebook-dodont.png",
+                  src: "/ebook-dodont.webp",
                   alt: "Do & Don't du yoga du visage",
                 },
                 {
-                  src: "/ebook-regles.png",
+                  src: "/ebook-regles.webp",
                   alt: "10 règles d'or pour réussir",
                 },
-                { src: "/ebook-longevite.png", alt: "4 secrets de longévité" },
+                { src: "/ebook-longevite.webp", alt: "4 secrets de longévité" },
               ].map((ebook, i) => (
                 <div
                   key={ebook.src}

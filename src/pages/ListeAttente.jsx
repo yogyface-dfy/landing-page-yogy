@@ -188,7 +188,7 @@ export default function ListeAttente() {
               <div className="absolute -top-3 -right-3 w-16 md:w-20 h-16 md:h-20 border-2 border-corail/15 rounded-2xl pointer-events-none hidden sm:block" />
               <div className="img-zoom rounded-2xl md:rounded-3xl overflow-hidden shadow-2xl relative">
                 <img
-                  src="/laury-handmade.png"
+                  src="/laury-handmade.webp"
                   alt="Laury — création artisanale des programmes, stylo et téléphone en main"
                   loading="lazy"
                   className="w-full h-auto"
