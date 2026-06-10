@@ -231,7 +231,7 @@ export default function Home() {
               </div>
               {/* Trustpilot */}
               <div
-                className="animate-on-scroll mt-6 flex flex-wrap items-center gap-3"
+                className="animate-on-scroll mt-6 flex flex-wrap items-center gap-3 justify-center md:justify-start"
                 data-delay="600"
               >
                 <a
@@ -451,12 +451,12 @@ export default function Home() {
           <div className="hidden md:flex animate-marquee-slow whitespace-nowrap">
             {[...brands, ...brands, ...brands, ...brands].map(renderBrand)}
           </div>
-          {/* Mobile : deux lignes (sens opposés) */}
+          {/* Mobile : deux lignes (sens opposés), plus rapides */}
           <div className="md:hidden flex flex-col gap-3">
-            <div className="flex animate-marquee-slow whitespace-nowrap">
+            <div className="flex animate-marquee whitespace-nowrap">
               {[...brands.slice(0, 5), ...brands.slice(0, 5), ...brands.slice(0, 5), ...brands.slice(0, 5)].map(renderBrand)}
             </div>
-            <div className="flex animate-marquee-slow-reverse whitespace-nowrap">
+            <div className="flex animate-marquee-reverse whitespace-nowrap">
               {[...brands.slice(5), ...brands.slice(5), ...brands.slice(5), ...brands.slice(5)].map(renderBrand)}
             </div>
           </div>
