@@ -1,6 +1,13 @@
+import SEO from '../components/SEO'
+
 export default function CGV() {
   return (
-    <section className="pt-40 pb-24 px-[5%]">
+    <section className="pt-32 md:pt-40 pb-24 px-[5%]">
+      <SEO
+        title="Conditions Générales de Vente"
+        description="Conditions générales de vente du programme YoGyFace RESET : commande, paiement, rétractation, accès au programme et garanties."
+        path="/cgv"
+      />
       <div className="max-w-[800px] mx-auto">
         <div className="animate-on-scroll section-badge" data-anim="fade">Légal</div>
         <h1 className="animate-on-scroll font-display text-[clamp(2rem,5vw,3.5rem)] font-black tracking-tighter text-noir mb-4">
@@ -8,7 +15,7 @@ export default function CGV() {
         </h1>
         <p className="text-gris text-sm mb-12">YogyFace RESET — Programme de Yoga du Visage · Mise à jour : juin 2026</p>
 
-        <div className="space-y-10 text-[15px] text-gris leading-relaxed">
+        <div className="space-y-10 text-[15px] text-gris leading-relaxed break-words">
           <div>
             <h2 className="font-display font-black text-xl tracking-tight text-noir mb-3">Article 1 — Objet</h2>
             <p>Les présentes CGV régissent l'ensemble des relations contractuelles entre <strong>Laury Anater</strong> (« le Vendeur ») et toute personne souhaitant acquérir le programme numérique de yoga du visage YogyFace proposé sur <strong>www.yogyface.fr</strong>. Le fait de passer commande implique l'acceptation sans réserve des présentes CGV.</p>

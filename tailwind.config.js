@@ -21,6 +21,7 @@ export default {
       },
       animation: {
         'marquee':       'marquee 25s linear infinite',
+        'marquee-slow':  'marquee 40s linear infinite',
         'fade-up':       'fadeUp 0.7s cubic-bezier(0.22,1,0.36,1) forwards',
         'fade-in':       'fadeIn 0.5s ease forwards',
         'fade-left':     'fadeLeft 0.7s cubic-bezier(0.22,1,0.36,1) forwards',

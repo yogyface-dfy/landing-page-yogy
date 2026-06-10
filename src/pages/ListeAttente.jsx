@@ -51,7 +51,7 @@ export default function ListeAttente() {
         path="/liste-attente"
       />
       {/* Hero */}
-      <section className="relative min-h-screen flex items-center pt-24 pb-16 px-[5%] overflow-hidden">
+      <section className="relative md:min-h-screen flex items-center pt-28 md:pt-24 pb-12 md:pb-16 px-[5%] overflow-hidden">
         <div className="absolute inset-0 bg-gradient-to-b from-rose/25 via-white to-creme pointer-events-none" />
         <div className="absolute -top-20 left-1/2 -translate-x-1/2 w-[800px] h-[400px] rounded-full bg-corail/6 blur-3xl pointer-events-none animate-pulse-soft" />
         <div className="absolute bottom-0 right-0 w-64 h-64 bg-bleu/15 rounded-full blur-3xl pointer-events-none animate-float-slow hidden md:block" />
@@ -66,9 +66,9 @@ export default function ListeAttente() {
             <h1 className="font-display text-[clamp(2rem,8vw,5.5rem)] font-black leading-[0.9] tracking-tighter text-noir mb-2">
               CHAQUE PROGRAMME
             </h1>
-            <h1 className="font-serif italic text-[clamp(1.5rem,6vw,4rem)] text-corail font-semibold mb-4">
+            <p className="font-serif italic text-[clamp(1.5rem,6vw,4rem)] text-corail font-semibold mb-4">
               est unique
-            </h1>
+            </p>
           </div>
 
           <p className="animate-on-scroll text-gris text-[15px] md:text-[17px] leading-relaxed mb-3 md:mb-4 max-w-xl mx-auto" data-delay="400">
@@ -190,6 +190,7 @@ export default function ListeAttente() {
                 <img
                   src="/laury-handmade.png"
                   alt="Laury — création artisanale des programmes, stylo et téléphone en main"
+                  loading="lazy"
                   className="w-full h-auto"
                 />
               </div>

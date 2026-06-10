@@ -1,6 +1,13 @@
+import SEO from '../components/SEO'
+
 export default function Confidentialite() {
   return (
-    <section className="pt-40 pb-24 px-[5%]">
+    <section className="pt-32 md:pt-40 pb-24 px-[5%]">
+      <SEO
+        title="Politique de Confidentialité"
+        description="Politique de confidentialité YoGyFace : collecte, utilisation et protection de vos données personnelles, droits RGPD et cookies."
+        path="/confidentialite"
+      />
       <div className="max-w-[800px] mx-auto">
         <div className="animate-on-scroll section-badge" data-anim="fade">Légal</div>
         <h1 className="animate-on-scroll font-display text-[clamp(2rem,5vw,3.5rem)] font-black tracking-tighter text-noir mb-4">
@@ -8,7 +15,7 @@ export default function Confidentialite() {
         </h1>
         <p className="text-gris text-sm mb-12">Mise à jour : juin 2026</p>
 
-        <div className="space-y-10 text-[15px] text-gris leading-relaxed">
+        <div className="space-y-10 text-[15px] text-gris leading-relaxed break-words">
           <div>
             <h2 className="font-display font-black text-xl tracking-tight text-noir mb-3">Article 1 — Responsable du traitement</h2>
             <ul className="space-y-1 ml-4 list-disc">

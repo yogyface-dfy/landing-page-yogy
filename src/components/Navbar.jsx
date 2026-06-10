@@ -6,6 +6,7 @@ const links = [
   { href: '/about',          label: 'Mon Parcours' },
   { href: '/programme',      label: 'Programme' },
   { href: '/transformations',label: 'Transformations' },
+  { href: '/evenements',     label: 'Événements', wideOnly: true },
   { href: '/faq',            label: 'FAQ' },
   { href: '/contact',        label: 'Contact' },
 ]
@@ -39,14 +40,14 @@ export default function Navbar() {
         </Link>
 
         {/* Desktop nav */}
-        <div className="hidden md:flex gap-8 items-center">
-          {links.map(({ href, label }) => {
+        <div className="hidden md:flex gap-5 lg:gap-7 xl:gap-8 items-center">
+          {links.map(({ href, label, wideOnly }) => {
             const active = location.pathname === href
             return (
               <Link
                 key={href}
                 to={href}
-                className={`yf-navlink text-[14px] font-medium ${active ? 'text-noir font-semibold' : 'text-gris hover:text-noir transition-colors duration-300'}`}
+                className={`yf-navlink text-[13px] lg:text-[14px] font-medium ${wideOnly ? 'hidden lg:inline-flex' : ''} ${active ? 'text-noir font-semibold' : 'text-gris hover:text-noir transition-colors duration-300'}`}
               >
                 {active && <span className="w-1.5 h-1.5 rounded-full bg-corail/80 animate-pulse-soft" />}
                 <span>{label}</span>
@@ -64,7 +65,7 @@ export default function Navbar() {
             Liste d'attente
           </Link>
           <button
-            className="md:hidden p-2 rounded-lg hover:bg-noir/5 transition-colors"
+            className="md:hidden p-3 -mr-1 rounded-lg hover:bg-noir/5 transition-colors"
             onClick={() => setMenuOpen(v => !v)}
             aria-label="Menu"
           >

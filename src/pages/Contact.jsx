@@ -38,14 +38,14 @@ export default function Contact() {
         path="/contact"
       />
       {/* Hero */}
-      <section className="relative pt-40 pb-16 px-[5%]">
+      <section className="relative pt-32 md:pt-40 pb-16 px-[5%]">
         <div className="max-w-[600px] mx-auto text-center">
           <div className="section-badge justify-center">Restons en contact</div>
           <h1 className="font-display text-[clamp(2.5rem,7vw,5rem)] font-black leading-[0.9] tracking-tighter text-noir mb-6">
             RESTONS<br />
             <span className="text-corail">CONNECTÉES</span>
           </h1>
-          <p className="text-gris text-[17px] leading-relaxed">
+          <p className="text-gris text-[15px] md:text-[17px] leading-relaxed">
             Que tu aies une question, besoin d'aide ou juste envie de dire bonjour, on est toujours heureuses de t'entendre.
           </p>
         </div>
@@ -72,9 +72,9 @@ export default function Contact() {
               </div>
             </div>
           ) : (
-            <div className="animate-on-scroll bg-creme rounded-3xl p-8 border border-noir/5">
+            <div className="animate-on-scroll bg-creme rounded-3xl p-5 md:p-8 border border-noir/5">
               <div className="space-y-5">
-                <div className="grid grid-cols-2 gap-4">
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                   <div>
                     <label className="block text-xs font-semibold uppercase tracking-wider text-gris mb-2">Nom</label>
                     <input

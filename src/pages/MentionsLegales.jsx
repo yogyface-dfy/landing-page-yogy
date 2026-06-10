@@ -1,8 +1,14 @@
 import { Link } from 'react-router-dom'
+import SEO from '../components/SEO'
 
 export default function MentionsLegales() {
   return (
-    <section className="pt-40 pb-24 px-[5%]">
+    <section className="pt-32 md:pt-40 pb-24 px-[5%]">
+      <SEO
+        title="Mentions Légales"
+        description="Mentions légales du site YoGyFace : éditeur, hébergement, propriété intellectuelle et informations de contact."
+        path="/mentions-legales"
+      />
       <div className="max-w-[800px] mx-auto">
         <div className="animate-on-scroll section-badge" data-anim="fade">Légal</div>
         <h1 className="animate-on-scroll font-display text-[clamp(2rem,5vw,3.5rem)] font-black tracking-tighter text-noir mb-4">
@@ -10,7 +16,7 @@ export default function MentionsLegales() {
         </h1>
         <p className="text-gris text-sm mb-12">Dernière mise à jour : juin 2026</p>
 
-        <div className="space-y-10 text-[15px] text-gris leading-relaxed">
+        <div className="space-y-10 text-[15px] text-gris leading-relaxed break-words">
           <div>
             <h2 className="font-display font-black text-xl tracking-tight text-noir mb-3">Article 1 — Éditeur du site</h2>
             <p>Le site <strong>www.yogyface.fr</strong> est édité par :</p>

@@ -4,7 +4,7 @@ import SEO from "../components/SEO";
 const results = [
   { img: "/ba-01.png", duration: "8 semaines", zone: "Sillons nasogéniens", tag: "Résultat 8 sem." },
   { img: "/ba-02.png", duration: "6 semaines", zone: "Cernes & poches", tag: "Résultat 6 sem." },
-  { img: "/ba-03.png", duration: "3 mois", zone: "Lifting global", tag: "Résultat 3 mois" },
+  { img: "/ba-03.jpg", duration: "3 mois", zone: "Lifting global", tag: "Résultat 3 mois" },
   { img: "/ba-04.png", duration: "4 mois", zone: "Rides du front", tag: "Progression 4 mois", triptych: true },
   { img: "/ba-05.png", duration: "6 semaines", zone: "Ovale & mâchoire", tag: "Résultat 6 sem." },
   { img: "/ba-06.png", duration: "2 mois", zone: "Jawline & profil", tag: "Résultat 2 mois" },
@@ -77,7 +77,7 @@ export default function Transformations() {
         path="/transformations"
       />
       {/* Hero */}
-      <section className="relative min-h-[85vh] flex items-center pt-24 pb-8 px-[7%] md:px-[10%] overflow-hidden">
+      <section className="relative md:min-h-[85vh] flex items-center pt-28 md:pt-24 pb-8 px-[7%] md:px-[10%] overflow-hidden">
         <div className="absolute inset-0 bg-gradient-to-b from-creme via-white to-white pointer-events-none" />
         <div className="absolute -top-16 -left-16 w-48 h-48 bg-rose/20 rounded-full blur-3xl pointer-events-none animate-float" />
 
@@ -164,12 +164,12 @@ export default function Transformations() {
                 data-delay={`${i * 70}`}
               >
                 <div className="relative">
-                  <img src={r.img} alt={`Avant/Après — ${r.zone}`} className="w-full h-auto" />
+                  <img src={r.img} alt={`Avant/Après — ${r.zone}`} loading="lazy" className="w-full h-auto" />
                   {r.triptych ? (
                     <>
-                      <div className="absolute top-3 left-3 px-2.5 py-1 rounded-full bg-white/80 backdrop-blur-sm text-[10px] font-semibold uppercase tracking-wider text-gris">Avant</div>
-                      <div className="absolute top-3 left-1/2 -translate-x-1/2 px-2.5 py-1 rounded-full bg-white/80 backdrop-blur-sm text-[10px] font-semibold uppercase tracking-wider text-gris">Pendant</div>
-                      <div className="absolute top-3 right-3 px-2.5 py-1 rounded-full bg-corail/90 backdrop-blur-sm text-[10px] font-semibold uppercase tracking-wider text-white">Après</div>
+                      <div className="absolute top-2 left-2 md:top-3 md:left-3 px-1.5 py-0.5 md:px-2.5 md:py-1 rounded-full bg-white/80 backdrop-blur-sm text-[9px] md:text-[10px] font-semibold uppercase tracking-wide md:tracking-wider text-gris">Avant</div>
+                      <div className="absolute top-2 md:top-3 left-1/2 -translate-x-1/2 px-1.5 py-0.5 md:px-2.5 md:py-1 rounded-full bg-white/80 backdrop-blur-sm text-[9px] md:text-[10px] font-semibold uppercase tracking-wide md:tracking-wider text-gris">Pendant</div>
+                      <div className="absolute top-2 right-2 md:top-3 md:right-3 px-1.5 py-0.5 md:px-2.5 md:py-1 rounded-full bg-corail/90 backdrop-blur-sm text-[9px] md:text-[10px] font-semibold uppercase tracking-wide md:tracking-wider text-white">Après</div>
                     </>
                   ) : (
                     <>
@@ -212,7 +212,7 @@ export default function Transformations() {
               éditées.
             </p>
             {/* Trustpilot */}
-            <div className="flex items-center justify-center gap-3 mt-2">
+            <div className="flex flex-wrap items-center justify-center gap-3 mt-2">
               <div className="trustpilot-widget" data-locale="fr-FR" data-template-id="5419b6a8b0d04a076446a9ad" data-businessunit-id="68f5f301affbe7a3ef3d7f12" data-style-height="24px" data-style-width="auto" data-token="88d2e0d6-59e3-40aa-866d-09c7d744a2a8" data-min-review-count="0" data-style-alignment="center">
                 <a href="https://fr.trustpilot.com/review/yogyface.fr" target="_blank" rel="noopener">Trustpilot</a>
               </div>
@@ -234,7 +234,7 @@ export default function Transformations() {
             {testimonials.map((t, i) => (
               <div
                 key={i}
-                className="animate-on-scroll card-hover bg-white rounded-2xl p-7 border border-noir/5 hover:border-corail/15"
+                className="animate-on-scroll card-hover bg-white rounded-2xl p-5 md:p-7 border border-noir/5 hover:border-corail/15"
                 data-delay={`${i * 80}`}
               >
                 <div className="flex gap-0.5 mb-4">
@@ -294,6 +294,10 @@ export default function Transformations() {
           <Link to="/liste-attente" className="btn-corail text-base px-8 py-4">
             Rejoindre la liste d'attente →
           </Link>
+          <p className="text-white/30 text-sm mt-6">
+            Découvre comment j'obtiens ces résultats avec{" "}
+            <Link to="/programme" className="text-corail/80 font-semibold hover:underline">la méthode RESET™</Link>.
+          </p>
         </div>
       </section>
     </>

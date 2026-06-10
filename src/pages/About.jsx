@@ -6,26 +6,26 @@ const steps = [
   {
     num: "01",
     title: "MON HISTOIRE",
-    text: "Pendant des années, j'ai lutté contre le relâchement du bas du visage, des sillons nasogéniens marqués, un teint terne. J'ai tout testé : sérums à 150€, appareils high-tech, routines en 12 étapes. Mon visage ne changeait pas vraiment.",
+    text: "Acné sévère et dépression m'ont d'abord fait croire que « l'esthétique n'était pas fait pour moi ». Puis une reconversion, et des études menées en parallèle — jusqu'à décrocher un poste chez Chanel, puis L'Oréal pour Biotherm, puis la direction des animatrices Weleda en France. Plus de 10 ans dans les plus grands laboratoires cosmétiques.",
     image: null,
   },
   {
     num: "02",
     title: "LE DÉCLIC",
-    text: "Puis une évidence : notre visage est composé de 57 muscles. Et comme n'importe quel muscle du corps, ils ont besoin d'être entraînés. J'ai compris que personne ne m'avait jamais appris à utiliser mon propre visage.",
+    text: "Malgré toute cette expertise, je vois mon propre visage vieillir avant mes 27 ans. Et je vois mes clientes revenir chaque mois en pharmacie, après avoir dépensé des centaines d'euros — sans vrai changement. Puis des clientes métamorphosées me parlent d'une approche dont je n'avais jamais entendu parler : le yoga du visage.",
     image: null,
   },
   {
     num: "03",
     title: "LA RECHERCHE",
-    text: "J'ai formé les équipes des plus grandes maisons cosmétiques. Puis j'ai développé ma propre méthodologie — RESET™ — une reprogrammation neuro-faciale complète basée sur l'anatomie et la neurologie. Pas du yoga du visage classique.",
+    text: "Je me forme auprès des grandes références mondiales (Sylvie LeFranc, Ena Narumi, Fumiko Takatsu). Je crée mes premiers ateliers pour Weleda dans les pharmacies en France. Les clientes réclament du suivi personnalisé. J'ai mélangé mon expertise skincare avec l'univers du yoga du visage pour que les femmes obtiennent enfin de vraies transformations",
     image: "/laury-biotherm.png",
     imageAlt: "Laury en conférence pour Biotherm",
   },
   {
     num: "04",
     title: "AUJOURD'HUI",
-    text: "Plus de 1 000 femmes m'ont fait confiance. Je crée chaque programme à la main, personnalisé pour chaque visage. Mon objectif : te donner l'autonomie totale pour les 20 prochaines années.",
+    text: "Plus de 700 femmes ont transformé leur visage avec cette méthode. Mon objectif : que chaque femme devienne experte de son propre visage — qu'elle comprenne son anatomie, maîtrise ses gestes, et ne dépende plus jamais d'un lobby cosmétique. Je ne promets pas du rapide. Je promets du définitif.",
     image: null,
   },
 ];
@@ -34,7 +34,7 @@ const experts = [
   {
     role: "Biologiste",
     icon: "microscope",
-    desc: "Pour l'approche scientifique du vieillissement cellulaire et de la production de collagène.",
+    desc: "Pour l'approche nutritionnelle : ce que tu manges impacte directement la qualité de ta peau, ton collagène et ton vieillissement.",
   },
   {
     role: "Praticien EFT",
@@ -44,7 +44,7 @@ const experts = [
   {
     role: "Spécialiste Face Tape",
     icon: "scissors",
-    desc: "Pour corriger la posture faciale entre les séances avec des techniques de taping ciblées.",
+    desc: "Pour rééduquer tes contractions faciales entre les séances avec des techniques de taping ciblées.",
   },
   {
     role: "Expert Collagène",
@@ -52,37 +52,31 @@ const experts = [
     desc: "Pour optimiser la nutrition et maximiser la production de collagène naturel.",
   },
   {
-    role: "Coach Yoga Corps",
+    role: "Coach Yoga & Respiration",
     icon: "lotus",
-    desc: "Pour une approche globale corps-visage : les tensions du corps se lisent sur le visage.",
+    desc: "La respiration est la base de tout. Mal respirer crée des blocages qui se lisent directement sur le visage. Corps et souffle sont indissociables du travail facial.",
   },
 ];
 
-const laury_quotes = [
-  {
-    q: "\"J'ai créé YoGyFace parce que je voulais une méthode qui m'appartient — pas un énième cours de yoga du visage copié-collé. Chaque programme est fait main, par moi.\"",
-  },
-  {
-    q: '"Je vais t\'expliquer toutes les causes qui abîment ton visage et surtout leurs solutions que tu peux adopter !"',
-  },
-  {
-    q: "\"Mon objectif, c'est que tu passes d'une femme qui subit son vieillissement à une femme qui maîtrise parfaitement son apparence et vieillit avec grâce selon SES propres règles.\"",
-  },
-];
+const lauryQuote1 =
+  "J'ai créé YoGyFace pour que ce soit la safe place des femmes qui veulent prendre soin d'elles de la bonne manière — avec une approche humaine, bienveillante, sans perdre leur temps avec des exercices qui ne leur correspondent pas. Chaque programme est fait main, par moi.";
+const lauryQuote2 =
+  "Mon objectif : que tu passes d'une femme qui subit son vieillissement à une femme qui maîtrise parfaitement son apparence et vieillit avec grâce, selon SES propres règles.";
 
 const parcoursPhotos = [
-  {
-    src: "/laury-narumi.png",
-    alt: "Laury avec Era Narumi",
-    name: "Era Narumi",
-    desc: "Experte japonaise reconnue pour sa maîtrise des fascias et ses techniques uniques de modelage facial.",
-  },
   {
     src: "/laury-sylvie.png",
     alt: "Laury avec Sylvie LeFranc",
     name: "Sylvie LeFranc",
     desc: "Référence en France dans le domaine du yoga du visage. Formatrice professionnelle et pionnière.",
   },
+  {
+    src: "/laury-narumi.png",
+    alt: "Laury avec Era Narumi",
+    name: "Era Narumi",
+    desc: "Experte japonaise reconnue pour sa maîtrise des fascias et ses techniques uniques de modelage facial.",
+  },
+
   {
     src: "/laury-fumiko.png",
     alt: "Laury avec Fumiko Takatsu",
@@ -172,6 +166,7 @@ export default function About() {
               <img
                 src="/laury-bureau.png"
                 alt="Laury au bureau — création de programmes"
+                loading="lazy"
                 className="w-full h-auto"
               />
             </div>
@@ -247,6 +242,7 @@ export default function About() {
                   <img
                     src={photo.src}
                     alt={photo.alt}
+                    loading="lazy"
                     className="w-full h-full object-cover transition-transform duration-500 hover:scale-105"
                   />
                 </div>
@@ -281,27 +277,26 @@ export default function About() {
                 <img
                   src="/laury-livres.png"
                   alt="Laury — passionnée de science et d'anatomie faciale"
+                  loading="lazy"
                   className="w-full h-auto"
                 />
               </div>
             </div>
-            {/* Quotes */}
-            <div className="space-y-6 md:space-y-8">
-              {laury_quotes.map((q, i) => (
-                <div
-                  key={i}
-                  className="animate-on-scroll border-l-2 border-corail/50 pl-4 md:pl-6 py-2"
-                  data-anim="fade"
-                  data-delay={`${i * 150 + 200}`}
-                >
-                  <p className="text-white/70 text-[15px] md:text-[17px] leading-relaxed font-serif italic">
-                    {q.q}
-                  </p>
-                  <p className="text-corail text-sm font-semibold mt-2 md:mt-3">
-                    — Laury
-                  </p>
-                </div>
-              ))}
+            {/* Quote */}
+            <div
+              className="animate-on-scroll border-l-3 border-corail/50 pl-5 md:pl-7"
+              data-anim="fade"
+              data-delay="200"
+            >
+              <p className="text-white text-[17px] md:text-[20px] leading-relaxed font-serif italic font-semibold">
+                "{lauryQuote1}
+              </p>
+              <p className="text-white text-[17px] md:text-[20px] leading-relaxed font-serif italic font-semibold mt-4">
+                {lauryQuote2}"
+              </p>
+              <p className="text-corail text-md font-semibold mt-4">
+                Laury Anater
+              </p>
             </div>
           </div>
         </div>
@@ -315,7 +310,7 @@ export default function About() {
             data-anim="scale"
           >
             <div className="section-badge justify-center">
-              Mon équipe d'experts
+              Mon équipe d'expertes
             </div>
             <h2 className="font-display text-[clamp(1.8rem,5vw,3.5rem)] font-black tracking-tighter text-noir mb-3 md:mb-4">
               UNE APPROCHE
@@ -324,27 +319,26 @@ export default function About() {
                 vraiment holistique
               </span>
             </h2>
-            <p className="text-gris text-[14px] md:text-[16px] mt-3 md:mt-4 max-w-xl mx-auto">
+            <p className="text-gris text-[14px] md:text-[16px] mt-3 max-w-xl mx-auto">
               YoGyFace n'est pas un cours de yoga du visage. J'ai réuni des
-              experts qui travaillent avec moi pour s'attaquer à chaque cause du
-              vieillissement facial.
+              expertes pour te transmettre une approche globale du bien-être.
             </p>
           </div>
-          <div className="grid grid-cols-2 md:grid-cols-5 gap-3 md:gap-4 mb-10 md:mb-14">
+          <div className="flex flex-wrap justify-center gap-4 md:gap-5">
             {experts.map((e, i) => (
               <div
                 key={e.role}
-                className={`animate-on-scroll card-hover text-center p-4 md:p-6 rounded-2xl border border-noir/5 hover:border-corail/20 group ${i === 4 ? "col-span-2 md:col-span-1" : ""}`}
+                className="animate-on-scroll card-hover text-center p-5 md:p-7 rounded-2xl bg-creme border border-noir/5 hover:border-corail/20 hover:shadow-md group w-full sm:w-[calc(50%-8px)] lg:w-[calc(33.333%-14px)]"
                 data-anim="scale"
                 data-delay={`${i * 80}`}
               >
-                <div className="w-10 md:w-12 h-10 md:h-12 rounded-xl bg-corail/10 flex items-center justify-center text-corail mb-2 md:mb-3 mx-auto group-hover:bg-corail group-hover:text-white group-hover:scale-110 transition-all duration-300">
-                  <Icon name={e.icon} size={20} />
+                <div className="w-12 h-12 rounded-xl bg-corail/10 flex items-center justify-center text-corail mb-3 mx-auto group-hover:bg-corail group-hover:text-white group-hover:scale-110 transition-all duration-300">
+                  <Icon name={e.icon} size={22} />
                 </div>
-                <h4 className="font-display font-black text-xs md:text-sm tracking-tight mb-1 md:mb-2">
+                <h4 className="font-display font-black text-sm md:text-base tracking-tight mb-2">
                   {e.role}
                 </h4>
-                <p className="text-gris text-[11px] md:text-xs leading-relaxed">
+                <p className="text-gris text-xs md:text-[13px] leading-relaxed">
                   {e.desc}
                 </p>
               </div>
@@ -422,6 +416,7 @@ export default function About() {
               <img
                 src="/laury-equipe.png"
                 alt="L'équipe YoGyFace"
+                loading="lazy"
                 className="w-full h-auto"
               />
             </div>

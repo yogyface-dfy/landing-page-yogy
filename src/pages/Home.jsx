@@ -3,17 +3,24 @@ import Icon from "../components/Icon";
 import SEO from "../components/SEO";
 
 const stats = [
-  "1 000+ femmes accompagnées",
-  "4.9/5 satisfaction",
-  "Programmes 100% personnalisés",
-  "contact@yogyface.fr",
+  "Amertumes",
+  "Rides d'expression",
+  "Sillons nasogéniens",
+  "Rides du fumeur (code-barre)",
+  "Double menton",
+  "Pattes d'oie",
+  "Asymétrie",
+  "Rides du front",
+  "Rides du lion",
+  "Pommettes",
+  "Bajoues",
 ];
 
 const features = [
-  { label: "10 min/jour" },
+  { label: "Routine progressive" },
   { label: "Sans matériel" },
   { label: "100% naturel" },
-  { label: "Fait main" },
+  { label: "100% Personnalisé" },
 ];
 
 const pillars = [
@@ -25,7 +32,7 @@ const pillars = [
   {
     letter: "E",
     title: "Équilibrer",
-    desc: "Je corrige l'asymétrie de ton visage et harmonise la tonicité des deux côtés pour retrouver ton harmonie naturelle.",
+    desc: "Je corrige les déséquilibres musculaires de ton visage et harmonise les deux côtés pour retrouver ta symétrie naturelle.",
   },
   {
     letter: "S",
@@ -40,15 +47,15 @@ const pillars = [
   {
     letter: "T",
     title: "Tonifier",
-    desc: "Je renforce tes 57 muscles du visage pour lifter naturellement l'ovale, les joues et les paupières — sans chirurgie.",
+    desc: "Je renforce tes 45 muscles du visage pour lifter naturellement l'ovale, les joues et les paupières — sans chirurgie.",
   },
 ];
 
 const sciencePoints = [
   {
     icon: "dna",
-    title: "57 muscles à entraîner",
-    desc: "Ton visage est composé de 57 muscles. Comme n'importe quel muscle du corps, ils répondent à l'entraînement. Le problème ? Personne ne t'a jamais appris à les utiliser.",
+    title: "45 muscles à entraîner",
+    desc: "Ton visage est composé de 45 muscles. Comme n'importe quel muscle du corps, ils répondent à l'entraînement. Le problème ? Personne ne t'a jamais appris à les utiliser.",
   },
   {
     icon: "refresh",
@@ -65,6 +72,19 @@ const sciencePoints = [
     title: "Tensions & vieillissement",
     desc: 'Le stress, le bruxisme, la posture devant les écrans… tout ça crée des tensions qui "tirent" ton visage vers le bas. Le yoga du visage libère ces tensions et inverse le processus.',
   },
+];
+
+const brands = [
+  { name: "Biotherm", id: "biotherm" },
+  { name: "La Canopée", id: "la-canopee" },
+  { name: "Talika", id: "talika" },
+  { name: "Caudalie", id: "caudalie" },
+  { name: "EllesVMH", id: "ellesvmh" },
+  { name: "The New Well", id: "the-new-well" },
+  { name: "Le Congrès de l'Esthétique", id: "congres-esthetique" },
+  { name: "Baton Rouge", id: "baton-rouge" },
+  { name: "Epicosme", id: "epicosme" },
+  { name: "Lauvée", id: "lauvee" },
 ];
 
 const testimonials = [
@@ -97,7 +117,7 @@ export default function Home() {
         path="/"
       />
       {/* ═══ HERO ═══ */}
-      <section className="relative min-h-screen flex items-center pt-24 pb-16 px-[7%] md:px-[10%] overflow-hidden">
+      <section className="relative md:min-h-screen flex items-center pt-28 md:pt-24 pb-12 md:pb-16 px-[7%] md:px-[10%] overflow-hidden">
         <div className="absolute inset-0 bg-gradient-to-br from-rose/30 via-white to-bleu/20 pointer-events-none" />
         <div
           className="absolute -top-32 -right-32 w-96 h-96 rounded-full bg-corail/10 blur-3xl pointer-events-none animate-float"
@@ -140,8 +160,8 @@ export default function Home() {
               >
                 Je suis Laury, fondatrice de YoGyFace. J'ai créé ma propre
                 méthode de yoga du visage pour t'aider à retrouver un visage
-                tonique, lumineux et défini — naturellement, en 10 minutes par
-                jour.
+                tonique, lumineux et défini — naturellement, en moins de 10
+                minutes par jour.
               </p>
               <p
                 className="animate-on-scroll text-[14px] md:text-[15px] text-gris/70 leading-relaxed mb-6 md:mb-8 max-w-md"
@@ -189,7 +209,7 @@ export default function Home() {
               </div>
               {/* Trustpilot */}
               <div
-                className="animate-on-scroll mt-6 flex items-center gap-3"
+                className="animate-on-scroll mt-6 flex flex-wrap items-center gap-3"
                 data-delay="600"
               >
                 <a
@@ -267,6 +287,9 @@ export default function Home() {
                   <img
                     src="/laury-hero.png"
                     alt="Laury, fondatrice de YoGyFace"
+                    fetchpriority="high"
+                    width="682"
+                    height="1024"
                     className="w-full h-auto"
                   />
                 </div>
@@ -314,6 +337,7 @@ export default function Home() {
                 <img
                   src="/laury-drainage.png"
                   alt="Laury — geste de drainage lymphatique du cou"
+                  loading="lazy"
                   className="w-full h-auto object-contain"
                 />
               </div>
@@ -334,7 +358,7 @@ export default function Home() {
                 className="animate-on-scroll text-gris text-[15px] md:text-[16px] leading-relaxed mb-3 md:mb-4"
                 data-delay="100"
               >
-                Le yoga du visage, c'est une gymnastique douce et ciblée des 57
+                Le yoga du visage, c'est une gymnastique douce et ciblée des 45
                 muscles de ton visage. Comme n'importe quel muscle du corps, les
                 muscles faciaux ont besoin d'être entraînés, étirés et détendus.
               </p>
@@ -342,9 +366,10 @@ export default function Home() {
                 className="animate-on-scroll text-gris text-[15px] md:text-[16px] leading-relaxed mb-3 md:mb-4"
                 data-delay="200"
               >
-                Avec le temps, le stress, la posture devant les écrans et le
-                manque de stimulation, ces muscles s'affaissent. Le résultat :
-                perte de volume, rides, relâchement, teint terne.
+                Avec le temps, le stress, nos mauvaises postures et le manque de
+                stimulation, ces muscles s'atrophient et se contractent. Le
+                résultat : perte de volume, rides d'expression, relâchement,
+                teint terne et gonflements.
               </p>
               <p
                 className="animate-on-scroll text-gris text-[15px] md:text-[16px] leading-relaxed mb-6 md:mb-8"
@@ -353,8 +378,9 @@ export default function Home() {
                 <strong className="text-noir">Mon approche va plus loin</strong>{" "}
                 que le yoga du visage classique. J'ai développé ma propre
                 méthode — <span className="font-serif italic">RESET™</span> —
-                qui combine reprogrammation neuro-faciale, drainage lymphatique,
-                relaxation des tensions et tonification musculaire ciblée.
+                qui combine réeducation des habitudes, reprogrammation
+                neuro-faciale, drainage lymphatique, relaxation des tensions et
+                tonification musculaire ciblée.
               </p>
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                 {sciencePoints.map((d, i) => (
@@ -364,19 +390,49 @@ export default function Home() {
                     data-anim="scale"
                     data-delay={`${i * 100 + 400}`}
                   >
-                    <div className="w-10 h-10 rounded-xl bg-corail/10 flex items-center justify-center mb-3 text-corail">
-                      <Icon name={d.icon} size={20} />
+                    <div className="flex items-center gap-3 mb-3">
+                      <div className="w-10 h-10 shrink-0 rounded-xl bg-corail/10 flex items-center justify-center text-corail">
+                        <Icon name={d.icon} size={20} />
+                      </div>
+                      <h4 className="font-display font-black text-[16px] md:text-[19px] tracking-tight">
+                        {d.title}
+                      </h4>
                     </div>
-                    <h4 className="font-display font-black text-[14px] md:text-[15px] tracking-tight mb-1">
-                      {d.title}
-                    </h4>
-                    <p className="text-gris text-xs leading-relaxed">
+                    <p className="text-gris text-[13px] md:text-[14px] leading-relaxed">
                       {d.desc}
                     </p>
                   </div>
                 ))}
               </div>
             </div>
+          </div>
+        </div>
+      </section>
+
+      {/* ═══ MARQUES / CONFIANCE ═══ */}
+      <section className="py-14 md:py-20 px-[5%] bg-white relative overflow-hidden">
+        <div className="max-w-[1400px] mx-auto text-center mb-8">
+          <p
+            className="animate-on-scroll text-[11px] md:text-xs font-semibold uppercase tracking-[0.2em] text-noir/30"
+            data-anim="fade"
+          >
+            Elles m'ont fait confiance
+          </p>
+        </div>
+        <div className="relative overflow-hidden">
+          {/* Fade edges */}
+          <div className="absolute left-0 top-0 bottom-0 w-24 md:w-40 bg-gradient-to-r from-white to-transparent z-10 pointer-events-none" />
+          <div className="absolute right-0 top-0 bottom-0 w-24 md:w-40 bg-gradient-to-l from-white to-transparent z-10 pointer-events-none" />
+          <div className="flex animate-marquee-slow whitespace-nowrap">
+            {[...brands, ...brands, ...brands, ...brands].map((b, i) => (
+              <Link
+                key={i}
+                to={`/evenements#${b.id}`}
+                className="inline-flex items-center mx-8 md:mx-14 text-[22px] md:text-[28px] font-display font-black tracking-tight text-noir/15 select-none hover:text-corail/40 transition-colors duration-300"
+              >
+                {b.name}
+              </Link>
+            ))}
           </div>
         </div>
       </section>
@@ -400,12 +456,12 @@ export default function Home() {
           </div>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-3 text-left mt-6 md:mt-10">
             {[
-              "« Je ne me reconnais plus sur les photos… je me trouve moche. »",
+              "« Je ne me reconnais plus sur les photos… j'ai pris un coup de vieux. »",
               "« J'ai l'impression que tout commence à s'affaisser vers le bas… »",
               "« Je n'ose plus sourire, j'ai des rides très prononcées autour de la bouche. »",
-              "« J'ai un double menton… un petit relâchement en bas là… la jawline. »",
+              "« On m'a toujours donné moins que mon âge, mais aujourd'hui, je ne me retrouves plus du tout dans l'image que je dégage. »",
               "« J'ai besoin de me retrouver, je me suis complètement oubliée. »",
-              "« J'ai l'impression de vieillir d'un coup et de ressembler à ma mère. »",
+              "« Après mon burn-out, mon visage a complétement changé. »",
             ].map((q, i) => (
               <div
                 key={i}
@@ -420,8 +476,8 @@ export default function Home() {
             className="animate-on-scroll text-gris text-sm md:text-base mt-8 md:mt-10 max-w-lg mx-auto font-serif italic"
             data-delay="500"
           >
-            Ces phrases viennent directement de femmes qui m'ont contactée —
-            compilées depuis +1000 emails et 5 groupes WhatsApp.
+            Le point de toutes ces femmes c'est qu'elles cherchaient une
+            solution pour mieux vieillir.
           </p>
         </div>
       </section>
@@ -447,12 +503,17 @@ export default function Home() {
               pas du yoga du visage classique — c'est une reprogrammation
               neuro-faciale complète qui agit sur la cause, pas les symptômes.
             </p>
+            <p className="text-gris text-[14px] md:text-[16px] leading-relaxed max-w-2xl mx-auto mt-3">
+              Je t'apprends à adopter les bons réflexes au quotidien, étape par
+              étape, pour que chaque geste devienne naturel et durable, sans
+              charge mentale.
+            </p>
           </div>
-          <div className="grid grid-cols-2 md:grid-cols-5 gap-3 md:gap-4">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-3 md:gap-4">
             {pillars.map((p, i) => (
               <div
                 key={p.letter + i}
-                className={`animate-on-scroll card-hover bg-white rounded-2xl p-4 md:p-6 border border-noir/5 hover:border-corail/20 group ${i === 4 ? "col-span-2 md:col-span-1" : ""}`}
+                className={`animate-on-scroll card-hover bg-white rounded-2xl p-4 md:p-6 border border-noir/5 hover:border-corail/20 group ${i === 4 ? "sm:col-span-2 lg:col-span-1" : ""}`}
                 data-delay={`${i * 100}`}
               >
                 <div className="w-10 md:w-12 h-10 md:h-12 rounded-xl bg-corail/10 flex items-center justify-center mb-3 md:mb-4 group-hover:bg-corail group-hover:scale-110 transition-all duration-300">
@@ -468,6 +529,11 @@ export default function Home() {
                 </p>
               </div>
             ))}
+          </div>
+          <div className="text-center mt-10 animate-on-scroll" data-anim="fade" data-delay="500">
+            <Link to="/programme" className="btn-corail text-sm px-7 py-3.5">
+              Découvrir le programme RESET™ →
+            </Link>
           </div>
         </div>
       </section>
@@ -492,6 +558,7 @@ export default function Home() {
               <img
                 src="/laury-ecriture.png"
                 alt="Laury qui écrit — création de programmes personnalisés à la main"
+                loading="lazy"
                 className="w-full h-auto object-contain"
               />
             </div>
@@ -520,22 +587,24 @@ export default function Home() {
                 <strong className="text-noir">
                   100% personnalisé, à la main
                 </strong>
-                . J'analyse ton visage, je comprends tes besoins, et je
-                construis ta routine sur-mesure.
+                . J'analyse ton visage, j'écoute tes envies, je comprends tes
+                besoins anatomiques et je construis ta routine sur-mesure.
               </p>
               <div
                 className="animate-on-scroll"
                 data-anim="fade"
                 data-delay="400"
               >
-                <blockquote className="border-l-2 border-corail/30 pl-4 md:pl-5">
-                  <p className="text-gris text-[14px] md:text-[15px] leading-relaxed font-serif italic">
-                    "C'est justement parce que je fais tout manuellement que
-                    chaque programme est unique. Ça prend du temps — mais c'est
-                    ce qui fait la différence."
+                <blockquote className="border-l-3 border-corail/40 pl-5 md:pl-6">
+                  <p className="text-noir/60 text-[16px] md:text-[19px] leading-relaxed font-serif italic">
+                    "C'est justement parce que je fais tout <strong className="text-noir/80">manuellement</strong> que
+                    chaque programme est unique. <strong className="text-noir/80">Ton visage est unique, ton
+                    programme doit l'être également.</strong> Ça prend du temps — mais
+                    c'est ce qui fait <strong className="text-noir/80">la différence sur les résultats que tu
+                    obtiendras.</strong>"
                   </p>
                   <p className="text-corail text-sm font-semibold mt-3">
-                    — Laury
+                    Laury Anater
                   </p>
                 </blockquote>
               </div>
@@ -596,6 +665,11 @@ export default function Home() {
               </div>
             ))}
           </div>
+          <div className="text-center mt-10 animate-on-scroll" data-anim="fade" data-delay="400">
+            <Link to="/transformations" className="inline-flex items-center gap-2 px-7 py-3.5 rounded-full bg-corail/10 text-corail font-semibold text-sm tracking-tight border border-corail/20 hover:bg-corail hover:text-white hover:border-corail hover:shadow-lg hover:shadow-corail/20 transition-all duration-300 hover:-translate-y-0.5">
+              Voir les transformations →
+            </Link>
+          </div>
         </div>
       </section>
 
@@ -631,6 +705,12 @@ export default function Home() {
               Voir les transformations
             </Link>
           </div>
+          <p className="text-gris/60 text-sm mt-6">
+            Des questions ? Consulte la{" "}
+            <Link to="/faq" className="text-corail font-semibold hover:underline">FAQ</Link>
+            {" "}ou découvre{" "}
+            <Link to="/about" className="text-corail font-semibold hover:underline">mon parcours</Link>.
+          </p>
         </div>
       </section>
     </>

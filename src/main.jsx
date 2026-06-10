@@ -14,6 +14,8 @@ import ListeAttente from './pages/ListeAttente'
 import MentionsLegales from './pages/MentionsLegales'
 import CGV from './pages/CGV'
 import Confidentialite from './pages/Confidentialite'
+import Evenements from './pages/Evenements'
+import EvenementDetail from './pages/EvenementDetail'
 import NotFound from './pages/NotFound'
 
 ReactDOM.createRoot(document.getElementById('root')).render(
@@ -32,6 +34,8 @@ ReactDOM.createRoot(document.getElementById('root')).render(
             <Route path="mentions-legales" element={<MentionsLegales />} />
             <Route path="cgv" element={<CGV />} />
             <Route path="confidentialite" element={<Confidentialite />} />
+            <Route path="evenements" element={<Evenements />} />
+            <Route path="evenements/:id" element={<EvenementDetail />} />
             <Route path="*" element={<NotFound />} />
           </Route>
         </Routes>

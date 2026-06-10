@@ -8,12 +8,31 @@ import Footer from './Footer'
 const jsonLd = {
   '@context': 'https://schema.org',
   '@type': 'HealthAndBeautyBusiness',
+  '@id': 'https://yogyface.fr/#business',
   name: 'YoGyFace',
   description: 'Méthode RESET™ de yoga du visage par Laury. Programmes personnalisés pour tonifier, lifter et rajeunir le visage naturellement.',
   url: 'https://yogyface.fr',
   logo: 'https://yogyface.fr/favicon.png',
-  founder: { '@type': 'Person', name: 'Laury Anater' },
+  image: 'https://yogyface.fr/og-image.jpg',
+  founder: { '@id': 'https://yogyface.fr/#laury' },
   email: 'contact@yogyface.fr',
+  sameAs: [
+    'https://www.instagram.com/yogyface/',
+    'https://www.youtube.com/@LauryYoGyFace',
+    'https://fr.trustpilot.com/review/yogyface.fr',
+  ],
+}
+
+/* Standalone Person schema for Laury (E-E-A-T) */
+const personJsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'Person',
+  '@id': 'https://yogyface.fr/#laury',
+  name: 'Laury Anater',
+  jobTitle: 'Fondatrice & experte en yoga du visage',
+  description: "Fondatrice de YoGyFace et créatrice de la méthode RESET™. Plus de 10 ans d'expérience dans les plus grands laboratoires cosmétiques (Chanel, L'Oréal, Weleda), formée auprès de Sylvie LeFranc, Ena Narumi et Fumiko Takatsu.",
+  url: 'https://yogyface.fr/about',
+  worksFor: { '@id': 'https://yogyface.fr/#business' },
   sameAs: [
     'https://www.instagram.com/yogyface/',
     'https://www.youtube.com/@LauryYoGyFace',
@@ -77,6 +96,7 @@ export default function Layout() {
     <div className="grain font-sans text-noir antialiased overflow-x-hidden">
       <Helmet>
         <script type="application/ld+json">{JSON.stringify(jsonLd)}</script>
+        <script type="application/ld+json">{JSON.stringify(personJsonLd)}</script>
       </Helmet>
       <Navbar />
       <main>
