@@ -14,14 +14,14 @@ const renderStat = (s, i) => (
 );
 
 // Rendu d'une marque dans le bandeau "Elles m'ont fait confiance"
+// Événements masqué temporairement : marques affichées sans lien
 const renderBrand = (b, i) => (
-  <Link
+  <span
     key={i}
-    to={`/evenements#${b.id}`}
-    className="inline-flex items-center mx-8 md:mx-14 text-[22px] md:text-[28px] font-display font-black tracking-tight text-noir/15 select-none hover:text-corail/40 transition-colors duration-300"
+    className="inline-flex items-center mx-8 md:mx-14 text-[22px] md:text-[28px] font-display font-black tracking-tight text-noir/15 select-none"
   >
     {b.name}
-  </Link>
+  </span>
 );
 
 const stats = [

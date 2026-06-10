@@ -1,6 +1,6 @@
 import React from 'react'
 import ReactDOM from 'react-dom/client'
-import { BrowserRouter, Routes, Route } from 'react-router-dom'
+import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom'
 import { HelmetProvider } from 'react-helmet-async'
 import './index.css'
 import Layout from './components/Layout'
@@ -14,8 +14,7 @@ import ListeAttente from './pages/ListeAttente'
 import MentionsLegales from './pages/MentionsLegales'
 import CGV from './pages/CGV'
 import Confidentialite from './pages/Confidentialite'
-import Evenements from './pages/Evenements'
-import EvenementDetail from './pages/EvenementDetail'
+// Événements masqué temporairement (données manquantes) — pages conservées, routes redirigées
 import NotFound from './pages/NotFound'
 
 ReactDOM.createRoot(document.getElementById('root')).render(
@@ -34,8 +33,8 @@ ReactDOM.createRoot(document.getElementById('root')).render(
             <Route path="mentions-legales" element={<MentionsLegales />} />
             <Route path="cgv" element={<CGV />} />
             <Route path="confidentialite" element={<Confidentialite />} />
-            <Route path="evenements" element={<Evenements />} />
-            <Route path="evenements/:id" element={<EvenementDetail />} />
+            <Route path="evenements" element={<Navigate to="/" replace />} />
+            <Route path="evenements/:id" element={<Navigate to="/" replace />} />
             <Route path="*" element={<NotFound />} />
           </Route>
         </Routes>

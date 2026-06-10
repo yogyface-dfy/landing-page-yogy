@@ -6,7 +6,7 @@ const links = [
   { href: '/about',          label: 'Mon Parcours' },
   { href: '/programme',      label: 'Programme' },
   { href: '/transformations',label: 'Transformations' },
-  { href: '/evenements',     label: 'Événements', wideOnly: true },
+  // Événements masqué temporairement (données manquantes)
   { href: '/faq',            label: 'FAQ' },
   { href: '/contact',        label: 'Contact' },
 ]
