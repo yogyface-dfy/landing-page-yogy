@@ -46,6 +46,23 @@ export default function Layout() {
     window.scrollTo(0, 0)
   }, [pathname])
 
+  /* (Ré)initialise les widgets Trustpilot — le script ne scanne qu'au 1er
+     chargement, donc on relance le rendu à chaque navigation (avec retry tant
+     que le script async n'est pas prêt). */
+  useEffect(() => {
+    const load = () => {
+      if (!window.Trustpilot) return false
+      document
+        .querySelectorAll('.trustpilot-widget')
+        .forEach(el => window.Trustpilot.loadFromElement(el, true))
+      return true
+    }
+    if (load()) return
+    const interval = setInterval(() => { if (load()) clearInterval(interval) }, 300)
+    const timeout = setTimeout(() => clearInterval(interval), 6000)
+    return () => { clearInterval(interval); clearTimeout(timeout) }
+  }, [pathname])
+
   /* Enhanced scroll observer — supports data-anim variants and staggered delays */
   const setupObserver = useCallback(() => {
     const observer = new IntersectionObserver(

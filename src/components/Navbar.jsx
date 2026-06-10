@@ -24,7 +24,14 @@ export default function Navbar() {
 
   useEffect(() => setMenuOpen(false), [location])
 
+  // Bloque le scroll du fond quand le menu mobile est ouvert
+  useEffect(() => {
+    document.body.style.overflow = menuOpen ? 'hidden' : ''
+    return () => { document.body.style.overflow = '' }
+  }, [menuOpen])
+
   return (
+    <>
     <nav className={`fixed top-0 left-0 right-0 z-50 px-[5%] transition-all duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] ${
       scrolled
         ? 'py-2.5 glass shadow-sm'
@@ -77,10 +84,11 @@ export default function Navbar() {
           </button>
         </div>
       </div>
+    </nav>
 
-      {/* Mobile menu — full-screen overlay */}
+      {/* Mobile menu — full-screen overlay (hors du <nav> pour rester plein écran) */}
       <div
-        className={`md:hidden fixed inset-0 bg-white z-[60] flex flex-col transition-all duration-300 ease-[cubic-bezier(0.22,1,0.36,1)] ${
+        className={`md:hidden fixed inset-0 bg-white z-[100] flex flex-col transition-all duration-300 ease-[cubic-bezier(0.22,1,0.36,1)] ${
           menuOpen ? 'opacity-100 pointer-events-auto' : 'opacity-0 pointer-events-none'
         }`}
       >
@@ -136,6 +144,6 @@ export default function Navbar() {
           </Link>
         </div>
       </div>
-    </nav>
+    </>
   )
 }

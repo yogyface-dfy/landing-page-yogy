@@ -2,6 +2,28 @@ import { Link } from "react-router-dom";
 import Icon from "../components/Icon";
 import SEO from "../components/SEO";
 
+// Rendu d'un élément du bandeau de préoccupations
+const renderStat = (s, i) => (
+  <span
+    key={i}
+    className="inline-flex items-center gap-3 mx-6 md:mx-10 text-xs md:text-sm font-semibold text-noir/50"
+  >
+    <span className="w-1 h-1 rounded-full bg-corail/60" />
+    {s}
+  </span>
+);
+
+// Rendu d'une marque dans le bandeau "Elles m'ont fait confiance"
+const renderBrand = (b, i) => (
+  <Link
+    key={i}
+    to={`/evenements#${b.id}`}
+    className="inline-flex items-center mx-8 md:mx-14 text-[22px] md:text-[28px] font-display font-black tracking-tight text-noir/15 select-none hover:text-corail/40 transition-colors duration-300"
+  >
+    {b.name}
+  </Link>
+);
+
 const stats = [
   "Amertumes",
   "Rides d'expression",
@@ -301,16 +323,18 @@ export default function Home() {
 
       {/* ═══ MARQUEE ═══ */}
       <section className="py-3 md:py-4 border-y border-noir/6 overflow-hidden bg-white/80 backdrop-blur-sm">
-        <div className="flex animate-marquee whitespace-nowrap">
-          {[...stats, ...stats, ...stats, ...stats].map((s, i) => (
-            <span
-              key={i}
-              className="inline-flex items-center gap-3 mx-6 md:mx-10 text-xs md:text-sm font-semibold text-noir/50"
-            >
-              <span className="w-1 h-1 rounded-full bg-corail/60" />
-              {s}
-            </span>
-          ))}
+        {/* Desktop : une seule ligne */}
+        <div className="hidden md:flex animate-marquee whitespace-nowrap">
+          {[...stats, ...stats, ...stats, ...stats].map(renderStat)}
+        </div>
+        {/* Mobile : deux lignes (sens opposés) pour tout voir plus vite */}
+        <div className="md:hidden flex flex-col gap-2">
+          <div className="flex animate-marquee whitespace-nowrap">
+            {[...stats.slice(0, 6), ...stats.slice(0, 6), ...stats.slice(0, 6), ...stats.slice(0, 6)].map(renderStat)}
+          </div>
+          <div className="flex animate-marquee-reverse whitespace-nowrap">
+            {[...stats.slice(6), ...stats.slice(6), ...stats.slice(6), ...stats.slice(6)].map(renderStat)}
+          </div>
         </div>
       </section>
 
@@ -423,16 +447,18 @@ export default function Home() {
           {/* Fade edges */}
           <div className="absolute left-0 top-0 bottom-0 w-24 md:w-40 bg-gradient-to-r from-white to-transparent z-10 pointer-events-none" />
           <div className="absolute right-0 top-0 bottom-0 w-24 md:w-40 bg-gradient-to-l from-white to-transparent z-10 pointer-events-none" />
-          <div className="flex animate-marquee-slow whitespace-nowrap">
-            {[...brands, ...brands, ...brands, ...brands].map((b, i) => (
-              <Link
-                key={i}
-                to={`/evenements#${b.id}`}
-                className="inline-flex items-center mx-8 md:mx-14 text-[22px] md:text-[28px] font-display font-black tracking-tight text-noir/15 select-none hover:text-corail/40 transition-colors duration-300"
-              >
-                {b.name}
-              </Link>
-            ))}
+          {/* Desktop : une seule ligne */}
+          <div className="hidden md:flex animate-marquee-slow whitespace-nowrap">
+            {[...brands, ...brands, ...brands, ...brands].map(renderBrand)}
+          </div>
+          {/* Mobile : deux lignes (sens opposés) */}
+          <div className="md:hidden flex flex-col gap-3">
+            <div className="flex animate-marquee-slow whitespace-nowrap">
+              {[...brands.slice(0, 5), ...brands.slice(0, 5), ...brands.slice(0, 5), ...brands.slice(0, 5)].map(renderBrand)}
+            </div>
+            <div className="flex animate-marquee-slow-reverse whitespace-nowrap">
+              {[...brands.slice(5), ...brands.slice(5), ...brands.slice(5), ...brands.slice(5)].map(renderBrand)}
+            </div>
           </div>
         </div>
       </section>
@@ -559,7 +585,7 @@ export default function Home() {
                 src="/laury-ecriture.png"
                 alt="Laury qui écrit — création de programmes personnalisés à la main"
                 loading="lazy"
-                className="w-full h-auto object-contain"
+                className="w-full h-[300px] md:h-auto object-cover md:object-contain object-[50%_18%]"
               />
             </div>
             <div>
