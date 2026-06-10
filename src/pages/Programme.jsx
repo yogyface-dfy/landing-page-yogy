@@ -44,7 +44,7 @@ const steps = [
   {
     num: "02",
     title: "Ordonnance Beauté Sur-Mesure",
-    desc: "Un document de 3 à 4 pages qui reprend l'analyse de tes préoccupations, l'approche YoGyFace expliquée, des conseils skincare personnalisés et des conseils de mode de vie adaptés à tes besoins.",
+    desc: "Un document de 3 à 7 pages qui reprend l'analyse de tes préoccupations, l'approche YoGyFace expliquée, des conseils skincare personnalisés et des conseils de mode de vie adaptés à tes besoins. C'est ton point de départ et ma référence pour suivre ton évolution ",
     tag: "J+3",
     detail:
       "Tes 3 priorités identifiées avec les causes réelles de tes problématiques.",
@@ -52,10 +52,10 @@ const steps = [
   {
     num: "03",
     title: "Programme Personnalisé 4 Semaines",
-    desc: "Semaine 1 : les fondations. Semaine 2 : on va plus loin en douceur. Semaine 3 : tu ne fais plus, tu maîtrises. Semaine 4 : ancrer et transformer pour le reste de ta vie.",
-    tag: "4 semaines",
+    desc: "Un programme sur 4 semaines pour rapidement agir sur tes préoccupations. La durée augmente petit à petit de semaine en semaine : on installe de bonnes habitudes durables, sans te cramer dès le départ.",
+    tag: "J+6",
     detail:
-      "21 jours pour ancrer une habitude, avec une progression douce de 3 à 10 min/jour.",
+      "Une progression douce de 3 à 10 min/jour pour ancrer l'habitude sur la durée.",
   },
   {
     num: "04",
@@ -245,20 +245,18 @@ export default function Programme() {
       </section>
 
       {/* ═══ RESET ACRONYM ═══ */}
-      <section className="py-16 md:py-24 px-[5%] bg-noir text-white relative overflow-hidden">
-        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[400px] h-[400px] bg-corail/5 rounded-full blur-3xl pointer-events-none" />
+      <section className="py-16 md:py-24 px-[5%] bg-creme relative overflow-hidden">
+        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[400px] h-[400px] bg-corail/10 rounded-full blur-3xl pointer-events-none" />
         <div className="max-w-[1000px] mx-auto relative z-10">
           <div
             className="text-center mb-10 md:mb-16 animate-on-scroll"
             data-anim="fade"
           >
-            <div className="section-badge justify-center text-white/40 border-white/10">
-              La méthode
-            </div>
-            <h2 className="font-display text-[clamp(2rem,6vw,4rem)] font-black tracking-tighter">
+            <div className="section-badge justify-center">La méthode</div>
+            <h2 className="font-display text-[clamp(2rem,6vw,4rem)] font-black tracking-tighter text-noir">
               R.E.S.E.T<span className="text-corail">™</span>
             </h2>
-            <p className="text-white/50 text-sm md:text-base mt-3 max-w-lg mx-auto">
+            <p className="text-gris text-sm md:text-base mt-3 max-w-lg mx-auto">
               5 piliers fondamentaux qui agissent sur les causes, pas les
               symptômes.
             </p>
@@ -267,19 +265,17 @@ export default function Programme() {
             {reset.map((r, i) => (
               <div
                 key={r.word}
-                className={`animate-on-scroll text-center p-5 md:p-6 rounded-2xl border border-white/8 hover:border-corail/30 transition-all duration-300 group ${i === 4 ? "sm:col-span-2 lg:col-span-1" : ""}`}
+                className={`animate-on-scroll text-center p-5 md:p-6 rounded-2xl bg-white border border-noir/5 hover:border-corail/20 shadow-sm transition-all duration-300 group ${i === 4 ? "sm:col-span-2 lg:col-span-1" : ""}`}
                 data-anim="fade"
                 data-delay={`${i * 80}`}
               >
                 <span className="font-display font-black text-3xl md:text-4xl text-corail group-hover:scale-110 transition-transform duration-300 inline-block">
                   {r.letter}
                 </span>
-                <h3 className="font-display font-black text-sm md:text-base tracking-tight mt-2 mb-1">
+                <h3 className="font-display font-black text-sm md:text-base tracking-tight mt-2 mb-1 text-noir">
                   {r.word}
                 </h3>
-                <p className="text-white/40 text-xs leading-relaxed">
-                  {r.desc}
-                </p>
+                <p className="text-gris text-xs leading-relaxed">{r.desc}</p>
               </div>
             ))}
           </div>
@@ -314,32 +310,34 @@ export default function Programme() {
               </span>
             </h2>
           </div>
-          <div className="space-y-4">
+          <div className="space-y-5">
             {steps.map((s, i) => (
               <div
                 key={s.num}
-                className="animate-on-scroll card-hover rounded-2xl border border-noir/5 hover:border-corail/20 overflow-hidden group"
+                className="animate-on-scroll relative rounded-2xl bg-white border border-noir/8 shadow-[0_2px_20px_rgba(26,26,26,0.06)] hover:shadow-[0_10px_36px_rgba(232,103,90,0.14)] hover:border-corail/25 hover:-translate-y-0.5 transition-all duration-300 overflow-hidden group"
                 data-anim="fade"
                 data-delay={`${i * 80}`}
               >
-                <div className="flex flex-col md:flex-row gap-4 md:gap-6 p-5 md:p-7">
-                  <div className="flex items-center md:flex-col md:items-end gap-3 md:gap-1 md:shrink-0 md:w-20">
-                    <span className="w-10 h-10 rounded-xl bg-corail/10 flex items-center justify-center text-corail font-display font-black text-sm">
+                {/* Liseré corail à gauche, renforcé au survol */}
+                <span className="absolute left-0 top-0 h-full w-1 bg-gradient-to-b from-corail to-rose opacity-50 group-hover:opacity-100 transition-opacity duration-300" />
+                <div className="flex flex-col md:flex-row gap-4 md:gap-6 p-5 md:p-7 pl-6 md:pl-8">
+                  <div className="flex items-center md:flex-col md:items-end gap-3 md:gap-2 md:shrink-0 md:w-20">
+                    <span className="w-11 h-11 rounded-xl bg-corail text-white flex items-center justify-center font-display font-black text-sm shadow-lg shadow-corail/25 group-hover:scale-105 transition-transform duration-300">
                       {s.num}
                     </span>
-                    <span className="px-2.5 py-0.5 rounded-full bg-corail/8 text-corail text-[10px] font-semibold">
+                    <span className="px-2.5 py-0.5 rounded-full bg-creme text-corail border border-corail/15 text-[10px] font-semibold whitespace-nowrap">
                       {s.tag}
                     </span>
                   </div>
                   <div className="hidden md:block w-px bg-gradient-to-b from-corail/40 to-corail/5 shrink-0" />
                   <div className="flex-1">
-                    <h3 className="font-display font-black text-base md:text-lg tracking-tight mb-2">
+                    <h3 className="font-display font-black text-base md:text-lg tracking-tight mb-2 group-hover:text-corail transition-colors duration-300">
                       {s.title}
                     </h3>
                     <p className="text-gris text-[13px] md:text-[15px] leading-relaxed mb-2">
                       {s.desc}
                     </p>
-                    <p className="text-corail/70 text-xs font-serif italic">
+                    <p className="text-corail/80 text-[15px] md:text-[17px] font-serif italic">
                       {s.detail}
                     </p>
                   </div>
@@ -533,7 +531,10 @@ export default function Programme() {
                   src: "/ebook-muscles.webp",
                   alt: "Visualisation des muscles du visage",
                 },
-                { src: "/ebook-routine.webp", alt: "Suivi de routine YoGyFace" },
+                {
+                  src: "/ebook-routine.webp",
+                  alt: "Suivi de routine YoGyFace",
+                },
                 {
                   src: "/ebook-dodont.webp",
                   alt: "Do & Don't du yoga du visage",
@@ -640,9 +641,20 @@ export default function Programme() {
           </Link>
           <p className="text-white/30 text-sm mt-6">
             Tu hésites encore ? Regarde{" "}
-            <Link to="/transformations" className="text-corail/80 font-semibold hover:underline">les transformations</Link>
-            {" "}ou consulte la{" "}
-            <Link to="/faq" className="text-corail/80 font-semibold hover:underline">FAQ</Link>.
+            <Link
+              to="/transformations"
+              className="text-corail/80 font-semibold hover:underline"
+            >
+              les transformations
+            </Link>{" "}
+            ou consulte la{" "}
+            <Link
+              to="/faq"
+              className="text-corail/80 font-semibold hover:underline"
+            >
+              FAQ
+            </Link>
+            .
           </p>
         </div>
       </section>

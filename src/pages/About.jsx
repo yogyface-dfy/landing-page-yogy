@@ -391,8 +391,8 @@ export default function About() {
                   {[
                     "Diagnostic 130 points + programme sur-mesure",
                     "Reprogrammation neuro-faciale (pas du yoga classique)",
-                    "12 coachings live avec moi sur 6 mois",
-                    "Équipe de 5 experts spécialisés",
+                    "12 coachings live sur 6 mois",
+                    "Suivi mensuel et retours personnalisés",
                     "Autonomie totale — gestes automatiques à vie",
                   ].map((item) => (
                     <div
