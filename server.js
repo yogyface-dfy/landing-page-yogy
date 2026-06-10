@@ -19,6 +19,17 @@ const app = express()
 // Limite la taille du body pour éviter les abus
 app.use(express.json({ limit: '32kb' }))
 
+// Empêche l'indexation du domaine technique Railway (évite le contenu dupliqué
+// avec yogyface.fr). Dès que le domaine final servira l'app, l'en-tête ne
+// s'applique plus et l'indexation redevient normale.
+app.use((req, res, next) => {
+  const host = req.headers.host || ''
+  if (host.endsWith('.up.railway.app')) {
+    res.set('X-Robots-Tag', 'noindex, nofollow')
+  }
+  next()
+})
+
 const PAT = process.env.AIRTABLE_PAT
 const BASE_ID = process.env.AIRTABLE_BASE_ID
 
