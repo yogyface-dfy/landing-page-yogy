@@ -20,8 +20,8 @@ export default function Confidentialite() {
             <h2 className="font-display font-black text-xl tracking-tight text-noir mb-3">Article 1 — Responsable du traitement</h2>
             <ul className="space-y-1 ml-4 list-disc">
               <li><strong>Nom :</strong> Laury Anater</li>
-              <li><strong>Société :</strong> TRACKS CONSULTANCY - F.Z.C (Trade Licence 44373)</li>
-              <li><strong>Siège :</strong> Dubaï, Émirats Arabes Unis</li>
+              <li><strong>Société :</strong> YGF LLC (Limited Liability Company)</li>
+              <li><strong>Siège :</strong> 30 N Gould St Ste R, Sheridan, WY 82801-6317, États-Unis</li>
               <li><strong>Email :</strong> contact@yogyface.fr</li>
               <li><strong>Site :</strong> <a href="https://www.yogyface.fr" className="text-corail hover:underline">www.yogyface.fr</a></li>
             </ul>
@@ -109,7 +109,7 @@ export default function Confidentialite() {
           </div>
 
           <div className="pt-6 border-t border-noir/8">
-            <p className="text-gris/50 text-xs">© 2026 — Laury Anater — YoGyFace · TRACKS CONSULTANCY - F.Z.C · Trade Licence 44373 · Tous droits réservés</p>
+            <p className="text-gris/50 text-xs">© 2026 — Laury Anater — YoGyFace · YGF LLC · Tous droits réservés</p>
           </div>
         </div>
       </div>

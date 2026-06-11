@@ -113,7 +113,7 @@ export default function CGV() {
           </div>
 
           <div className="pt-6 border-t border-noir/8">
-            <p className="text-gris/50 text-xs">© 2026 — Laury Anater — YoGyFace · TRACKS CONSULTANCY - F.Z.C · Trade Licence 44373 · Tous droits réservés</p>
+            <p className="text-gris/50 text-xs">© 2026 — Laury Anater — YoGyFace · YGF LLC · Tous droits réservés</p>
           </div>
         </div>
       </div>

@@ -1,4 +1,4 @@
-import { Helmet } from 'react-helmet-async'
+import { Head } from 'vite-react-ssg'
 
 const SITE = 'https://yogyface.fr'
 const DEFAULT_IMAGE = `${SITE}/og-image.jpg`
@@ -12,7 +12,7 @@ export default function SEO({ title, description, path = '/', image = DEFAULT_IM
   const fullTitle = `${title} | YoGyFace`
 
   return (
-    <Helmet>
+    <Head>
       <title>{fullTitle}</title>
       <meta name="description" content={description} />
       <link rel="canonical" href={url} />
@@ -34,6 +34,6 @@ export default function SEO({ title, description, path = '/', image = DEFAULT_IM
       <meta name="twitter:title" content={fullTitle} />
       <meta name="twitter:description" content={description} />
       <meta name="twitter:image" content={image} />
-    </Helmet>
+    </Head>
   )
 }

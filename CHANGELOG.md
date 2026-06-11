@@ -2,48 +2,72 @@
 
 ## 2026-06-11
 
+### ✨ Added
+
+- Section **Articles / Blog** : nouvelle page `/articles` (liste + filtres par catégorie) et pages d'article `/articles/:slug` avec intégration de vidéos YouTube. Contenu rédigé en **Markdown** versionné dans `src/content/articles/` (frontmatter `title`, `slug`, `date`, `category`, `excerpt`, `cover`, `youtube`, `description`). Lien « Articles » ajouté à la navigation (Navbar + Footer). Façade YouTube légère (miniature → iframe au clic) pour préserver les performances.
+
+### 🚀 Improved
+
+- **Prerendering statique (SSG) via `vite-react-ssg`** : toutes les pages (existantes + articles) sont désormais rendues en HTML statique au build → texte et balises SEO présents dans le HTML pour un vrai référencement Google. Gestion du `<head>` par page migrée vers `<Head>` (titres, meta, Open Graph, canonical, JSON-LD `Article`/`FAQPage`/`Person`/`Business`). `sitemap.xml` régénéré automatiquement au build (script `prebuild`) avec les URLs d'articles.
+
 ### 🔧 Changed
+
+- Pages légales (Mentions légales, CGV, Politique de confidentialité) : remplacement de l'entité éditrice « TRACKS CONSULTANCY - F.Z.C » (Dubaï) par **YGF LLC** (Limited Liability Company — 30 N Gould St Ste R, Sheridan, WY 82801-6317, États-Unis) ; suppression de l'ancien Trade Licence 44373.
+- Remplacement du logo texte par le logo image officiel (version foncée pour fonds clairs : Navbar/menu mobile ; version claire pour fond sombre : Footer), détouré en PNG transparent.
 - Uniformisation de la marque en « YoGyFace » sur tout le site (FAQ, CGV, Mentions légales, Transformations, Footer, Programme) ; les URLs/emails `yogyface.fr` restent inchangés.
 
 ### ✨ Added
+
 - Page FAQ : 2 nouvelles questions (« Est-ce que je dois pratiquer tous les jours, matin et soir ? » et « J'ai peur de mal faire, est-ce que je peux abîmer mon visage ? »).
 
 ### 🚀 Improved
+
 - Page FAQ : mise en gras des mots/expressions clés dans les réponses (parser `**…**` → `<strong>`) pour une meilleure lisibilité et un repérage rapide ; les marqueurs sont retirés du JSON-LD (SEO).
 
 ### 🐛 Fixed
+
 - Page FAQ : réponses multi-paragraphes passées en template literals (corrige l'erreur de syntaxe due aux retours à la ligne dans des chaînes `"..."`) et rendu en `whitespace-pre-line` pour conserver les sauts de ligne ; hauteur d'ouverture augmentée pour éviter la troncature des longues réponses.
 
 ### ✨ Added
+
 - Page Transformations : ajout de l'avis Trustpilot d'Elisabeth (condensé sans reformulation) après celui de Carine.
 - Events de conversion PostHog : `waitlist_signup` (inscription liste d'attente) et `contact_submit` (message contact, avec le sujet) envoyés au succès du formulaire — permet de mesurer les taux de conversion et de construire des funnels.
 
 ### 📚 Documentation
+
 - Ajout de `docs/analytics-posthog.md` : architecture, variables d'env, procédure Railway et garde-fous PostHog (bot filtering, billing limit, domaines autorisés).
 
 ### ✨ Added
+
 - Mesure d'audience PostHog (cloud EU) : suivi des pages vues au changement de route (SPA), chargé en import dynamique (chunk séparé) et **uniquement après consentement**. Ajout d'un bandeau de consentement RGPD (`CookieConsent`) avec choix Accepter/Refuser, et mise à jour de la page Confidentialité (Article 9). Clé via `VITE_POSTHOG_KEY` (cf. `.env.example`).
 - Page Transformations : ajout de l'avis de Carine (« Une renaissance », version raccourcie sans modification des propos) juste après celui de Jeanne, avec son lien Trustpilot.
 
 ### 🔧 Changed
+
 - Remplacement des images avant/après `ba-05`, `ba-06`, `ba-08` (bande blanche retirée + recadrage 1000×600) et `ba-11` par de nouvelles photos.
 
 ## 2026-06-10
 
 ### 🔧 Changed
+
 - Image de partage social (Open Graph / Twitter) remplacée par `laury-profil` (converti en JPG `og-laury-profil.jpg`, 1024×682, meilleur support multi-plateformes que le WebP) ; dimensions `og:image` mises à jour en conséquence.
 
 ### 🔧 Changed
+
 - Page Programme (section 5 expertes) : descriptions des expertes enrichies de 2-3 lignes à partir de recherches en ligne (Camille Hermann, Irina Sambucini, Laëtitia / LovelyLift®, Alicia, Julie / Natis) à la place de la simple ligne précédente.
 
 ### 🔧 Changed
+
 - Page Programme : section R.E.S.E.T™ passée du fond noir au fond crème (cartes piliers blanches), cartes des 6 étapes redessinées (ombre douce, liseré corail, numéro en badge plein, effet hover), phrases italiques de détail agrandies (15/17px), et texte de l'étape 03 reformulé (routine 4 semaines renouvelée sur 6 mois, progression douce).
 
 ### 📚 Documentation
+
 - Ajout de `docs/strategie-seo-6-mois.md` : stratégie SEO complète sur 6 mois (mots-clés, roadmap, plan éditorial 20 articles, netlinking, KPIs).
 
 ### 🚀 Improved
+
 - Optimisation des performances (PageSpeed) : polices Google chargées en asynchrone (~1150 ms de blocage de rendu en moins), conversion de toutes les images de contenu en WebP (~1,8 Mo économisés, -57%), et code-splitting des routes via `React.lazy` + `Suspense` (Home reste en eager pour le LCP, -43 Kio de JS au chargement initial).
 
 ### 🔧 Changed
+
 - Masquage temporaire de la page Événements (données manquantes) : lien retiré de la navbar et du footer, routes `/evenements` et `/evenements/:id` redirigées vers l'accueil, marques du bandeau "Elles m'ont fait confiance" affichées sans lien, entrées Événements retirées du sitemap. Les pages `Evenements.jsx` et `EvenementDetail.jsx` sont conservées pour réactivation ultérieure.

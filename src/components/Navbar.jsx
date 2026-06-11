@@ -7,6 +7,8 @@ const links = [
   { href: '/programme',      label: 'Programme' },
   { href: '/transformations',label: 'Transformations' },
   // Événements masqué temporairement (données manquantes)
+  // Articles masqué temporairement (page accessible par URL directe)
+  // { href: '/articles',       label: 'Articles' },
   { href: '/faq',            label: 'FAQ' },
   { href: '/contact',        label: 'Contact' },
 ]
@@ -39,11 +41,14 @@ export default function Navbar() {
     }`}>
       <div className="max-w-[1400px] mx-auto flex justify-between items-center">
         {/* Logo */}
-        <Link to="/" className="inline-flex items-center group">
-          <span className="font-display font-black tracking-tighter text-noir text-2xl transition-all duration-300 group-hover:tracking-tight">
-            YoGyFace
-          </span>
-          <span className="text-corail text-2xl font-black transition-transform duration-300 group-hover:scale-125 group-hover:rotate-12">.</span>
+        <Link to="/" className="inline-flex items-center group" aria-label="YoGyFace — Accueil">
+          <img
+            src="/logo-yogyface-dark.png"
+            alt="YoGyFace"
+            width={528}
+            height={175}
+            className="h-7 w-auto transition-transform duration-300 group-hover:scale-[1.03]"
+          />
         </Link>
 
         {/* Desktop nav */}
@@ -94,9 +99,8 @@ export default function Navbar() {
       >
         {/* Header row mirroring navbar */}
         <div className="px-[5%] py-5 flex justify-between items-center">
-          <Link to="/" className="inline-flex items-center group" onClick={() => setMenuOpen(false)}>
-            <span className="font-display font-black tracking-tighter text-noir text-2xl">YoGyFace</span>
-            <span className="text-corail text-2xl font-black">.</span>
+          <Link to="/" className="inline-flex items-center" onClick={() => setMenuOpen(false)} aria-label="YoGyFace — Accueil">
+            <img src="/logo-yogyface-dark.png" alt="YoGyFace" width={528} height={175} className="h-7 w-auto" />
           </Link>
           <button
             className="p-2 rounded-lg hover:bg-noir/5 transition-colors"

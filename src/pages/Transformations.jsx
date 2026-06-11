@@ -69,6 +69,12 @@ const results = [
     zone: "Rides d'expression",
     tag: "Christel",
   },
+  {
+    img: "/ba-12.webp",
+    duration: "3 mois",
+    zone: "Poches et Sillons nasogéniens",
+    tag: "Emmanuelle",
+  },
 ];
 
 const testimonials = [

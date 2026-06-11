@@ -9,9 +9,8 @@ export default function Footer() {
       <div className="max-w-[1400px] mx-auto relative z-10">
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-8 md:gap-10 mb-12 md:mb-16">
           <div className="sm:col-span-2 md:col-span-1">
-            <div className="flex items-center mb-4 group">
-              <span className="font-display font-black tracking-tighter text-white text-2xl">YoGyFace</span>
-              <span className="text-corail text-2xl font-black group-hover:scale-125 group-hover:rotate-12 transition-transform duration-300">.</span>
+            <div className="mb-4">
+              <img src="/logo-yogyface-light.png" alt="YoGyFace" width={521} height={170} className="h-8 w-auto" />
             </div>
             <p className="text-white/40 text-sm leading-relaxed mb-1">
               Reprends le contrôle de ton vieillissement facial grâce à la méthode RESET™ de Laury.

@@ -1,46 +1,43 @@
-import React, { lazy } from 'react'
-import ReactDOM from 'react-dom/client'
-import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom'
-import { HelmetProvider } from 'react-helmet-async'
+import { ViteReactSSG } from 'vite-react-ssg'
+import { Navigate } from 'react-router-dom'
 import './index.css'
 import Layout from './components/Layout'
 import Home from './pages/Home'
+import { articles } from './lib/articles'
 
-// Code-splitting : pages chargées à la demande (Home reste en eager pour le LCP)
-const About = lazy(() => import('./pages/About'))
-const Programme = lazy(() => import('./pages/Programme'))
-const Transformations = lazy(() => import('./pages/Transformations'))
-const FAQ = lazy(() => import('./pages/FAQ'))
-const Contact = lazy(() => import('./pages/Contact'))
-const ListeAttente = lazy(() => import('./pages/ListeAttente'))
-const MentionsLegales = lazy(() => import('./pages/MentionsLegales'))
-const CGV = lazy(() => import('./pages/CGV'))
-const Confidentialite = lazy(() => import('./pages/Confidentialite'))
-// Événements masqué temporairement (données manquantes) — pages conservées, routes redirigées
-const NotFound = lazy(() => import('./pages/NotFound'))
+// Helper : route React Router "lazy" à partir d'un export default de page.
+// L'import() est écrit en clair pour que vite-react-ssg détecte le chunk au build.
+const page = (loader) => () => loader().then((m) => ({ Component: m.default }))
 
-ReactDOM.createRoot(document.getElementById('root')).render(
-  <React.StrictMode>
-    <HelmetProvider>
-      <BrowserRouter>
-        <Routes>
-          <Route path="/" element={<Layout />}>
-            <Route index element={<Home />} />
-            <Route path="about" element={<About />} />
-            <Route path="programme" element={<Programme />} />
-            <Route path="transformations" element={<Transformations />} />
-            <Route path="faq" element={<FAQ />} />
-            <Route path="contact" element={<Contact />} />
-            <Route path="liste-attente" element={<ListeAttente />} />
-            <Route path="mentions-legales" element={<MentionsLegales />} />
-            <Route path="cgv" element={<CGV />} />
-            <Route path="confidentialite" element={<Confidentialite />} />
-            <Route path="evenements" element={<Navigate to="/" replace />} />
-            <Route path="evenements/:id" element={<Navigate to="/" replace />} />
-            <Route path="*" element={<NotFound />} />
-          </Route>
-        </Routes>
-      </BrowserRouter>
-    </HelmetProvider>
-  </React.StrictMode>
-)
+export const routes = [
+  {
+    path: '/',
+    element: <Layout />,
+    children: [
+      // Home reste en eager pour le LCP (page la plus visitée).
+      { index: true, element: <Home /> },
+      { path: 'about', lazy: page(() => import('./pages/About')) },
+      { path: 'programme', lazy: page(() => import('./pages/Programme')) },
+      { path: 'transformations', lazy: page(() => import('./pages/Transformations')) },
+      { path: 'faq', lazy: page(() => import('./pages/FAQ')) },
+      { path: 'contact', lazy: page(() => import('./pages/Contact')) },
+      { path: 'articles', lazy: page(() => import('./pages/Articles')) },
+      {
+        path: 'articles/:slug',
+        lazy: page(() => import('./pages/ArticleDetail')),
+        // Liste des pages d'articles à prérendre au build.
+        getStaticPaths: () => articles.map((a) => `articles/${a.slug}`),
+      },
+      { path: 'liste-attente', lazy: page(() => import('./pages/ListeAttente')) },
+      { path: 'mentions-legales', lazy: page(() => import('./pages/MentionsLegales')) },
+      { path: 'cgv', lazy: page(() => import('./pages/CGV')) },
+      { path: 'confidentialite', lazy: page(() => import('./pages/Confidentialite')) },
+      // Événements masqués temporairement : routes redirigées vers l'accueil.
+      { path: 'evenements', element: <Navigate to="/" replace /> },
+      { path: 'evenements/:id', element: <Navigate to="/" replace /> },
+      { path: '*', lazy: page(() => import('./pages/NotFound')) },
+    ],
+  },
+]
+
+export const createRoot = ViteReactSSG({ routes })

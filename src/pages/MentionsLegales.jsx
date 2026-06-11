@@ -21,9 +21,9 @@ export default function MentionsLegales() {
             <h2 className="font-display font-black text-xl tracking-tight text-noir mb-3">Article 1 — Éditeur du site</h2>
             <p>Le site <strong>www.yogyface.fr</strong> est édité par :</p>
             <ul className="mt-2 space-y-1 ml-4 list-disc">
-              <li><strong>Société :</strong> TRACKS CONSULTANCY - F.Z.C</li>
-              <li><strong>Forme juridique :</strong> Free Zone Company (F.Z.C)</li>
-              <li><strong>Trade Licence :</strong> 44373</li>
+              <li><strong>Société :</strong> YGF LLC</li>
+              <li><strong>Forme juridique :</strong> Limited Liability Company (LLC)</li>
+              <li><strong>Adresse :</strong> 30 N Gould St Ste R, Sheridan, WY 82801-6317, États-Unis</li>
               <li><strong>Représentée par :</strong> Laury Anater, gérante et fondatrice</li>
               <li><strong>Email :</strong> contact@yogyface.fr</li>
               <li><strong>Site :</strong> <a href="https://www.yogyface.fr" className="text-corail hover:underline">www.yogyface.fr</a></li>
@@ -32,7 +32,7 @@ export default function MentionsLegales() {
 
           <div>
             <h2 className="font-display font-black text-xl tracking-tight text-noir mb-3">Article 2 — Directeur de la publication</h2>
-            <p><strong>Laury Anater</strong>, en sa qualité de gérante de TRACKS CONSULTANCY - F.Z.C.</p>
+            <p><strong>Laury Anater</strong>, en sa qualité de gérante de YGF LLC.</p>
           </div>
 
           <div>
@@ -47,7 +47,7 @@ export default function MentionsLegales() {
 
           <div>
             <h2 className="font-display font-black text-xl tracking-tight text-noir mb-3">Article 5 — Propriété intellectuelle</h2>
-            <p>L'ensemble du contenu présent sur le site (textes, images, vidéos, logos, graphismes, méthode RESET™, charte graphique, base de données, etc.) est la propriété exclusive de <strong>Laury Anater</strong> et de <strong>TRACKS CONSULTANCY - F.Z.C</strong>.</p>
+            <p>L'ensemble du contenu présent sur le site (textes, images, vidéos, logos, graphismes, méthode RESET™, charte graphique, base de données, etc.) est la propriété exclusive de <strong>Laury Anater</strong> et de <strong>YGF LLC</strong>.</p>
             <p className="mt-2">La marque « YoGyFace », le nom de domaine « yogyface.fr » et tous les signes distinctifs sont protégés par les lois relatives à la propriété intellectuelle. Toute reproduction, représentation ou exploitation non autorisée est strictement interdite et constitue une contrefaçon (articles L.335-2 et suivants du Code de la Propriété Intellectuelle).</p>
           </div>
 
@@ -82,7 +82,7 @@ export default function MentionsLegales() {
           </div>
 
           <div className="pt-6 border-t border-noir/8">
-            <p className="text-gris/50 text-xs">© 2026 — Laury Anater — YoGyFace · TRACKS CONSULTANCY - F.Z.C · Trade Licence 44373 · Tous droits réservés</p>
+            <p className="text-gris/50 text-xs">© 2026 — Laury Anater — YoGyFace · YGF LLC · Tous droits réservés</p>
           </div>
         </div>
       </div>

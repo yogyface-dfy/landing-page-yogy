@@ -1,5 +1,5 @@
 import { useParams, Link, Navigate } from "react-router-dom";
-import { Helmet } from "react-helmet-async";
+import { Head } from "vite-react-ssg";
 import SEO from "../components/SEO";
 import events from "../data/events";
 
@@ -45,10 +45,10 @@ export default function EvenementDetail() {
         path={`/evenements/${ev.id}`}
         noindex={isPlaceholder}
       />
-      <Helmet>
+      <Head>
         <script type="application/ld+json">{JSON.stringify(eventJsonLd)}</script>
         <script type="application/ld+json">{JSON.stringify(breadcrumbJsonLd)}</script>
-      </Helmet>
+      </Head>
 
       {/* Hero */}
       <section className="relative pt-32 pb-16 md:pb-20 px-[7%] md:px-[10%] overflow-hidden">

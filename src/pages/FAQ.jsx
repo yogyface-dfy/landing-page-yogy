@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
-import { Helmet } from "react-helmet-async";
+import { Head } from "vite-react-ssg";
 import SEO from "../components/SEO";
 
 const faqs = [
@@ -157,7 +157,7 @@ export default function FAQ() {
         path="/faq"
       />
       {/* FAQ JSON-LD for Google rich results */}
-      <Helmet>
+      <Head>
         <script type="application/ld+json">
           {JSON.stringify({
             "@context": "https://schema.org",
@@ -172,7 +172,7 @@ export default function FAQ() {
             })),
           })}
         </script>
-      </Helmet>
+      </Head>
       {/* Hero */}
       <section className="relative pt-32 md:pt-40 pb-16 px-[5%] overflow-hidden">
         <div className="absolute -top-16 -left-16 w-48 h-48 bg-bleu/15 rounded-full blur-3xl pointer-events-none animate-float" />

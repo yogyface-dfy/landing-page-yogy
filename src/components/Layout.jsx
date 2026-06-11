@@ -1,6 +1,6 @@
 import { Outlet, useLocation } from 'react-router-dom'
 import { useEffect, useCallback, Suspense } from 'react'
-import { Helmet } from 'react-helmet-async'
+import { Head } from 'vite-react-ssg'
 import Navbar from './Navbar'
 import Footer from './Footer'
 import CookieConsent from './CookieConsent'
@@ -137,10 +137,10 @@ export default function Layout() {
 
   return (
     <div className="grain font-sans text-noir antialiased overflow-x-hidden">
-      <Helmet>
+      <Head>
         <script type="application/ld+json">{JSON.stringify(jsonLd)}</script>
         <script type="application/ld+json">{JSON.stringify(personJsonLd)}</script>
-      </Helmet>
+      </Head>
       <Navbar />
       <main>
         {/* Suspense : fallback pendant le chargement des chunks de page (code-splitting) */}
