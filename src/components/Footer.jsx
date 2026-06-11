@@ -75,7 +75,7 @@ export default function Footer() {
         </div>
 
         <div className="border-t border-white/6 pt-8 flex flex-col sm:flex-row justify-between items-center gap-3">
-          <p className="text-white/20 text-sm">© YOGYFACE, 2026 · Méthode RESET™</p>
+          <p className="text-white/20 text-sm">© YoGyFace, 2026 · Méthode RESET™</p>
           <p className="text-white/10 text-xs font-serif italic text-center sm:text-right break-words">Reprogrammation neuro-faciale par Laury · contact@yogyface.fr</p>
         </div>
       </div>

@@ -42,7 +42,7 @@ export default function MentionsLegales() {
 
           <div>
             <h2 className="font-display font-black text-xl tracking-tight text-noir mb-3">Article 4 — Objet du site</h2>
-            <p>Le site www.yogyface.fr a pour objet la présentation et la commercialisation du programme numérique de yoga du visage « YogyFace Reset », ainsi que la fourniture d'informations relatives à cette méthode de gymnastique faciale.</p>
+            <p>Le site www.yogyface.fr a pour objet la présentation et la commercialisation du programme numérique de yoga du visage « YoGyFace Reset », ainsi que la fourniture d'informations relatives à cette méthode de gymnastique faciale.</p>
           </div>
 
           <div>

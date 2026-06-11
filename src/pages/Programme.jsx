@@ -438,7 +438,7 @@ export default function Programme() {
               Ce qui nous différencie
             </div>
             <h2 className="font-display text-[clamp(1.8rem,4vw,3rem)] font-black tracking-tighter text-noir mb-3">
-              POURQUOI YOGYFACE
+              POURQUOI YoGyFace
               <br />
               <span className="font-serif italic text-corail font-semibold">
                 et pas un autre ?

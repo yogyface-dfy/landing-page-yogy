@@ -87,7 +87,7 @@ const testimonials = [
     link: "https://www.trustpilot.com/reviews/6a29584db820ab188088ce5e",
   },
   {
-    text: "En 6 mois de YOGIFACE j'ai l'impression d'avoir gagné 10 ans (au moins), un regard rajeuni et plus ouvert. Grâce à son programme sur mesure, j'ai retrouvé une peau restructurée et plus ferme. Je me regarde avec joie dans le miroir et je vois quelqu'un qui a pris soin d'elle et qui n'a plus peur de vieillir. Je recommande Laury de YOGIFACE à 200 %.",
+    text: "En 6 mois de YoGyFace j'ai l'impression d'avoir gagné 10 ans (au moins), un regard rajeuni et plus ouvert. Grâce à son programme sur mesure, j'ai retrouvé une peau restructurée et plus ferme. Je me regarde avec joie dans le miroir et je vois quelqu'un qui a pris soin d'elle et qui n'a plus peur de vieillir. Je recommande Laury de YoGyFace à 200 %.",
     name: "Elisabeth",
     info: "66 ans · 6 mois · Regard & fermeté",
     initial: "E",
@@ -132,7 +132,7 @@ const testimonials = [
 ];
 
 const stats = [
-  { number: "1 000+", label: "Femmes transformées" },
+  { number: "700+", label: "Femmes transformées" },
   { number: "4.9/5", label: "Satisfaction moyenne" },
   { number: "21j", label: "Premiers résultats visibles" },
   { number: "97%", label: "Recommanderaient RESET" },

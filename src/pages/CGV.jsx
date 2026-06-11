@@ -13,17 +13,17 @@ export default function CGV() {
         <h1 className="animate-on-scroll font-display text-[clamp(2rem,5vw,3.5rem)] font-black tracking-tighter text-noir mb-4">
           CONDITIONS GÉNÉRALES DE VENTE
         </h1>
-        <p className="text-gris text-sm mb-12">YogyFace RESET — Programme de Yoga du Visage · Mise à jour : juin 2026</p>
+        <p className="text-gris text-sm mb-12">YoGyFace RESET — Programme de Yoga du Visage · Mise à jour : juin 2026</p>
 
         <div className="space-y-10 text-[15px] text-gris leading-relaxed break-words">
           <div>
             <h2 className="font-display font-black text-xl tracking-tight text-noir mb-3">Article 1 — Objet</h2>
-            <p>Les présentes CGV régissent l'ensemble des relations contractuelles entre <strong>Laury Anater</strong> (« le Vendeur ») et toute personne souhaitant acquérir le programme numérique de yoga du visage YogyFace proposé sur <strong>www.yogyface.fr</strong>. Le fait de passer commande implique l'acceptation sans réserve des présentes CGV.</p>
+            <p>Les présentes CGV régissent l'ensemble des relations contractuelles entre <strong>Laury Anater</strong> (« le Vendeur ») et toute personne souhaitant acquérir le programme numérique de yoga du visage YoGyFace proposé sur <strong>www.yogyface.fr</strong>. Le fait de passer commande implique l'acceptation sans réserve des présentes CGV.</p>
           </div>
 
           <div>
             <h2 className="font-display font-black text-xl tracking-tight text-noir mb-3">Article 2 — Présentation des services</h2>
-            <p>Le programme « YogyFace Reset » comprend :</p>
+            <p>Le programme « YoGyFace Reset » comprend :</p>
             <ul className="mt-2 space-y-1.5 ml-4 list-disc">
               <li>Un accès <strong>illimité</strong> via un lien internet personnel à une plateforme contenant des vidéos personnalisées selon le diagnostic initial</li>
               <li><strong>12 séances de coaching en direct</strong> (live Zoom, 60-90 min), réparties sur 6 mois</li>
@@ -97,7 +97,7 @@ export default function CGV() {
             <h2 className="font-display font-black text-xl tracking-tight text-noir mb-3">Article 11 — Responsabilité & avertissement médical</h2>
             <div className="p-4 bg-rose/10 rounded-xl border border-corail/10">
               <p className="text-noir font-semibold text-sm mb-1">Avertissement important</p>
-              <p className="text-sm">Le programme YogyFace est une méthode de gymnastique faciale et de bien-être. Il ne constitue en aucun cas un acte médical, paramédical ou thérapeutique. Consultation médicale préalable fortement recommandée. Résultats variables selon les individus. La Cliente pratique sous sa propre responsabilité.</p>
+              <p className="text-sm">Le programme YoGyFace est une méthode de gymnastique faciale et de bien-être. Il ne constitue en aucun cas un acte médical, paramédical ou thérapeutique. Consultation médicale préalable fortement recommandée. Résultats variables selon les individus. La Cliente pratique sous sa propre responsabilité.</p>
             </div>
           </div>
 

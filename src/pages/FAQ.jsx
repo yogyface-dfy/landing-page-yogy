@@ -6,45 +6,108 @@ import SEO from "../components/SEO";
 const faqs = [
   {
     q: "Qu'est-ce que le yoga du visage ?",
-    a: "Le yoga du visage est une gymnastique douce et ciblée des 45 muscles de ton visage. Comme n'importe quel muscle du corps, les muscles faciaux ont besoin d'être entraînés, étirés et détendus. En les travaillant régulièrement, tu peux lifter naturellement ton ovale, réduire l'apparence des rides et retrouver un teint lumineux — sans intervention invasive.",
+    a: `Le yoga du visage est une **méthode naturelle** qui permet de travailler les **45 muscles de ton visage** en douceur, avec précision et conscience.
+
+À travers des exercices ciblés comme des **auto-massages**, des **étirements**, de la **gymnastique**, du **drainage** et de la **respiration**, tu apprends à **rééduquer ton visage** : relâcher les tensions, réveiller les muscles qui manquent de tonicité et corriger certaines habitudes inconscientes qui marquent les traits au fil du temps.
+
+Car ton visage ne reflète pas seulement l’âge : il exprime aussi tes **émotions**, ton **stress** et ta **fatigue**, tout ce que tu retiens parfois sans t’en rendre compte.
+
+Pratiqué régulièrement, le yoga du visage aide à **lifter naturellement l’ovale**, **réduire l’apparence des rides**, détendre les traits et retrouver un **teint plus lumineux** — **sans intervention invasive**.`,
   },
   {
     q: "Est-ce que le yoga du visage fonctionne vraiment ?",
-    a: "Oui. Les 45 muscles de ton visage répondent à l'entraînement comme n'importe quel autre muscle du corps. En agissant sur la musculature, la posture et la circulation plutôt que de masquer les symptômes, le yoga du visage s'attaque à la cause profonde du vieillissement facial. Les résultats sont visibles et durables.",
+    a: `Oui, à condition de **travailler le visage dans sa globalité**, et pas seulement une ride ou une zone isolée.
+
+Le visage est composé de muscles qui fonctionnent ensemble : certains sont **trop contractés**, souvent à cause du stress, des émotions, d’une respiration bloquée ou de mimiques répétées. Ces tensions, parfois imperceptibles, peuvent finir par marquer le visage et créer des **rides d’expression**.
+
+À l’inverse, **d’autres muscles perdent en tonicité** avec le temps. Ils soutiennent moins bien les tissus, ce qui accentue le **relâchement**, en plus de la gravité et du vieillissement naturel de la peau, qui produit progressivement moins de collagène et d’élastine.
+
+Le yoga du visage fonctionne parce qu’il agit sur ces deux aspects : il **détend les muscles hypertoniques** et **réactive les muscles plus “endormis”**. Grâce aux exercices ciblés, aux auto-massages, à la respiration et à la rééducation des mimiques, on vient relâcher les tensions invisibles, améliorer la **circulation sanguine**, oxygéner les tissus et redonner plus de soutien au visage.
+
+C’est ce **travail complet sur les fondamentaux** — muscles, posture, respiration, tensions, circulation et conscience musculaire — qui permet d’obtenir des **résultats visibles, naturels et durables**, à tout âge.
+
+Des études ont d’ailleurs observé qu’une **pratique régulière** d’exercices faciaux pouvait améliorer l’apparence du visage.`,
   },
   {
     q: "Combien de temps faut-il pratiquer par jour ?",
-    a: "L'idéal est de commencer par quelques minutes et d'augmenter progressivement. En général, 10 minutes par jour suffisent pour observer des résultats. L'important est la régularité : mieux vaut 10 minutes chaque jour que 30 minutes de temps en temps. C'est comme se laver les dents — c'est l'habitude qui fait la différence.",
+    a: `L’idéal est de commencer par **quelques minutes par jour**, puis d’augmenter progressivement selon tes besoins et ton rythme. En général, **5 à 10 minutes** bien pratiquées peuvent déjà faire une vraie différence.
+
+Mais chez YoGyFace, ce n’est pas seulement une question de temps : c’est surtout une question de **pleine conscience**. Une routine de 4 minutes réalisée avec lenteur, douceur, respiration et conscience musculaire sera souvent **plus efficace** qu’une routine de 15 minutes faite trop vite, sans les bons gestes.
+
+C’est justement ma méthode d’apprentissage : **avancer petit à petit, sans créer de charge mentale**. Le but n’est pas d’ajouter une contrainte de plus dans ta journée, mais de faire entrer le yoga du visage naturellement dans tes habitudes de vie, **comme se laver les dents**.
+
+Au fil de la pratique, tu crées des **automatismes** : relâcher ta mâchoire, détendre ton front, respirer plus profondément, corriger une mimique répétée ou masser une tension quand tu la sens apparaître.
+
+Une fois ces réflexes installés, tu n’as plus besoin de “trouver du temps”. L’important, c’est la **régularité**, la **qualité du mouvement** et la **conscience** que tu mets dans ta pratique.`,
+  },
+  {
+    q: "Est-ce que je dois pratiquer tous les jours, matin et soir ?",
+    a: `Non, tu n’as pas besoin de **pratiquer matin et soir tous les jours** pour obtenir des résultats.
+
+L’objectif n’est pas de te rajouter une pression ou une charge mentale supplémentaire, mais de créer une **routine réaliste, que tu peux tenir dans le temps**. Chez YoGyFace, on apprend petit à petit à intégrer les bons gestes dans son quotidien, comme une véritable **habitude de vie**.
+
+L’idéal est d’**être régulière** : **quelques minutes par jour**, ou plusieurs fois par semaine, valent mieux qu’une longue routine faite une fois de temps en temps. Tu peux pratiquer **le matin** pour réveiller ton visage, stimuler la circulation et défroisser les traits, ou **le soir** pour relâcher les tensions accumulées dans la journée.
+
+Mais le plus important, ce n’est pas le moment parfait : c’est la **qualité de ta pratique**. Une routine courte, faite avec **lenteur, respiration et conscience musculaire**, sera toujours plus efficace qu’une routine longue faite automatiquement ou dans la précipitation.
+
+Ma vision, c’est justement de t’aider à adopter cet état d’esprit : ne plus voir le yoga du visage comme une contrainte, mais comme **un moment qui te fait du bien**. Au bout de quelques semaines — souvent entre **21 et 66 jours** selon les personnes — les gestes deviennent de **vrais automatismes**. Tu ne “cherches” plus le temps : c’est ancré dans tes habitudes, **comme te laver les dents**.
+
+Et parce que tu ressens les bienfaits sur ton visage, mais aussi sur tes tensions, ta respiration et ton rapport à toi-même, tu n’as plus besoin de te forcer. Tu pratiques parce que ça devient **naturel, agréable et évident**.`,
   },
   {
     q: "Est-ce que ça peut remplacer les injections ?",
-    a: "Le yoga du visage est une alternative naturelle qui travaille la cause du vieillissement (musculature, posture, circulation) plutôt que d'en masquer les signes. Beaucoup de femmes ont réduit ou arrêté leurs injections après avoir adopté une pratique régulière. C'est une approche complémentaire qui redonne de l'autonomie.",
+    a: "Le yoga du visage est une **alternative naturelle** qui travaille la **cause du vieillissement** (musculature, posture, circulation) plutôt que d'en masquer les signes. Beaucoup de femmes ont **réduit ou arrêté leurs injections** après avoir adopté une pratique régulière. C'est une approche complémentaire qui **redonne de l'autonomie**.",
   },
   {
     q: "C'est quoi le drainage lymphatique du visage ?",
-    a: "Le drainage lymphatique est une technique douce qui stimule la circulation de la lymphe — le liquide qui évacue les toxines et les déchets cellulaires. Sur le visage, il permet de réduire les poches, les gonflements, et de retrouver un teint plus frais et lumineux. C'est un complément idéal au yoga du visage.",
+    a: "Le drainage lymphatique est une **technique douce** qui stimule la circulation de la lymphe — le liquide qui **évacue les toxines** et les déchets cellulaires. Sur le visage, il permet de **réduire les poches et les gonflements**, et de retrouver un **teint plus frais et lumineux**. C'est un complément idéal au yoga du visage.",
   },
   {
     q: "Qu'est-ce que le face tape et à quoi ça sert ?",
-    a: "Le face tape (ou taping facial) utilise des bandes adhésives pour corriger la posture faciale entre les séances de yoga du visage. Il aide à maintenir les muscles dans la bonne position, un peu comme un appareil dentaire pour le visage. C'est une technique complémentaire utilisée pour accélérer les résultats.",
+    a: "Le face tape (ou taping facial) utilise des **bandes adhésives** pour **corriger la posture faciale** entre les séances de yoga du visage. Il aide à maintenir les muscles dans la bonne position, un peu comme **un appareil dentaire pour le visage**. C'est une technique complémentaire utilisée pour **accélérer les résultats**.",
   },
   {
     q: "Est-ce compatible avec la grossesse ou la périménopause ?",
-    a: "Le yoga du visage est une pratique naturelle et non invasive, généralement compatible avec la grossesse et la périménopause. La périménopause peut d'ailleurs accélérer le vieillissement facial — le yoga du visage aide à contrer ces effets. En cas de doute, consulte ton médecin.",
+    a: "Le yoga du visage est une pratique **naturelle et non invasive**, généralement **compatible avec la grossesse et la périménopause**. La périménopause peut d'ailleurs **accélérer le vieillissement facial** — le yoga du visage aide à contrer ces effets. En cas de doute, **consulte ton médecin**.",
   },
   {
     q: "J'ai du bruxisme, est-ce que ça peut m'aider ?",
-    a: "Oui. Le bruxisme (serrement ou grincement des dents) crée des tensions importantes dans la mâchoire, le cou et les trapèzes — des zones qui impactent directement l'apparence du visage. Le yoga du visage inclut des techniques de relaxation neuro-faciale qui aident à libérer ces tensions.",
+    a: "Oui. Le bruxisme (serrement ou grincement des dents) crée des **tensions importantes dans la mâchoire, le cou et les trapèzes** — des zones qui impactent directement l'apparence du visage. Le yoga du visage inclut des techniques de **relaxation neuro-faciale** qui aident à **libérer ces tensions**.",
+  },
+  {
+    q: "J'ai peur de mal faire, est-ce que je peux abîmer mon visage ?",
+    a: `C’est une peur très fréquente, et justement, **tu n’es pas laissée seule** face à ta pratique.
+
+Dans la méthode YoGyFace, **chaque geste est expliqué en détail** : où placer tes doigts, dans quel sens masser, avec quelle pression, quel rythme adopter, comment respirer et surtout quelles sensations rechercher. Le but n’est pas de reproduire des mouvements au hasard, mais de **comprendre ce que tu fais et pourquoi tu le fais**.
+
+Car oui, pratiquer seule avec des gestes trouvés au hasard peut parfois être **contre-productif** : masser **trop fort, au mauvais endroit, dans le mauvais sens**, ou faire des exercices qui ne sont pas adaptés à ton visage peut entretenir certaines tensions au lieu de les relâcher.
+
+C’est pour ça que **l’accompagnement est essentiel**. Grâce aux explications, aux lives, au suivi et aux corrections, tu apprends à pratiquer de manière **juste, progressive et adaptée à toi**. Tu peux poser tes questions, vérifier tes gestes, comprendre tes blocages et ajuster ta routine selon ton visage, tes tensions et tes besoins.
+
+L’objectif n’est pas que tu sois parfaite dès le début, mais que tu te sentes **guidée, en sécurité et de plus en plus autonome**. Petit à petit, tu développes ta conscience musculaire et tu apprends à faire les bons gestes avec **douceur, précision et confiance**.`,
   },
   {
     q: "Comment rester motivée sur la durée ?",
-    a: "La clé, c'est d'y aller progressivement : un geste à la fois, sans se mettre de pression. Mieux vaut 2 minutes par jour que rien du tout. Les résultats visibles motivent aussi : quand ton entourage commence à remarquer des changements, ça encourage à continuer. Et si tu fais une pause, ce n'est pas grave — l'important est de reprendre.",
+    a: "La clé, c'est d'**y aller progressivement** : un geste à la fois, sans se mettre de pression. **Mieux vaut 2 minutes par jour que rien du tout.** Les **résultats visibles** motivent aussi : quand ton entourage commence à remarquer des changements, ça encourage à continuer. Et si tu fais une pause, ce n'est pas grave — **l'important est de reprendre**.",
   },
   {
     q: "Comment prendre soin de ma peau au quotidien en complément ?",
-    a: "Le yoga du visage agit de l'intérieur (muscles, circulation), mais une bonne routine skincare complète le travail en surface. L'essentiel : un bon nettoyage, une hydratation adaptée et une protection solaire. Des actifs comme la vitamine C et le rétinal peuvent aussi aider. L'hydratation de l'intérieur (boire suffisamment d'eau) est tout aussi importante.",
+    a: "Le yoga du visage agit **de l'intérieur** (muscles, circulation), mais une **bonne routine skincare** complète le travail en surface. L'essentiel : un **bon nettoyage**, une **hydratation adaptée** et une **protection solaire**. Des actifs comme la **vitamine C** et le **rétinal** peuvent aussi aider. Et **boire suffisamment d'eau** est tout aussi important.",
   },
 ];
+
+// Transforme les marqueurs **gras** en <strong>, en conservant les sauts de ligne.
+function renderAnswer(text) {
+  return text.split(/(\*\*[^*]+\*\*)/g).map((part, i) =>
+    part.startsWith("**") && part.endsWith("**") ? (
+      <strong key={i} className="font-semibold text-noir">
+        {part.slice(2, -2)}
+      </strong>
+    ) : (
+      part
+    ),
+  );
+}
 
 function FAQItem({ question, answer, index }) {
   const [open, setOpen] = useState(false);
@@ -75,10 +138,10 @@ function FAQItem({ question, answer, index }) {
         </span>
       </button>
       <div
-        className={`overflow-hidden transition-all duration-400 ease-[cubic-bezier(0.22,1,0.36,1)] ${open ? "max-h-[800px]" : "max-h-0"}`}
+        className={`overflow-hidden transition-all duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] ${open ? "max-h-[1600px]" : "max-h-0"}`}
       >
-        <p className="px-4 md:px-6 pb-6 md:pl-16 text-gris text-[15px] leading-relaxed">
-          {answer}
+        <p className="px-4 md:px-6 pb-6 md:pl-16 text-gris text-[15px] leading-relaxed whitespace-pre-line">
+          {renderAnswer(answer)}
         </p>
       </div>
     </div>
@@ -102,7 +165,10 @@ export default function FAQ() {
             mainEntity: faqs.map((f) => ({
               "@type": "Question",
               name: f.q,
-              acceptedAnswer: { "@type": "Answer", text: f.a },
+              acceptedAnswer: {
+                "@type": "Answer",
+                text: f.a.replace(/\*\*/g, ""),
+              },
             })),
           })}
         </script>
