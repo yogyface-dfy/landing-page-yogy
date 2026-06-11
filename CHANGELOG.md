@@ -3,6 +3,7 @@
 ## 2026-06-11
 
 ### ✨ Added
+- Page Transformations : ajout de l'avis Trustpilot d'Elisabeth (condensé sans reformulation) après celui de Carine.
 - Events de conversion PostHog : `waitlist_signup` (inscription liste d'attente) et `contact_submit` (message contact, avec le sujet) envoyés au succès du formulaire — permet de mesurer les taux de conversion et de construire des funnels.
 
 ### 📚 Documentation

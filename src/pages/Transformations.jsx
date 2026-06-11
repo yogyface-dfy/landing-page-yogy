@@ -87,6 +87,13 @@ const testimonials = [
     link: "https://www.trustpilot.com/reviews/6a29584db820ab188088ce5e",
   },
   {
+    text: "En 6 mois de YOGIFACE j'ai l'impression d'avoir gagné 10 ans (au moins), un regard rajeuni et plus ouvert. Grâce à son programme sur mesure, j'ai retrouvé une peau restructurée et plus ferme. Je me regarde avec joie dans le miroir et je vois quelqu'un qui a pris soin d'elle et qui n'a plus peur de vieillir. Je recommande Laury de YOGIFACE à 200 %.",
+    name: "Elisabeth",
+    info: "66 ans · 6 mois · Regard & fermeté",
+    initial: "E",
+    link: "https://www.trustpilot.com/reviews/6a2a71cf6ece41f3321f45d1",
+  },
+  {
     text: "Après 8 semaines, mon mari m'a demandé si j'avais fait quelque chose. Mon ovale est plus défini, mes cernes se sont atténuées. Je ne pensais pas que c'était possible sans injection.",
     name: "Sophie M.",
     info: "47 ans · 8 semaines · Relâchement & ovale",
