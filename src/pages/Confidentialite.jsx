@@ -59,7 +59,7 @@ export default function Confidentialite() {
           <div>
             <h2 className="font-display font-black text-xl tracking-tight text-noir mb-3">Article 5 — Destinataires</h2>
             <p><strong>Nous ne vendons, ne louons et ne partageons jamais vos données avec des tiers à des fins commerciales.</strong></p>
-            <p className="mt-2">Prestataires techniques uniquement : hébergeur (Railway), outil d'emailing, Zoom, WhatsApp. Tous contractuellement engagés au RGPD. Aucun outil de tracking ou de cookies tiers n'est utilisé sur ce site.</p>
+            <p className="mt-2">Prestataires techniques uniquement : hébergeur (Railway), outil de mesure d'audience (PostHog, serveurs dans l'Union européenne), outil d'emailing, Zoom, WhatsApp. Tous contractuellement engagés au RGPD.</p>
           </div>
 
           <div>
@@ -83,9 +83,9 @@ export default function Confidentialite() {
           </div>
 
           <div>
-            <h2 className="font-display font-black text-xl tracking-tight text-noir mb-3">Article 9 — Cookies</h2>
-            <p>Ce site <strong>n'utilise aucun cookie</strong> de tracking, d'analyse ou de marketing. Seuls des cookies strictement nécessaires au fonctionnement technique du site peuvent être utilisés (session, sécurité).</p>
-            <p className="mt-2">Aucune bannière de consentement n'est requise car aucune donnée de navigation n'est collectée à des fins publicitaires ou statistiques.</p>
+            <h2 className="font-display font-black text-xl tracking-tight text-noir mb-3">Article 9 — Cookies & mesure d'audience</h2>
+            <p>Ce site n'utilise <strong>aucun cookie publicitaire ni de marketing</strong>. Seuls des cookies strictement nécessaires au fonctionnement technique du site peuvent être utilisés (session, sécurité).</p>
+            <p className="mt-2">Nous utilisons un outil de <strong>mesure d'audience (PostHog)</strong>, hébergé dans l'Union européenne, pour comprendre l'usage du site et l'améliorer (pages vues, parcours de navigation). Ces cookies ne sont déposés <strong>qu'après votre consentement</strong>, recueilli via la bannière affichée à votre première visite. Vous pouvez refuser sans conséquence sur votre navigation, et aucune donnée n'est utilisée à des fins publicitaires.</p>
           </div>
 
           <div>

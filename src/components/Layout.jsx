@@ -3,6 +3,8 @@ import { useEffect, useCallback, Suspense } from 'react'
 import { Helmet } from 'react-helmet-async'
 import Navbar from './Navbar'
 import Footer from './Footer'
+import CookieConsent from './CookieConsent'
+import { initAnalytics, capturePageview } from '../lib/analytics'
 
 /* JSON-LD structured data for Google rich results */
 const jsonLd = {
@@ -42,8 +44,18 @@ const personJsonLd = {
 export default function Layout() {
   const { pathname } = useLocation()
 
+  /* Analytics : (ré)active PostHog si le consentement a déjà été donné. */
+  useEffect(() => {
+    initAnalytics()
+  }, [])
+
   useEffect(() => {
     window.scrollTo(0, 0)
+  }, [pathname])
+
+  /* Pageview à chaque navigation (sans effet si non consenti). */
+  useEffect(() => {
+    capturePageview()
   }, [pathname])
 
   /* (Ré)initialise les widgets Trustpilot — le script ne scanne qu'au 1er
@@ -137,6 +149,7 @@ export default function Layout() {
         </Suspense>
       </main>
       <Footer />
+      <CookieConsent />
     </div>
   )
 }
