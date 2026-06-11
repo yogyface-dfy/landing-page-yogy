@@ -2,6 +2,9 @@
 
 ## 2026-06-11
 
+### ✨ Added
+- Events de conversion PostHog : `waitlist_signup` (inscription liste d'attente) et `contact_submit` (message contact, avec le sujet) envoyés au succès du formulaire — permet de mesurer les taux de conversion et de construire des funnels.
+
 ### 📚 Documentation
 - Ajout de `docs/analytics-posthog.md` : architecture, variables d'env, procédure Railway et garde-fous PostHog (bot filtering, billing limit, domaines autorisés).
 

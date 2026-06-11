@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import Icon from '../components/Icon'
 import { createRecord } from '../lib/airtable'
+import { captureEvent } from '../lib/analytics'
 import SEO from '../components/SEO'
 
 const reassurances = [
@@ -34,6 +35,7 @@ export default function ListeAttente() {
         'Prénom': form.prenom,
         'Email': form.email,
       })
+      captureEvent('waitlist_signup') // conversion : inscription liste d'attente
       setSent(true)
     } catch (err) {
       console.error('Airtable error:', err)

@@ -2,6 +2,7 @@ import { useState } from 'react'
 import Icon from '../components/Icon'
 import SEO from '../components/SEO'
 import { createRecord } from '../lib/airtable'
+import { captureEvent } from '../lib/analytics'
 
 export default function Contact() {
   const [sent, setSent] = useState(false)
@@ -21,6 +22,7 @@ export default function Contact() {
         'Sujet': form.sujet,
         'Message': form.message,
       })
+      captureEvent('contact_submit', { sujet: form.sujet }) // conversion : message contact
       setSent(true)
     } catch (err) {
       console.error('Airtable error:', err)

@@ -52,3 +52,8 @@ export const denyConsent = () => {
 export const capturePageview = () => {
   if (ph) ph.capture('$pageview')
 }
+
+// Event custom (conversions…) — sans effet si non consenti / non chargé.
+export const captureEvent = (name, props) => {
+  if (ph) ph.capture(name, props)
+}
