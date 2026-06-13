@@ -37,8 +37,12 @@ app.use((req, res, next) => {
 // Identifiants définis via variables d'environnement Railway (REVIEW_USER /
 // REVIEW_PASSWORD). Les valeurs par défaut ne servent que de secours.
 const REVIEW_PROTECTED = ['/articles', '/evenements']
-const REVIEW_USER = process.env.REVIEW_USER || 'yogyface'
-const REVIEW_PASSWORD = process.env.REVIEW_PASSWORD || 'reset-2026'
+// Nettoie la valeur : Railway peut entourer les variables de guillemets (format
+// dotenv) ; on retire guillemets et espaces superflus pour éviter tout décalage.
+const cleanEnv = (value, fallback) =>
+  (value ?? fallback).trim().replace(/^["']|["']$/g, '')
+const REVIEW_USER = cleanEnv(process.env.REVIEW_USER, 'yogyface')
+const REVIEW_PASSWORD = cleanEnv(process.env.REVIEW_PASSWORD, 'reset-2026')
 
 app.use((req, res, next) => {
   const isProtected = REVIEW_PROTECTED.some(
