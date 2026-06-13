@@ -45,7 +45,12 @@ export const articles = Object.entries(files)
       category: data.category || 'Article',
       excerpt: data.excerpt || '',
       cover: data.cover || '', // image dans public/articles/ (optionnel)
-      youtube: data.youtube || '', // ID vidéo YouTube (optionnel)
+      // ID vidéo YouTube (optionnel). On ignore le placeholder des brouillons
+      // pour ne pas afficher de miniature/vidéo cassée tant qu'aucun ID réel.
+      youtube:
+        data.youtube && data.youtube !== 'REMPLACE_PAR_ID_VIDEO'
+          ? data.youtube
+          : '',
       description: data.description || data.excerpt || '',
       html: marked.parse(body),
     }

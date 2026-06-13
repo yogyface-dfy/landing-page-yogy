@@ -30,6 +30,32 @@ app.use((req, res, next) => {
   next()
 })
 
+// --- Sections en relecture : protection par mot de passe (HTTP Basic Auth) ---
+// /articles et /evenements ne sont accessibles qu'avec les identifiants.
+// Avantage : bloque AUSSI Google (401 → impossible à crawler/indexer), donc
+// ces pages restent totalement invisibles tant qu'on n'a pas validé le contenu.
+// Identifiants définis via variables d'environnement Railway (REVIEW_USER /
+// REVIEW_PASSWORD). Les valeurs par défaut ne servent que de secours.
+const REVIEW_PROTECTED = ['/articles', '/evenements']
+const REVIEW_USER = process.env.REVIEW_USER || 'yogyface'
+const REVIEW_PASSWORD = process.env.REVIEW_PASSWORD || 'reset-2026'
+
+app.use((req, res, next) => {
+  const isProtected = REVIEW_PROTECTED.some(
+    (p) => req.path === p || req.path.startsWith(p + '/')
+  )
+  if (!isProtected) return next()
+
+  const [scheme, encoded] = (req.headers.authorization || '').split(' ')
+  if (scheme === 'Basic' && encoded) {
+    const [user, pass] = Buffer.from(encoded, 'base64').toString().split(':')
+    if (user === REVIEW_USER && pass === REVIEW_PASSWORD) return next()
+  }
+
+  res.set('WWW-Authenticate', 'Basic realm="YoGyFace - Acces en relecture"')
+  return res.status(401).send('Acces restreint - section en relecture.')
+})
+
 const PAT = process.env.AIRTABLE_PAT
 const BASE_ID = process.env.AIRTABLE_BASE_ID
 

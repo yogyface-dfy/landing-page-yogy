@@ -1,5 +1,22 @@
 # Changelog
 
+## 2026-06-13
+
+### ✨ Added
+
+- **12 articles SEO** publiés dans `src/content/articles/` (pilier yoga du visage, sillon nasogénien, rides du lion, double menton, ovale du visage, gymnastique faciale, auto-massage, drainage lymphatique, face taping, respiration & tensions, gua sha, rides du front) — **en relecture** (non publics).
+- Balise de **vérification de propriété Pinterest** (`p:domain_verify`) ajoutée au `<head>`.
+
+### 🔒 Security
+
+- Sections `/articles` et `/evenements` **protégées par mot de passe** (HTTP Basic Auth côté serveur, identifiants via les variables d'env `REVIEW_USER` / `REVIEW_PASSWORD`) : accessibles uniquement avec les identifiants, **invisibles du public et de Google** (401) le temps de la relecture par Laury.
+
+### 🔧 Changed
+
+- Routes **Événements réactivées** (prérendues, sans lien visible dans la navigation).
+- `/articles` et les pages d'articles **exclus du sitemap** tant qu'ils sont en relecture.
+- Chargeur d'articles : le placeholder vidéo YouTube des brouillons est ignoré (évite les miniatures cassées).
+
 ## 2026-06-11
 
 ### ✨ Added

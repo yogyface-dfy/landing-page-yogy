@@ -2,7 +2,7 @@
  * Génère public/sitemap.xml à partir des pages statiques + des articles Markdown.
  * Lancé automatiquement avant chaque build (script "prebuild" du package.json).
  */
-import { readFileSync, writeFileSync, readdirSync } from 'node:fs'
+import { writeFileSync } from 'node:fs'
 import { dirname, join } from 'node:path'
 import { fileURLToPath } from 'node:url'
 
@@ -12,12 +12,13 @@ const SITE = 'https://yogyface.fr'
 const TODAY = new Date().toISOString().slice(0, 10)
 
 // Pages statiques (loc, priority, changefreq).
+// NB : /articles et /evenements sont volontairement EXCLUS du sitemap : ils sont
+// en relecture, protégés par mot de passe et ne doivent pas être proposés à Google.
 const staticPages = [
   ['/', '1.0', 'weekly'],
   ['/about', '0.8', 'monthly'],
   ['/programme', '0.9', 'monthly'],
   ['/transformations', '0.7', 'monthly'],
-  ['/articles', '0.8', 'weekly'],
   ['/faq', '0.7', 'monthly'],
   ['/contact', '0.6', 'yearly'],
   ['/liste-attente', '0.9', 'weekly'],
@@ -26,34 +27,12 @@ const staticPages = [
   ['/confidentialite', '0.3', 'yearly'],
 ]
 
-// Lit les articles et extrait slug + date depuis le frontmatter.
-function readArticles() {
-  const dir = join(root, 'src/content/articles')
-  let files = []
-  try {
-    files = readdirSync(dir).filter((f) => f.endsWith('.md'))
-  } catch {
-    return []
-  }
-  return files.map((file) => {
-    const raw = readFileSync(join(dir, file), 'utf8')
-    const fm = /^---\s*\n([\s\S]*?)\n---/.exec(raw)?.[1] || ''
-    const get = (key) =>
-      new RegExp(`^${key}:\\s*(.+)$`, 'm').exec(fm)?.[1]?.trim().replace(/^["']|["']$/g, '')
-    return {
-      slug: get('slug') || file.replace(/\.md$/, ''),
-      date: get('date') || TODAY,
-    }
-  })
-}
-
 const url = (loc, lastmod, priority, changefreq) =>
   `  <url><loc>${SITE}${loc}</loc><lastmod>${lastmod}</lastmod><priority>${priority}</priority><changefreq>${changefreq}</changefreq></url>`
 
-const rows = [
-  ...staticPages.map(([loc, p, c]) => url(loc, TODAY, p, c)),
-  ...readArticles().map((a) => url(`/articles/${a.slug}`, a.date, '0.7', 'monthly')),
-]
+// Les articles sont en relecture (protégés) → exclus du sitemap pour l'instant.
+// À la mise en ligne publique : réintroduire ici la lecture des articles.
+const rows = [...staticPages.map(([loc, p, c]) => url(loc, TODAY, p, c))]
 
 const xml = `<?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">

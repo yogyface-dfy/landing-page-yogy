@@ -1,9 +1,9 @@
 import { ViteReactSSG } from 'vite-react-ssg'
-import { Navigate } from 'react-router-dom'
 import './index.css'
 import Layout from './components/Layout'
 import Home from './pages/Home'
 import { articles } from './lib/articles'
+import events from './data/events'
 
 // Helper : route React Router "lazy" à partir d'un export default de page.
 // L'import() est écrit en clair pour que vite-react-ssg détecte le chunk au build.
@@ -32,9 +32,14 @@ export const routes = [
       { path: 'mentions-legales', lazy: page(() => import('./pages/MentionsLegales')) },
       { path: 'cgv', lazy: page(() => import('./pages/CGV')) },
       { path: 'confidentialite', lazy: page(() => import('./pages/Confidentialite')) },
-      // Événements masqués temporairement : routes redirigées vers l'accueil.
-      { path: 'evenements', element: <Navigate to="/" replace /> },
-      { path: 'evenements/:id', element: <Navigate to="/" replace /> },
+      // Événements : accessibles (protégés par mot de passe côté serveur), sans
+      // lien visible dans la navigation. Prérendus pour la relecture.
+      { path: 'evenements', lazy: page(() => import('./pages/Evenements')) },
+      {
+        path: 'evenements/:id',
+        lazy: page(() => import('./pages/EvenementDetail')),
+        getStaticPaths: () => events.map((e) => `evenements/${e.id}`),
+      },
       { path: '*', lazy: page(() => import('./pages/NotFound')) },
     ],
   },
