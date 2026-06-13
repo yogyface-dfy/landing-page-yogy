@@ -5,7 +5,7 @@ date: 2026-06-13
 category: Guide
 excerpt: Tout comprendre sur le yoga du visage : ce que c'est, pourquoi ça marche, les exercices par zone, une routine débutante et les résultats réalistes.
 cover:
-youtube: REMPLACE_PAR_ID_VIDEO
+youtube: hx8EgVeyE1w
 description: Le guide complet du yoga du visage par Laury (ex-Chanel, L'Oréal) : définition, bienfaits, exercices par zone, routine 10 min et résultats réalistes.
 ---
 

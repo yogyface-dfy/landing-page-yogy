@@ -1,6 +1,19 @@
 import { Link } from "react-router-dom";
 import Icon from "../components/Icon";
 import SEO from "../components/SEO";
+import YouTubeEmbed from "../components/YouTubeEmbed";
+
+// Vidéos "parcours" de la chaîne YouTube de Laury (façade légère au clic)
+const parcoursVideos = [
+  {
+    id: "OjNSwi7rSBE",
+    title: "De l'esthétique à l'entrepreneuriat : oser changer de vie",
+  },
+  {
+    id: "BFe2fGgLFJ4",
+    title: "La force de croire en soi : j'ai quitté mon CDI il y a 1 an",
+  },
+];
 
 const steps = [
   {
@@ -202,8 +215,46 @@ export default function About() {
         </div>
       </section>
 
-      {/* Photos parcours — Slide 54 */}
+      {/* Mon histoire en vidéo */}
       <section className="py-16 md:py-24 px-[5%] bg-white relative overflow-hidden">
+        <div className="max-w-[1100px] mx-auto">
+          <div
+            className="text-center mb-10 md:mb-14 animate-on-scroll"
+            data-anim="scale"
+          >
+            <div className="section-badge justify-center">En vidéo</div>
+            <h2 className="font-display text-[clamp(1.8rem,5vw,3.5rem)] font-black tracking-tighter text-noir leading-none">
+              MON HISTOIRE,
+              <br />
+              <span className="block font-serif italic text-corail font-semibold">
+                en toute sincérité
+              </span>
+            </h2>
+            <p className="text-gris text-[14px] md:text-[16px] mt-3 md:mt-4 max-w-xl mx-auto">
+              Pourquoi j'ai tout quitté pour créer YoGyFace, et ce que j'ai
+              appris en chemin.
+            </p>
+          </div>
+          <div className="grid gap-6 md:gap-8 sm:grid-cols-2">
+            {parcoursVideos.map((v, i) => (
+              <div
+                key={v.id}
+                className="animate-on-scroll"
+                data-anim="fade"
+                data-delay={`${i * 150}`}
+              >
+                <YouTubeEmbed id={v.id} title={v.title} />
+                <p className="text-noir text-sm md:text-[15px] font-medium mt-3 leading-snug">
+                  {v.title}
+                </p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Photos parcours — Slide 54 */}
+      <section className="py-16 md:py-24 px-[5%] bg-creme relative overflow-hidden">
         <div
           className="absolute top-12 right-12 w-40 h-40 opacity-[0.03] pointer-events-none hidden md:block"
           style={{

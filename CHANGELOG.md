@@ -2,6 +2,10 @@
 
 ## 2026-06-14
 
+### ✨ Added
+
+- **Vidéos YouTube intégrées** : 2 vidéos techniques branchées sur les articles (pilier yoga du visage, résultats), et 2 vidéos « parcours » ajoutées sur la page Mon Parcours (section « En vidéo », façade légère au clic).
+
 ### 🚀 Improved
 
 - **SEO / entité de marque (sitelinks)** : ajout du schema JSON-LD `WebSite` et de Pinterest dans le `sameAs` de l'`Organization` (Instagram, YouTube, Trustpilot, Pinterest). Icône Pinterest ajoutée au footer (lien crawlable). Objectif : aider Google à consolider la marque pour les liens annexes (sitelinks).

@@ -5,7 +5,7 @@ date: 2026-06-14
 category: Conseils
 excerpt: Au bout de combien de temps voit-on les résultats du yoga du visage ? Le calendrier réaliste semaine par semaine, et ce qui accélère (ou freine) les progrès.
 cover:
-youtube: REMPLACE_PAR_ID_VIDEO
+youtube: 6oyw12MoUG0
 description: Résultats du yoga du visage : le calendrier réaliste (premières semaines, 1 à 3 mois, 6 mois) et les facteurs qui accélèrent les progrès. Par une experte.
 ---
 
