@@ -22,7 +22,20 @@ const jsonLd = {
     'https://www.instagram.com/yogyface/',
     'https://www.youtube.com/@LauryYoGyFace',
     'https://fr.trustpilot.com/review/yogyface.fr',
+    'https://fr.pinterest.com/yogyface/',
   ],
+}
+
+/* WebSite schema : consolide l'entité de marque (aide les sitelinks de marque). */
+const websiteJsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'WebSite',
+  '@id': 'https://yogyface.fr/#website',
+  name: 'YoGyFace',
+  alternateName: 'YoGyFace — Yoga du visage & anti-âge naturel',
+  url: 'https://yogyface.fr',
+  inLanguage: 'fr-FR',
+  publisher: { '@id': 'https://yogyface.fr/#business' },
 }
 
 /* Standalone Person schema for Laury (E-E-A-T) */
@@ -139,6 +152,7 @@ export default function Layout() {
     <div className="grain font-sans text-noir antialiased overflow-x-hidden">
       <Head>
         <script type="application/ld+json">{JSON.stringify(jsonLd)}</script>
+        <script type="application/ld+json">{JSON.stringify(websiteJsonLd)}</script>
         <script type="application/ld+json">{JSON.stringify(personJsonLd)}</script>
       </Head>
       <Navbar />

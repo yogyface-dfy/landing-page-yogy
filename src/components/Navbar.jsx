@@ -47,7 +47,7 @@ export default function Navbar() {
             alt="YoGyFace"
             width={528}
             height={175}
-            className="h-7 w-auto transition-transform duration-300 group-hover:scale-[1.03]"
+            className="h-9 sm:h-10 w-auto transition-transform duration-300 group-hover:scale-[1.03]"
           />
         </Link>
 
@@ -100,7 +100,7 @@ export default function Navbar() {
         {/* Header row mirroring navbar */}
         <div className="px-[5%] py-5 flex justify-between items-center">
           <Link to="/" className="inline-flex items-center" onClick={() => setMenuOpen(false)} aria-label="YoGyFace — Accueil">
-            <img src="/logo-yogyface-dark.png" alt="YoGyFace" width={528} height={175} className="h-7 w-auto" />
+            <img src="/logo-yogyface-dark.png" alt="YoGyFace" width={528} height={175} className="h-9 sm:h-10 w-auto" />
           </Link>
           <button
             className="p-2 rounded-lg hover:bg-noir/5 transition-colors"

@@ -1,5 +1,19 @@
 # Changelog
 
+## 2026-06-14
+
+### 🚀 Improved
+
+- **SEO / entité de marque (sitelinks)** : ajout du schema JSON-LD `WebSite` et de Pinterest dans le `sameAs` de l'`Organization` (Instagram, YouTube, Trustpilot, Pinterest). Icône Pinterest ajoutée au footer (lien crawlable). Objectif : aider Google à consolider la marque pour les liens annexes (sitelinks).
+
+### ✨ Added
+
+- **10 nouveaux articles SEO** rédigés et publiés (en relecture, derrière mot de passe) — Mois 4-5 du calendrier éditorial : résultats (combien de temps), dangers & contre-indications, à quel âge commencer, fréquence (tous les jours ?), yoga du visage vs botox, gua sha/LED/yoga (que choisir), avis clientes, lecture des avant/après, vieillissement du visage (4 mécanismes), pattes d'oie. **Total : 22 articles** prêts pour la relecture de Laury.
+
+### 🔧 Changed
+
+- Calendrier éditorial mis à jour (statuts #11-20 → rédigés) ; #16 recadré pour ne pas cannibaliser le #21 (gua sha) ; #19 rédigé en article factuel (note : un vrai sondage est requis pour en faire une opération Digital PR).
+
 ## 2026-06-13
 
 ### ✨ Added
