@@ -16,6 +16,7 @@
 
 ### 🔧 Changed
 
+- **Réécriture anti-duplication (vs glowritualstudio.com)** : reformulation des contenus calqués sur le site concurrent — hero Contact (« Restons connectées »), hero Transformations (« Des preuves, pas des promesses » / « Pas de filtres. Pas de retouches. »), hero FAQ (« Besoin de clarté ») + réponse « remplacer les injections », phrase hero About + titres des étapes du parcours (Le Déclic / La Recherche / Aujourd'hui), formulation « 45 muscles » sur Home. Faux témoignage « Sophie M. » (copié) remplacé par « Sandrine L. » reformulé sur Home et Transformations. Bloc de stats Transformations réordonné et chiffres ajustés.
 - Calendrier éditorial mis à jour (statuts #11-20 → rédigés) ; #16 recadré pour ne pas cannibaliser le #21 (gua sha) ; #19 rédigé en article factuel (note : un vrai sondage est requis pour en faire une opération Digital PR).
 
 ## 2026-06-13

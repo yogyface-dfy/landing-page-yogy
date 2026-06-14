@@ -77,7 +77,7 @@ const sciencePoints = [
   {
     icon: "dna",
     title: "45 muscles à entraîner",
-    desc: "Ton visage est composé de 45 muscles. Comme n'importe quel muscle du corps, ils répondent à l'entraînement. Le problème ? Personne ne t'a jamais appris à les utiliser.",
+    desc: "Ton visage mobilise 45 muscles, la plupart sollicités sans que tu t'en rendes compte. Bien guidés, ils se renforcent et se relâchent — encore faut-il qu'on t'apprenne à les activer.",
   },
   {
     icon: "refresh",
@@ -111,8 +111,8 @@ const brands = [
 
 const testimonials = [
   {
-    text: "Je ne me reconnaissais plus dans le miroir. Après 8 semaines, mon mari m'a demandé si j'avais fait quelque chose. Mon ovale est redéfini, mes cernes se sont atténuées.",
-    name: "Sophie M.",
+    text: "Au début, je ne voyais que ce qui s'affaissait quand je me regardais. Quelques semaines plus tard, c'est mon entourage qui a remarqué mon regard plus ouvert et mon ovale plus net.",
+    name: "Sandrine L.",
     info: "47 ans · 8 semaines",
     initial: "S",
   },
@@ -383,8 +383,9 @@ export default function Home() {
                 data-delay="100"
               >
                 Le yoga du visage, c'est une gymnastique douce et ciblée des 45
-                muscles de ton visage. Comme n'importe quel muscle du corps, les
-                muscles faciaux ont besoin d'être entraînés, étirés et détendus.
+                muscles de ton visage. On l'oublie souvent, mais ces muscles
+                s'entretiennent : il faut les réveiller, les étirer et les
+                relâcher, au même titre que le reste de ton corps.
               </p>
               <p
                 className="animate-on-scroll text-gris text-[15px] md:text-[16px] leading-relaxed mb-3 md:mb-4"

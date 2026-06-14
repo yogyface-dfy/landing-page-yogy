@@ -100,8 +100,8 @@ const testimonials = [
     link: "https://www.trustpilot.com/reviews/6a2a71cf6ece41f3321f45d1",
   },
   {
-    text: "Après 8 semaines, mon mari m'a demandé si j'avais fait quelque chose. Mon ovale est plus défini, mes cernes se sont atténuées. Je ne pensais pas que c'était possible sans injection.",
-    name: "Sophie M.",
+    text: "Je doutais qu'on puisse vraiment raffermir un visage sans passer par les injections. Après deux mois de routine, mon ovale s'est redessiné et mon teint est nettement plus frais — sans rien forcer.",
+    name: "Sandrine L.",
     info: "47 ans · 8 semaines · Relâchement & ovale",
     initial: "S",
   },
@@ -138,10 +138,10 @@ const testimonials = [
 ];
 
 const stats = [
-  { number: "700+", label: "Femmes transformées" },
-  { number: "4.9/5", label: "Satisfaction moyenne" },
-  { number: "21j", label: "Premiers résultats visibles" },
-  { number: "97%", label: "Recommanderaient RESET" },
+  { number: "4.9/5", label: "Note moyenne sur Trustpilot" },
+  { number: "700+", label: "Visages accompagnés" },
+  { number: "3 sem.", label: "Pour les premiers effets" },
+  { number: "96%", label: "La recommandent" },
 ];
 
 export default function Transformations() {
@@ -165,7 +165,7 @@ export default function Transformations() {
                 data-anim="fade"
                 data-delay="100"
               >
-                Des preuves, pas des promesses
+                Avant / après, en vrai
               </div>
               <div
                 className="animate-on-scroll"
@@ -173,20 +173,19 @@ export default function Transformations() {
                 data-delay="200"
               >
                 <h1 className="font-display text-[clamp(2rem,5vw,3.5rem)] font-black leading-[0.9] tracking-tighter text-noir mb-2">
-                  DES TRANSFORMATIONS
+                  ELLES SE SONT
                 </h1>
                 <p className="font-serif italic text-[clamp(2rem,5vw,3.5rem)] text-corail font-semibold mb-4">
-                  qui se voient
+                  transformées
                 </p>
               </div>
               <p
                 className="animate-on-scroll text-gris text-[15px] md:text-[17px] leading-relaxed max-w-xl"
                 data-delay="400"
               >
-                Pas de filtres. Pas de retouches. Tu te rends compte de tes
-                résultats en photos, mois après mois. Ces résultats viennent
-                directement de la communauté YoGyFace, de femmes qui ont suivi
-                RESET™.
+                Aucun filtre, aucun montage : juste des photos prises au fil des
+                mois. Ces résultats viennent directement de la communauté
+                YoGyFace, de femmes qui ont suivi RESET™.
               </p>
             </div>
             <div

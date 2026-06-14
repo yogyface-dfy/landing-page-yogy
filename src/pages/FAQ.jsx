@@ -56,7 +56,7 @@ Et parce que tu ressens les bienfaits sur ton visage, mais aussi sur tes tension
   },
   {
     q: "Est-ce que ça peut remplacer les injections ?",
-    a: "Le yoga du visage est une **alternative naturelle** qui travaille la **cause du vieillissement** (musculature, posture, circulation) plutôt que d'en masquer les signes. Beaucoup de femmes ont **réduit ou arrêté leurs injections** après avoir adopté une pratique régulière. C'est une approche complémentaire qui **redonne de l'autonomie**.",
+    a: "Contrairement à une injection qui fige ou comble une zone, le yoga du visage entretient ce qui fait réellement vieillir le visage en profondeur : la **musculature**, la **posture** et la **circulation**. Beaucoup de femmes ont d'ailleurs **espacé ou arrêté leurs injections** une fois leur pratique installée. C'est une démarche **complémentaire**, qui te redonne surtout de l'**autonomie**.",
   },
   {
     q: "C'est quoi le drainage lymphatique du visage ?",
@@ -183,7 +183,7 @@ export default function FAQ() {
             data-anim="fade"
             data-delay="100"
           >
-            Besoin de clarté
+            Tes questions, mes réponses
           </div>
           <div className="animate-on-scroll" data-anim="scale" data-delay="200">
             <h1 className="font-display text-[clamp(2.5rem,7vw,5rem)] font-black leading-[0.9] tracking-tighter text-noir mb-2">
@@ -197,8 +197,9 @@ export default function FAQ() {
             className="animate-on-scroll text-gris text-[15px] md:text-[17px] leading-relaxed"
             data-delay="400"
           >
-            Tout ce qu'il faut savoir sur le yoga du visage, ma méthode et mon
-            approche — compilé depuis +1000 échanges avec ma communauté.
+            Les questions que tu me poses le plus souvent sur le yoga du
+            visage, ma méthode et mon approche — réunies à partir de +1000
+            échanges avec ma communauté.
           </p>
         </div>
       </section>
