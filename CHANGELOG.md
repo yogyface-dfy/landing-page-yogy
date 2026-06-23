@@ -1,5 +1,16 @@
 # Changelog
 
+## 2026-06-23
+
+### ✨ Added
+
+- **5 nouveaux avis Trustpilot** ajoutés sur la page Transformations (Fanny, Aurore, Virginie, Emmanuelle, Christine), condensés sur leurs meilleurs passages avec lien direct vers l'avis Trustpilot.
+
+### 🔧 Changed
+
+- **Témoignages 100% authentiques** : suppression des 6 témoignages fictifs de la page Transformations (ne restent que les 8 vrais avis Trustpilot) et remplacement des 3 témoignages fictifs de la page d'accueil par des versions courtes de vrais avis (Aurore, Fanny, Emmanuelle).
+- **CGV** : titre de l'article 10 « Garantie Satisfait ou Remboursé » → « Garantie de résultats ».
+
 ## 2026-06-14
 
 ### ✨ Added

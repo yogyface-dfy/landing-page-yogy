@@ -79,7 +79,7 @@ export default function CGV() {
           </div>
 
           <div>
-            <h2 className="font-display font-black text-xl tracking-tight text-noir mb-3">Article 10 — Garantie Satisfait ou Remboursé</h2>
+            <h2 className="font-display font-black text-xl tracking-tight text-noir mb-3">Article 10 — Garantie de résultats</h2>
             <p>Garantie de 6 mois, sous réserve du respect de <strong>toutes</strong> les conditions cumulatives :</p>
             <ul className="mt-2 space-y-1.5 ml-4 list-disc">
               <li>Présence à 100% des coachings (12 séances)</li>

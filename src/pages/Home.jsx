@@ -111,22 +111,22 @@ const brands = [
 
 const testimonials = [
   {
-    text: "Au début, je ne voyais que ce qui s'affaissait quand je me regardais. Quelques semaines plus tard, c'est mon entourage qui a remarqué mon regard plus ouvert et mon ovale plus net.",
-    name: "Sandrine L.",
-    info: "47 ans · 8 semaines",
-    initial: "S",
+    text: "En 3 mois, mes poches sont moins marquées, ma mâchoire plus lisse et ma ride du lion a quasi disparu. Être coachée par Laury m'a redonné confiance en moi — sans chirurgie.",
+    name: "Aurore",
+    info: "3 mois · Poches & ride du lion",
+    initial: "A",
   },
   {
-    text: "J'avais besoin de me retrouver, je m'étais complètement oubliée. La méthode de Laury m'a rendu bien plus qu'un visage — elle m'a rendu confiance.",
-    name: "Isabelle R.",
-    info: "44 ans · 6 semaines",
-    initial: "I",
+    text: "Après presque un an de pratique, mes sillons et ma ride du lion sont moins creusés, ma peau est repulpée et mon regard défatigué. Je n'ai jamais vu un programme aussi complet.",
+    name: "Fanny",
+    info: "47 ans · ~1 an",
+    initial: "F",
   },
   {
-    text: "Je n'osais plus du tout sourire à cause de mes rides très prononcées autour de la bouche. Aujourd'hui je souris librement. Mon visage a l'air plus jeune, plus reposé.",
-    name: "Christine R.",
-    info: "51 ans · 2 mois",
-    initial: "C",
+    text: "Ce qui m'a convaincue, c'est le diagnostic sur mesure. Quelques semaines plus tard, mon ovale est plus tonique et mon regard plus ouvert — et j'ai une relation plus douce avec mon visage.",
+    name: "Emmanuelle",
+    info: "41 ans · Ovale & regard",
+    initial: "E",
   },
 ];
 
