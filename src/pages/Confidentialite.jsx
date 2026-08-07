@@ -43,6 +43,8 @@ export default function Confidentialite() {
             <div className="mt-3 p-4 bg-rose/10 rounded-xl border border-corail/10">
               <p className="text-sm"><strong>Données relatives à votre bien-être physique.</strong> Certaines missions vous demandent si vous ressentez une gêne ou une douleur en réalisant un exercice, ainsi que votre niveau de stress et la qualité de votre sommeil. Ces informations servent <strong>uniquement</strong> à adapter les exercices proposés et à vous orienter vers les explications appropriées lorsqu'une gêne est signalée. Elles ne sont utilisées à aucune autre fin, ne sont jamais transmises à des tiers et ne font l'objet d'aucun ciblage publicitaire. Vous pouvez poursuivre le parcours sans les renseigner, et en demander la suppression à tout moment.</p>
             </div>
+            <h3 className="font-semibold text-noir text-sm mt-3 mb-2">Dans le cadre du programme de coaching (avec votre consentement) :</h3>
+            <p>Diagnostic personnalisé, photos d'évolution, journal de pratique, échanges avec la coach.</p>
           </div>
 
           <div>
@@ -53,12 +55,13 @@ export default function Confidentialite() {
               <li><strong>Amélioration :</strong> analyse d'utilisation, satisfaction client, statistiques anonymisées</li>
               <li><strong>Communications commerciales :</strong> newsletters, offres (avec votre consentement — désinscription possible à tout moment)</li>
               <li><strong>Obligations légales :</strong> facturation 10 ans, demandes d'autorités</li>
+              <li><strong>Mesure publicitaire :</strong> évaluer l'efficacité de nos campagnes et éviter de diffuser des publicités devenues sans objet (avec votre consentement)</li>
             </ul>
           </div>
 
           <div>
             <h2 className="font-display font-black text-xl tracking-tight text-noir mb-3">Article 4 — Base légale</h2>
-            <p>Exécution du contrat, consentement (photos, diagnostic, communications), intérêt légitime (amélioration, sécurité), obligation légale (facturation).</p>
+            <p>Exécution du contrat, consentement explicite (photos, diagnostic, données de bien-être physique), consentement (communications, mesure publicitaire), intérêt légitime (amélioration, sécurité), obligation légale (facturation).</p>
           </div>
 
           <div>
@@ -71,6 +74,7 @@ export default function Confidentialite() {
               <li><strong>Envoi des e-mails :</strong> Resend (Irlande, Union européenne)</li>
               <li><strong>Automatisations :</strong> Make (Union européenne)</li>
               <li><strong>Diffusion des vidéos :</strong> Amazon CloudFront</li>
+              <li><strong>Lecture des vidéos de l'atelier :</strong> YouTube (Google Ireland Ltd.), en mode sans cookie</li>
               <li><strong>Mesure d'audience :</strong> PostHog (Union européenne)</li>
               <li><strong>Mesure publicitaire :</strong> Meta Platforms Ireland Ltd. (application du parcours)</li>
               <li><strong>Visioconférence :</strong> Zoom — <strong>Messagerie de groupe :</strong> WhatsApp</li>
@@ -81,7 +85,7 @@ export default function Confidentialite() {
           <div>
             <h2 className="font-display font-black text-xl tracking-tight text-noir mb-3">Article 6 — Transferts hors UE</h2>
             <p>YGF LLC est établie aux États-Unis, et certains de nos prestataires y sont également établis (notamment Railway, Airtable, Meta, Stripe, PayPal, Zoom, WhatsApp). Vos données font donc l'objet de transferts hors de l'Union européenne.</p>
-            <p className="mt-2">Ces transferts sont encadrés soit par le <strong>cadre de protection des données UE–États-Unis</strong> (EU–US Data Privacy Framework) lorsque le prestataire y est certifié, soit par les <strong>clauses contractuelles types</strong> adoptées par la Commission européenne, complétées le cas échéant par des mesures techniques supplémentaires. Nos bases de données (Supabase, Irlande), l'envoi d'e-mails (Resend, Irlande), la mesure d'audience (PostHog) et les automatisations (Make) sont hébergés dans l'Union européenne.</p>
+            <p className="mt-2">Ces transferts sont encadrés soit par le <strong>cadre de protection des données UE–États-Unis</strong> (EU–US Data Privacy Framework) lorsque le prestataire y est certifié, soit par les <strong>clauses contractuelles types</strong> adoptées par la Commission européenne, complétées le cas échéant par des mesures techniques supplémentaires. Nos bases de données (Supabase), l'envoi d'e-mails (Resend), la mesure d'audience (PostHog) et les automatisations (Make) sont hébergés dans l'Union européenne. Certains de ces prestataires étant des sociétés de droit américain, ces traitements restent couverts par les garanties décrites ci-dessus.</p>
             <p className="mt-2">Vous pouvez obtenir une copie de ces garanties en écrivant à <a href="mailto:contact@yogyface.fr" className="text-corail hover:underline">contact@yogyface.fr</a>.</p>
           </div>
 

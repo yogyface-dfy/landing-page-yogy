@@ -5,6 +5,7 @@
 ### 🔧 Changed
 
 - **Politique de confidentialité (`/confidentialite`)** : mise à jour pour couvrir les 3 domaines (yogyface.fr, www.yogyface.fr, webi.yogyface.fr). Art. 1 (périmètre), art. 2 (inventaire réel des données du parcours + bloc bien-être physique/santé), art. 5 (sous-traitants réels : Supabase, Airtable, Resend, Make, CloudFront, Meta, PostHog…), art. 6 (suppression du « Privacy Shield » invalidé → Data Privacy Framework + clauses contractuelles types ; Supabase/Resend en Irlande donc UE), art. 7 (ajout du journal d'utilisation, 25 mois). Date « mise à jour » → août 2026.
+- **Confidentialité — 2ᵉ passe de cohérence** : art. 2 (réintroduction du bloc « programme de coaching » : diagnostic, photos d'évolution, journal, échanges), art. 3 (ajout de la finalité « mesure publicitaire »), art. 4 (bases légales réécrites : consentement **explicite** pour bien-être/santé + mesure publicitaire), art. 5 (ajout de YouTube / Google Ireland, mode sans cookie), art. 6 (Supabase/Resend étant des sociétés US, les traitements restent couverts par les garanties — on ne laisse plus croire à une exemption).
 
 ### 🐛 Fixed
 
