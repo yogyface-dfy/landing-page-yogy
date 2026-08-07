@@ -1,5 +1,33 @@
 # Changelog
 
+## 2026-08-07
+
+### 🔧 Changed
+
+- **Politique de confidentialité (`/confidentialite`)** : mise à jour pour couvrir les 3 domaines (yogyface.fr, www.yogyface.fr, webi.yogyface.fr). Art. 1 (périmètre), art. 2 (inventaire réel des données du parcours + bloc bien-être physique/santé), art. 5 (sous-traitants réels : Supabase, Airtable, Resend, Make, CloudFront, Meta, PostHog…), art. 6 (suppression du « Privacy Shield » invalidé → Data Privacy Framework + clauses contractuelles types ; Supabase/Resend en Irlande donc UE), art. 7 (ajout du journal d'utilisation, 25 mois). Date « mise à jour » → août 2026.
+
+### 🐛 Fixed
+
+- **Art. 9 — Cookies** : retrait de la fausse affirmation « aucun cookie publicitaire ». La clause est scindée en deux : (1) site vitrine → PostHog uniquement, sous consentement ; (2) application webi → description **factuelle** du pixel Meta + Conversions API et moyens d'opposition, **sans mention du moment de déclenchement ni promesse de consentement** (à repasser en version conforme une fois la bannière posée côté app).
+
+### 📚 Documentation
+
+- **`docs/consentement-meta-webi.md`** : guide d'implémentation d'une bannière de consentement **non-bloquante** pour `webi.yogyface.fr` (gating pixel Meta + Conversions API, checklist CNIL, texte « conforme » de l'art. 9 à recoller ensuite).
+
+### 🔒 Security
+
+- **Représentant UE (art. 27 RGPD)** : NON ajouté (art. 1 bis laissé de côté à la demande). Laury n'étant pas établie dans l'UE, elle ne peut pas être le représentant. À souscrire auprès d'un prestataire dédié (Prighter / DataRep / EDPO…) puis à insérer.
+
+## 2026-06-29
+
+### 🔧 Changed
+
+- **Canonicalisation du domaine (SEO)** : ajout dans `server.js` d'une redirection 301 `www.yogyface.fr` → `yogyface.fr` (apex), pour ne servir/indexer qu'une seule version cohérente avec les balises `canonical` et le `sitemap.xml`. Garde-fou côté app : n'a d'effet qu'une fois le DNS du `www` repointé vers Railway.
+
+### 📚 Documentation
+
+- **Diagnostic indexation Google** : `www.yogyface.fr` était branché sur systeme.io (même plateforme que `holibeauty.ch`) et servait une page vide → Google consolidait `yogyface.fr` vers `holibeauty.ch` comme URL canonique. Correctif principal à faire côté DNS/systeme.io (débrancher le `www` de systeme.io et le repointer vers Railway / redirection apex).
+
 ## 2026-06-23
 
 ### ✨ Added

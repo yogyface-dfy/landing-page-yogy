@@ -30,6 +30,18 @@ app.use((req, res, next) => {
   next()
 })
 
+// Canonicalisation du domaine : on force www.yogyface.fr → yogyface.fr (apex)
+// en 301. Indispensable pour que Google n'indexe qu'UNE seule version (l'apex,
+// qui correspond aux balises canonical et au sitemap) et évite le doublon www.
+// N'a d'effet que si le DNS du www pointe bien vers cette app (Railway).
+app.use((req, res, next) => {
+  const host = req.headers.host || ''
+  if (host.startsWith('www.')) {
+    return res.redirect(301, `https://${host.slice(4)}${req.originalUrl}`)
+  }
+  next()
+})
+
 // --- Sections en relecture : protection par mot de passe (HTTP Basic Auth) ---
 // /articles et /evenements ne sont accessibles qu'avec les identifiants.
 // Avantage : bloque AUSSI Google (401 → impossible à crawler/indexer), donc
