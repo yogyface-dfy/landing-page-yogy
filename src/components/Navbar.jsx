@@ -13,7 +13,8 @@ const links = [
   { href: '/contact',        label: 'Contact' },
 ]
 
-export default function Navbar() {
+/** @param {{ offsetTop?: boolean }} props */
+export default function Navbar({ offsetTop = false }) {
   const [scrolled, setScrolled] = useState(false)
   const [menuOpen, setMenuOpen] = useState(false)
   const location = useLocation()
@@ -34,7 +35,7 @@ export default function Navbar() {
 
   return (
     <>
-    <nav className={`fixed top-0 left-0 right-0 z-50 px-[5%] transition-all duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] ${
+    <nav className={`fixed ${offsetTop ? 'top-8' : 'top-0'} left-0 right-0 z-50 px-[5%] transition-all duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] ${
       scrolled
         ? 'py-2.5 glass shadow-sm'
         : 'py-5 bg-transparent border-b border-transparent'

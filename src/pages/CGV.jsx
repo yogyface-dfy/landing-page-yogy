@@ -13,7 +13,7 @@ export default function CGV() {
         <h1 className="animate-on-scroll font-display text-[clamp(2rem,5vw,3.5rem)] font-black tracking-tighter text-noir mb-4">
           CONDITIONS GÉNÉRALES DE VENTE
         </h1>
-        <p className="text-gris text-sm mb-12">YoGyFace RESET — Programme de Yoga du Visage · Mise à jour : juin 2026</p>
+        <p className="text-gris text-sm mb-12">YoGyFace RESET — Programme de Yoga du Visage · Mise à jour : août 2026</p>
 
         <div className="space-y-10 text-[15px] text-gris leading-relaxed break-words">
           <div>
@@ -38,6 +38,12 @@ export default function CGV() {
           <div>
             <h2 className="font-display font-black text-xl tracking-tight text-noir mb-3">Article 3 — Prix</h2>
             <p>Les prix sont en euros (€), TTC. Le Vendeur se réserve le droit de modifier ses prix. Les services sont facturés au tarif affiché au moment de la validation. Des facilités de paiement peuvent être proposées.</p>
+          </div>
+
+          <div id="offres-vip">
+            <h2 className="font-display font-black text-xl tracking-tight text-noir mb-3">Article 3 bis — Bonus de la liste d'attente (ventes privées VIP)</h2>
+            <p>Les personnes inscrites sur la liste d'attente du lancement peuvent se voir proposer, à titre commercial, les bonus suivants : 6 heures de coaching offertes, 6 mois d'accompagnement offerts, et un diagnostic complet offert.</p>
+            <p className="mt-2">Ces bonus sont accordés <strong>uniquement à condition de rejoindre le programme lors des ventes privées VIP</strong>. Ils ne sont ni dus, ni transférables, ni exigibles en cas d'inscription au programme en dehors de cette période (lancement public ou toute offre ultérieure). Le Vendeur se réserve le droit d'en préciser les modalités dans l'offre de vente privée.</p>
           </div>
 
           <div>

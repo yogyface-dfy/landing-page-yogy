@@ -1,5 +1,8 @@
 User-agent: *
 Allow: /
 Disallow: /api/
+Disallow: /merci-liste-attente
+Disallow: /vente
+Disallow: /vente-vip
 
 Sitemap: https://yogyface.fr/sitemap.xml

@@ -1,5 +1,32 @@
 # Changelog
 
+## 2026-08-25
+
+### ✨ Added
+
+- **Bandeau rentrée** : ticker noir pleine largeur (Rentrée YoGyFace · lancement · liste d'attente), cliquable vers `/liste-attente`. Masqué sur `/vente`, `/vente-vip` et `/merci-liste-attente`.
+- **3 pages privées (non indexées)** : `/merci-liste-attente` (confirmation d'inscription), `/vente-vip` (vente privée liste d'attente) et `/vente` (offre publique). Meta `noindex`, `robots.txt` + en-tête `X-Robots-Tag`, hors sitemap et hors navigation. L'inscription liste d'attente redirige désormais vers la page merci.
+- **Copy lancement V2** : liste d'attente, page merci et pages de vente recadrées sur les ventes privées, l'avant-première de l'application YoGyFace, le diagnostic / les exercices / le programme V2, et les bonus réservés aux inscrites.
+- **Bonus liste d'attente** : `/merci-liste-attente` affiche 6h de coaching, 6 mois d'accompagnement et le diagnostic complet offerts, avec renvoi * vers les CGV. Nouvel art. 3 bis : ces bonus ne s'appliquent qu'en rejoignant le programme lors des ventes privées VIP.
+- **Vente VIP** : prix 299 € (au lieu de 499 €), Stripe 1× et 3 × 99,99 € (bouton secondaire, même poids que le 1×), bonus chiffrés (coaching +6h / 240 €, accompagnement +6 mois / 199 €, renouvellement diagnostic / 299 €). Email prérempli (`prefilled_email`) via `?email=` ou liste d'attente. L'email d'origine part aussi en `client_reference_id` (webhook) s'il est modifié sur Stripe. Pas de préremplissage téléphone sur Payment Link.
+- **Pages de vente (mise en page type fiche produit)** : hero 2 colonnes, accent VIP / avant-première, comparatif 3 colonnes (VIP / lancement public / après lancement 999 €) — colonne VIP relevée (carte blanche, radius, contour vert), bonus en vert, bandeau marques, 6 avis Trustpilot authentiques.
+- **Avis Trustpilot sur les pages de vente** : 6 avis authentiques en cartes brandées TP (5.0 / 5 étoiles par avis, moyenne 4.9/5 en header, tags, lien). « Voir plus d'avis » vers le profil Trustpilot.
+- **Carrousel avant/après** sur les pages de vente : auto-swipe (pause au survol), flèches, dots. Visuels temporaires (`ba-01`…), à remplacer quand les images de vente arrivent.
+- **Parcours 3 étapes** (type Lynae) : diagnostic → ordonnance/programme sous 3–4 jours → rituel quotidien.
+- **Bloc autorité Laury** sur les pages de vente : 10 ans Chanel / Biotherm / Weleda, formations (LeFranc, Narumi, Takatsu), méthode RESET™.
+- **Calendrier de résultats** (jusqu'à 6 mois) : semaines 1–4 (habitudes / mimiques), 2–4 mois (visible), 6 mois (confiance). Aligné sur l'article résultats + avis.
+- **FAQ vente** en bas de `/vente` et `/vente-vip` : accordéon 7 questions (résultats, durée, injections, garantie, après paiement), lien mail + FAQ complète.
+- **Showcase plateforme V2** : 5 blocs — **exercices en premier** (guidés pas à pas, fiche à faire/à éviter, hors ligne), puis suivi, coaching, cosmétique, messagerie. Captures desktop/mobile. Cosmétique : desktop + mobile cosmétique uniquement.
+
+### 🚀 Improved
+
+- **Showcase plateforme** : blocs en quinconce (texte / mockup alternés). Fond blanc des captures mobile exercices retiré.
+- **Calendrier de résultats** : labels Semaines / mois en display black, plus grands et plus lisibles (plus d'italique coral trop léger).
+
+### 🐛 Fixed
+
+- **Comparatif VIP** : les lignes du tableau (prix, coaching, bonus…) s'alignent entre colonnes. La carte verte n'est plus une colonne isolée.
+
 ## 2026-08-07
 
 ### 🔧 Changed

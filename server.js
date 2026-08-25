@@ -11,7 +11,12 @@
 import express from 'express'
 import path from 'path'
 import { fileURLToPath } from 'url'
-import 'dotenv/config'
+import dotenv from 'dotenv'
+
+// En local les secrets sont dans .env.local (convention Vite).
+// Sur Railway, les variables sont déjà dans process.env : ces appels sont no-op.
+dotenv.config({ path: '.env.local' })
+dotenv.config()
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url))
 const app = express()
@@ -25,6 +30,15 @@ app.use(express.json({ limit: '32kb' }))
 app.use((req, res, next) => {
   const host = req.headers.host || ''
   if (host.endsWith('.up.railway.app')) {
+    res.set('X-Robots-Tag', 'noindex, nofollow')
+  }
+  next()
+})
+
+// Pages privées (emails / liste d'attente) : noindex même si un bot ignore la meta.
+const NOINDEX_PATHS = ['/merci-liste-attente', '/vente', '/vente-vip']
+app.use((req, res, next) => {
+  if (NOINDEX_PATHS.some((p) => req.path === p || req.path.startsWith(p + '/'))) {
     res.set('X-Robots-Tag', 'noindex, nofollow')
   }
   next()

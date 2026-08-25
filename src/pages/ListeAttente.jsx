@@ -1,43 +1,45 @@
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import Icon from "../components/Icon";
 import { createRecord } from "../lib/airtable";
 import { captureEvent } from "../lib/analytics";
+import { rememberPrefillEmail } from "../lib/stripe-checkout";
 import SEO from "../components/SEO";
 
 const reassurances = [
-  "Je crée chaque programme à la main — c'est pour ça que les places sont limitées",
-  "10 min/jour — s'intègre dans n'importe quel quotidien",
-  "Accessible depuis ton téléphone — pas d'app à télécharger",
-  "Aucun engagement — tu décides librement quand une place se libère",
+  "Accès aux ventes privées du lancement",
+  "Plateforme YoGyFace en avant-première",
+  "Bonus réservés aux inscrites",
+  "Aucun engagement — tu décides plus tard",
   "700+ femmes m'ont déjà fait confiance",
 ];
 
 const whyWaitlist = [
   {
-    icon: "pen",
-    title: "Programmes faits main",
-    desc: "J'analyse personnellement chaque visage et je construis chaque programme sur-mesure. Ça prend du temps — mais c'est ce qui fait la différence.",
-  },
-  {
-    icon: "microscope",
-    title: "Diagnostic individuel",
-    desc: "Avant de commencer, j'étudie ton visage en détail pour comprendre tes besoins spécifiques. Pas de programme générique, jamais.",
-  },
-  {
-    icon: "chat",
-    title: "Accompagnement réel",
-    desc: "Tu es suivie tous les mois, tu as accès aux groupes whatsapp où tu peux discuter avec une ambassadrice YoGyFace ou avec moi. Tu as 12h de coaching live à prendre quand tu veux pour échanger en direct, en petit comité.",
+    icon: "sparkles",
+    title: "Ventes privées",
+    desc: "Les inscrites ouvrent avant tout le monde, avec une offre réservée — pas le tarif ni les conditions du grand public.",
   },
   {
     icon: "leaf",
-    title: "Qualité, pas quantité",
-    desc: "Tu commences avec tes premiers complexes, tu crées des déclics qui deviennent des habitudes durables, et si tu as envie d'aller plus loin sur d'autres zones, le programme te permet à vie d'accéder au contenu sur l'ensemble de ton visage et de tes problématiques.",
+    title: "La plateforme en avant-première",
+    desc: "L'application YoGyFace, le diagnostic V2, les nouveaux exercices et le nouveau programme : tu y entres avant le lancement public.",
+  },
+  {
+    icon: "flower",
+    title: "Des bonus exclusifs",
+    desc: "La liste d'attente débloque des bonus que le lancement public n'aura pas. Le détail t'est envoyé après ton inscription.",
+  },
+  {
+    icon: "pen",
+    title: "Toujours fait main",
+    desc: "Derrière la nouvelle plateforme, chaque programme reste personnalisé par moi. La V2 change les outils — pas l'exigence.",
   },
 ];
 
 export default function ListeAttente() {
+  const navigate = useNavigate();
   const [form, setForm] = useState({ prenom: "", email: "" });
-  const [sent, setSent] = useState(false);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
 
@@ -52,7 +54,8 @@ export default function ListeAttente() {
         Email: form.email,
       });
       captureEvent("waitlist_signup"); // conversion : inscription liste d'attente
-      setSent(true);
+      rememberPrefillEmail(form.email); // préremplit Stripe si elle ouvre /vente-vip
+      navigate("/merci-liste-attente");
     } catch (err) {
       console.error("Airtable error:", err);
       setError(
@@ -66,8 +69,8 @@ export default function ListeAttente() {
   return (
     <>
       <SEO
-        title="Liste d'attente — Rejoins YoGyFace"
-        description="Inscris-toi sur la liste d'attente YoGyFace pour être contactée dès qu'une place se libère. Programmes personnalisés de yoga du visage, faits main par Laury."
+        title="Liste d'attente — Lancement YoGyFace"
+        description="Inscris-toi pour accéder aux ventes privées du nouveau programme YoGyFace et à la plateforme en avant-première, avec des bonus réservés."
         path="/liste-attente"
       />
       {/* Hero */}
@@ -83,15 +86,15 @@ export default function ListeAttente() {
             data-delay="100"
           >
             <span className="w-1.5 h-1.5 rounded-full bg-corail animate-pulse" />
-            Liste d'attente
+            Lancement — liste d'attente
           </div>
 
           <div className="animate-on-scroll" data-anim="scale" data-delay="200">
             <h1 className="font-display text-[clamp(2rem,8vw,5.5rem)] font-black leading-[0.9] tracking-tighter text-noir mb-2">
-              CHAQUE PROGRAMME
+              ENTRE AVANT
             </h1>
             <p className="font-serif italic text-[clamp(1.5rem,6vw,4rem)] text-corail font-semibold mb-4">
-              est unique
+              tout le monde
             </p>
           </div>
 
@@ -99,111 +102,84 @@ export default function ListeAttente() {
             className="animate-on-scroll text-gris text-[15px] md:text-[17px] leading-relaxed mb-3 md:mb-4 max-w-xl mx-auto"
             data-delay="400"
           >
-            Je crée chaque programme à la main, personnalisé pour chaque visage.
-            C'est un travail sur mesure — et c'est pour ça que les places sont
-            limitées.
+            Nouveau diagnostic, nouveaux exercices, nouveau programme — et
+            l'application YoGyFace. La liste d'attente ouvre les{" "}
+            <strong className="text-noir">ventes privées</strong> et l'accès à
+            la plateforme en avant-première.
           </p>
           <p
             className="animate-on-scroll text-gris/60 text-[13px] md:text-[15px] mb-8 md:mb-10 max-w-xl mx-auto"
             data-delay="500"
           >
-            Inscris-toi sur la liste d'attente pour être{" "}
-            <strong className="text-noir">prévenue en priorité</strong> dès
-            qu'une place se libère.
+            Plus des <strong className="text-noir">bonus réservés</strong> aux
+            inscrites. Aucun paiement maintenant. Aucun engagement.
           </p>
 
           {/* Form */}
           <div className="animate-on-scroll" data-anim="scale" data-delay="600">
-            {sent ? (
-              <div className="glass rounded-2xl p-6 md:p-8 border border-corail/20 shadow-xl text-center">
-                <div className="w-14 h-14 mx-auto rounded-2xl bg-corail/10 flex items-center justify-center text-corail mb-5">
-                  <Icon name="flower" size={30} />
+            <div className="glass rounded-2xl p-5 md:p-8 shadow-xl border border-white/60">
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 md:gap-4 mb-4">
+                <div className="text-left">
+                  <label className="block text-[11px] font-semibold uppercase tracking-wider text-gris mb-1.5">
+                    Ton prénom
+                  </label>
+                  <input
+                    type="text"
+                    value={form.prenom}
+                    onChange={(e) =>
+                      setForm((v) => ({ ...v, prenom: e.target.value }))
+                    }
+                    className="w-full px-4 py-3 md:py-3.5 rounded-xl border border-noir/8 text-sm focus:outline-none focus:border-corail focus:ring-2 focus:ring-corail/10 transition-all duration-300 bg-white/80"
+                    placeholder="Ton prénom"
+                  />
                 </div>
-                <h3 className="font-display font-black text-xl md:text-2xl tracking-tight mb-3">
-                  Tu es sur la liste !
-                </h3>
-                <p className="text-gris text-[14px] md:text-[15px] leading-relaxed mb-3">
-                  Tu vas recevoir un{" "}
-                  <strong className="text-noir">email de confirmation</strong> —
-                  pense à vérifier tes spams.
-                </p>
-                <p className="text-gris text-[14px] md:text-[15px] leading-relaxed mb-5">
-                  Je te contacterai personnellement dès qu'une place se libère.{" "}
-                  <strong className="text-noir">Je réponds sous 48h</strong>, du
-                  lundi au vendredi.
-                </p>
-                <div className="inline-flex items-center gap-2 text-xs text-corail font-semibold bg-corail/8 px-3 py-1.5 rounded-full">
-                  <span className="w-1.5 h-1.5 rounded-full bg-corail animate-pulse" />
-                  Inscription confirmée
+                <div className="text-left">
+                  <label className="block text-[11px] font-semibold uppercase tracking-wider text-gris mb-1.5">
+                    Ton email
+                  </label>
+                  <input
+                    type="email"
+                    value={form.email}
+                    onChange={(e) =>
+                      setForm((v) => ({ ...v, email: e.target.value }))
+                    }
+                    className="w-full px-4 py-3 md:py-3.5 rounded-xl border border-noir/8 text-sm focus:outline-none focus:border-corail focus:ring-2 focus:ring-corail/10 transition-all duration-300 bg-white/80"
+                    placeholder="ton@email.com"
+                  />
                 </div>
               </div>
-            ) : (
-              <div className="glass rounded-2xl p-5 md:p-8 shadow-xl border border-white/60">
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 md:gap-4 mb-4">
-                  <div className="text-left">
-                    <label className="block text-[11px] font-semibold uppercase tracking-wider text-gris mb-1.5">
-                      Ton prénom
-                    </label>
-                    <input
-                      type="text"
-                      value={form.prenom}
-                      onChange={(e) =>
-                        setForm((v) => ({ ...v, prenom: e.target.value }))
-                      }
-                      className="w-full px-4 py-3 md:py-3.5 rounded-xl border border-noir/8 text-sm focus:outline-none focus:border-corail focus:ring-2 focus:ring-corail/10 transition-all duration-300 bg-white/80"
-                      placeholder="Ton prénom"
-                    />
-                  </div>
-                  <div className="text-left">
-                    <label className="block text-[11px] font-semibold uppercase tracking-wider text-gris mb-1.5">
-                      Ton email
-                    </label>
-                    <input
-                      type="email"
-                      value={form.email}
-                      onChange={(e) =>
-                        setForm((v) => ({ ...v, email: e.target.value }))
-                      }
-                      className="w-full px-4 py-3 md:py-3.5 rounded-xl border border-noir/8 text-sm focus:outline-none focus:border-corail focus:ring-2 focus:ring-corail/10 transition-all duration-300 bg-white/80"
-                      placeholder="ton@email.com"
-                    />
-                  </div>
-                </div>
-                <button
-                  onClick={handleSubmit}
-                  disabled={loading}
-                  className="btn-corail w-full text-sm md:text-base py-3.5 md:py-4 disabled:opacity-60 disabled:cursor-wait"
+              <button
+                onClick={handleSubmit}
+                disabled={loading}
+                className="btn-corail w-full text-sm md:text-base py-3.5 md:py-4 disabled:opacity-60 disabled:cursor-wait"
+              >
+                {loading
+                  ? "Inscription en cours…"
+                  : "Rejoindre la liste d'attente"}
+              </button>
+              {error && (
+                <p className="text-red-500 text-xs text-center mt-2">{error}</p>
+              )}
+              <div className="flex items-center justify-center gap-2 mt-4 text-gris/50 text-xs">
+                <svg
+                  width="12"
+                  height="12"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth="2"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
                 >
-                  {loading
-                    ? "Inscription en cours…"
-                    : "Rejoindre la liste d'attente"}
-                </button>
-                {error && (
-                  <p className="text-red-500 text-xs text-center mt-2">
-                    {error}
-                  </p>
-                )}
-                <div className="flex items-center justify-center gap-2 mt-4 text-gris/50 text-xs">
-                  <svg
-                    width="12"
-                    height="12"
-                    viewBox="0 0 24 24"
-                    fill="none"
-                    stroke="currentColor"
-                    strokeWidth="2"
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                  >
-                    <rect x="3" y="11" width="18" height="11" rx="2" />
-                    <path d="M7 11V7a5 5 0 0 1 10 0v4" />
-                  </svg>
-                  <span>Aucun paiement requis. Aucun engagement.</span>
-                </div>
-                <p className="text-center text-gris/30 text-xs mt-2 font-serif italic">
-                  700+ femmes m'ont déjà fait confiance
-                </p>
+                  <rect x="3" y="11" width="18" height="11" rx="2" />
+                  <path d="M7 11V7a5 5 0 0 1 10 0v4" />
+                </svg>
+                <span>Aucun paiement requis. Aucun engagement.</span>
               </div>
-            )}
+              <p className="text-center text-gris/30 text-xs mt-2 font-serif italic">
+                700+ femmes m'ont déjà fait confiance
+              </p>
+            </div>
           </div>
 
           {/* Reassurances */}
@@ -236,16 +212,16 @@ export default function ListeAttente() {
                   Pourquoi une liste d'attente ?
                 </div>
                 <h2 className="font-display text-[clamp(1.8rem,4vw,3rem)] font-black tracking-tighter text-noir mb-3 md:mb-4">
-                  PARCE QUE JE FAIS
+                  PARCE QUE CE
                   <br />
                   <span className="font-serif italic text-corail font-semibold">
-                    tout à la main
+                    n'est pas un simple replay
                   </span>
                 </h2>
                 <p className="text-gris mb-6 md:mb-8 text-[14px] md:text-[16px] leading-relaxed">
-                  Contrairement aux programmes génériques, chaque accompagnement
-                  YoGyFace est entièrement personnalisé par moi. C'est un choix
-                  — celui de la qualité.
+                  C'est le lancement de la V2 : une plateforme dédiée, un
+                  diagnostic et des exercices refondus, un programme réécrit.
+                  Les inscrites y accèdent en privé, avant le reste.
                 </p>
               </div>
               <div className="space-y-3 md:space-y-4">

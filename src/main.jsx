@@ -29,6 +29,10 @@ export const routes = [
         getStaticPaths: () => articles.map((a) => `articles/${a.slug}`),
       },
       { path: 'liste-attente', lazy: page(() => import('./pages/ListeAttente')) },
+      // Pages privées (emails / liste d'attente) : noindex, hors sitemap, hors nav.
+      { path: 'merci-liste-attente', lazy: page(() => import('./pages/merci-liste-attente')) },
+      { path: 'vente', lazy: page(() => import('./pages/vente')) },
+      { path: 'vente-vip', lazy: page(() => import('./pages/vente-vip')) },
       { path: 'mentions-legales', lazy: page(() => import('./pages/MentionsLegales')) },
       { path: 'cgv', lazy: page(() => import('./pages/CGV')) },
       { path: 'confidentialite', lazy: page(() => import('./pages/Confidentialite')) },

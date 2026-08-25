@@ -2,6 +2,7 @@ import { Outlet, useLocation } from 'react-router-dom'
 import { useEffect, useCallback, Suspense } from 'react'
 import { Head } from 'vite-react-ssg'
 import Navbar from './Navbar'
+import LaunchBanner, { shouldShowLaunchBanner } from './launch-banner'
 import Footer from './Footer'
 import CookieConsent from './CookieConsent'
 import { initAnalytics, capturePageview } from '../lib/analytics'
@@ -63,7 +64,26 @@ export default function Layout() {
   }, [])
 
   useEffect(() => {
-    window.scrollTo(0, 0)
+    const id = window.location.hash.slice(1)
+    if (!id) {
+      window.scrollTo(0, 0)
+      return
+    }
+    // Les pages lazy montent après ce passage : on retente le scroll vers l'ancre.
+    let tries = 0
+    const jump = () => {
+      const el = document.getElementById(id)
+      if (el) {
+        el.scrollIntoView()
+        return true
+      }
+      return false
+    }
+    if (jump()) return
+    const interval = setInterval(() => {
+      if (jump() || ++tries > 20) clearInterval(interval)
+    }, 50)
+    return () => clearInterval(interval)
   }, [pathname])
 
   /* Pageview à chaque navigation (sans effet si non consenti). */
@@ -155,8 +175,9 @@ export default function Layout() {
         <script type="application/ld+json">{JSON.stringify(websiteJsonLd)}</script>
         <script type="application/ld+json">{JSON.stringify(personJsonLd)}</script>
       </Head>
-      <Navbar />
-      <main>
+      {shouldShowLaunchBanner(pathname) && <LaunchBanner />}
+      <Navbar offsetTop={shouldShowLaunchBanner(pathname)} />
+      <main className={shouldShowLaunchBanner(pathname) ? 'pt-8' : ''}>
         {/* Suspense : fallback pendant le chargement des chunks de page (code-splitting) */}
         <Suspense fallback={<div className="min-h-screen" />}>
           <Outlet />
