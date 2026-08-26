@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-  <url><loc>https://yogyface.fr/</loc><lastmod>2026-06-13</lastmod><priority>1.0</priority><changefreq>weekly</changefreq></url>
-  <url><loc>https://yogyface.fr/about</loc><lastmod>2026-06-13</lastmod><priority>0.8</priority><changefreq>monthly</changefreq></url>
-  <url><loc>https://yogyface.fr/programme</loc><lastmod>2026-06-13</lastmod><priority>0.9</priority><changefreq>monthly</changefreq></url>
-  <url><loc>https://yogyface.fr/transformations</loc><lastmod>2026-06-13</lastmod><priority>0.7</priority><changefreq>monthly</changefreq></url>
-  <url><loc>https://yogyface.fr/faq</loc><lastmod>2026-06-13</lastmod><priority>0.7</priority><changefreq>monthly</changefreq></url>
-  <url><loc>https://yogyface.fr/contact</loc><lastmod>2026-06-13</lastmod><priority>0.6</priority><changefreq>yearly</changefreq></url>
-  <url><loc>https://yogyface.fr/liste-attente</loc><lastmod>2026-06-13</lastmod><priority>0.9</priority><changefreq>weekly</changefreq></url>
-  <url><loc>https://yogyface.fr/mentions-legales</loc><lastmod>2026-06-13</lastmod><priority>0.3</priority><changefreq>yearly</changefreq></url>
-  <url><loc>https://yogyface.fr/cgv</loc><lastmod>2026-06-13</lastmod><priority>0.3</priority><changefreq>yearly</changefreq></url>
-  <url><loc>https://yogyface.fr/confidentialite</loc><lastmod>2026-06-13</lastmod><priority>0.3</priority><changefreq>yearly</changefreq></url>
+  <url><loc>https://yogyface.fr/</loc><lastmod>2026-08-26</lastmod><priority>1.0</priority><changefreq>weekly</changefreq></url>
+  <url><loc>https://yogyface.fr/about</loc><lastmod>2026-08-26</lastmod><priority>0.8</priority><changefreq>monthly</changefreq></url>
+  <url><loc>https://yogyface.fr/programme</loc><lastmod>2026-08-26</lastmod><priority>0.9</priority><changefreq>monthly</changefreq></url>
+  <url><loc>https://yogyface.fr/transformations</loc><lastmod>2026-08-26</lastmod><priority>0.7</priority><changefreq>monthly</changefreq></url>
+  <url><loc>https://yogyface.fr/faq</loc><lastmod>2026-08-26</lastmod><priority>0.7</priority><changefreq>monthly</changefreq></url>
+  <url><loc>https://yogyface.fr/contact</loc><lastmod>2026-08-26</lastmod><priority>0.6</priority><changefreq>yearly</changefreq></url>
+  <url><loc>https://yogyface.fr/liste-attente</loc><lastmod>2026-08-26</lastmod><priority>0.9</priority><changefreq>weekly</changefreq></url>
+  <url><loc>https://yogyface.fr/mentions-legales</loc><lastmod>2026-08-26</lastmod><priority>0.3</priority><changefreq>yearly</changefreq></url>
+  <url><loc>https://yogyface.fr/cgv</loc><lastmod>2026-08-26</lastmod><priority>0.3</priority><changefreq>yearly</changefreq></url>
+  <url><loc>https://yogyface.fr/confidentialite</loc><lastmod>2026-08-26</lastmod><priority>0.3</priority><changefreq>yearly</changefreq></url>
 </urlset>
