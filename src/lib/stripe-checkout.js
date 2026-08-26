@@ -29,29 +29,26 @@ export function readPrefillEmail(searchParams) {
   return sessionStorage.getItem(PREFILL_EMAIL_KEY) || ''
 }
 
-/**
- * client_reference_id : lettres, chiffres, - et _ uniquement (max 200).
- * Webhook checkout.session.completed : customer_details.email = saisi sur Stripe,
- * client_reference_id = email d'origine (?email= / liste d'attente), même si modifié.
- */
-export function encodeOrigEmail(email) {
-  return email
-    .trim()
-    .replace(/\+/g, '-plus-')
-    .replace(/@/g, '-at-')
-    .replace(/\./g, '-dot-')
-    .slice(0, 200)
-}
-
-/** Ajoute prefilled_email, client_reference_id, locale=fr. No-op hors Stripe. */
+/** Ajoute prefilled_email + locale=fr. Pas de client_reference_id (webi = code marraine). */
 export function withStripePrefill(url, email) {
   if (!url || !url.includes('buy.stripe.com')) return url
   const next = new URL(url)
   next.searchParams.set('locale', 'fr')
   if (isValidEmail(email)) {
-    const trimmed = email.trim()
-    next.searchParams.set('prefilled_email', trimmed)
-    next.searchParams.set('client_reference_id', encodeOrigEmail(trimmed))
+    next.searchParams.set('prefilled_email', email.trim())
   }
   return next.toString()
+}
+
+/** Crée une Checkout Session (VIP) puis redirige. fallbackUrl si Stripe n'est pas configuré. */
+export async function startCheckoutSession({ plan, email, cancelPath }) {
+  const res = await fetch('/api/stripe/checkout', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ plan, email, cancelPath }),
+  })
+  const data = await res.json().catch(() => ({}))
+  if (data.url) return data
+  if (data.fallbackUrl) return data
+  throw new Error(data.error || 'Paiement indisponible')
 }

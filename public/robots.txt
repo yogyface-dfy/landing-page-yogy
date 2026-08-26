@@ -2,7 +2,10 @@ User-agent: *
 Allow: /
 Disallow: /api/
 Disallow: /merci-liste-attente
+Disallow: /merci-achat
 Disallow: /vente
 Disallow: /vente-vip
+Disallow: /vente-upsell
+Disallow: /vente-upsell-test
 
 Sitemap: https://yogyface.fr/sitemap.xml

@@ -57,6 +57,8 @@ const personJsonLd = {
 
 export default function Layout() {
   const { pathname } = useLocation()
+  // Tunnel upsell : Oui / Non uniquement — pas de nav, footer, cookies, ticker.
+  const bare = pathname === '/vente-upsell' || pathname === '/vente-upsell-test'
 
   /* Analytics : (ré)active PostHog si le consentement a déjà été donné. */
   useEffect(() => {
@@ -175,16 +177,16 @@ export default function Layout() {
         <script type="application/ld+json">{JSON.stringify(websiteJsonLd)}</script>
         <script type="application/ld+json">{JSON.stringify(personJsonLd)}</script>
       </Head>
-      {shouldShowLaunchBanner(pathname) && <LaunchBanner />}
-      <Navbar offsetTop={shouldShowLaunchBanner(pathname)} />
-      <main className={shouldShowLaunchBanner(pathname) ? 'pt-8' : ''}>
+      {!bare && shouldShowLaunchBanner(pathname) && <LaunchBanner />}
+      {!bare && <Navbar offsetTop={shouldShowLaunchBanner(pathname)} />}
+      <main className={!bare && shouldShowLaunchBanner(pathname) ? 'pt-8' : ''}>
         {/* Suspense : fallback pendant le chargement des chunks de page (code-splitting) */}
         <Suspense fallback={<div className="min-h-screen" />}>
           <Outlet />
         </Suspense>
       </main>
-      <Footer />
-      <CookieConsent />
+      {!bare && <Footer />}
+      {!bare && <CookieConsent />}
     </div>
   )
 }

@@ -53,7 +53,7 @@ export default function CGV() {
 
           <div>
             <h2 className="font-display font-black text-xl tracking-tight text-noir mb-3">Article 5 — Modalités de paiement</h2>
-            <p>Paiement sécurisé via Stripe ou PayPal. Carte bancaire (Visa, Mastercard, Amex), PayPal, paiement en plusieurs fois (si disponible). Le Vendeur ne conserve aucune donnée bancaire. Toutes les transactions sont conformes aux normes PCI-DSS.</p>
+            <p>Paiement sécurisé via Stripe ou PayPal. Carte bancaire (Visa, Mastercard, Amex), PayPal, paiement en plusieurs fois (si disponible). Une offre complémentaire peut être proposée immédiatement après le paiement (prélèvement sur le moyen déjà enregistré, sans nouvelle saisie). Le Vendeur ne conserve aucune donnée bancaire. Toutes les transactions sont conformes aux normes PCI-DSS.</p>
           </div>
 
           <div>

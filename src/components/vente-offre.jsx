@@ -4,7 +4,7 @@ import Icon from './Icon'
 import SEO from './SEO'
 import VenteResultats from './vente-resultats'
 import VentePlateforme from './vente-plateforme'
-import { readPrefillEmail, withStripePrefill } from '../lib/stripe-checkout'
+import { readPrefillEmail, startCheckoutSession, withStripePrefill } from '../lib/stripe-checkout'
 
 /**
  * Pages de vente privées (non indexées).
@@ -220,7 +220,7 @@ const SALE_FAQ = [
   },
   {
     q: 'Que se passe-t-il après le paiement ?',
-    a: "Tu reçois l'accès à la plateforme. Tu fais ton diagnostic, je te crée ton ordonnance et ton programme sous 3 à 4 jours. Ensuite tu installes ta routine — et les lives + le groupe t'accompagnent.",
+    a: "Tu reçois l'accès à la plateforme. Juste après le paiement, une offre complémentaire peut t'être proposée (un clic, sans retaper ta carte). Ensuite tu fais ton diagnostic : ordonnance et programme sous 3 à 4 jours, lives + groupe.",
   },
 ]
 
@@ -242,21 +242,33 @@ const renderBrand = (name, i) => (
   </span>
 )
 
-/** CTA 1× + 3× en boutons de même poids. */
-function PayCta({ onceHref, onceLabel, installmentsHref, installmentsLabel, dark = false }) {
+/** CTA 1× + 3× — Checkout Session (fallback Payment Link si Stripe n'est pas configuré). */
+function PayCta({ onceLabel, installmentsLabel, onOnce, onInstallments, loading, error, dark = false }) {
+  const busy = Boolean(loading)
   const threeXClass = dark
     ? 'inline-flex items-center justify-center px-7 py-3.5 min-h-[44px] rounded-full border-2 border-white/70 text-white font-semibold text-sm md:text-base hover:border-corail hover:text-corail transition-colors'
     : 'btn-secondary text-sm md:text-base px-7 py-3.5 border-2 border-noir/25 font-semibold'
   return (
     <div className="inline-flex flex-col items-stretch gap-3 w-full max-w-[380px]">
-      <a href={onceHref} className="btn-corail justify-center text-sm md:text-base px-7 py-3.5">
-        {onceLabel}
-      </a>
-      {installmentsHref && (
-        <a href={installmentsHref} className={`${threeXClass} justify-center`}>
-          {installmentsLabel}
-        </a>
+      <button
+        type="button"
+        disabled={busy}
+        onClick={onOnce}
+        className={`btn-corail justify-center text-sm md:text-base px-7 py-3.5 ${busy ? 'opacity-60' : ''}`}
+      >
+        {loading === 'vip-once' ? 'Redirection…' : onceLabel}
+      </button>
+      {onInstallments && (
+        <button
+          type="button"
+          disabled={busy}
+          onClick={onInstallments}
+          className={`${threeXClass} justify-center ${busy ? 'opacity-60' : ''}`}
+        >
+          {loading === 'vip-3x' ? 'Redirection…' : installmentsLabel}
+        </button>
       )}
+      {error && <p className={`text-xs ${dark ? 'text-corail/80' : 'text-corail'}`} role="alert">{error}</p>}
     </div>
   )
 }
@@ -270,18 +282,46 @@ export default function VenteOffre({ variant }) {
   const offer = OFFERS[variant]
   const [searchParams] = useSearchParams()
   const [email, setEmail] = useState('')
+  const [payLoading, setPayLoading] = useState(null)
+  const [payError, setPayError] = useState('')
 
   // Query / session uniquement au mount (SSG n'a pas les params).
   useEffect(() => {
     setEmail(readPrefillEmail(searchParams))
   }, [searchParams])
 
-  const checkout = withStripePrefill(offer.once.url, email)
-  const checkout3x = offer.installments
-    ? withStripePrefill(offer.installments.url, email)
-    : null
   const label3x = offer.installments ? `Payer en 3 × ${offer.installments.amount} €` : null
-  const pay = { onceHref: checkout, installmentsHref: checkout3x, installmentsLabel: label3x }
+
+  const startPay = async (plan) => {
+    if (!isVip) {
+      window.location.href = offer.once.url
+      return
+    }
+    setPayError('')
+    setPayLoading(plan)
+    try {
+      const data = await startCheckoutSession({ plan, email, cancelPath: path })
+      const dest = data.url || (data.fallbackUrl ? withStripePrefill(data.fallbackUrl, email) : '')
+      if (!dest) throw new Error('Paiement indisponible')
+      window.location.href = dest
+    } catch (err) {
+      const fallback = plan === 'vip-3x' ? offer.installments?.url : offer.once.url
+      if (fallback?.includes('buy.stripe.com')) {
+        window.location.href = withStripePrefill(fallback, email)
+        return
+      }
+      setPayError(err.message || 'Paiement indisponible')
+      setPayLoading(null)
+    }
+  }
+
+  const pay = {
+    onOnce: () => startPay('vip-once'),
+    onInstallments: offer.installments ? () => startPay('vip-3x') : undefined,
+    installmentsLabel: label3x,
+    loading: payLoading,
+    error: payError,
+  }
 
   return (
     <>
@@ -523,10 +563,12 @@ export default function VenteOffre({ variant }) {
       </section>
 
       <VenteResultats
-        ctaHref={checkout}
-        ctaLabel={isVip ? 'Rejoindre l\'offre VIP — 299 €' : 'Rejoindre le programme'}
-        ctaSecondaryHref={checkout3x}
-        ctaSecondaryLabel={label3x}
+        cta={
+          <PayCta
+            {...pay}
+            onceLabel={isVip ? 'Rejoindre l\'offre VIP — 299 €' : 'Rejoindre le programme'}
+          />
+        }
       />
 
       {/* Social proof — cartes au format Trustpilot */}

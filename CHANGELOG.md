@@ -1,5 +1,21 @@
 # Changelog
 
+## 2026-08-26
+
+### ✨ Added
+
+- **Checkout Session VIP** : les CTA de `/vente-vip` créent une session Stripe (1× 299 € ou 3 × 99,99 €) via Express. Carte réutilisable (`setup_future_usage`). Fallback Payment Link si `STRIPE_SECRET_KEY` absente.
+- **Upsell 1 clic** : après paiement, `/vente-upsell` propose une offre complémentaire (tarif test : 0,50 € — à valider). Oui = PaymentIntent off-session ; 3-D Secure → nouveau Checkout. Non = `/merci-achat`.
+- **Pages `/vente-upsell` et `/merci-achat`** : noindex (meta + robots + `X-Robots-Tag`), hors sitemap, hors ticker.
+- **`/vente-upsell-test`** : preview de l’upsell sans paiement Stripe (aucun débit).
+
+### 🔧 Changed
+
+- **Stripe VIP** : plus de `client_reference_id` (webi le prenait pour un code parrainage). Email d’origine = `metadata.orig_email`. Session taguée `metadata.kind=vip`.
+- **`/vente-upsell`** : plus de header, footer, ticker ni bandeau cookies — Oui / Non uniquement.
+- **Checkout VIP (colonne gauche)** : code promo (`allow_promotion_codes`), descriptif de l’offre et logo YoGyFace. L’ancienne session Stripe déjà ouverte ne change pas — il faut relancer un paiement.
+- **Ticker rentrée** : les 3 mentions sont collées (plus d'espacement `justify-evenly` sur 100vw) et répétées tout du long, comme un marquee classique. Défilement ralenti (28s → 90s).
+
 ## 2026-08-25
 
 ### ✨ Added

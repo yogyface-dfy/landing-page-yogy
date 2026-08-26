@@ -7,11 +7,19 @@
  * Variables d'environnement requises (SANS préfixe VITE_) :
  *   AIRTABLE_PAT      — Personal Access Token (scope data.records:write minimal)
  *   AIRTABLE_BASE_ID  — Base ID (commence par "app...")
+ *   STRIPE_SECRET_KEY — Checkout Session + upsell (fallback Payment Link si absente)
+ *   STRIPE_WEBHOOK_SECRET — signature /api/stripe/webhook (3× : stop après 3 factures)
  */
 import express from 'express'
 import path from 'path'
 import { fileURLToPath } from 'url'
 import dotenv from 'dotenv'
+import {
+  chargeUpsell,
+  createCheckoutSession,
+  getCheckoutSession,
+  handleStripeWebhook,
+} from './lib/stripe-server.js'
 
 // En local les secrets sont dans .env.local (convention Vite).
 // Sur Railway, les variables sont déjà dans process.env : ces appels sont no-op.
@@ -20,6 +28,9 @@ dotenv.config()
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url))
 const app = express()
+
+// Webhook Stripe : body brut pour la signature (AVANT express.json).
+app.post('/api/stripe/webhook', express.raw({ type: 'application/json' }), handleStripeWebhook)
 
 // Limite la taille du body pour éviter les abus
 app.use(express.json({ limit: '32kb' }))
@@ -36,7 +47,7 @@ app.use((req, res, next) => {
 })
 
 // Pages privées (emails / liste d'attente) : noindex même si un bot ignore la meta.
-const NOINDEX_PATHS = ['/merci-liste-attente', '/vente', '/vente-vip']
+const NOINDEX_PATHS = ['/merci-liste-attente', '/merci-achat', '/vente', '/vente-vip', '/vente-upsell', '/vente-upsell-test']
 app.use((req, res, next) => {
   if (NOINDEX_PATHS.some((p) => req.path === p || req.path.startsWith(p + '/'))) {
     res.set('X-Robots-Tag', 'noindex, nofollow')
@@ -148,6 +159,10 @@ app.post('/api/airtable', async (req, res) => {
     return res.status(500).json({ error: 'Erreur serveur' })
   }
 })
+
+app.post('/api/stripe/checkout', createCheckoutSession)
+app.get('/api/stripe/session', getCheckoutSession)
+app.post('/api/stripe/upsell', chargeUpsell)
 
 // Sert le front buildé
 app.use(express.static(path.join(__dirname, 'dist')))

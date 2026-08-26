@@ -19,9 +19,9 @@ const INTERVAL_MS = 4000
 
 /**
  * Carrousel auto-swipe (pause au survol / au touch).
- * @param {{ ctaHref: string, ctaLabel: string, ctaSecondaryHref?: string, ctaSecondaryLabel?: string }} props
+ * @param {{ cta: React.ReactNode }} props
  */
-export default function VenteResultats({ ctaHref, ctaLabel, ctaSecondaryHref, ctaSecondaryLabel }) {
+export default function VenteResultats({ cta }) {
   const scroller = useRef(null)
   const indexRef = useRef(0)
   const [active, setActive] = useState(0)
@@ -120,17 +120,8 @@ export default function VenteResultats({ ctaHref, ctaLabel, ctaSecondaryHref, ct
         ))}
       </div>
 
-      <div className="px-[5%] mt-8 text-center">
-        <div className="inline-flex flex-col items-stretch gap-3 w-full max-w-[380px]">
-          <a href={ctaHref} className="btn-corail justify-center">
-            {ctaLabel}
-          </a>
-          {ctaSecondaryHref && (
-            <a href={ctaSecondaryHref} className="btn-secondary justify-center text-sm md:text-base px-7 py-3.5 border-2 border-noir/25 font-semibold">
-              {ctaSecondaryLabel}
-            </a>
-          )}
-        </div>
+      <div className="px-[5%] mt-8 text-center flex justify-center">
+        {cta}
       </div>
     </section>
   )

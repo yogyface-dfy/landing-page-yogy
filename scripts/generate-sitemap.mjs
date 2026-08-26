@@ -14,7 +14,7 @@ const TODAY = new Date().toISOString().slice(0, 10)
 // Pages statiques (loc, priority, changefreq).
 // NB : /articles et /evenements sont volontairement EXCLUS du sitemap : ils sont
 // en relecture, protégés par mot de passe et ne doivent pas être proposés à Google.
-// Idem pour /merci-liste-attente, /vente et /vente-vip (pages privées, noindex).
+// Idem pour /merci-liste-attente, /merci-achat, /vente, /vente-vip, /vente-upsell, /vente-upsell-test (privées, noindex).
 const staticPages = [
   ['/', '1.0', 'weekly'],
   ['/about', '0.8', 'monthly'],
