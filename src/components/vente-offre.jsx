@@ -301,15 +301,12 @@ export default function VenteOffre({ variant }) {
     setPayLoading(plan)
     try {
       const data = await startCheckoutSession({ plan, email, cancelPath: path })
+      // Payment Link seulement si Stripe n'est pas configuré (503 + fallbackUrl).
+      // Un lien buy.stripe.com n'a pas kind=vip → webi encaisse et n'inscrit personne.
       const dest = data.url || (data.fallbackUrl ? withStripePrefill(data.fallbackUrl, email) : '')
       if (!dest) throw new Error('Paiement indisponible')
       window.location.href = dest
     } catch (err) {
-      const fallback = plan === 'vip-3x' ? offer.installments?.url : offer.once.url
-      if (fallback?.includes('buy.stripe.com')) {
-        window.location.href = withStripePrefill(fallback, email)
-        return
-      }
       setPayError(err.message || 'Paiement indisponible')
       setPayLoading(null)
     }

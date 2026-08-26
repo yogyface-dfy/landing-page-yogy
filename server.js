@@ -8,7 +8,7 @@
  *   AIRTABLE_PAT      — Personal Access Token (scope data.records:write minimal)
  *   AIRTABLE_BASE_ID  — Base ID (commence par "app...")
  *   STRIPE_SECRET_KEY — Checkout Session + upsell (fallback Payment Link si absente)
- *   STRIPE_WEBHOOK_SECRET — signature /api/stripe/webhook (3× : stop après 3 factures)
+ *   STRIPE_WEBHOOK_SECRET — signature /api/stripe/webhook (3× : schedule 3 mois)
  */
 import express from 'express'
 import path from 'path'

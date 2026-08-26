@@ -104,14 +104,24 @@ export default function VenteUpsell() {
           {state.status === 'error' && !offer && (
             <>
               <h1 className="font-display text-[clamp(1.8rem,5vw,2.8rem)] font-black tracking-tighter text-noir mb-3">
-                On n’a pas pu
+                Ton paiement
                 <br />
-                <span className="font-serif italic text-corail font-semibold">vérifier le paiement.</span>
+                <span className="font-serif italic text-corail font-semibold">est bien passé.</span>
               </h1>
-              <p className="text-gris text-[15px] mb-8">{state.error}</p>
-              <Link to="/vente-vip" className="btn-secondary inline-flex text-sm px-6 py-3">
-                Retour à l’offre
-              </Link>
+              <p className="text-gris text-[15px] mb-8">
+                On n’a pas pu charger l’offre complémentaire. Tu peux continuer — l’accès VIP n’est pas perdu.
+              </p>
+              <div className="flex flex-col items-center gap-3">
+                <Link
+                  to={`/merci-achat${sessionId ? `?session_id=${encodeURIComponent(sessionId)}` : ''}`}
+                  className="btn-corail inline-flex text-sm px-6 py-3"
+                >
+                  Continuer
+                </Link>
+                <Link to="/vente-vip" className="btn-secondary inline-flex text-sm px-6 py-3">
+                  Retour à l’offre
+                </Link>
+              </div>
             </>
           )}
 
