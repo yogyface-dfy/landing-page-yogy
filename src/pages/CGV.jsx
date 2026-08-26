@@ -84,7 +84,7 @@ export default function CGV() {
             <p>L'ensemble du contenu est la propriété exclusive de <strong>Laury Anater</strong>. La Cliente acquiert uniquement un droit d'accès personnel, non cessible et non transférable. Sont strictement interdits : reproduction, diffusion, enregistrement des sessions Zoom, partage du lien personnel, utilisation commerciale.</p>
           </div>
 
-          <div>
+          <div id="garantie">
             <h2 className="font-display font-black text-xl tracking-tight text-noir mb-3">Article 10 — Garantie de résultats</h2>
             <p>Garantie de 6 mois, sous réserve du respect de <strong>toutes</strong> les conditions cumulatives :</p>
             <ul className="mt-2 space-y-1.5 ml-4 list-disc">

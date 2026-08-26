@@ -228,6 +228,50 @@
     width: 60px;
   }
 
+  /* Timeline vente : pointillés gris, remplissage corail via --p (0–100%). */
+  .timeline-spine {
+    position: absolute;
+    left: 1.25rem;
+    top: 0;
+    bottom: 0;
+    width: 2px;
+    --p: 0%;
+  }
+  @media (min-width: 768px) {
+    .timeline-spine {
+      left: 50%;
+      transform: translateX(-50%);
+    }
+  }
+  .timeline-spine-track,
+  .timeline-spine-fill {
+    position: absolute;
+    inset: 0;
+    background-image: radial-gradient(circle, var(--dash) 1.15px, transparent 1.25px);
+    background-size: 2px 9px;
+    background-repeat: repeat-y;
+    background-position: center 0;
+  }
+  .timeline-spine-track { --dash: rgba(26, 26, 26, 0.22); }
+  .timeline-spine-fill {
+    --dash: #E6726A;
+    clip-path: inset(0 0 calc(100% - var(--p)) 0);
+  }
+  /* Pastille : marges, pas transform — animate-on-scroll écraserait le centrage. */
+  .timeline-dot {
+    position: absolute;
+    left: 1.25rem;
+    top: 50%;
+    z-index: 10;
+    width: 2.5rem;
+    height: 2.5rem;
+    margin-left: -1.25rem;
+    margin-top: -1.25rem;
+  }
+  @media (min-width: 768px) {
+    .timeline-dot { left: 50%; }
+  }
+
   /* ══════════════════════════════════════
      SERIF ACCENT — for elegant highlights
      ══════════════════════════════════════ */

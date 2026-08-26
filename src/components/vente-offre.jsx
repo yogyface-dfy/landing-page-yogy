@@ -1,4 +1,4 @@
-import { Fragment, useEffect, useState } from 'react'
+import { Fragment, useEffect, useRef, useState } from 'react'
 import { Link, useSearchParams } from 'react-router-dom'
 import Icon from './Icon'
 import SEO from './SEO'
@@ -54,7 +54,7 @@ const BRANDS = [
   'The New Well', 'Le Congrès de l\'Esthétique', 'Baton Rouge', 'Epicosme', 'Lauvée',
 ]
 
-// Avis Trustpilot authentiques (même source que /transformations).
+// 12 avis Trustpilot authentiques (profil yogyface.fr — titres officiels ou extraits).
 const TESTIMONIALS = [
   {
     headline: 'Ma ride du lion devient presque invisible.',
@@ -97,6 +97,48 @@ const TESTIMONIALS = [
     name: 'Christine — 61 ans',
     tags: ['Mâchoire', 'Bien-être'],
     link: 'https://www.trustpilot.com/reviews/6a345206ee1958e77fdf80e8',
+  },
+  {
+    headline: 'Une renaissance.',
+    text: "Un an de pratique. Le botox m'avait créé de nouvelles problématiques — le yoga du visage a tout corrigé. J'ai repris totalement confiance en moi.",
+    name: 'Carine',
+    tags: ['Après Botox', 'Confiance'],
+    link: 'https://www.trustpilot.com/reviews/6a29584db820ab188088ce5e',
+  },
+  {
+    headline: 'De vrais résultats.',
+    text: "Après une lourde opération, je ne me reconnaissais plus. J'ai détendu cervicales, trapèzes, masséters — les rides se sont estompées et mon visage s'est de nouveau arrondi.",
+    name: 'Virginie — 45 ans',
+    tags: ['Tensions', 'Rides'],
+    link: 'https://www.trustpilot.com/reviews/6a2ee612c96cedba939ad6a5',
+  },
+  {
+    headline: "Le miroir n'était plus mon ami.",
+    text: "À 66 ans, je psychotais sur mes rides et les poches. J'avais déjà fait des injections — résultat éphémère. J'ai plongé avec des doutes. Autant dire que je suis scotchée.",
+    name: 'Marie-Noëlle — 66 ans',
+    tags: ['Rides', 'Poches'],
+    link: 'https://www.trustpilot.com/reviews/6a8bfb8d973db1d60805acb8',
+  },
+  {
+    headline: 'Un investissement à long terme.',
+    text: "J'ai hésité (le prix, le doute). Aucun regret : des ressources précieuses et un environnement pensé pour la motivation et l'envie de prendre soin de soi.",
+    name: 'Nina',
+    tags: ['Motivation', 'Holistique'],
+    link: 'https://www.trustpilot.com/reviews/6a89790c5de7e449fca04f88',
+  },
+  {
+    headline: 'Un vrai programme personnalisé.',
+    text: "Tout a commencé par une poche sous un œil. J'ai découvert fascias, tensions, déséquilibres — et qu'un problème qui paraît simple peut avoir de nombreuses causes.",
+    name: 'Stéph — 43 ans',
+    tags: ['Poches', 'Fascias'],
+    link: 'https://www.trustpilot.com/reviews/6a808010b957da8ce7e23c2e',
+  },
+  {
+    headline: '100 % conquise par ce programme.',
+    text: "Livres, tutos au hasard, gua sha… j'ai décidé de faire les choses correctement. La qualité du programme et le fait que ce soit ultra personnalisé m'ont convaincue.",
+    name: 'Camille — 35 ans',
+    tags: ['Prévention', 'Accompagnement'],
+    link: 'https://www.trustpilot.com/reviews/6a623b362ddab66529ca1592',
   },
 ]
 
@@ -183,13 +225,59 @@ const TIMELINE = [
   },
 ]
 
+// Détail aligné sur /programme (Reset) — pas un nouveau bloc, on étoffe les 6 étapes.
 const steps = [
-  { num: '01', title: 'Diagnostic personnalisé', tag: 'J+0', desc: 'Questionnaire, tests musculaires et photos : j\'analyse TON visage avant de construire quoi que ce soit.' },
-  { num: '02', title: 'Ordonnance beauté sur-mesure', tag: 'J+3', desc: 'Un document de 3 à 7 pages : tes priorités, les causes, tes conseils skincare et mode de vie.' },
-  { num: '03', title: 'Programme 4 semaines', tag: 'J+6', desc: 'Une routine progressive de 3 à 10 min/jour, pour ancrer l\'habitude sans te cramer dès le départ.' },
-  { num: '04', title: '160+ exercices', tag: 'Illimité', desc: 'Bibliothèque par zones : bouche, joues, regard, front, ovale, cou, asymétrie.' },
-  { num: '05', title: 'Lives coaching', tag: 'Inclus', desc: 'FAQ pour te corriger les premières semaines, puis lives thématiques pour aller plus loin.' },
-  { num: '06', title: 'Suivi & communauté', tag: 'À vie', desc: 'Questionnaires de suivi, replays, groupe WhatsApp et Club des Marques.' },
+  {
+    num: '01',
+    title: 'Diagnostic personnalisé',
+    tag: 'J+0',
+    desc: 'Questionnaire de 30 min, 25 thématiques, tests musculaires et photos de face et de profil : j\'analyse TON visage avant de construire quoi que ce soit.',
+    detail: 'Une analyse fine pour créer ta routine unique — pas un protocole générique.',
+  },
+  {
+    num: '02',
+    title: 'Ordonnance beauté sur-mesure',
+    tag: 'J+3',
+    desc: 'Un document de 3 à 7 pages : tes 3 priorités, les causes réelles, tes conseils skincare et mode de vie. C\'est mon point de référence pour suivre ton évolution.',
+    detail: 'Tes priorités identifiées — et les causes, pas seulement les symptômes.',
+  },
+  {
+    num: '03',
+    title: 'Programme 4 semaines',
+    tag: 'J+6',
+    desc: 'Une routine progressive de 3 à 10 min/jour. La durée augmente semaine après semaine : on installe l\'habitude sans te cramer dès le départ.',
+    detail: 'Fondations d\'abord, maîtrise ensuite — 21 jours pour ancrer le geste.',
+  },
+  {
+    num: '04',
+    title: '160+ exercices',
+    tag: 'Illimité',
+    desc: 'Bibliothèque par zones : muscles fondamentaux, bouche, joues, regard, front, ovale, buste, cou, asymétrie.',
+    detail: 'Tu pioches de nouveaux exercices une fois ta routine de base acquise.',
+  },
+  {
+    num: '05',
+    title: 'Lives coaching',
+    tag: 'Inclus',
+    desc: 'FAQ pour te corriger les premières semaines, puis lives thématiques pour aller plus loin. Ce ne sont pas des vidéos pré-enregistrées.',
+    detail: 'Mon équipe et moi sommes là pour te guider — en direct.',
+  },
+  {
+    num: '06',
+    title: 'Suivi & communauté',
+    tag: 'À vie',
+    desc: 'Questionnaires à 1, 2, 3 et 6 mois. Replays, groupe WhatsApp, et le Club des Marques : 1 live mensuel avec un intervenant.',
+    detail: 'Jamais toute seule — motivation collective et soutien continu.',
+  },
+]
+
+// Catalogue compact (Reset / /programme) — expertes + guides, pas la stack « 2 497 € ».
+const BONUS_CATALOG = [
+  { t: 'EFT & émotions', d: 'Irina — libérer les blocages qui se cristallisent sur le visage.' },
+  { t: 'Face Tape', d: 'Laëtitia — applications ciblées entre les séances.' },
+  { t: 'Yoga 30 min', d: 'Alicia — respiration, posture, étirements guidés.' },
+  { t: 'Nutrition P.E.A.U', d: 'Camille — agir de l\'intérieur sur rides, taches, éclat.' },
+  { t: 'Bible des actifs', d: 'Guide + décryptage collagène (Julie / Natis).' },
 ]
 
 // FAQ vente : extraits de /faq, du calendrier résultats et des CGV.
@@ -284,11 +372,32 @@ export default function VenteOffre({ variant }) {
   const [email, setEmail] = useState('')
   const [payLoading, setPayLoading] = useState(null)
   const [payError, setPayError] = useState('')
+  const spineRef = useRef(null)
 
   // Query / session uniquement au mount (SSG n'a pas les params).
   useEffect(() => {
     setEmail(readPrefillEmail(searchParams))
   }, [searchParams])
+
+  // Pointillés : --p = portion visible depuis le haut (gris → corail), sans re-render.
+  useEffect(() => {
+    const spine = spineRef.current
+    const ol = spine?.parentElement
+    if (!spine || !ol) return
+    const paint = () => {
+      const r = ol.getBoundingClientRect()
+      const mid = window.innerHeight * 0.5
+      const p = Math.min(1, Math.max(0, (mid - r.top) / r.height))
+      spine.style.setProperty('--p', `${(p * 100).toFixed(1)}%`)
+    }
+    paint()
+    window.addEventListener('scroll', paint, { passive: true })
+    window.addEventListener('resize', paint)
+    return () => {
+      window.removeEventListener('scroll', paint)
+      window.removeEventListener('resize', paint)
+    }
+  }, [])
 
   const label3x = offer.installments ? `Payer en 3 × ${offer.installments.amount} €` : null
 
@@ -365,6 +474,10 @@ export default function VenteOffre({ variant }) {
                 {isVip ? 'Cette offre n\'est pas publique.' : 'YoGyFace.'}
               </span>
             </h1>
+            {/* Accroche Reset — sous-titre, ne remplace pas le hero VIP. */}
+            <p className="font-serif italic text-corail text-[16px] md:text-[18px] mb-3">
+              Crée les bonnes habitudes et supprime les causes de ton vieillissement.
+            </p>
             <p className="text-gris text-[15px] leading-relaxed mb-5 max-w-lg md:max-w-none">
               {isVip
                 ? 'Accès en avant-première à l\'application, au diagnostic V2 et au nouveau programme — plus les bonus que le lancement public n\'aura pas.'
@@ -689,6 +802,24 @@ export default function VenteOffre({ variant }) {
               </li>
             ))}
           </ul>
+          <div className="mt-8">
+            <p className="text-[11px] font-semibold uppercase tracking-[0.2em] text-noir/30 mb-3 text-center">
+              Inclus aussi — expertes & guides
+            </p>
+            <ul className="grid sm:grid-cols-2 gap-2.5">
+              {BONUS_CATALOG.map((b) => (
+                <li key={b.t} className="p-3.5 rounded-xl bg-white border border-noir/5 text-left">
+                  <p className="font-medium text-sm text-noir">{b.t}</p>
+                  <p className="text-gris text-[13px] leading-relaxed mt-0.5">{b.d}</p>
+                </li>
+              ))}
+            </ul>
+            <p className="text-center mt-4">
+              <Link to="/programme" className="text-sm font-semibold underline text-noir hover:text-corail">
+                Voir le détail du programme
+              </Link>
+            </p>
+          </div>
         </div>
       </section>
 
@@ -725,8 +856,8 @@ export default function VenteOffre({ variant }) {
       )}
 
       <section className="py-14 md:py-24 px-[5%] bg-white">
-        <div className="max-w-[800px] mx-auto">
-          <div className="text-center mb-10">
+        <div className="max-w-[960px] mx-auto">
+          <div className="text-center mb-10 md:mb-16 animate-on-scroll" data-anim="fade">
             <div className="section-badge justify-center">Ton parcours</div>
             <h2 className="font-display text-[clamp(1.6rem,4vw,2.6rem)] font-black tracking-tighter text-noir">
               6 ÉTAPES VERS
@@ -734,20 +865,40 @@ export default function VenteOffre({ variant }) {
               <span className="font-serif italic text-corail font-semibold">ton autonomie</span>
             </h2>
           </div>
-          <div className="space-y-3">
-            {steps.map((s) => (
-              <div key={s.num} className="flex gap-4 p-5 rounded-2xl border border-noir/8 bg-white">
-                <span className="w-10 h-10 shrink-0 rounded-xl bg-corail text-white flex items-center justify-center font-display font-black text-sm">{s.num}</span>
-                <div>
-                  <div className="flex flex-wrap items-center gap-2 mb-1">
-                    <h3 className="font-display font-black text-sm md:text-base tracking-tight">{s.title}</h3>
-                    <span className="text-[10px] font-semibold text-corail bg-creme px-2 py-0.5 rounded-full">{s.tag}</span>
-                  </div>
-                  <p className="text-gris text-[13px] md:text-[14px] leading-relaxed">{s.desc}</p>
-                </div>
-              </div>
-            ))}
-          </div>
+
+          {/* Timeline : pointillés au centre, pastilles au milieu de chaque carte. */}
+          <ol className="relative">
+            <span ref={spineRef} className="timeline-spine" aria-hidden>
+              <span className="timeline-spine-track" />
+              <span className="timeline-spine-fill" />
+            </span>
+            {steps.map((s, i) => {
+              const onLeft = i % 2 === 0
+              return (
+                <li key={s.num} className="relative md:grid md:grid-cols-2 md:gap-0 mb-10 last:mb-0">
+                  <span className="timeline-dot rounded-full bg-corail text-white flex items-center justify-center font-display font-black text-sm shadow-lg shadow-corail/20">
+                    {s.num}
+                  </span>
+                  <article
+                    className={`ml-14 md:ml-0 p-5 rounded-2xl border border-noir/8 bg-white animate-on-scroll ${
+                      onLeft ? 'md:col-start-1 md:mr-12 md:text-right' : 'md:col-start-2 md:ml-12'
+                    }`}
+                    data-anim={onLeft ? 'left' : 'right'}
+                    data-delay={i * 90}
+                  >
+                    <div className={`flex flex-wrap items-center gap-2 mb-1 ${onLeft ? 'md:justify-end' : ''}`}>
+                      <h3 className="font-display font-black text-sm md:text-base tracking-tight">{s.title}</h3>
+                      <span className="text-[10px] font-semibold text-corail bg-creme px-2 py-0.5 rounded-full">{s.tag}</span>
+                    </div>
+                    <p className="text-gris text-[13px] md:text-[14px] leading-relaxed">{s.desc}</p>
+                    {s.detail && (
+                      <p className="text-corail/80 text-[13px] md:text-[14px] font-serif italic mt-1.5">{s.detail}</p>
+                    )}
+                  </article>
+                </li>
+              )
+            })}
+          </ol>
         </div>
       </section>
 
@@ -760,7 +911,11 @@ export default function VenteOffre({ variant }) {
           <p className="text-gris text-[15px] leading-relaxed mb-3">
             Si après le programme, tes coachings, une pratique régulière et tes photos de suivi, tu ne vois aucune amélioration de ton bien-être ou de ta confiance :
           </p>
-          <p className="text-noir font-display font-black text-lg">je te rembourse en totalité.</p>
+          <p className="text-noir font-display font-black text-lg">je te rembourse en totalité.*</p>
+          <p className="text-center text-gris/40 text-[11px] mt-5">
+            * Offre soumise à conditions.{' '}
+            <Link to="/cgv#garantie" className="underline hover:text-corail">Voir les CGV</Link>.
+          </p>
         </div>
       </section>
 
