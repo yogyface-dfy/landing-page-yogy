@@ -106,7 +106,7 @@ const ALLOWED_TABLES = new Set(['Messages Contact', "Liste d'attente"])
 // Champs autorisés par table (empêche l'injection de champs arbitraires)
 const ALLOWED_FIELDS = {
   'Messages Contact': ['Nom', 'Email', 'Sujet', 'Message'],
-  "Liste d'attente": ['Prénom', 'Email'],
+  "Liste d'attente": ['Prénom', 'Email', 'Phone'],
 }
 
 const sanitize = (value) =>

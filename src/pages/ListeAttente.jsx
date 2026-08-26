@@ -4,6 +4,8 @@ import Icon from "../components/Icon";
 import { createRecord } from "../lib/airtable";
 import { captureEvent } from "../lib/analytics";
 import { rememberPrefillEmail } from "../lib/stripe-checkout";
+import { PHONE_COUNTRIES, toE164 } from "../lib/phone-countries";
+import PhoneField from "../components/phone-field";
 import SEO from "../components/SEO";
 
 const reassurances = [
@@ -39,19 +41,26 @@ const whyWaitlist = [
 
 export default function ListeAttente() {
   const navigate = useNavigate();
-  const [form, setForm] = useState({ prenom: "", email: "" });
+  const [form, setForm] = useState({ prenom: "", email: "", phone: "", iso: "FR" });
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     if (!form.prenom || !form.email) return;
+    const dial = PHONE_COUNTRIES.find((c) => c.iso === form.iso)?.dial || "33";
+    const phone = toE164(dial, form.phone);
+    if (!phone) {
+      setError("Indique un numéro de téléphone valide.");
+      return;
+    }
     setLoading(true);
     setError("");
     try {
       await createRecord("Liste d'attente", {
         Prénom: form.prenom,
         Email: form.email,
+        Phone: phone, // E.164 — champ Phone Airtable
       });
       captureEvent("waitlist_signup"); // conversion : inscription liste d'attente
       rememberPrefillEmail(form.email); // préremplit Stripe si elle ouvre /vente-vip
@@ -117,8 +126,11 @@ export default function ListeAttente() {
 
           {/* Form */}
           <div className="animate-on-scroll" data-anim="scale" data-delay="600">
-            <div className="glass rounded-2xl p-5 md:p-8 shadow-xl border border-white/60">
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 md:gap-4 mb-4">
+            <form
+              className="glass rounded-2xl p-5 md:p-8 shadow-xl border border-white/60"
+              onSubmit={handleSubmit}
+            >
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 md:gap-4 mb-3 md:mb-4">
                 <div className="text-left">
                   <label className="block text-[11px] font-semibold uppercase tracking-wider text-gris mb-1.5">
                     Ton prénom
@@ -148,8 +160,16 @@ export default function ListeAttente() {
                   />
                 </div>
               </div>
+              <div className="mb-4">
+                <PhoneField
+                  iso={form.iso}
+                  phone={form.phone}
+                  onIsoChange={(iso) => setForm((v) => ({ ...v, iso }))}
+                  onPhoneChange={(phone) => setForm((v) => ({ ...v, phone }))}
+                />
+              </div>
               <button
-                onClick={handleSubmit}
+                type="submit"
                 disabled={loading}
                 className="btn-corail w-full text-sm md:text-base py-3.5 md:py-4 disabled:opacity-60 disabled:cursor-wait"
               >
@@ -179,7 +199,7 @@ export default function ListeAttente() {
               <p className="text-center text-gris/30 text-xs mt-2 font-serif italic">
                 700+ femmes m'ont déjà fait confiance
               </p>
-            </div>
+            </form>
           </div>
 
           {/* Reassurances */}

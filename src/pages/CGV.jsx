@@ -41,9 +41,9 @@ export default function CGV() {
           </div>
 
           <div id="offres-vip">
-            <h2 className="font-display font-black text-xl tracking-tight text-noir mb-3">Article 3 bis — Bonus de la liste d'attente (ventes privées VIP)</h2>
-            <p>Les personnes inscrites sur la liste d'attente du lancement peuvent se voir proposer, à titre commercial, les bonus suivants : 6 heures de coaching offertes, 6 mois d'accompagnement offerts, et un diagnostic complet offert.</p>
-            <p className="mt-2">Ces bonus sont accordés <strong>uniquement à condition de rejoindre le programme lors des ventes privées VIP</strong>. Ils ne sont ni dus, ni transférables, ni exigibles en cas d'inscription au programme en dehors de cette période (lancement public ou toute offre ultérieure). Le Vendeur se réserve le droit d'en préciser les modalités dans l'offre de vente privée.</p>
+            <h2 className="font-display font-black text-xl tracking-tight text-noir mb-3">Article 3 bis — Bonus des ventes privées V2</h2>
+            <p>Dans le cadre des <strong>ventes privées de la V2</strong> du programme YoGyFace, les bonus suivants peuvent être proposés à titre commercial : 6 heures de coaching offertes, 6 mois d'accompagnement offerts, et un diagnostic complet offert.</p>
+            <p className="mt-2">Ces bonus sont accordés <strong>uniquement à l'issue d'un achat effectué pendant les ventes privées de la V2</strong>. L'inscription à la liste d'attente ne les rend ni dus, ni exigibles. Ils ne sont ni transférables, ni accordés en cas d'inscription au programme en dehors de cette période (lancement public ou toute offre ultérieure). Le Vendeur se réserve le droit d'en préciser les modalités dans l'offre de vente privée.</p>
           </div>
 
           <div>

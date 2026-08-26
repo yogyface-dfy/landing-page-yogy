@@ -4,6 +4,7 @@
 
 ### ✨ Added
 
+- **Liste d’attente** : champ téléphone avec sélecteur de pays (drapeau, France par défaut, liste complète). Envoyé à Airtable dans `Phone` (E.164, ex. `+336…`).
 - **Checkout Session VIP** : les CTA de `/vente-vip` créent une session Stripe (1× 299 € ou 3 × 99,99 €) via Express. Carte réutilisable (`setup_future_usage`). Fallback Payment Link si `STRIPE_SECRET_KEY` absente.
 - **Upsell 1 clic** : après paiement, `/vente-upsell` propose une offre complémentaire (tarif test : 0,50 € — à valider). Oui = PaymentIntent off-session ; 3-D Secure → nouveau Checkout. Non = `/merci-achat`.
 - **Pages `/vente-upsell` et `/merci-achat`** : noindex (meta + robots + `X-Robots-Tag`), hors sitemap, hors ticker.
@@ -15,6 +16,7 @@
 
 ### 🔧 Changed
 
+- **CGV art. 3 bis** : les bonus (coaching, accompagnement, diagnostic) ne sont dus qu’à l’issue d’un achat pendant les ventes privées de la V2 — pas du seul fait de la liste d’attente.
 - **VIP 3×** : après le 1er prélèvement, l’abonnement devient un schedule Stripe de 3 mois (`end_behavior: cancel`) — même modèle que webi gift/reset. Plus de `cancel_at` approximatif (il cassait l’upsell si webi avait déjà posé le schedule). Filet aussi à l’ouverture de `/vente-upsell`.
 - **CTA VIP** : plus de repli silencieux vers un Payment Link si la Checkout Session échoue (ces liens n’ont pas `kind=vip`, webi n’inscrit pas).
 - **Stripe VIP** : plus de `client_reference_id` (webi le prenait pour un code parrainage). Email d’origine = `metadata.orig_email`. Session taguée `metadata.kind=vip`.
