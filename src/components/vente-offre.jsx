@@ -443,7 +443,7 @@ export default function VenteOffre({ variant }) {
       />
 
       {/* Hero type fiche produit (rythme Lynae : visuel + offre + preuves) */}
-      <section className="relative pt-28 md:pt-36 pb-12 md:pb-16 px-[5%] overflow-hidden">
+      <section id={isVip ? 'offre' : undefined} className="relative pt-28 md:pt-36 pb-12 md:pb-16 px-[5%] overflow-hidden">
         <div className="absolute inset-0 bg-gradient-to-b from-rose/25 via-white to-white pointer-events-none" />
         <div className="max-w-[1100px] mx-auto relative z-10 grid md:grid-cols-2 gap-8 md:gap-14 items-center">
           <div className="order-1">

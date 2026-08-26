@@ -21,6 +21,7 @@
 - **6 étapes (vente)** : timeline verticale (ligne + pastilles), cartes en quinconce gauche/droite, apparition au scroll (`animate-on-scroll` left/right).
 - **Timeline 6 étapes** : pointillés gris qui passent au corail au scroll, pastilles centrées sur la ligne et au milieu de chaque carte.
 - **Vente** : mini-calendrier J+0 / J+3 / J+6 retiré sous « Un geste simple » (doublon avec les 6 étapes).
+- **Ticker `/vente-vip`** : même bandeau que la home — « Ouverture VIP · Prix à durée limitée · Bonus à durée limitée ». Clic → `#offre`.
 - **CGV art. 3 bis** : les bonus (coaching, accompagnement, diagnostic) ne sont dus qu’à l’issue d’un achat pendant les ventes privées de la V2 — pas du seul fait de la liste d’attente.
 - **VIP 3×** : après le 1er prélèvement, l’abonnement devient un schedule Stripe de 3 mois (`end_behavior: cancel`) — même modèle que webi gift/reset. Plus de `cancel_at` approximatif (il cassait l’upsell si webi avait déjà posé le schedule). Filet aussi à l’ouverture de `/vente-upsell`.
 - **CTA VIP** : plus de repli silencieux vers un Payment Link si la Checkout Session échoue (ces liens n’ont pas `kind=vip`, webi n’inscrit pas).
