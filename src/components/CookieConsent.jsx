@@ -28,8 +28,9 @@ export default function CookieConsent() {
   return (
     <div className="fixed bottom-4 left-4 right-4 z-[90] mx-auto max-w-xl rounded-2xl bg-noir text-white shadow-2xl p-5 md:p-6">
       <p className="text-sm leading-relaxed text-white/85">
-        On utilise des cookies de mesure d'audience pour comprendre comment tu
-        utilises le site et l'améliorer. Tu peux accepter ou refuser.{' '}
+        On utilise des cookies de mesure d'audience et de publicité (Meta) pour
+        comprendre comment tu utilises le site et mesurer nos campagnes. Tu
+        peux accepter ou refuser.{' '}
         <Link
           to="/confidentialite"
           className="underline underline-offset-2 hover:text-corail"

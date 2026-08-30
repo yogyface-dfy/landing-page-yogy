@@ -9,6 +9,9 @@
  *   AIRTABLE_BASE_ID  — Base ID (commence par "app...")
  *   STRIPE_SECRET_KEY — Checkout Session + upsell (fallback Payment Link si absente)
  *   STRIPE_WEBHOOK_SECRET — signature /api/stripe/webhook (3× : schedule 3 mois)
+ *   META_CAPI_TOKEN       — Events Manager → Pixel 604268118937812 (serveur only)
+ *   META_PIXEL_ID         — 604268118937812 (défaut)
+ *   META_TEST_EVENT_CODE  — vide en prod ; TEST… en QA
  */
 import express from 'express'
 import path from 'path'
@@ -20,6 +23,7 @@ import {
   getCheckoutSession,
   handleStripeWebhook,
 } from './lib/stripe-server.js'
+import { handleCapiEvent } from './lib/meta-capi.js'
 
 // En local les secrets sont dans .env.local (convention Vite).
 // Sur Railway, les variables sont déjà dans process.env : ces appels sont no-op.
@@ -160,6 +164,7 @@ app.post('/api/airtable', async (req, res) => {
   }
 })
 
+app.post('/api/capi-event', handleCapiEvent)
 app.post('/api/stripe/checkout', createCheckoutSession)
 app.get('/api/stripe/session', getCheckoutSession)
 app.post('/api/stripe/upsell', chargeUpsell)

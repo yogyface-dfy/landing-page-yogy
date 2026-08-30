@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import Icon from "../components/Icon";
 import { createRecord } from "../lib/airtable";
 import { captureEvent } from "../lib/analytics";
+import { stashWaitlistConversion } from "../lib/meta-pixel";
 import { rememberPrefillEmail } from "../lib/stripe-checkout";
 import { PHONE_COUNTRIES, toE164 } from "../lib/phone-countries";
 import PhoneField from "../components/phone-field";
@@ -62,6 +63,12 @@ export default function ListeAttente() {
       if (phone) fields.Phone = phone; // E.164 — champ Phone Airtable
       await createRecord("Liste d'attente", fields);
       captureEvent("waitlist_signup"); // conversion : inscription liste d'attente
+      // Meta optInWaitingList : stash → fire une fois sur /merci-liste-attente
+      stashWaitlistConversion({
+        email: form.email,
+        phone: phone || "",
+        firstName: form.prenom,
+      });
       rememberPrefillEmail(form.email); // préremplit Stripe si elle ouvre /vente-vip
       navigate("/merci-liste-attente");
     } catch (err) {
@@ -164,7 +171,7 @@ export default function ListeAttente() {
                   phone={form.phone}
                   onIsoChange={(iso) => setForm((v) => ({ ...v, iso }))}
                   onPhoneChange={(phone) => setForm((v) => ({ ...v, phone }))}
-                  hint="Pour te prévenir dès que ça ouvre — SMS, pas de spam."
+                  hint="Pour te prévenir dès que ça ouvre, par SMS, pas de spam."
                 />
               </div>
               <button

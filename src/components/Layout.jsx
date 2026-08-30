@@ -6,6 +6,7 @@ import LaunchBanner, { shouldShowLaunchBanner } from './launch-banner'
 import Footer from './Footer'
 import CookieConsent from './CookieConsent'
 import { initAnalytics, capturePageview } from '../lib/analytics'
+import { captureMetaPageview } from '../lib/meta-pixel'
 
 /* JSON-LD structured data for Google rich results */
 const jsonLd = {
@@ -91,6 +92,7 @@ export default function Layout() {
   /* Pageview à chaque navigation (sans effet si non consenti). */
   useEffect(() => {
     capturePageview()
+    captureMetaPageview()
   }, [pathname])
 
   /* (Ré)initialise les widgets Trustpilot — le script ne scanne qu'au 1er

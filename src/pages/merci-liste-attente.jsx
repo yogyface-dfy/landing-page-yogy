@@ -2,6 +2,7 @@ import SEO from "../components/SEO";
 import YouTubeEmbed from "../components/YouTubeEmbed";
 import VenteResultats from "../components/vente-resultats";
 import WaitlistAvis from "../components/waitlist-avis";
+import WaitlistMetaConversion from "../components/waitlist-meta-conversion";
 
 /** Id YouTube de Laury — laisser vide tant que la vidéo n'est pas montée. */
 const LAURY_VIDEO_ID = "";
@@ -31,6 +32,7 @@ const NEXT = [
 export default function MerciListeAttente() {
   return (
     <>
+      <WaitlistMetaConversion />
       <SEO
         title="Inscription confirmée"
         description="Tu es inscrite : ouverture privée le 10 septembre, 50 places de membres fondatrices. Vérifie tes emails."

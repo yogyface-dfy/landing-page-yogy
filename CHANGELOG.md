@@ -4,6 +4,7 @@
 
 ### ✨ Added
 
+- **Meta Pixel + CAPI** : même pixel que webi (`604268118937812`). Event custom `optInWaitingList` (pixel + serveur, `event_id` partagé) après inscription liste d'attente. `PageView` si consentement cookies. Token `META_CAPI_TOKEN` serveur only.
 - **Email confirmation liste d'attente** : template HTML (`emails/waitlist-confirmation.html`) — logo YoGyFace, « écris-moi », Insta en PNG, YouTube en JPEG (`/email-play.jpg`) — Mail.app cassait `/email-youtube.png`.
 - **Confirmation liste d'attente** : ouverture privée le 10 septembre, 50 places de membres fondatrices, placeholder vidéo Laury, carrousel avant/après et 6 avis Trustpilot. Pas de mention des cadeaux (uniquement aux CGV). Picto fleur, bouton « Retour à l'accueil » et placeholder vidéo retirés.
 

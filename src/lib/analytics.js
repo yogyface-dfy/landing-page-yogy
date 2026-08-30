@@ -2,6 +2,8 @@
 // posthog-js est importé dynamiquement : son code n'est téléchargé qu'au
 // moment du consentement (chunk séparé), pour ne pas alourdir le bundle initial.
 
+import { loadMetaPixel } from './meta-pixel'
+
 const CONSENT_KEY = 'yf_consent'
 const KEY = import.meta.env.VITE_POSTHOG_KEY
 const HOST = import.meta.env.VITE_POSTHOG_HOST || 'https://eu.i.posthog.com'
@@ -34,13 +36,17 @@ const loadPostHog = () => {
 
 // À appeler au démarrage de l'app : réactive le tracking si déjà consenti.
 export const initAnalytics = () => {
-  if (getConsent() === 'granted') loadPostHog()
+  if (getConsent() === 'granted') {
+    loadPostHog()
+    loadMetaPixel()
+  }
 }
 
 // Consentement accordé : on persiste le choix et on démarre le tracking.
 export const grantConsent = () => {
   localStorage.setItem(CONSENT_KEY, 'granted')
   loadPostHog()
+  loadMetaPixel()
 }
 
 // Consentement refusé : on mémorise le refus, rien n'est chargé.
