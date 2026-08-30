@@ -19,9 +19,9 @@ const INTERVAL_MS = 4000
 
 /**
  * Carrousel auto-swipe (pause au survol / au touch).
- * @param {{ cta: React.ReactNode }} props
+ * @param {{ cta?: React.ReactNode, proof?: string }} props
  */
-export default function VenteResultats({ cta }) {
+export default function VenteResultats({ cta, proof = '4.9/5 · 700+ femmes déjà accompagnées' }) {
   const scroller = useRef(null)
   const indexRef = useRef(0)
   const [active, setActive] = useState(0)
@@ -49,7 +49,7 @@ export default function VenteResultats({ cta }) {
       <div className="px-[5%] max-w-[1100px] mx-auto text-center mb-8">
         <p className="flex items-center justify-center gap-2 text-sm text-noir mb-3">
           <span className="text-corail tracking-tight" aria-hidden>★★★★★</span>
-          <span className="text-gris">4.9/5 · 700+ femmes déjà accompagnées</span>
+          <span className="text-gris">{proof}</span>
         </p>
         <h2 className="font-display text-[clamp(1.6rem,4vw,2.6rem)] font-black tracking-tighter text-noir">
           DES RÉSULTATS
@@ -120,9 +120,11 @@ export default function VenteResultats({ cta }) {
         ))}
       </div>
 
-      <div className="px-[5%] mt-8 text-center flex justify-center">
-        {cta}
-      </div>
+      {cta && (
+        <div className="px-[5%] mt-8 text-center flex justify-center">
+          {cta}
+        </div>
+      )}
     </section>
   )
 }

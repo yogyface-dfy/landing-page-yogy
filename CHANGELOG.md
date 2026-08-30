@@ -1,5 +1,16 @@
 # Changelog
 
+## 2026-08-30
+
+### ✨ Added
+
+- **Email confirmation liste d'attente** : template HTML (`emails/waitlist-confirmation.html`) — logo YoGyFace, « écris-moi », icônes Insta/YouTube en PNG (Gmail casse les SVG).
+- **Confirmation liste d'attente** : ouverture privée le 10 septembre, 50 places de membres fondatrices, placeholder vidéo Laury, carrousel avant/après et 6 avis Trustpilot. Pas de mention des cadeaux (uniquement aux CGV). Picto fleur, bouton « Retour à l'accueil » et placeholder vidéo retirés.
+
+### 🔧 Changed
+
+- **Liste d'attente** : titre « réserve ta place de membre fondatrice », 50 places, 1 200 femmes, téléphone optionnel (SMS à l'ouverture).
+
 ## 2026-08-26
 
 ### ✨ Added

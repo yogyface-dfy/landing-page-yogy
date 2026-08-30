@@ -9,18 +9,18 @@ import PhoneField from "../components/phone-field";
 import SEO from "../components/SEO";
 
 const reassurances = [
-  "Accès aux ventes privées du lancement",
+  "50 places de membres fondatrices",
+  "Ouverture privée le 10 septembre",
   "Plateforme YoGyFace en avant-première",
-  "Bonus réservés aux inscrites",
   "Aucun engagement — tu décides plus tard",
-  "700+ femmes m'ont déjà fait confiance",
+  "1 200 femmes m'ont déjà fait confiance",
 ];
 
 const whyWaitlist = [
   {
     icon: "sparkles",
-    title: "Ventes privées",
-    desc: "Les inscrites ouvrent avant tout le monde, avec une offre réservée — pas le tarif ni les conditions du grand public.",
+    title: "50 membres fondatrices",
+    desc: "Les inscrites ouvrent le 10 septembre, avant tout le monde. 50 places seulement — pas le tarif ni les conditions du grand public.",
   },
   {
     icon: "leaf",
@@ -48,20 +48,19 @@ export default function ListeAttente() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     if (!form.prenom || !form.email) return;
+    // Tél optionnel : vide = OK ; saisi = doit être un E.164 valide.
     const dial = PHONE_COUNTRIES.find((c) => c.iso === form.iso)?.dial || "33";
     const phone = toE164(dial, form.phone);
-    if (!phone) {
-      setError("Indique un numéro de téléphone valide.");
+    if (String(form.phone || "").replace(/\D/g, "") && !phone) {
+      setError("Indique un numéro de téléphone valide, ou laisse le champ vide.");
       return;
     }
     setLoading(true);
     setError("");
     try {
-      await createRecord("Liste d'attente", {
-        Prénom: form.prenom,
-        Email: form.email,
-        Phone: phone, // E.164 — champ Phone Airtable
-      });
+      const fields = { Prénom: form.prenom, Email: form.email };
+      if (phone) fields.Phone = phone; // E.164 — champ Phone Airtable
+      await createRecord("Liste d'attente", fields);
       captureEvent("waitlist_signup"); // conversion : inscription liste d'attente
       rememberPrefillEmail(form.email); // préremplit Stripe si elle ouvre /vente-vip
       navigate("/merci-liste-attente");
@@ -78,8 +77,8 @@ export default function ListeAttente() {
   return (
     <>
       <SEO
-        title="Liste d'attente — Lancement YoGyFace"
-        description="Inscris-toi pour accéder aux ventes privées du nouveau programme YoGyFace et à la plateforme en avant-première, avec des bonus réservés."
+        title="Liste d'attente — 50 membres fondatrices"
+        description="Réserve ta place parmi les 50 membres fondatrices. Ouverture privée le 10 septembre : routine personnalisée et plateforme en avant-première."
         path="/liste-attente"
       />
       {/* Hero */}
@@ -95,15 +94,15 @@ export default function ListeAttente() {
             data-delay="100"
           >
             <span className="w-1.5 h-1.5 rounded-full bg-corail animate-pulse" />
-            Lancement — liste d'attente
+            50 places — 10 septembre
           </div>
 
           <div className="animate-on-scroll" data-anim="scale" data-delay="200">
             <h1 className="font-display text-[clamp(2rem,8vw,5.5rem)] font-black leading-[0.9] tracking-tighter text-noir mb-2">
-              ENTRE AVANT
+              RÉSERVE TA PLACE
             </h1>
             <p className="font-serif italic text-[clamp(1.5rem,6vw,4rem)] text-corail font-semibold mb-4">
-              tout le monde
+              de membre fondatrice
             </p>
           </div>
 
@@ -111,17 +110,16 @@ export default function ListeAttente() {
             className="animate-on-scroll text-gris text-[15px] md:text-[17px] leading-relaxed mb-3 md:mb-4 max-w-xl mx-auto"
             data-delay="400"
           >
-            Nouveau diagnostic, nouveaux exercices, nouveau programme — et
-            l'application YoGyFace. La liste d'attente ouvre les{" "}
-            <strong className="text-noir">ventes privées</strong> et l'accès à
-            la plateforme en avant-première.
+            50 places seulement. Le 10 septembre, tu ouvres avant tout le monde
+            pour ta{" "}
+            <strong className="text-noir">routine personnalisée</strong> et
+            l'application YoGyFace en avant-première.
           </p>
           <p
             className="animate-on-scroll text-gris/60 text-[13px] md:text-[15px] mb-8 md:mb-10 max-w-xl mx-auto"
             data-delay="500"
           >
-            Plus des <strong className="text-noir">bonus réservés</strong> aux
-            inscrites. Aucun paiement maintenant. Aucun engagement.
+            Aucun paiement maintenant. Aucun engagement.
           </p>
 
           {/* Form */}
@@ -166,6 +164,7 @@ export default function ListeAttente() {
                   phone={form.phone}
                   onIsoChange={(iso) => setForm((v) => ({ ...v, iso }))}
                   onPhoneChange={(phone) => setForm((v) => ({ ...v, phone }))}
+                  hint="Pour te prévenir dès que ça ouvre — SMS, pas de spam."
                 />
               </div>
               <button
@@ -175,7 +174,7 @@ export default function ListeAttente() {
               >
                 {loading
                   ? "Inscription en cours…"
-                  : "Rejoindre la liste d'attente"}
+                  : "Réserver ma place"}
               </button>
               {error && (
                 <p className="text-red-500 text-xs text-center mt-2">{error}</p>
@@ -197,7 +196,7 @@ export default function ListeAttente() {
                 <span>Aucun paiement requis. Aucun engagement.</span>
               </div>
               <p className="text-center text-gris/30 text-xs mt-2 font-serif italic">
-                700+ femmes m'ont déjà fait confiance
+                1 200 femmes m'ont déjà fait confiance
               </p>
             </form>
           </div>
@@ -241,7 +240,7 @@ export default function ListeAttente() {
                 <p className="text-gris mb-6 md:mb-8 text-[14px] md:text-[16px] leading-relaxed">
                   C'est le lancement de la V2 : une plateforme dédiée, un
                   diagnostic et des exercices refondus, un programme réécrit.
-                  Les inscrites y accèdent en privé, avant le reste.
+                  50 membres fondatrices y accèdent en privé, le 10 septembre.
                 </p>
               </div>
               <div className="space-y-3 md:space-y-4">
