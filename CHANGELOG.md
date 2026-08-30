@@ -4,7 +4,7 @@
 
 ### ✨ Added
 
-- **Email confirmation liste d'attente** : template HTML (`emails/waitlist-confirmation.html`) — logo YoGyFace, « écris-moi », icônes Insta/YouTube en PNG opaques à la racine (`/email-instagram.png`, `/email-youtube.png`).
+- **Email confirmation liste d'attente** : template HTML (`emails/waitlist-confirmation.html`) — logo YoGyFace, « écris-moi », Insta en PNG, YouTube en JPEG (`/email-play.jpg`) — Mail.app cassait `/email-youtube.png`.
 - **Confirmation liste d'attente** : ouverture privée le 10 septembre, 50 places de membres fondatrices, placeholder vidéo Laury, carrousel avant/après et 6 avis Trustpilot. Pas de mention des cadeaux (uniquement aux CGV). Picto fleur, bouton « Retour à l'accueil » et placeholder vidéo retirés.
 
 ### 🔧 Changed
