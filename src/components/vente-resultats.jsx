@@ -81,7 +81,7 @@ export default function VenteResultats({ cta, proof = '4.9/5 · 700+ femmes déj
                   Après
                 </span>
               </div>
-              <div className="flex items-center justify-between px-3 py-2.5">
+              <div className="flex items-center justify-between px-3 pt-3 pb-5">
                 <p className="text-xs font-semibold text-noir">{r.name} · {r.zone}</p>
                 <p className="text-[11px] text-gris">{r.duration}</p>
               </div>

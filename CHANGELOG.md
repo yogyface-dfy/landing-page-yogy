@@ -10,8 +10,10 @@
 
 ### 🔧 Changed
 
+- **Cartes avant/après** : plus d’air sous le prénom / la durée (merci + `/transformations`).
 - **Image sociale (Open Graph)** : portrait Laury (livres + modèle anatomique) à la place du collage 7 visages. Cache-bust `?v=20260830`.
 - **Liste d'attente** : titre « réserve ta place de membre fondatrice », 50 places, 1 200 femmes, téléphone optionnel (SMS à l'ouverture).
+- **Liste d'attente (copy plateforme)** : carte « La nouvelle plateforme » (diagnostic, exercices, programme jour après jour 2-3 mois). Intro sous « pas un simple replay » recentrée sur la révolution YoGyFace et le diagnostic.
 
 ## 2026-08-26
 

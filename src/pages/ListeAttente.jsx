@@ -12,7 +12,7 @@ import SEO from "../components/SEO";
 const reassurances = [
   "50 places de membres fondatrices",
   "Ouverture privée le 10 septembre",
-  "Plateforme YoGyFace en avant-première",
+  "La nouvelle plateforme",
   "Aucun engagement — tu décides plus tard",
   "1 200 femmes m'ont déjà fait confiance",
 ];
@@ -25,8 +25,8 @@ const whyWaitlist = [
   },
   {
     icon: "leaf",
-    title: "La plateforme en avant-première",
-    desc: "L'application YoGyFace, le diagnostic V2, les nouveaux exercices et le nouveau programme : tu y entres avant le lancement public.",
+    title: "La nouvelle plateforme",
+    desc: "Ton espace YoGyFace avec le nouveau diagnostic, les nouveaux exercices, un programme jour après jour sur 2-3 mois.",
   },
   {
     icon: "flower",
@@ -245,9 +245,9 @@ export default function ListeAttente() {
                   </span>
                 </h2>
                 <p className="text-gris mb-6 md:mb-8 text-[14px] md:text-[16px] leading-relaxed">
-                  C'est le lancement de la V2 : une plateforme dédiée, un
-                  diagnostic et des exercices refondus, un programme réécrit.
-                  50 membres fondatrices y accèdent en privé, le 10 septembre.
+                  Le lancement de la révolution dans le yoga du visage : une
+                  plateforme développée uniquement pour YoGyFace, sur mesure, un
+                  nouveau diagnostic pour analyser parfaitement tes causes.
                 </p>
               </div>
               <div className="space-y-3 md:space-y-4">

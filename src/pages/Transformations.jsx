@@ -268,7 +268,7 @@ export default function Transformations() {
                     </>
                   )}
                 </div>
-                <div className="p-3 md:p-4 bg-white flex items-center justify-between">
+                <div className="px-3 pt-3 pb-4 md:px-4 md:pt-4 md:pb-5 bg-white flex items-center justify-between">
                   <div>
                     <p className="text-xs font-semibold text-corail uppercase tracking-wider">
                       {r.tag}
