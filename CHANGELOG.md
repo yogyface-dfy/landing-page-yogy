@@ -9,6 +9,7 @@
 
 ### 🔧 Changed
 
+- **Image sociale (Open Graph)** : portrait Laury (livres + modèle anatomique) à la place du collage 7 visages. Cache-bust `?v=20260830`.
 - **Liste d'attente** : titre « réserve ta place de membre fondatrice », 50 places, 1 200 femmes, téléphone optionnel (SMS à l'ouverture).
 
 ## 2026-08-26

@@ -1,7 +1,8 @@
 import { Head } from 'vite-react-ssg'
 
 const SITE = 'https://yogyface.fr'
-const DEFAULT_IMAGE = `${SITE}/og-image.jpg`
+// ?v= casse le cache Facebook / iMessage quand on change le visuel.
+const DEFAULT_IMAGE = `${SITE}/og-image.jpg?v=20260830`
 
 /**
  * Per-page SEO head tags.

@@ -16,7 +16,7 @@ const jsonLd = {
   description: 'Méthode RESET™ de yoga du visage par Laury. Programmes personnalisés pour tonifier, lifter et rajeunir le visage naturellement.',
   url: 'https://yogyface.fr',
   logo: 'https://yogyface.fr/favicon.png',
-  image: 'https://yogyface.fr/og-image.jpg',
+  image: 'https://yogyface.fr/og-image.jpg?v=20260830',
   founder: { '@id': 'https://yogyface.fr/#laury' },
   email: 'contact@yogyface.fr',
   sameAs: [
