@@ -4,6 +4,8 @@
 
 ### ✨ Added
 
+- **Merci liste d'attente** : petite animation feux d'artifice au hero (couleurs YoGyFace, ignorée si `prefers-reduced-motion`) — 5 éclatements.
+- **DataFast revenue** : `datafast_visitor_id` / `datafast_session_id` dans les metadata Stripe (Checkout VIP + PaymentIntent upsell).
 - **DataFast** : cookieless par défaut ; mode cookies seulement après Accept (SDK `datafast`, `dfid_VK30OLHyu2v9ALKIQfjxn`). Pageviews SPA + events `waitlist_signup` / `contact_submit`.
 - **Double inscription liste d'attente** : si l'email existe déjà (formulaire ou `?email=`), on pose `doubleInscription = Oui` sur la fiche — pas de nouvelle ligne. Automation Airtable pour le mail « déjà inscrite ».
 - **Email déjà inscrite** : `emails/waitlist-already.html` — même cadre que la confirmation, copy « tu es déjà sur la liste ».

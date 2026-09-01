@@ -1,4 +1,5 @@
 import { Link } from "react-router-dom";
+import MerciFeux from "../components/merci-feux";
 import SEO from "../components/SEO";
 import YouTubeEmbed from "../components/YouTubeEmbed";
 import VenteResultats from "../components/vente-resultats";
@@ -46,6 +47,7 @@ export default function MerciListeAttente() {
       <section className="relative pt-28 md:pt-32 pb-16 px-[5%] overflow-hidden">
         <div className="absolute inset-0 bg-gradient-to-b from-rose/25 via-white to-creme pointer-events-none" />
         <div className="absolute -top-20 left-1/2 -translate-x-1/2 w-[700px] h-[360px] rounded-full bg-corail/6 blur-3xl pointer-events-none" />
+        {status !== "error" && <MerciFeux />}
 
         <div className="max-w-[620px] mx-auto w-full relative z-10 text-center">
           <div

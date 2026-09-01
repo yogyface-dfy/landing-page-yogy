@@ -121,6 +121,27 @@ export const capturePageview = () => {
   if (ph) ph.capture('$pageview')
 }
 
+// IDs DataFast pour l'attribution Stripe (cookies après Accept, sinon le client).
+export async function getDataFastIds() {
+  try {
+    let client = df
+    if (!client && dfPromise) client = await dfPromise
+    const readCookie = (name) => {
+      const raw = document.cookie.match(new RegExp(`(?:^|; )${name}=([^;]*)`))
+      return raw ? decodeURIComponent(raw[1]) : ''
+    }
+    const vid = client?.getVisitorId?.() || readCookie('datafast_visitor_id')
+    const sid = client?.getSessionId?.() || readCookie('datafast_session_id')
+    return {
+      ...(vid ? { datafast_visitor_id: vid } : {}),
+      ...(sid ? { datafast_session_id: sid } : {}),
+    }
+  } catch (err) {
+    console.error('[analytics] DataFast ids failed', err)
+    return {}
+  }
+}
+
 // Event custom : PostHog si consenti ; DataFast dès qu'il est prêt.
 export const captureEvent = (name, props) => {
   if (ph) ph.capture(name, props)

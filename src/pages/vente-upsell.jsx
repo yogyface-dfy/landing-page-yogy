@@ -65,10 +65,11 @@ export default function VenteUpsell() {
     setBusy(true)
     setState((s) => ({ ...s, error: '' }))
     try {
+      const { getDataFastIds } = await import('../lib/analytics')
       const res = await fetch('/api/stripe/upsell', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ session_id: sessionId }),
+        body: JSON.stringify({ session_id: sessionId, ...(await getDataFastIds()) }),
       })
       const data = await res.json().catch(() => ({}))
       if (data.url) {
