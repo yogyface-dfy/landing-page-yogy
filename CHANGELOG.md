@@ -2,6 +2,10 @@
 
 ## 2026-09-01
 
+### ✨ Added
+
+- **Double inscription liste d'attente** : si l'email existe déjà (formulaire ou `?email=`), on pose `doubleInscription = Oui` sur la fiche — pas de nouvelle ligne. Automation Airtable pour le mail « déjà inscrite ».
+
 ### 📚 Documentation
 
 - **Règle Cursor** `.cursor/rules/email-spam-compliance.mdc` : preheader = 2 premières lignes du body, padding `&#8199;` (pas de zero-width), copy intouché, alerte si signal spam fort.

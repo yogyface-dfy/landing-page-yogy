@@ -137,6 +137,28 @@ async function findWaitlistByEmail(email) {
   return data.records?.[0] || null
 }
 
+/** 2ᵉ inscription (formulaire ou lien email) : flag pour l'automation mail. */
+async function flagWaitlistDuplicate(recordId) {
+  const r = await fetch(
+    `https://api.airtable.com/v0/${BASE_ID}/${encodeURIComponent("Liste d'attente")}/${recordId}`,
+    {
+      method: 'PATCH',
+      headers: {
+        Authorization: `Bearer ${PAT}`,
+        'Content-Type': 'application/json',
+      },
+      // Champ serveur only — le client ne peut pas le poser via ALLOWED_FIELDS.
+      body: JSON.stringify({ fields: { doubleInscription: 'Oui' } }),
+    }
+  )
+  if (!r.ok) {
+    const data = await r.json().catch(() => ({}))
+    console.error('Airtable doubleInscription error:', r.status, data?.error)
+    return false
+  }
+  return true
+}
+
 app.post('/api/airtable', async (req, res) => {
   try {
     if (!PAT || !BASE_ID) {
@@ -165,7 +187,11 @@ app.post('/api/airtable', async (req, res) => {
         return res.status(400).json({ error: 'Email invalide' })
       }
       const existing = await findWaitlistByEmail(email)
-      if (existing) return res.json({ id: existing.id, existing: true })
+      if (existing) {
+        const flagged = await flagWaitlistDuplicate(existing.id)
+        if (!flagged) return res.status(502).json({ error: 'Enregistrement impossible' })
+        return res.json({ id: existing.id, existing: true })
+      }
       if (!cleanFields['Prénom']) cleanFields['Prénom'] = '—'
     }
 
