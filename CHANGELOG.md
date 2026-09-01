@@ -4,17 +4,18 @@
 
 ### ✨ Added
 
-- **DataFast cookieless** : SDK `datafast` (`dfid_VK30OLHyu2v9ALKIQfjxn`) — sans cookie, hors bandeau, pageviews SPA auto, events `waitlist_signup` / `contact_submit`.
+- **DataFast** : cookieless par défaut ; mode cookies seulement après Accept (SDK `datafast`, `dfid_VK30OLHyu2v9ALKIQfjxn`). Pageviews SPA + events `waitlist_signup` / `contact_submit`.
 - **Double inscription liste d'attente** : si l'email existe déjà (formulaire ou `?email=`), on pose `doubleInscription = Oui` sur la fiche — pas de nouvelle ligne. Automation Airtable pour le mail « déjà inscrite ».
 - **Email déjà inscrite** : `emails/waitlist-already.html` — même cadre que la confirmation, copy « tu es déjà sur la liste ».
 
 ### 📚 Documentation
 
-- **Confidentialité** : DataFast (cookieless, hors bannière) + PostHog (sous consentement) — art. 5 et 9.
+- **Confidentialité** : DataFast cookieless sans accord, cookies DataFast + PostHog après Accept — art. 5 et 9.
 - **Règle Cursor** `.cursor/rules/email-spam-compliance.mdc` : preheader = 2 premières lignes du body, padding `&#8199;` (pas de zero-width), copy intouché, alerte si signal spam fort.
 
 ### 🚀 Improved
 
+- **DataFast** : à l'Accept, l'ID cookieless est recopié en cookies — même visiteuse tout de suite, pas à la visite suivante.
 - **Mail 1 (seg. 1 et 2)** : preheader = début du mail, **sans** padding `&#8199;` (ZeroBounce le flag comme caractères invisibles). Copy inchangé.
 
 ## 2026-08-31

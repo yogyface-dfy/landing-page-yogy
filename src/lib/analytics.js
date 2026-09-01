@@ -1,6 +1,6 @@
 // PostHog + Meta : UNIQUEMENT après consentement RGPD.
-// DataFast cookieless : pas de cookie, chargé pour tout le monde (dashboard
-// DataFast en mode cookieless). Imports dynamiques = chunks hors bundle initial.
+// DataFast : cookieless tant qu'elle n'a pas accepté ; cookies si Accept
+// (ou si yf_consent déjà granted). Import dynamique = hors bundle initial.
 
 import { loadMetaPixel } from './meta-pixel'
 
@@ -14,6 +14,7 @@ let ph = null // instance PostHog une fois chargée
 let phPromise = null // évite les chargements concurrents
 let df = null // client DataFast une fois initialisé
 let dfPromise = null
+let dfCookieless = null // mode du client courant (évite un re-init inutile)
 
 // Renvoie 'granted', 'denied' ou null (pas encore de choix).
 export const getConsent = () =>
@@ -38,49 +39,79 @@ const loadPostHog = () => {
   return phPromise
 }
 
-// DataFast cookieless : pageviews SPA auto. Désactivé sur localhost.
-const loadDataFast = () => {
-  if (typeof window === 'undefined') return Promise.resolve(null)
-  if (!dfPromise) {
-    dfPromise = import('datafast')
-      .then(({ initDataFast }) =>
-        initDataFast({
-          websiteId: DATAFAST_WEBSITE_ID,
-          domain: DATAFAST_DOMAIN,
-          cookieless: true,
-          autoCapturePageviews: true,
-        }),
-      )
-      .then((client) => {
-        df = client
-        return client
-      })
-      .catch((err) => {
-        console.error('[analytics] DataFast init failed', err)
-        dfPromise = null
-        return null
-      })
+// Recopie l'ID cookieless en cookies pour garder la même visiteuse à l'Accept.
+const persistDfIdentity = async (client, { setCookie, isValidVisitorId, isValidSessionId }) => {
+  try {
+    await client.flush()
+  } catch (err) {
+    console.error('[analytics] DataFast flush failed', err)
   }
+  const vid = client.getVisitorId()
+  const sid = client.getSessionId()
+  if (!isValidVisitorId(vid) || !isValidSessionId(sid)) return false
+  setCookie('datafast_visitor_id', vid, 365, DATAFAST_DOMAIN)
+  setCookie('datafast_session_id', sid, 1 / 48, DATAFAST_DOMAIN)
+  setCookie('datafast_session_start', String(Date.now()), 1 / 48, DATAFAST_DOMAIN)
+  return true
+}
+
+// DataFast : cookieless par défaut, cookies après Accept. Désactivé sur localhost.
+const loadDataFast = (cookieless) => {
+  if (typeof window === 'undefined') return Promise.resolve(null)
+  // File d'attente : un Accept pendant l'init cookieless ne lance pas 2 clients.
+  dfPromise = (dfPromise || Promise.resolve()).then(async () => {
+    if (df && dfCookieless === cookieless) return df
+    const sdk = await import('datafast')
+    const upgrading = dfCookieless === true && cookieless === false
+    let migrated = false
+    if (df && upgrading) {
+      migrated = await persistDfIdentity(df, sdk)
+    }
+    if (df) {
+      try {
+        await df.shutdown()
+      } catch (err) {
+        console.error('[analytics] DataFast shutdown failed', err)
+      }
+    }
+    const client = await sdk.initDataFast({
+      websiteId: DATAFAST_WEBSITE_ID,
+      domain: DATAFAST_DOMAIN,
+      cookieless,
+      autoCapturePageviews: { captureInitialPageview: !migrated },
+    })
+    df = client
+    dfCookieless = cookieless
+    return client
+  }).catch((err) => {
+    console.error('[analytics] DataFast init failed', err)
+    df = null
+    dfCookieless = null
+    dfPromise = null
+    return null
+  })
   return dfPromise
 }
 
-// Au démarrage : DataFast toujours ; PostHog / Meta si déjà consenti.
+// Au démarrage : DataFast (mode selon consentement) ; PostHog / Meta si granted.
 export const initAnalytics = () => {
-  loadDataFast()
-  if (getConsent() === 'granted') {
+  const granted = getConsent() === 'granted'
+  loadDataFast(!granted)
+  if (granted) {
     loadPostHog()
     loadMetaPixel()
   }
 }
 
-// Consentement accordé : on persiste le choix et on démarre PostHog / Meta.
+// Consentement accordé : PostHog / Meta + bascule DataFast en cookies.
 export const grantConsent = () => {
   localStorage.setItem(CONSENT_KEY, 'granted')
   loadPostHog()
   loadMetaPixel()
+  loadDataFast(false)
 }
 
-// Consentement refusé : PostHog / Meta restent coupés. DataFast inchangé.
+// Consentement refusé : PostHog / Meta coupés. DataFast reste cookieless.
 export const denyConsent = () => {
   localStorage.setItem(CONSENT_KEY, 'denied')
 }

@@ -109,7 +109,7 @@ export default function Confidentialite() {
             <h2 className="font-display font-black text-xl tracking-tight text-noir mb-3">Article 9 — Cookies & mesure d'audience</h2>
             <h3 className="font-semibold text-noir text-sm mt-1 mb-2">Site vitrine (yogyface.fr) :</h3>
             <p>Seuls des cookies strictement nécessaires au fonctionnement technique du site sont déposés sans votre accord (session, sécurité). Le site vitrine <strong>n'utilise aucun cookie publicitaire ni de marketing</strong>.</p>
-            <p className="mt-2">Nous utilisons <strong>DataFast</strong> pour la mesure d'audience et l'attribution marketing (pages vues, parcours). Cet outil fonctionne <strong>sans cookie</strong> (identifiant de session uniquement) et n'est pas soumis à la bannière.</p>
+            <p className="mt-2">Nous utilisons <strong>DataFast</strong> pour la mesure d'audience et l'attribution marketing (pages vues, parcours). Sans votre accord, il fonctionne <strong>sans cookie</strong> (identifiant de session uniquement). Si vous acceptez, DataFast dépose des cookies pour reconnaître vos visites suivantes.</p>
             <p className="mt-2">Nous utilisons aussi <strong>PostHog</strong>, hébergé dans l'Union européenne, pour un suivi plus détaillé. Ces cookies ne sont déposés <strong>qu'après votre consentement</strong>, recueilli via la bannière affichée à votre première visite. Vous pouvez refuser sans conséquence sur votre navigation.</p>
             {/* Section webi : on décrit factuellement le pixel Meta (obligation de
                 transparence, art. 13), SANS énoncer le moment de déclenchement ni de

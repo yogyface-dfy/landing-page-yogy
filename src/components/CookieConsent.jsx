@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react'
 import { Link } from 'react-router-dom'
 import { getConsent, grantConsent, denyConsent } from '../lib/analytics'
 
-// Bandeau de consentement RGPD pour PostHog + Meta (DataFast est cookieless).
+// Bandeau RGPD : PostHog + Meta + cookies DataFast. Refus = DataFast cookieless.
 // La décision d'affichage se fait après montage (accès à localStorage côté
 // client uniquement) : pas de bannière dans le HTML prérendu (SSG), et pas de
 // désynchronisation d'hydratation pour les visiteurs ayant déjà choisi.
