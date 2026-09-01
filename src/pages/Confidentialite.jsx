@@ -75,7 +75,7 @@ export default function Confidentialite() {
               <li><strong>Automatisations :</strong> Make (Union européenne)</li>
               <li><strong>Diffusion des vidéos :</strong> Amazon CloudFront</li>
               <li><strong>Lecture des vidéos de l'atelier :</strong> YouTube (Google Ireland Ltd.), en mode sans cookie</li>
-              <li><strong>Mesure d'audience :</strong> PostHog (Union européenne)</li>
+              <li><strong>Mesure d'audience :</strong> PostHog (Union européenne), DataFast</li>
               <li><strong>Mesure publicitaire :</strong> Meta Platforms Ireland Ltd. (application du parcours)</li>
               <li><strong>Visioconférence :</strong> Zoom — <strong>Messagerie de groupe :</strong> WhatsApp</li>
               <li><strong>Paiement :</strong> Stripe, Klarna, PayPal (nous ne conservons aucune donnée bancaire)</li>
@@ -109,7 +109,8 @@ export default function Confidentialite() {
             <h2 className="font-display font-black text-xl tracking-tight text-noir mb-3">Article 9 — Cookies & mesure d'audience</h2>
             <h3 className="font-semibold text-noir text-sm mt-1 mb-2">Site vitrine (yogyface.fr) :</h3>
             <p>Seuls des cookies strictement nécessaires au fonctionnement technique du site sont déposés sans votre accord (session, sécurité). Le site vitrine <strong>n'utilise aucun cookie publicitaire ni de marketing</strong>.</p>
-            <p className="mt-2">Nous utilisons un outil de <strong>mesure d'audience (PostHog)</strong>, hébergé dans l'Union européenne, pour comprendre l'usage du site et l'améliorer (pages vues, parcours de navigation). Ces cookies ne sont déposés <strong>qu'après votre consentement</strong>, recueilli via la bannière affichée à votre première visite. Vous pouvez refuser sans conséquence sur votre navigation, et modifier votre choix à tout moment.</p>
+            <p className="mt-2">Nous utilisons <strong>DataFast</strong> pour la mesure d'audience et l'attribution marketing (pages vues, parcours). Cet outil fonctionne <strong>sans cookie</strong> (identifiant de session uniquement) et n'est pas soumis à la bannière.</p>
+            <p className="mt-2">Nous utilisons aussi <strong>PostHog</strong>, hébergé dans l'Union européenne, pour un suivi plus détaillé. Ces cookies ne sont déposés <strong>qu'après votre consentement</strong>, recueilli via la bannière affichée à votre première visite. Vous pouvez refuser sans conséquence sur votre navigation.</p>
             {/* Section webi : on décrit factuellement le pixel Meta (obligation de
                 transparence, art. 13), SANS énoncer le moment de déclenchement ni de
                 promesse de consentement. Repasser en version "conforme" (traceurs

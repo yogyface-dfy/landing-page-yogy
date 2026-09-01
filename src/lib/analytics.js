@@ -1,15 +1,19 @@
-// Analytics PostHog (cloud EU) — chargé UNIQUEMENT après consentement RGPD.
-// posthog-js est importé dynamiquement : son code n'est téléchargé qu'au
-// moment du consentement (chunk séparé), pour ne pas alourdir le bundle initial.
+// PostHog + Meta : UNIQUEMENT après consentement RGPD.
+// DataFast cookieless : pas de cookie, chargé pour tout le monde (dashboard
+// DataFast en mode cookieless). Imports dynamiques = chunks hors bundle initial.
 
 import { loadMetaPixel } from './meta-pixel'
 
 const CONSENT_KEY = 'yf_consent'
 const KEY = import.meta.env.VITE_POSTHOG_KEY
 const HOST = import.meta.env.VITE_POSTHOG_HOST || 'https://eu.i.posthog.com'
+const DATAFAST_WEBSITE_ID = 'dfid_VK30OLHyu2v9ALKIQfjxn'
+const DATAFAST_DOMAIN = 'yogyface.fr'
 
 let ph = null // instance PostHog une fois chargée
 let phPromise = null // évite les chargements concurrents
+let df = null // client DataFast une fois initialisé
+let dfPromise = null
 
 // Renvoie 'granted', 'denied' ou null (pas encore de choix).
 export const getConsent = () =>
@@ -34,22 +38,49 @@ const loadPostHog = () => {
   return phPromise
 }
 
-// À appeler au démarrage de l'app : réactive le tracking si déjà consenti.
+// DataFast cookieless : pageviews SPA auto. Désactivé sur localhost.
+const loadDataFast = () => {
+  if (typeof window === 'undefined') return Promise.resolve(null)
+  if (!dfPromise) {
+    dfPromise = import('datafast')
+      .then(({ initDataFast }) =>
+        initDataFast({
+          websiteId: DATAFAST_WEBSITE_ID,
+          domain: DATAFAST_DOMAIN,
+          cookieless: true,
+          autoCapturePageviews: true,
+        }),
+      )
+      .then((client) => {
+        df = client
+        return client
+      })
+      .catch((err) => {
+        console.error('[analytics] DataFast init failed', err)
+        dfPromise = null
+        return null
+      })
+  }
+  return dfPromise
+}
+
+// Au démarrage : DataFast toujours ; PostHog / Meta si déjà consenti.
 export const initAnalytics = () => {
+  loadDataFast()
   if (getConsent() === 'granted') {
     loadPostHog()
     loadMetaPixel()
   }
 }
 
-// Consentement accordé : on persiste le choix et on démarre le tracking.
+// Consentement accordé : on persiste le choix et on démarre PostHog / Meta.
 export const grantConsent = () => {
   localStorage.setItem(CONSENT_KEY, 'granted')
   loadPostHog()
   loadMetaPixel()
 }
 
-// Consentement refusé : on mémorise le refus, rien n'est chargé.
+// Consentement refusé : PostHog / Meta restent coupés. DataFast inchangé.
 export const denyConsent = () => {
   localStorage.setItem(CONSENT_KEY, 'denied')
 }
@@ -59,7 +90,12 @@ export const capturePageview = () => {
   if (ph) ph.capture('$pageview')
 }
 
-// Event custom (conversions…) — sans effet si non consenti / non chargé.
+// Event custom : PostHog si consenti ; DataFast dès qu'il est prêt.
 export const captureEvent = (name, props) => {
   if (ph) ph.capture(name, props)
+  if (df) {
+    df.track(name, props)
+  } else if (dfPromise) {
+    dfPromise.then((client) => client?.track(name, props))
+  }
 }
