@@ -1,5 +1,35 @@
 # Changelog
 
+## 2026-09-01
+
+### 📚 Documentation
+
+- **Règle Cursor** `.cursor/rules/email-spam-compliance.mdc` : preheader = 2 premières lignes du body, padding `&#8199;` (pas de zero-width), copy intouché, alerte si signal spam fort.
+
+### 🚀 Improved
+
+- **Mail 1 (seg. 1 et 2)** : preheader = début du mail, **sans** padding `&#8199;` (ZeroBounce le flag comme caractères invisibles). Copy inchangé.
+
+## 2026-08-31
+
+### ✨ Added
+
+- **Lien email → liste d'attente** : `/merci-liste-attente?email=%EMAIL%` inscrit directement (Airtable + tracking), sans formulaire. Prénom optionnel (`&prenom=%FIRSTNAME%`). Doublon email ignoré. Les scanners qui préchargent le lien ne POST-ent pas.
+- **Emails lancement Mail 1** : templates ActiveCampaign (`emails/launch/final/`) — tables + CSS inline, images hébergées (`/email/launch/`), tags `%FIRSTNAME%` / `%UNSUBSCRIBELINK%`. Segment 1 (conférence) et Segment 2 (intéressées).
+
+### 🔧 Changed
+
+- **Emails lancement Mail 1** : copy finale (atelier / intéressées, CTA « liste avant-première », mosaïques mises à jour). Templates AC dans `emails/launch/final/`.
+
+### 🚀 Improved
+
+- **Emails lancement Mail 1** : tables fluides `width="100%"` + `max-width:600px` (plus de `width="600"` qui forçait le scroll horizontal sur mobile).
+- **Assets Mail 1** : images dans `emails/launch/final/` (`mail-1-*.jpg`) + copie `public/email/launch/` pour l’hébergement.
+
+### 📚 Documentation
+
+- **Règle Cursor** `.cursor/rules/activecampaign-emails.mdc` : workflow original → final AC → done, nommage images, contraintes HTML ActiveCampaign.
+
 ## 2026-08-30
 
 ### ✨ Added

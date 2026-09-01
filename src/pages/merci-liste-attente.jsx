@@ -1,8 +1,9 @@
+import { Link } from "react-router-dom";
 import SEO from "../components/SEO";
 import YouTubeEmbed from "../components/YouTubeEmbed";
 import VenteResultats from "../components/vente-resultats";
 import WaitlistAvis from "../components/waitlist-avis";
-import WaitlistMetaConversion from "../components/waitlist-meta-conversion";
+import { useWaitlistConfirm } from "../lib/waitlist";
 
 /** Id YouTube de Laury — laisser vide tant que la vidéo n'est pas montée. */
 const LAURY_VIDEO_ID = "";
@@ -30,9 +31,11 @@ const NEXT = [
  * Non indexée (noindex + robots.txt + X-Robots-Tag).
  */
 export default function MerciListeAttente() {
+  // Formulaire : déjà inscrite. Lien email ?email= : inscription au mount.
+  const status = useWaitlistConfirm();
+
   return (
     <>
-      <WaitlistMetaConversion />
       <SEO
         title="Inscription confirmée"
         description="Tu es inscrite : ouverture privée le 10 septembre, 50 places de membres fondatrices. Vérifie tes emails."
@@ -50,27 +53,62 @@ export default function MerciListeAttente() {
             data-delay="80"
           >
             <span className="w-1.5 h-1.5 rounded-full bg-corail animate-pulse" />
-            Inscription confirmée
+            {status === "pending"
+              ? "Inscription en cours…"
+              : status === "error"
+                ? "Inscription incomplète"
+                : "Inscription confirmée"}
           </div>
           <h1
             className="animate-on-scroll font-display text-[clamp(2rem,6vw,3.6rem)] font-black leading-[0.95] tracking-tighter text-noir mb-4"
             data-delay="120"
           >
-            TU ES SUR
-            <br />
-            <span className="font-serif italic text-corail font-semibold">
-              la liste.
-            </span>
+            {status === "error" ? (
+              <>
+                ON N'A PAS PU
+                <br />
+                <span className="font-serif italic text-corail font-semibold">
+                  t'inscrire.
+                </span>
+              </>
+            ) : (
+              <>
+                TU ES SUR
+                <br />
+                <span className="font-serif italic text-corail font-semibold">
+                  la liste.
+                </span>
+              </>
+            )}
           </h1>
           <p
             className="animate-on-scroll text-gris text-[15px] md:text-[17px] leading-relaxed mb-6"
             data-delay="180"
           >
-            Tu vas recevoir un{" "}
-            <strong className="text-noir">email de confirmation</strong> — pense
-            à vérifier tes spams.
+            {status === "pending" ? (
+              "On enregistre ta place — un instant."
+            ) : status === "error" ? (
+              <>
+                Réessaie depuis le{" "}
+                <Link
+                  to="/liste-attente"
+                  className="text-noir font-medium underline underline-offset-2"
+                >
+                  formulaire
+                </Link>{" "}
+                ou écris-nous à contact@yogyface.fr
+              </>
+            ) : (
+              <>
+                Tu vas recevoir un{" "}
+                <strong className="text-noir">email de confirmation</strong> — pense
+                à vérifier tes spams.
+              </>
+            )}
           </p>
 
+          {status !== "error" && (
+          <>
           {/* FOMO : date + 50 places — pas de compteur fake */}
           <div
             className="animate-on-scroll text-left rounded-3xl bg-noir text-white px-5 py-5 mb-10"
@@ -120,11 +158,17 @@ export default function MerciListeAttente() {
               </div>
             ))}
           </div>
+          </>
+          )}
         </div>
       </section>
 
-      <VenteResultats proof="4.9/5 · 1 200 femmes déjà accompagnées" />
-      <WaitlistAvis />
+      {status !== "error" && (
+        <>
+          <VenteResultats proof="4.9/5 · 1 200 femmes déjà accompagnées" />
+          <WaitlistAvis />
+        </>
+      )}
     </>
   );
 }

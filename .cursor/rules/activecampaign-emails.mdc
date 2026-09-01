@@ -1,0 +1,49 @@
+---
+description: Convertir les HTML Claude en emails ActiveCampaign (dossier emails/launch)
+globs: emails/**
+alwaysApply: false
+---
+
+# Emails lancement → ActiveCampaign
+
+Quand Marin dépose un HTML dans `emails/launch/original/` (ou demande un mail AC) : convertir, ne pas lui redemander le process.
+
+## Workflow
+
+1. Lire `emails/launch/original/*.html` (striper le base64 pour lire le copy).
+2. Écrire la version AC dans `emails/launch/final/` (même nom de fichier).
+3. Extraire chaque image base64 vers `emails/launch/final/` **et** `public/email/launch/`.
+4. Déplacer l’original vers `emails/launch/done/`.
+5. Mettre à jour `CHANGELOG.md`. Ne pas commit / build / push.
+
+## Nommage images
+
+`mail-{n}-{slug}.jpg` — kebab-case, préfixe du numéro de mail, **un seul set** si plusieurs segments partagent les visuels.
+
+Ex. `mail-1-mosaique-300.jpg`, `mail-1-planche-sillons.jpg`
+
+Dans le HTML : `https://yogyface.fr/email/launch/{filename}` (jamais de `data:image`, jamais de chemin relatif). Les images ne s’affichent qu’après deploy.
+
+## HTML ActiveCampaign
+
+- Tables `role="presentation"`, CSS **inline**, pas de flex / grid / float / classes pour le layout.
+- Largeur fluide : attribut `width="100%"` + `max-width:600px`. **Interdit** `width="600"` sur les tables live (ghost MSO `width="600"` OK).
+- `<style>` = media queries only (`.email-wrap`, `.email-pad`, `.img-fluid`).
+- CTA = URL réelle (`https://yogyface.fr/liste-attente` sauf consigne contraire). Pas de `href="#"`.
+- Tags : `%FIRSTNAME%`, footer `%UNSUBSCRIBELINK%` + `%WEBCOPY%`.
+- Objet A/B = commentaire HTML en tête, **pas** dans le body visible.
+- Preheader hidden = **les 2 premières lignes du body** (voir `email-spam-compliance.mdc`). Pas le teaser d’objet s’il diverge.
+- **Copy sacro-saint** : ne pas reformuler. Signal spam « méga sensible » → prévenir Marin, ne pas réécrire.
+- **Ne jamais Prettier / format-on-save** sur `emails/**/*.html` (l’indentation explose le ratio whitespace → ZeroBounce).
+- Police Arial/Helvetica, 16px body. Design sobre (carte blanche, texte centré gras) comme les mails 1.
+
+```html
+<!-- ✅ -->
+<table role="presentation" width="100%" style="width:100%;max-width:600px;">
+  <img src="https://yogyface.fr/email/launch/mail-1-mosaique-300.jpg" width="400" style="width:100%;max-width:400px;height:auto;" />
+
+<!-- ❌ -->
+<div class="email">…</div>
+<img src="data:image/jpeg;base64,…" />
+<table width="600">
+```

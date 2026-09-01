@@ -1,10 +1,7 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import Icon from "../components/Icon";
-import { createRecord } from "../lib/airtable";
-import { captureEvent } from "../lib/analytics";
-import { stashWaitlistConversion } from "../lib/meta-pixel";
-import { rememberPrefillEmail } from "../lib/stripe-checkout";
+import { enrollWaitlist } from "../lib/waitlist";
 import { PHONE_COUNTRIES, toE164 } from "../lib/phone-countries";
 import PhoneField from "../components/phone-field";
 import SEO from "../components/SEO";
@@ -59,17 +56,11 @@ export default function ListeAttente() {
     setLoading(true);
     setError("");
     try {
-      const fields = { Prénom: form.prenom, Email: form.email };
-      if (phone) fields.Phone = phone; // E.164 — champ Phone Airtable
-      await createRecord("Liste d'attente", fields);
-      captureEvent("waitlist_signup"); // conversion : inscription liste d'attente
-      // Meta optInWaitingList : stash → fire une fois sur /merci-liste-attente
-      stashWaitlistConversion({
+      await enrollWaitlist({
         email: form.email,
-        phone: phone || "",
-        firstName: form.prenom,
+        prenom: form.prenom,
+        phone: phone || undefined, // E.164 — champ Phone Airtable
       });
-      rememberPrefillEmail(form.email); // préremplit Stripe si elle ouvre /vente-vip
       navigate("/merci-liste-attente");
     } catch (err) {
       console.error("Airtable error:", err);

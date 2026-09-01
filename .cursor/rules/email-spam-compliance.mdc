@@ -1,0 +1,40 @@
+---
+description: Pré-en-tête, caractères invisibles et compliance spam des emails HTML (ActiveCampaign, ZeroBounce, Outlook)
+globs: emails/**
+alwaysApply: false
+---
+
+# Emails — spam compliance (ZeroBounce / Microsoft)
+
+À chaque HTML généré avant import AC. **Ne jamais réécrire le copy.** Si un passage est vraiment risqué (fausse urgence, promesse absente du mail, texte caché différent du visible), **prévenir Marin** — ne pas corriger le texte tout seul.
+
+## Pré-en-tête
+
+Le preheader doit **refléter les 2 premières lignes du body**. Il complète l’objet, il ne le contredit pas et n’invente pas d’urgence.
+
+- ❌ Preheader ≠ sujet du mail, « 3 minutes ! / Dernière chance ! » si ce n’est pas dans le corps, répéter l’objet mot pour mot
+- ✅ Ex. objet « Ce que 1200 visages m'ont appris » → preheader = début réel du mail (« À force d'analyser des visages… »)
+
+```html
+<div style="display:none;max-height:0;overflow:hidden;mso-hide:all;">
+  Texte identique aux 2 premières lignes du body
+</div>
+```
+
+**Interdit** : padding inbox en `&#8199;`, `&zwnj;`, `&#8203;`, suites de `&nbsp;`. ZeroBounce le classe comme « invisible/zero-width characters used to manipulate layout ». Un preheader fidèle suffit ; Gmail peut afficher un peu du body derrière, ce n’est pas grave.
+
+## Caractères invisibles
+
+HTML généré en code propre. Jamais de copier-coller Word / Google Docs / Canva / Figma dans le HTML.
+
+Avant import AC, Ctrl+F : `&#8203;`, `<span></span>`, `<div></div>`, suites `&nbsp;&nbsp;&nbsp;`. Si ça pullule → nettoyer.
+
+- Aucun zero-width, aucune balise vide, pas plus de 2–3 `&nbsp;` d’affilée
+- Pas d’espaces / retours superflus « pour faire joli » dans le source
+
+## Autre compliance (sans toucher au copy)
+
+- Lien désinscription réel (`%UNSUBSCRIBELINK%`), pas de `href="#"`
+- Images hébergées (pas de base64), alt renseigné
+- Un seul H1/titre de campagne dans les comments, pas de texte blanc sur fond blanc
+- Après un gros changement technique : Inbox Placement Test ZeroBounce (Outlook / Hotmail / M365 en priorité)

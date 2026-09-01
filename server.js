@@ -5,7 +5,7 @@
  * Le token ne quitte jamais le serveur — le navigateur ne le voit jamais.
  *
  * Variables d'environnement requises (SANS préfixe VITE_) :
- *   AIRTABLE_PAT      — Personal Access Token (scope data.records:write minimal)
+ *   AIRTABLE_PAT      — Personal Access Token (data.records:write + :read)
  *   AIRTABLE_BASE_ID  — Base ID (commence par "app...")
  *   STRIPE_SECRET_KEY — Checkout Session + upsell (fallback Payment Link si absente)
  *   STRIPE_WEBHOOK_SECRET — signature /api/stripe/webhook (3× : schedule 3 mois)
@@ -113,8 +113,29 @@ const ALLOWED_FIELDS = {
   "Liste d'attente": ['Prénom', 'Email', 'Phone'],
 }
 
+const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
+
 const sanitize = (value) =>
   typeof value === 'string' ? value.slice(0, 5000).trim() : value
+
+/** Échappe une valeur pour une formule Airtable entre quotes simples. */
+const escapeFormula = (value) =>
+  String(value).replace(/\\/g, '\\\\').replace(/'/g, "\\'")
+
+/** Doublon : même email déjà sur la liste → on ne recrée pas la fiche. */
+async function findWaitlistByEmail(email) {
+  const formula = `LOWER({Email})=LOWER('${escapeFormula(email)}')`
+  const url =
+    `https://api.airtable.com/v0/${BASE_ID}/${encodeURIComponent("Liste d'attente")}` +
+    `?maxRecords=1&filterByFormula=${encodeURIComponent(formula)}`
+  const r = await fetch(url, { headers: { Authorization: `Bearer ${PAT}` } })
+  if (!r.ok) {
+    console.error('Airtable lookup error:', r.status)
+    return null
+  }
+  const data = await r.json().catch(() => ({}))
+  return data.records?.[0] || null
+}
 
 app.post('/api/airtable', async (req, res) => {
   try {
@@ -136,6 +157,16 @@ app.post('/api/airtable', async (req, res) => {
     const cleanFields = {}
     for (const key of allowed) {
       if (fields[key] !== undefined) cleanFields[key] = sanitize(fields[key])
+    }
+
+    if (table === "Liste d'attente") {
+      const email = cleanFields.Email
+      if (!email || !EMAIL_RE.test(String(email))) {
+        return res.status(400).json({ error: 'Email invalide' })
+      }
+      const existing = await findWaitlistByEmail(email)
+      if (existing) return res.json({ id: existing.id, existing: true })
+      if (!cleanFields['Prénom']) cleanFields['Prénom'] = '—'
     }
 
     const r = await fetch(
