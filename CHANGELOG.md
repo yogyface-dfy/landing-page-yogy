@@ -15,6 +15,7 @@
 
 ### 🚀 Improved
 
+- **Bandeau cookies** : copy tournée vers l'intérêt de la visiteuse (pas Meta / campagnes), ton rassurant, refus sans impact sur la lecture.
 - **DataFast** : à l'Accept, l'ID cookieless est recopié en cookies — même visiteuse tout de suite, pas à la visite suivante.
 - **Mail 1 (seg. 1 et 2)** : preheader = début du mail, **sans** padding `&#8199;` (ZeroBounce le flag comme caractères invisibles). Copy inchangé.
 
