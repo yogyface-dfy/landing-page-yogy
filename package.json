@@ -12,6 +12,7 @@
     "start": "node server.js"
   },
   "dependencies": {
+    "@datafast/ai-crawl": "^1.0.9",
     "datafast": "^3.0.18",
     "dotenv": "^17.4.2",
     "express": "^5.2.1",

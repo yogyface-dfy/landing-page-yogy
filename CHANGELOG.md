@@ -1,5 +1,11 @@
 # Changelog
 
+## 2026-09-02
+
+### ✨ Added
+
+- **DataFast Bot traffic** : middleware Express `@datafast/ai-crawl` (crawlers AI / search / training). Origine forcée `yogyface.fr` derrière Railway.
+
 ## 2026-09-01
 
 ### ✨ Added
@@ -9,6 +15,10 @@
 - **DataFast** : cookieless par défaut ; mode cookies seulement après Accept (SDK `datafast`, `dfid_VK30OLHyu2v9ALKIQfjxn`). Pageviews SPA + events `waitlist_signup` / `contact_submit`.
 - **Double inscription liste d'attente** : si l'email existe déjà (formulaire ou `?email=`), on pose `doubleInscription = Oui` sur la fiche — pas de nouvelle ligne. Automation Airtable pour le mail « déjà inscrite ».
 - **Email déjà inscrite** : `emails/waitlist-already.html` — même cadre que la confirmation, copy « tu es déjà sur la liste ».
+
+### 🔧 Changed
+
+- **Liste d'attente** : `?email=` valide redirige vers `/merci-liste-attente` (inscription one-click, même flux que le lien merci).
 
 ### 📚 Documentation
 

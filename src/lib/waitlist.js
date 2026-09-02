@@ -1,6 +1,6 @@
 /**
  * Inscription liste d'attente — formulaire OU lien email
- * (`/merci-liste-attente?email=%EMAIL%`).
+ * (`/merci-liste-attente?email=%EMAIL%` ou `/liste-attente?email=` → merci).
  *
  * Le POST part du navigateur (pas d'enroll au GET) : les scanners Outlook /
  * Gmail qui préchargent le lien ne créent pas de fiche Airtable.

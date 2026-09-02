@@ -1,7 +1,11 @@
-import { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useEffect, useState } from "react";
+import { useNavigate, useSearchParams } from "react-router-dom";
 import Icon from "../components/Icon";
-import { enrollWaitlist } from "../lib/waitlist";
+import {
+  enrollWaitlist,
+  waitlistEmailFromSearch,
+  waitlistPrenomFromSearch,
+} from "../lib/waitlist";
 import { PHONE_COUNTRIES, toE164 } from "../lib/phone-countries";
 import PhoneField from "../components/phone-field";
 import SEO from "../components/SEO";
@@ -39,9 +43,20 @@ const whyWaitlist = [
 
 export default function ListeAttente() {
   const navigate = useNavigate();
+  const [searchParams] = useSearchParams();
+  // Lien email : ?email= → merci (inscription). 1er paint = formulaire SSG.
+  const emailFromLink = waitlistEmailFromSearch(searchParams);
+  const prenomFromLink = waitlistPrenomFromSearch(searchParams);
   const [form, setForm] = useState({ prenom: "", email: "", phone: "", iso: "FR" });
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
+
+  useEffect(() => {
+    if (!emailFromLink) return;
+    const q = new URLSearchParams({ email: emailFromLink });
+    if (prenomFromLink) q.set("prenom", prenomFromLink);
+    navigate(`/merci-liste-attente?${q}`, { replace: true });
+  }, [emailFromLink, prenomFromLink, navigate]);
 
   const handleSubmit = async (e) => {
     e.preventDefault();

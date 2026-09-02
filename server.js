@@ -12,11 +12,13 @@
  *   META_CAPI_TOKEN       — Events Manager → Pixel 604268118937812 (serveur only)
  *   META_PIXEL_ID         — 604268118937812 (défaut)
  *   META_TEST_EVENT_CODE  — vide en prod ; TEST… en QA
+ *   DATAFAST_BOT_TOKEN    — optionnel (dfbot_…) si auth Bot traffic activée
  */
 import express from 'express'
 import path from 'path'
 import { fileURLToPath } from 'url'
 import dotenv from 'dotenv'
+import { createExpressAICrawlerMiddleware } from '@datafast/ai-crawl'
 import {
   chargeUpsell,
   createCheckoutSession,
@@ -32,6 +34,17 @@ dotenv.config()
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url))
 const app = express()
+// Railway : IP réelle du crawler (X-Forwarded-For), pas l'IP interne.
+app.set('trust proxy', 1)
+
+// DataFast Bot traffic — GET/HEAD crawlers only ; next() immédiat.
+app.use(
+  createExpressAICrawlerMiddleware({
+    websiteId: 'dfid_VK30OLHyu2v9ALKIQfjxn',
+    publicOrigin: 'https://yogyface.fr',
+    authToken: process.env.DATAFAST_BOT_TOKEN || undefined,
+  }),
+)
 
 // Webhook Stripe : body brut pour la signature (AVANT express.json).
 app.post('/api/stripe/webhook', express.raw({ type: 'application/json' }), handleStripeWebhook)
