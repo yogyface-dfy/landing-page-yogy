@@ -5,7 +5,7 @@
 ### ✨ Added
 
 - **Mail 2 (seg. 1 et 2)** : template AC `emails/launch/final/email2-segment1-2.html` — fond blanc, logo, avant/après (`/email/launch/mail-2-*.jpg`), CTA `merci-liste-attente?email=%EMAIL%`.
-- **Mail 2 (seg. 3)** : template AC `emails/launch/final/email2-segment3.html` — déroulé 3 étapes, liste d'accès, capture app (`mail-2-app-exercices.png`), garantie, signature Laury. Pas de CTA dans le copy.
+- **Mail 2 (seg. 3)** : template AC `emails/launch/final/email2-segment3.html` — déroulé 3 étapes, liste d'accès, mockup programme (`mail-2-programme.jpg`), garantie, signature Laury. Pas de CTA dans le copy.
 
 ### 🚀 Improved
 
