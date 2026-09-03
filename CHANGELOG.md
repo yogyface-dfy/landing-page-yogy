@@ -9,6 +9,9 @@
 ### 🚀 Improved
 
 - **Mail 2** : CTA en boutons corail ; gras / souligné sur les phrases clés (copy inchangé).
+- **Mail 2** : fautes corrigées (appris, a pu, d'attente, exclusifs, etc.) — ton oral conservé.
+- **Mail 2** : portraits Laetitia / Valentine / Viera en 3 colonnes sous les mentions des coachs.
+- **Signature emails** : icône profil YoGyFace à côté de Laury (`/email/launch/signature-laury.jpg`) sur les templates live.
 
 ## 2026-09-02
 
