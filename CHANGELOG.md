@@ -4,6 +4,7 @@
 
 ### ✨ Added
 
+- **Mail 3 (seg. 1, 2 et 3)** : template AC `emails/launch/final/email3-segment1-2-3.html` — fond blanc, logo, 5 témoignages WhatsApp (`mail-3-*.jpg`), signature Laury. Pas de CTA dans le copy.
 - **Mail 2 (seg. 1 et 2)** : template AC `emails/launch/final/email2-segment1-2.html` — fond blanc, logo, avant/après (`/email/launch/mail-2-*.jpg`), CTA `merci-liste-attente?email=%EMAIL%`.
 - **Mail 2 (seg. 3)** : template AC `emails/launch/final/email2-segment3.html` — déroulé 3 étapes, liste d'accès, mockup programme (`mail-2-programme.jpg`), garantie, signature Laury. Pas de CTA dans le copy.
 
