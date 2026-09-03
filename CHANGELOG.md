@@ -1,5 +1,15 @@
 # Changelog
 
+## 2026-09-03
+
+### ✨ Added
+
+- **Mail 2 (seg. 1 et 2)** : template AC `emails/launch/final/email2-segment1-2.html` — fond blanc, logo, avant/après (`/email/launch/mail-2-*.jpg`), CTA `merci-liste-attente?email=%EMAIL%`.
+
+### 🚀 Improved
+
+- **Mail 2** : CTA en boutons corail ; gras / souligné sur les phrases clés (copy inchangé).
+
 ## 2026-09-02
 
 ### ✨ Added
