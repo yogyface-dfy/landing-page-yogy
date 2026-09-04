@@ -4,6 +4,7 @@
 
 ### ✨ Added
 
+- **Mail 3** : 3 avant/après ovale / profil (`mail-3-ovale-1.jpg` à `mail-3-ovale-3.jpg`) juste après « ça change le visage ».
 - **Mail 2 (chauffe VIP)** : template AC `emails/launch/final/email2-chauffevip.html` — déroulé 3 mois (diagnostic, S1–4, S5–8, S9–12), suivi + bonus VIP, 3 avant/après (Peggy 1 mois, Marie-Laure 2 mois, Emmanuelle 3 mois), signature Laury. Pas de CTA dans le copy.
 
 ### 📚 Documentation
