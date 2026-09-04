@@ -7,6 +7,7 @@ import Footer from './Footer'
 import CookieConsent from './CookieConsent'
 import { initAnalytics, capturePageview } from '../lib/analytics'
 import { captureMetaPageview } from '../lib/meta-pixel'
+import { SHOW_TRUSTPILOT } from '../lib/trustpilot'
 
 /* JSON-LD structured data for Google rich results */
 const jsonLd = {
@@ -23,7 +24,7 @@ const jsonLd = {
   sameAs: [
     'https://www.instagram.com/yogyface/',
     'https://www.youtube.com/@LauryYoGyFace',
-    'https://fr.trustpilot.com/review/yogyface.fr',
+    ...(SHOW_TRUSTPILOT ? ['https://fr.trustpilot.com/review/yogyface.fr'] : []),
     'https://fr.pinterest.com/yogyface/',
   ],
 }
@@ -95,10 +96,15 @@ export default function Layout() {
     captureMetaPageview()
   }, [pathname])
 
-  /* (Ré)initialise les widgets Trustpilot — le script ne scanne qu'au 1er
-     chargement, donc on relance le rendu à chaque navigation (avec retry tant
-     que le script async n'est pas prêt). */
+  /* Widgets Trustpilot : no-op tant que SHOW_TRUSTPILOT est false. */
   useEffect(() => {
+    if (!SHOW_TRUSTPILOT) return
+    if (!document.querySelector('script[src*="tp.widget.bootstrap"]')) {
+      const s = document.createElement('script')
+      s.src = 'https://widget.trustpilot.com/bootstrap/v5/tp.widget.bootstrap.min.js'
+      s.async = true
+      document.head.appendChild(s)
+    }
     const load = () => {
       if (!window.Trustpilot) return false
       document

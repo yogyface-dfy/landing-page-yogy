@@ -1,5 +1,11 @@
 # Changelog
 
+## 2026-09-04
+
+### 🔧 Changed
+
+- **Trustpilot** : mentions, widgets et liens masqués (flag `SHOW_TRUSTPILOT` dans `src/lib/trustpilot.js`) — le code reste en place pour réactivation.
+
 ## 2026-09-03
 
 ### ✨ Added

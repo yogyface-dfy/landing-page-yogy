@@ -1,5 +1,6 @@
 import { Link } from "react-router-dom";
 import SEO from "../components/SEO";
+import { SHOW_TRUSTPILOT } from "../lib/trustpilot";
 
 const results = [
   {
@@ -137,7 +138,7 @@ const testimonials = [
 ];
 
 const stats = [
-  { number: "4.9/5", label: "Note moyenne sur Trustpilot" },
+  { number: "4.9/5", label: SHOW_TRUSTPILOT ? "Note moyenne sur Trustpilot" : "Note moyenne" },
   { number: "700+", label: "Visages accompagnés" },
   { number: "3 sem.", label: "Pour les premiers effets" },
   { number: "96%", label: "La recommandent" },
@@ -305,7 +306,8 @@ export default function Transformations() {
               Ces phrases viennent directement des clientes de Laury — non
               éditées.
             </p>
-            {/* Trustpilot */}
+            {/* Trustpilot — masqué via SHOW_TRUSTPILOT */}
+            {SHOW_TRUSTPILOT && (
             <div className="flex flex-wrap items-center justify-center gap-3 mt-2">
               <div
                 className="trustpilot-widget"
@@ -358,6 +360,7 @@ export default function Transformations() {
                 </div>
               </a>
             </div>
+            )}
           </div>
           <div className="grid md:grid-cols-3 gap-5">
             {testimonials.map((t, i) => (
@@ -388,7 +391,7 @@ export default function Transformations() {
                   <div>
                     <p className="text-noir font-semibold text-sm">{t.name}</p>
                     <p className="text-gris text-xs">{t.info}</p>
-                    {t.link && (
+                    {SHOW_TRUSTPILOT && t.link && (
                       <a
                         href={t.link}
                         target="_blank"

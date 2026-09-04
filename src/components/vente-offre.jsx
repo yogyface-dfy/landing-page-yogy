@@ -5,6 +5,7 @@ import SEO from './SEO'
 import VenteResultats from './vente-resultats'
 import VentePlateforme from './vente-plateforme'
 import { readPrefillEmail, startCheckoutSession, withStripePrefill } from '../lib/stripe-checkout'
+import { SHOW_TRUSTPILOT } from '../lib/trustpilot'
 
 /**
  * Pages de vente privées (non indexées).
@@ -292,7 +293,9 @@ const SALE_FAQ = [
   },
   {
     q: 'Est-ce que ça marche vraiment ?',
-    a: "Oui, si tu travailles le visage en globalité — pas une ride isolée. On détend les muscles trop contractés, on réveille ceux qui se sont endormis, et on corrige les habitudes qui creusent les traits. 4.9/5 sur Trustpilot, 700+ femmes accompagnées.",
+    a: SHOW_TRUSTPILOT
+      ? "Oui, si tu travailles le visage en globalité — pas une ride isolée. On détend les muscles trop contractés, on réveille ceux qui se sont endormis, et on corrige les habitudes qui creusent les traits. 4.9/5 sur Trustpilot, 700+ femmes accompagnées."
+      : "Oui, si tu travailles le visage en globalité — pas une ride isolée. On détend les muscles trop contractés, on réveille ceux qui se sont endormis, et on corrige les habitudes qui creusent les traits. 4.9/5, 700+ femmes accompagnées.",
   },
   {
     q: 'Est-ce que ça peut remplacer les injections ?',
@@ -484,6 +487,7 @@ export default function VenteOffre({ variant }) {
                 : 'Diagnostic V2, exercices refondus, application YoGyFace. L\'offre publique, sans les avantages de la liste d\'attente.'}
             </p>
 
+            {SHOW_TRUSTPILOT ? (
             <a
               href="https://fr.trustpilot.com/review/yogyface.fr"
               target="_blank"
@@ -494,6 +498,12 @@ export default function VenteOffre({ variant }) {
               <span className="text-gris/70">Excellent · Trustpilot</span>
               <span className="text-gris/40">· 700+ femmes</span>
             </a>
+            ) : (
+            <p className="inline-flex items-center gap-2 text-sm mb-5">
+              <span className="font-display font-black text-noir">4.9/5</span>
+              <span className="text-gris/40">· 700+ femmes</span>
+            </p>
+            )}
 
             {isVip && (
               <ul className="text-left space-y-2 mb-6 max-w-md mx-auto md:mx-0">
@@ -688,10 +698,15 @@ export default function VenteOffre({ variant }) {
             <p className="flex items-center justify-center gap-2 text-sm text-noir mb-3">
               <TpStars size={16} />
               <span>
-                Noté <strong>4.9/5</strong> Excellent sur{' '}
-                <a href="https://fr.trustpilot.com/review/yogyface.fr" target="_blank" rel="noopener" className="font-semibold underline" style={{ color: TP_GREEN }}>
-                  Trustpilot
-                </a>
+                Noté <strong>4.9/5</strong>
+                {SHOW_TRUSTPILOT && (
+                  <>
+                    {' '}Excellent sur{' '}
+                    <a href="https://fr.trustpilot.com/review/yogyface.fr" target="_blank" rel="noopener" className="font-semibold underline" style={{ color: TP_GREEN }}>
+                      Trustpilot
+                    </a>
+                  </>
+                )}
               </span>
             </p>
             <h2 className="font-display text-[clamp(1.6rem,4vw,2.6rem)] font-black tracking-tighter text-noir">
@@ -701,12 +716,15 @@ export default function VenteOffre({ variant }) {
             </h2>
           </div>
           <div className="grid md:grid-cols-3 gap-4">
-            {TESTIMONIALS.map((t) => (
-              <a
+            {TESTIMONIALS.map((t) => {
+              const Card = SHOW_TRUSTPILOT ? 'a' : 'div'
+              const cardProps = SHOW_TRUSTPILOT
+                ? { href: t.link, target: '_blank', rel: 'noopener' }
+                : {}
+              return (
+              <Card
                 key={t.link}
-                href={t.link}
-                target="_blank"
-                rel="noopener"
+                {...cardProps}
                 className="p-5 rounded-2xl bg-white border border-noir/8 text-left flex flex-col hover:border-[#00B67A]/40 transition-colors"
               >
                 <div className="flex items-center justify-between gap-2 mb-3">
@@ -729,10 +747,12 @@ export default function VenteOffre({ variant }) {
                     </span>
                   ))}
                 </div>
-              </a>
-            ))}
+              </Card>
+              )
+            })}
           </div>
           <p className="text-center mt-8">
+            {SHOW_TRUSTPILOT ? (
             <a
               href="https://fr.trustpilot.com/review/yogyface.fr"
               target="_blank"
@@ -741,6 +761,11 @@ export default function VenteOffre({ variant }) {
             >
               Voir plus d'avis
             </a>
+            ) : (
+            <Link to="/transformations" className="font-semibold underline text-noir hover:text-corail">
+              Voir plus d'avis
+            </Link>
+            )}
           </p>
         </div>
       </section>

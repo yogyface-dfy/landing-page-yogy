@@ -49,9 +49,7 @@ Celles qui sont accompagnées et régulières sont quasi unanimement satisfaites
 
 La différence entre un avis enthousiaste et un avis déçu tient souvent à **un seul facteur** : être guidée vs tâtonner seule. Avec un diagnostic, des gestes justes, des lives et un suivi, on reste régulière et on progresse. C'est tout l'objet de la méthode RESET™.
 
-## Et les avis externes ?
-
-YoGyFace est aussi évalué sur des plateformes indépendantes (Trustpilot), où les clientes laissent des retours vérifiés. C'est, à mon sens, la meilleure manière de se faire une opinion objective : lire des avis **réels et vérifiables**.
+<!-- TRUSTPILOT_HIDDEN (réafficher si SHOW_TRUSTPILOT) : ## Et les avis externes ? YoGyFace est aussi évalué sur des plateformes indépendantes (Trustpilot), où les clientes laissent des retours vérifiés. -->
 
 ## Questions fréquentes
 
@@ -62,7 +60,8 @@ Pour les personnes régulières et bien guidées, oui — c'est le constat quasi
 Effet bonne mine très vite ; résultats visibles en 1 à 3 mois. Voir [l'article dédié](/articles/yoga-du-visage-resultats-combien-de-temps).
 
 **Les avis sont-ils vérifiables ?**
-Oui, via des plateformes indépendantes comme Trustpilot et la page [transformations](/transformations).
+Oui, sur la page [transformations](/transformations).
+<!-- Trustpilot : Oui, via des plateformes indépendantes comme Trustpilot et la page transformations. -->
 
 **Y a-t-il des déçues ?**
 Surtout celles qui ne sont pas régulières. C'est le principal facteur d'échec.

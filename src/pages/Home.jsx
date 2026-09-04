@@ -1,6 +1,7 @@
 import { Link } from "react-router-dom";
 import Icon from "../components/Icon";
 import SEO from "../components/SEO";
+import { SHOW_TRUSTPILOT } from "../lib/trustpilot";
 
 // Rendu d'un élément du bandeau de préoccupations
 const renderStat = (s, i) => (
@@ -229,7 +230,8 @@ export default function Home() {
                   Découvrir mon parcours
                 </Link>
               </div>
-              {/* Trustpilot */}
+              {/* Trustpilot — masqué via SHOW_TRUSTPILOT */}
+              {SHOW_TRUSTPILOT && (
               <div
                 className="animate-on-scroll mt-6 flex flex-wrap items-center gap-3 justify-center md:justify-start"
                 data-delay="600"
@@ -294,6 +296,7 @@ export default function Home() {
                   </a>
                 </div>
               </div>
+              )}
             </div>
 
             {/* Laury photo — shown first on mobile */}

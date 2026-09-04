@@ -1,3 +1,5 @@
+import { SHOW_TRUSTPILOT } from '../lib/trustpilot'
+
 const TP_GREEN = '#00B67A'
 
 /** Sous-ensemble Trustpilot pour la confirmation — pas le catalogue vente. */
@@ -62,16 +64,21 @@ export default function WaitlistAvis() {
           <p className="flex items-center justify-center gap-2 text-sm text-noir mb-3">
             <TpStars size={16} />
             <span>
-              Noté <strong>4.9/5</strong> sur{' '}
-              <a
-                href="https://fr.trustpilot.com/review/yogyface.fr"
-                target="_blank"
-                rel="noopener"
-                className="font-semibold underline"
-                style={{ color: TP_GREEN }}
-              >
-                Trustpilot
-              </a>
+              Noté <strong>4.9/5</strong>
+              {SHOW_TRUSTPILOT && (
+                <>
+                  {' '}sur{' '}
+                  <a
+                    href="https://fr.trustpilot.com/review/yogyface.fr"
+                    target="_blank"
+                    rel="noopener"
+                    className="font-semibold underline"
+                    style={{ color: TP_GREEN }}
+                  >
+                    Trustpilot
+                  </a>
+                </>
+              )}
             </span>
           </p>
           <h2 className="font-display text-[clamp(1.6rem,4vw,2.6rem)] font-black tracking-tighter text-noir">
@@ -81,12 +88,15 @@ export default function WaitlistAvis() {
           </h2>
         </div>
         <div className="grid sm:grid-cols-2 md:grid-cols-3 gap-4">
-          {AVIS.map((t) => (
-            <a
+          {AVIS.map((t) => {
+            const Card = SHOW_TRUSTPILOT ? 'a' : 'div'
+            const cardProps = SHOW_TRUSTPILOT
+              ? { href: t.link, target: '_blank', rel: 'noopener' }
+              : {}
+            return (
+            <Card
               key={t.link}
-              href={t.link}
-              target="_blank"
-              rel="noopener"
+              {...cardProps}
               className="p-5 rounded-2xl bg-white border border-noir/8 text-left flex flex-col hover:border-[#00B67A]/40 transition-colors"
             >
               <div className="flex items-center justify-between gap-2 mb-3">
@@ -95,8 +105,9 @@ export default function WaitlistAvis() {
               </div>
               <p className="font-semibold text-noir text-[15px] leading-snug mb-2">« {t.headline} »</p>
               <p className="text-gris text-[13px] leading-relaxed">{t.text}</p>
-            </a>
-          ))}
+            </Card>
+            )
+          })}
         </div>
       </div>
     </section>
