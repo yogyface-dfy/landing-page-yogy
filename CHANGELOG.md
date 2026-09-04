@@ -2,6 +2,14 @@
 
 ## 2026-09-04
 
+### ✨ Added
+
+- **Mail 2 (chauffe VIP)** : template AC `emails/launch/final/email2-chauffevip.html` — déroulé 3 mois (diagnostic, S1–4, S5–8, S9–12), suivi + bonus VIP, 3 avant/après (Peggy 1 mois, Marie-Laure 2 mois, Emmanuelle 3 mois), signature Laury. Pas de CTA dans le copy.
+
+### 📚 Documentation
+
+- **Règle emails AC** : formatage gras/souligné/italique (cadre mails 2–4) + correction auto des vraies fautes (YoGyFace, bien-être, ponctuation) ; oral et phrases bancales intacts.
+
 ### 🔧 Changed
 
 - **Trustpilot** : mentions, widgets et liens masqués (flag `SHOW_TRUSTPILOT` dans `src/lib/trustpilot.js`) — le code reste en place pour réactivation.

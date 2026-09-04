@@ -33,9 +33,34 @@ Dans le HTML : `https://yogyface.fr/email/launch/{filename}` (jamais de `data:im
 - Tags : `%FIRSTNAME%`, footer `%UNSUBSCRIBELINK%` + `%WEBCOPY%`.
 - Objet A/B = commentaire HTML en tête, **pas** dans le body visible.
 - Preheader hidden = **les 2 premières lignes du body** (voir `email-spam-compliance.mdc`). Pas le teaser d’objet s’il diverge.
-- **Copy sacro-saint** : ne pas reformuler. Signal spam « méga sensible » → prévenir Marin, ne pas réécrire.
+- **Copy sacro-saint** : ne pas reformuler le sens ni le ton oral. Signal spam « méga sensible » → prévenir Marin, ne pas réécrire.
 - **Ne jamais Prettier / format-on-save** sur `emails/**/*.html` (l’indentation explose le ratio whitespace → ZeroBounce).
-- Police Arial/Helvetica, 16px body. Design sobre (carte blanche, texte centré gras) comme les mails 1.
+- Police Arial/Helvetica, 16px body. Cadre unique : carte blanche, logo, signature Laury (`signature-laury.jpg`). Pas de nouveau design / palette.
+
+## Formatage (faire tout seul, ne pas demander)
+
+Même rythme que les mails 2 / 3 / 4 déjà en `emails/launch/final/` :
+
+- **Gras** sur les titres de blocs et les phrases clés (TON visage, vraie compétence, D'INCROYABLE…).
+- **Souligné** sur 1–2 accroches max par mail (pas tout le body).
+- **Italique** pour les citations / questions entre guillemets.
+- **Corail `#E6726A`** seulement pour une punch line isolée, si le mail de la série en a déjà (ex. mail 2 seg. 1–2). Sinon noir.
+- CTA = bouton corail **uniquement si le copy a un CTA**. Pas de CTA inventé.
+- Pas de flex / cartes colorées / nouveau layout.
+
+## Fautes (faire tout seul, ne pas demander)
+
+Corriger les **vraies fautes**, lister les changements dans le recap. Ton oral conservé.
+
+- Marque : `YogyFace` / `Yogyface` → **YoGyFace**
+- Accents / traits : `bien être` → **bien-être** ; `suici` → **suivi**
+- Grammaire claire : `semaines après semaines` → **semaine après semaine**
+- Ponctuation manquante (point après une phrase, virgule d’incise)
+- `{prénom}` → `%FIRSTNAME%`
+
+**Ne pas toucher (oral) :** `d'1 an`, `+++`, `D'INCROYABLE`, `à 1, 2, 3…`, fautes d’oral assumées.
+
+**Phrase bancale** (verbe manquant, syntaxe cassée) : ne pas réécrire. La signaler à Marin en une ligne.
 
 ```html
 <!-- ✅ -->
