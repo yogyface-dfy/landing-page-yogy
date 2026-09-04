@@ -4,7 +4,10 @@
 
 ### ✨ Added
 
+- **Mail 6 (seg. 1 et 2)** : template AC `emails/launch/final/email6-segment1-2.html` — analogie matelas (`mail-6-analogie-matelas.jpg`), 2 boutons `JE REJOINS LES VIP`, signature Laury.
+- **Mail 5 (seg. 1 et 2)** : template AC `emails/launch/final/email5-segment1-2.html` — muscles / 5 ans, bouton corail `JE M'INSCRIS SUR LA LISTE VIP`, signature Laury.
 - **Mail 3** : 3 avant/après ovale / profil (`mail-3-ovale-1.jpg` à `mail-3-ovale-3.jpg`) juste après « ça change le visage ».
+- **Mail 3** : bouton corail liste d'attente `merci-liste-attente?email=%EMAIL%`.
 - **Mail 2 (chauffe VIP)** : template AC `emails/launch/final/email2-chauffevip.html` — déroulé 3 mois (diagnostic, S1–4, S5–8, S9–12), suivi + bonus VIP, 3 avant/après (Peggy 1 mois, Marie-Laure 2 mois, Emmanuelle 3 mois), signature Laury. Pas de CTA dans le copy.
 
 ### 📚 Documentation
