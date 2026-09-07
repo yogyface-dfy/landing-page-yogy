@@ -6,6 +6,8 @@
 
 - **CGV art. 10 (garantie)** : retour à « présence à 100 % des 12 séances » — la règle « au moins 2 coachings par mois » est mise de côté pour plus tard.
 - **Droit applicable** : droit français / tribunaux français → droit du Wyoming et tribunaux de Sheridan (YGF LLC), avec réserve des dispositions impératives UE pour les consommatrices.
+- **CGV art. 6 (rétractation)** : 14 jours à compter de l'achat, dans tous les cas (programme commencé ou non), sans case de renonciation. Un report du début (art. 7) ne prolonge pas ce délai. Art. 4 : commande ferme sous réserve de l'art. 6.
+- **CGV art. 7** : report du début du programme sur demande (ex. accouchement) — diagnostic 60 jours, période active et coachings décalés d'autant. Garantie art. 10 : 180e–190e jour à compter du début de la période active.
 
 ### ✨ Added
 
