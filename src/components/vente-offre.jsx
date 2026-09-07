@@ -751,8 +751,8 @@ export default function VenteOffre({ variant }) {
               )
             })}
           </div>
+          {SHOW_TRUSTPILOT && (
           <p className="text-center mt-8">
-            {SHOW_TRUSTPILOT ? (
             <a
               href="https://fr.trustpilot.com/review/yogyface.fr"
               target="_blank"
@@ -761,12 +761,8 @@ export default function VenteOffre({ variant }) {
             >
               Voir plus d'avis
             </a>
-            ) : (
-            <Link to="/transformations" className="font-semibold underline text-noir hover:text-corail">
-              Voir plus d'avis
-            </Link>
-            )}
           </p>
+          )}
         </div>
       </section>
 
@@ -839,11 +835,6 @@ export default function VenteOffre({ variant }) {
                 </li>
               ))}
             </ul>
-            <p className="text-center mt-4">
-              <Link to="/programme" className="text-sm font-semibold underline text-noir hover:text-corail">
-                Voir le détail du programme
-              </Link>
-            </p>
           </div>
         </div>
       </section>
@@ -957,8 +948,7 @@ export default function VenteOffre({ variant }) {
               <a href="mailto:contact@yogyface.fr" className="font-semibold text-noir underline hover:text-corail">
                 contact@yogyface.fr
               </a>
-              . Plus de réponses aussi sur la{' '}
-              <Link to="/faq" className="underline hover:text-corail">FAQ complète</Link>.
+              .
             </p>
           </div>
           <div>
@@ -1015,9 +1005,7 @@ export default function VenteOffre({ variant }) {
           />
           <p className="text-white/30 text-sm mt-6">
             Des questions ?{' '}
-            <Link to="/faq" className="text-corail/80 font-semibold hover:underline">FAQ</Link>
-            {' '}ou{' '}
-            <Link to="/contact" className="text-corail/80 font-semibold hover:underline">écris-moi</Link>.
+            <a href="mailto:contact@yogyface.fr" className="text-corail/80 font-semibold hover:underline">écris-moi</a>.
           </p>
         </div>
       </section>

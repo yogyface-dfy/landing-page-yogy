@@ -13,8 +13,8 @@ const links = [
   { href: '/contact',        label: 'Contact' },
 ]
 
-/** @param {{ offsetTop?: boolean }} props */
-export default function Navbar({ offsetTop = false }) {
+/** @param {{ offsetTop?: boolean, logoOnly?: boolean }} props */
+export default function Navbar({ offsetTop = false, logoOnly = false }) {
   const [scrolled, setScrolled] = useState(false)
   const [menuOpen, setMenuOpen] = useState(false)
   const location = useLocation()
@@ -41,7 +41,18 @@ export default function Navbar({ offsetTop = false }) {
         : 'py-5 bg-transparent border-b border-transparent'
     }`}>
       <div className="max-w-[1400px] mx-auto flex justify-between items-center">
-        {/* Logo */}
+        {/* Logo — pas de lien sur les pages offre (tunnel). */}
+        {logoOnly ? (
+          <span className="inline-flex items-center">
+            <img
+              src="/logo-yogyface-dark.png"
+              alt="YoGyFace"
+              width={528}
+              height={175}
+              className="h-9 sm:h-10 w-auto"
+            />
+          </span>
+        ) : (
         <Link to="/" className="inline-flex items-center group" aria-label="YoGyFace — Accueil">
           <img
             src="/logo-yogyface-dark.png"
@@ -51,7 +62,10 @@ export default function Navbar({ offsetTop = false }) {
             className="h-9 sm:h-10 w-auto transition-transform duration-300 group-hover:scale-[1.03]"
           />
         </Link>
+        )}
 
+        {!logoOnly && (
+        <>
         {/* Desktop nav */}
         <div className="hidden md:flex gap-5 lg:gap-7 xl:gap-8 items-center">
           {links.map(({ href, label, wideOnly }) => {
@@ -89,10 +103,13 @@ export default function Navbar({ offsetTop = false }) {
             </div>
           </button>
         </div>
+        </>
+        )}
       </div>
     </nav>
 
       {/* Mobile menu — full-screen overlay (hors du <nav> pour rester plein écran) */}
+      {!logoOnly && (
       <div
         className={`md:hidden fixed inset-0 bg-white z-[100] flex flex-col transition-all duration-300 ease-[cubic-bezier(0.22,1,0.36,1)] ${
           menuOpen ? 'opacity-100 pointer-events-auto' : 'opacity-0 pointer-events-none'
@@ -149,6 +166,7 @@ export default function Navbar({ offsetTop = false }) {
           </Link>
         </div>
       </div>
+      )}
     </>
   )
 }

@@ -1,3 +1,4 @@
+import { Link } from 'react-router-dom'
 import SEO from '../components/SEO'
 
 export default function CGV() {
@@ -13,7 +14,7 @@ export default function CGV() {
         <h1 className="animate-on-scroll font-display text-[clamp(2rem,5vw,3.5rem)] font-black tracking-tighter text-noir mb-4">
           CONDITIONS GÉNÉRALES DE VENTE
         </h1>
-        <p className="text-gris text-sm mb-12">YoGyFace RESET — Programme de Yoga du Visage · Mise à jour : août 2026</p>
+        <p className="text-gris text-sm mb-12">YoGyFace RESET — Programme de Yoga du Visage · Mise à jour : septembre 2026</p>
 
         <div className="space-y-10 text-[15px] text-gris leading-relaxed break-words">
           <div>
@@ -88,7 +89,8 @@ export default function CGV() {
             <h2 className="font-display font-black text-xl tracking-tight text-noir mb-3">Article 10 — Garantie de résultats</h2>
             <p>Garantie de 6 mois, sous réserve du respect de <strong>toutes</strong> les conditions cumulatives :</p>
             <ul className="mt-2 space-y-1.5 ml-4 list-disc">
-              <li>Présence à 100% des coachings (12 séances)</li>
+              {/* 2/mois × 6 mois = 12 : empêche de regrouper les lives en fin de programme. */}
+              <li>12 coachings suivis sur les 6 mois, à raison d'au moins 2 coachings par mois</li>
               <li>Pratique minimum 5 fois/semaine pendant 5 mois consécutifs</li>
               <li>Envoi de 4 séries de photos d'évolution (1, 2, 4, 6 mois)</li>
               <li>Minimum 5 interactions dans la communauté</li>
@@ -112,7 +114,7 @@ export default function CGV() {
             <ul className="space-y-1.5 ml-4 list-disc">
               <li><strong>Résiliation :</strong> Le Vendeur peut suspendre l'accès sans préavis en cas de violation des CGV</li>
               <li><strong>Communauté WhatsApp :</strong> Accès soumis à modération, retrait possible sans remboursement en cas de comportement inapproprié</li>
-              <li><strong>Données personnelles :</strong> Conformément au RGPD. Contact : contact@yogyface.fr</li>
+              <li><strong>Données personnelles :</strong> Conformément au RGPD. Contact : contact@yogyface.fr. Représentant UE (art. 27) : DataRep — <a href="mailto:datarequest@datarep.com?subject=YGF%20LLC" className="text-corail hover:underline">datarequest@datarep.com</a> (objet : « YGF LLC »). Détails : <Link to="/confidentialite" className="text-corail hover:underline">Politique de Confidentialité</Link></li>
               <li><strong>Droit applicable :</strong> Droit français. Tribunaux français compétents</li>
               <li><strong>Réclamation :</strong> contact@yogyface.fr</li>
             </ul>

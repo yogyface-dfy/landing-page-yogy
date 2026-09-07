@@ -1,5 +1,23 @@
 # Changelog
 
+## 2026-09-07
+
+### 🔧 Changed
+
+- **CGV art. 10 (garantie)** : présence 100 % des 12 séances → 12 coachings sur 6 mois, dont au moins 2 par mois (pas de regroupement en fin de programme).
+
+### ✨ Added
+
+- **Représentant UE (art. 27 RGPD)** : DataRep (Data Protection Representative Limited, Dublin) ajouté comme représentant de YGF LLC — article 1 bis de la politique de confidentialité, mention dans les mentions légales et les CGV.
+
+## 2026-09-05
+
+### ✨ Added
+
+- **Mail 4 chauffe (seg. 1, 2 et 3)** : template AC `emails/launch/final/email4-chauffe-segment1-2-3.html` — visite espace YoGyFace 2.0, composites desktop+mobile (`mail-4-suivi.jpg`, `mail-4-coaching.jpg`, `mail-4-skincare.jpg`, `mail-4-messagerie.jpg`), exercices encore en `/app/desktop-exercices.png`, pas de CTA.
+- **Mail 7 (dernier VIP)** : template AC `emails/launch/final/email7-dernier-vip.html` — fermeture liste, 50 places, comparatif sans prix (`mail-4-vip-compare.jpg`), 2 boutons corail.
+- **Mail 5 (seg. 1, 2 et 3)** : template AC `emails/launch/final/email5-segment1-2-3.html` — dernier jour liste VIP, Virginie + Christel (`mail-5-virginie.jpg`, `mail-5-christel.jpg`), mockup programme (`mail-2-programme.jpg`) après la liste, 2 boutons corail. Envoi prévu 6 sept. 7h.
+
 ## 2026-09-04
 
 ### ✨ Added
@@ -16,6 +34,7 @@
 
 ### 🔧 Changed
 
+- **Tunnel /vente et /vente-vip** : header logo seul (plus de liens), footer retiré. CGV et mailto conservés.
 - **Trustpilot** : mentions, widgets et liens masqués (flag `SHOW_TRUSTPILOT` dans `src/lib/trustpilot.js`) — le code reste en place pour réactivation.
 
 ## 2026-09-03

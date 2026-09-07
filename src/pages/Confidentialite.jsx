@@ -13,7 +13,7 @@ export default function Confidentialite() {
         <h1 className="animate-on-scroll font-display text-[clamp(2rem,5vw,3.5rem)] font-black tracking-tighter text-noir mb-4">
           POLITIQUE DE CONFIDENTIALITÉ
         </h1>
-        <p className="text-gris text-sm mb-12">Mise à jour : août 2026</p>
+        <p className="text-gris text-sm mb-12">Mise à jour : septembre 2026</p>
 
         <div className="space-y-10 text-[15px] text-gris leading-relaxed break-words">
           <div>
@@ -25,6 +25,17 @@ export default function Confidentialite() {
               <li><strong>Email :</strong> contact@yogyface.fr</li>
               <li><strong>Sites et services concernés :</strong> yogyface.fr (site de présentation), www.yogyface.fr (pages d'inscription) et webi.yogyface.fr (application du parcours et de l'atelier)</li>
             </ul>
+          </div>
+
+          {/* Art. 27 RGPD : obligatoire car YGF LLC n'est pas établie dans l'UE. */}
+          <div>
+            <h2 className="font-display font-black text-xl tracking-tight text-noir mb-3">Article 1 bis — Représentant dans l'Union européenne</h2>
+            <p>YGF LLC n'étant pas établie dans l'Union européenne, elle a désigné <strong>DataRep</strong> comme représentant conformément à l'article 27 du RGPD. DataRep est la dénomination commerciale de <strong>Data Protection Representative Limited</strong>, société de droit irlandais.</p>
+            <ul className="mt-2 space-y-1 ml-4 list-disc">
+              <li><strong>Entité juridique :</strong> Data Protection Representative Limited</li>
+              <li><strong>Adresse :</strong> 12 Northbrook Road, Dublin, D06 E8W5, Irlande</li>
+            </ul>
+            <p className="mt-3">Pour exercer vos droits ou poser toute question relative au traitement de vos données personnelles, vous pouvez contacter ce représentant par e-mail à <a href="mailto:datarequest@datarep.com?subject=YGF%20LLC" className="text-corail hover:underline">datarequest@datarep.com</a> en indiquant « YGF LLC » dans l'objet du message. Vous pouvez également vous adresser directement au responsable du traitement à <a href="mailto:contact@yogyface.fr" className="text-corail hover:underline">contact@yogyface.fr</a>.</p>
           </div>
 
           <div>
@@ -133,7 +144,7 @@ export default function Confidentialite() {
               <li><strong>Portabilité</strong> — recevoir vos données en format structuré</li>
               <li><strong>Retrait du consentement</strong> — à tout moment</li>
             </ul>
-            <p className="mt-3">Pour exercer vos droits : <a href="mailto:contact@yogyface.fr" className="text-corail hover:underline">contact@yogyface.fr</a> (réponse sous 1 mois max).</p>
+            <p className="mt-3">Pour exercer vos droits : <a href="mailto:contact@yogyface.fr" className="text-corail hover:underline">contact@yogyface.fr</a> (réponse sous 1 mois max), ou via notre représentant dans l'Union européenne, DataRep, à <a href="mailto:datarequest@datarep.com?subject=YGF%20LLC" className="text-corail hover:underline">datarequest@datarep.com</a> (objet : « YGF LLC »).</p>
           </div>
 
           <div>

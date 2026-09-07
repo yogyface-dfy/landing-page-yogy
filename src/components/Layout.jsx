@@ -61,6 +61,8 @@ export default function Layout() {
   const { pathname } = useLocation()
   // Tunnel upsell : Oui / Non uniquement — pas de nav, footer, cookies, ticker.
   const bare = pathname === '/vente-upsell' || pathname === '/vente-upsell-test'
+  // Pages offre : logo seul, pas de liens header / footer (rester sur la page).
+  const funnel = pathname === '/vente' || pathname === '/vente-vip'
 
   /* Analytics : (ré)active PostHog si le consentement a déjà été donné. */
   useEffect(() => {
@@ -186,14 +188,14 @@ export default function Layout() {
         <script type="application/ld+json">{JSON.stringify(personJsonLd)}</script>
       </Head>
       {!bare && shouldShowLaunchBanner(pathname) && <LaunchBanner />}
-      {!bare && <Navbar offsetTop={shouldShowLaunchBanner(pathname)} />}
+      {!bare && <Navbar logoOnly={funnel} offsetTop={shouldShowLaunchBanner(pathname)} />}
       <main className={!bare && shouldShowLaunchBanner(pathname) ? 'pt-8' : ''}>
         {/* Suspense : fallback pendant le chargement des chunks de page (code-splitting) */}
         <Suspense fallback={<div className="min-h-screen" />}>
           <Outlet />
         </Suspense>
       </main>
-      {!bare && <Footer />}
+      {!bare && !funnel && <Footer />}
       {!bare && <CookieConsent />}
     </div>
   )

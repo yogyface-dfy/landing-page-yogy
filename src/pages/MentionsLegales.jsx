@@ -14,7 +14,7 @@ export default function MentionsLegales() {
         <h1 className="animate-on-scroll font-display text-[clamp(2rem,5vw,3.5rem)] font-black tracking-tighter text-noir mb-4">
           MENTIONS LÉGALES
         </h1>
-        <p className="text-gris text-sm mb-12">Dernière mise à jour : juin 2026</p>
+        <p className="text-gris text-sm mb-12">Dernière mise à jour : septembre 2026</p>
 
         <div className="space-y-10 text-[15px] text-gris leading-relaxed break-words">
           <div>
@@ -63,6 +63,7 @@ export default function MentionsLegales() {
           <div>
             <h2 className="font-display font-black text-xl tracking-tight text-noir mb-3">Article 7 — Données personnelles</h2>
             <p>Les données personnelles collectées sont traitées conformément au RGPD. Vous disposez d'un droit d'accès, de rectification et de suppression en contactant <a href="mailto:contact@yogyface.fr" className="text-corail hover:underline">contact@yogyface.fr</a>.</p>
+            <p className="mt-2">YGF LLC a désigné <strong>DataRep</strong> (Data Protection Representative Limited, 12 Northbrook Road, Dublin, D06 E8W5, Irlande) comme représentant dans l'Union européenne au titre de l'article 27 du RGPD. Contact : <a href="mailto:datarequest@datarep.com?subject=YGF%20LLC" className="text-corail hover:underline">datarequest@datarep.com</a> (objet : « YGF LLC »).</p>
             <p className="mt-2">Pour plus de détails, consultez notre <Link to="/confidentialite" className="text-corail hover:underline">Politique de Confidentialité</Link>.</p>
           </div>
 
