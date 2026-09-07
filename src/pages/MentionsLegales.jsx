@@ -74,7 +74,7 @@ export default function MentionsLegales() {
 
           <div>
             <h2 className="font-display font-black text-xl tracking-tight text-noir mb-3">Article 9 — Droit applicable</h2>
-            <p>Les présentes mentions légales sont régies par le droit français. Tout litige sera soumis aux tribunaux français compétents.</p>
+            <p>Les présentes mentions légales sont régies par le droit de l'État du Wyoming (États-Unis). Tout litige sera soumis aux tribunaux compétents de Sheridan, Wyoming, sous réserve des dispositions impératives applicables aux consommateurs résidant dans l'Union européenne.</p>
           </div>
 
           <div>

@@ -4,7 +4,8 @@
 
 ### 🔧 Changed
 
-- **CGV art. 10 (garantie)** : présence 100 % des 12 séances → 12 coachings sur 6 mois, dont au moins 2 par mois (pas de regroupement en fin de programme).
+- **CGV art. 10 (garantie)** : retour à « présence à 100 % des 12 séances » — la règle « au moins 2 coachings par mois » est mise de côté pour plus tard.
+- **Droit applicable** : droit français / tribunaux français → droit du Wyoming et tribunaux de Sheridan (YGF LLC), avec réserve des dispositions impératives UE pour les consommatrices.
 
 ### ✨ Added
 
