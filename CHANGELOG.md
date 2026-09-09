@@ -2,6 +2,10 @@
 
 ## 2026-09-09
 
+### ✨ Added
+
+- **Mail 8 (Studio VIP)** : template AC `emails/launch/final/email8-studio.html` — lives, 3 coachs, 6 expertes, bonus VIP. Visuels `mail-8-*.jpg` + GIF Alexis. Pas de CTA.
+
 ### 🔧 Changed
 
 - **Liste d'attente** : aucun accès à `/vente` ni `/vente-vip` depuis `/liste-attente` et `/merci-liste-attente`. Page fermée : logo seul, pas de nav/footer/ticker, uniquement « Retour à l'accueil ».
