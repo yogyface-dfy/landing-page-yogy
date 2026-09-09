@@ -4,7 +4,7 @@
 
 ### ✨ Added
 
-- **Mail 8 (Studio VIP)** : template AC `emails/launch/final/email8-studio.html` — lives, 3 coachs, 6 expertes, bonus VIP. Visuels `mail-8-*.jpg` + GIF Alexis. Pas de CTA.
+- **Mail 8 (Studio VIP)** : template AC `emails/launch/final/email8-studio.html` — lives, 3 coachs, 6 expertes, bonus VIP. Visuels `mail-8-*.jpg` + GIF Alexis. Pas de CTA. Logo officiel `yogyface STUDIO` recadré, pleine largeur.
 
 ### 🔧 Changed
 
