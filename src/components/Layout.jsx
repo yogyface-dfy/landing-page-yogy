@@ -8,6 +8,7 @@ import CookieConsent from './CookieConsent'
 import { initAnalytics, capturePageview } from '../lib/analytics'
 import { captureMetaPageview } from '../lib/meta-pixel'
 import { SHOW_TRUSTPILOT } from '../lib/trustpilot'
+import { WAITLIST_OPEN, isWaitlistPath } from '../lib/waitlist'
 
 /* JSON-LD structured data for Google rich results */
 const jsonLd = {
@@ -61,8 +62,11 @@ export default function Layout() {
   const { pathname } = useLocation()
   // Tunnel upsell : Oui / Non uniquement — pas de nav, footer, cookies, ticker.
   const bare = pathname === '/vente-upsell' || pathname === '/vente-upsell-test'
-  // Pages offre : logo seul, pas de liens header / footer (rester sur la page).
-  const funnel = pathname === '/vente' || pathname === '/vente-vip'
+  // Offre + liste fermée : logo seul, pas de nav/footer — aucun chemin vers /vente*.
+  const funnel =
+    pathname === '/vente' ||
+    pathname === '/vente-vip' ||
+    (isWaitlistPath(pathname) && !WAITLIST_OPEN)
 
   /* Analytics : (ré)active PostHog si le consentement a déjà été donné. */
   useEffect(() => {

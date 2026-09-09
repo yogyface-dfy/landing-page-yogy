@@ -15,8 +15,15 @@ const VIP_ITEMS = [
 /** Assez de cycles pour remplir un écran ultra-wide sans trous. */
 const CYCLES = 6
 
-/** Merci + offre publique + tunnel upsell. /vente-vip a son propre ticker. */
-const HIDE = ['/merci-liste-attente', '/merci-achat', '/vente', '/vente-upsell', '/vente-upsell-test']
+/** Merci, liste d'attente, offre publique, tunnel upsell. /vente-vip a son ticker. */
+const HIDE = [
+  '/liste-attente',
+  '/merci-liste-attente',
+  '/merci-achat',
+  '/vente',
+  '/vente-upsell',
+  '/vente-upsell-test',
+]
 
 export function shouldShowLaunchBanner(pathname) {
   return !HIDE.includes(pathname)

@@ -3,12 +3,14 @@ import { useNavigate, useSearchParams } from "react-router-dom";
 import Icon from "../components/Icon";
 import {
   enrollWaitlist,
+  WAITLIST_OPEN,
   waitlistEmailFromSearch,
   waitlistPrenomFromSearch,
 } from "../lib/waitlist";
 import { PHONE_COUNTRIES, toE164 } from "../lib/phone-countries";
 import PhoneField from "../components/phone-field";
 import SEO from "../components/SEO";
+import ListeAttenteFermee from "../components/liste-attente-fermee";
 
 const reassurances = [
   "50 places de membres fondatrices",
@@ -52,11 +54,14 @@ export default function ListeAttente() {
   const [error, setError] = useState("");
 
   useEffect(() => {
+    if (!WAITLIST_OPEN) return
     if (!emailFromLink) return;
     const q = new URLSearchParams({ email: emailFromLink });
     if (prenomFromLink) q.set("prenom", prenomFromLink);
     navigate(`/merci-liste-attente?${q}`, { replace: true });
   }, [emailFromLink, prenomFromLink, navigate]);
+
+  if (!WAITLIST_OPEN) return <ListeAttenteFermee />
 
   const handleSubmit = async (e) => {
     e.preventDefault();

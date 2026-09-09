@@ -40,7 +40,7 @@ export function withStripePrefill(url, email) {
   return next.toString()
 }
 
-/** Crée une Checkout Session (VIP) puis redirige. fallbackUrl si Stripe n'est pas configuré. */
+/** Crée une Checkout Session (VIP / Studio) puis redirige. fallbackUrl si Stripe n'est pas configuré. */
 export async function startCheckoutSession({ plan, email, cancelPath }) {
   const { getDataFastIds } = await import('./analytics')
   const res = await fetch('/api/stripe/checkout', {

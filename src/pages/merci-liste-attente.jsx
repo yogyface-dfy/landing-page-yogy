@@ -4,7 +4,8 @@ import SEO from "../components/SEO";
 import YouTubeEmbed from "../components/YouTubeEmbed";
 import VenteResultats from "../components/vente-resultats";
 import WaitlistAvis from "../components/waitlist-avis";
-import { useWaitlistConfirm } from "../lib/waitlist";
+import { useWaitlistConfirm, WAITLIST_OPEN } from "../lib/waitlist";
+import ListeAttenteFermee from "../components/liste-attente-fermee";
 
 /** Id YouTube de Laury — laisser vide tant que la vidéo n'est pas montée. */
 const LAURY_VIDEO_ID = "";
@@ -34,6 +35,9 @@ const NEXT = [
 export default function MerciListeAttente() {
   // Formulaire : déjà inscrite. Lien email ?email= : inscription au mount.
   const status = useWaitlistConfirm();
+  if (!WAITLIST_OPEN) {
+    return <ListeAttenteFermee path="/merci-liste-attente" noindex />
+  }
 
   return (
     <>
@@ -167,6 +171,7 @@ export default function MerciListeAttente() {
 
       {status !== "error" && (
         <>
+          {/* Preuve sociale seulement — jamais de CTA /vente ni /vente-vip. */}
           <VenteResultats proof="4.9/5 · 1 200 femmes déjà accompagnées" />
           <WaitlistAvis />
         </>

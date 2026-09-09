@@ -1,5 +1,18 @@
 # Changelog
 
+## 2026-09-09
+
+### 🔧 Changed
+
+- **Liste d'attente** : aucun accès à `/vente` ni `/vente-vip` depuis `/liste-attente` et `/merci-liste-attente`. Page fermée : logo seul, pas de nav/footer/ticker, uniquement « Retour à l'accueil ».
+
+## 2026-09-08
+
+### 🔧 Changed
+
+- **`/vente` (Studio)** : tarif 499 €, paiement 1× 499 € / 4× 124,99 € / 6× 83,99 € / 10× 49,99 €. Nom d'offre Studio (la méthode RESET™ inchangée). VIP (`/vente-vip`, 299 €) intact.
+- **Liste d'attente** : fermée (`WAITLIST_OPEN`). Formulaire et inscription auto (lien email `/merci-liste-attente?email=`) coupés. Page « liste fermée ».
+
 ## 2026-09-07
 
 ### 🔧 Changed

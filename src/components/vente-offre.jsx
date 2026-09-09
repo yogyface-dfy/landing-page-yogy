@@ -15,22 +15,26 @@ import { SHOW_TRUSTPILOT } from '../lib/trustpilot'
 const OFFERS = {
   vip: {
     once: {
+      plan: 'vip-once',
       url: 'https://buy.stripe.com/7sY9AS2KtdrCcYF7aP8Zq0q',
       price: 299,
       was: 499,
     },
-    installments: {
-      url: 'https://buy.stripe.com/8x214mcl35Za1fX66L8Zq0r',
-      amount: '99,99',
-    },
+    installments: [
+      { plan: 'vip-3x', times: 3, amount: '99,99', url: 'https://buy.stripe.com/8x214mcl35Za1fX66L8Zq0r' },
+    ],
   },
   public: {
     once: {
-      url: 'mailto:contact@yogyface.fr?subject=Inscription%20programme%20YoGyFace',
+      plan: 'studio-once',
       price: 499,
       was: null,
     },
-    installments: null,
+    installments: [
+      { plan: 'studio-4x', times: 4, amount: '124,99' },
+      { plan: 'studio-6x', times: 6, amount: '83,99' },
+      { plan: 'studio-10x', times: 10, amount: '49,99' },
+    ],
   },
 }
 
@@ -333,10 +337,10 @@ const renderBrand = (name, i) => (
   </span>
 )
 
-/** CTA 1× + 3× — Checkout Session (fallback Payment Link si Stripe n'est pas configuré). */
-function PayCta({ onceLabel, installmentsLabel, onOnce, onInstallments, loading, error, dark = false }) {
+/** CTA 1× + mensualités — Checkout Session (fallback Payment Link si Stripe n'est pas configuré). */
+function PayCta({ onceLabel, oncePlan, installments = [], onPay, loading, error, dark = false }) {
   const busy = Boolean(loading)
-  const threeXClass = dark
+  const extraClass = dark
     ? 'inline-flex items-center justify-center px-7 py-3.5 min-h-[44px] rounded-full border-2 border-white/70 text-white font-semibold text-sm md:text-base hover:border-corail hover:text-corail transition-colors'
     : 'btn-secondary text-sm md:text-base px-7 py-3.5 border-2 border-noir/25 font-semibold'
   return (
@@ -344,21 +348,22 @@ function PayCta({ onceLabel, installmentsLabel, onOnce, onInstallments, loading,
       <button
         type="button"
         disabled={busy}
-        onClick={onOnce}
+        onClick={() => onPay(oncePlan)}
         className={`btn-corail justify-center text-sm md:text-base px-7 py-3.5 ${busy ? 'opacity-60' : ''}`}
       >
-        {loading === 'vip-once' ? 'Redirection…' : onceLabel}
+        {loading === oncePlan ? 'Redirection…' : onceLabel}
       </button>
-      {onInstallments && (
+      {installments.map((opt) => (
         <button
+          key={opt.plan}
           type="button"
           disabled={busy}
-          onClick={onInstallments}
-          className={`${threeXClass} justify-center ${busy ? 'opacity-60' : ''}`}
+          onClick={() => onPay(opt.plan)}
+          className={`${extraClass} justify-center ${busy ? 'opacity-60' : ''}`}
         >
-          {loading === 'vip-3x' ? 'Redirection…' : installmentsLabel}
+          {loading === opt.plan ? 'Redirection…' : opt.label}
         </button>
-      )}
+      ))}
       {error && <p className={`text-xs ${dark ? 'text-corail/80' : 'text-corail'}`} role="alert">{error}</p>}
     </div>
   )
@@ -402,13 +407,7 @@ export default function VenteOffre({ variant }) {
     }
   }, [])
 
-  const label3x = offer.installments ? `Payer en 3 × ${offer.installments.amount} €` : null
-
   const startPay = async (plan) => {
-    if (!isVip) {
-      window.location.href = offer.once.url
-      return
-    }
     setPayError('')
     setPayLoading(plan)
     try {
@@ -425,21 +424,28 @@ export default function VenteOffre({ variant }) {
   }
 
   const pay = {
-    onOnce: () => startPay('vip-once'),
-    onInstallments: offer.installments ? () => startPay('vip-3x') : undefined,
-    installmentsLabel: label3x,
+    oncePlan: offer.once.plan,
+    onPay: startPay,
+    installments: offer.installments.map((i) => ({
+      plan: i.plan,
+      label: `Payer en ${i.times} × ${i.amount} €`,
+    })),
     loading: payLoading,
     error: payError,
   }
 
+  const installmentHint = offer.installments
+    .map((i) => `${i.times} × ${i.amount} €`)
+    .join(' · ')
+
   return (
     <>
       <SEO
-        title={isVip ? 'Offre VIP — Vente privée YoGyFace' : 'Lancement YoGyFace — Programme'}
+        title={isVip ? 'Offre VIP — Vente privée YoGyFace' : 'YoGyFace Studio — Programme'}
         description={
           isVip
             ? 'Offre VIP exceptionnelle : 299 € au lieu de 499 €, accès en avant-première à l\'application, 18h de coaching et bonus réservés.'
-            : 'Le nouveau programme YoGyFace : diagnostic V2, nouveaux exercices, application et accompagnement personnalisé.'
+            : 'Programme YoGyFace Studio : 499 €, diagnostic V2, nouveaux exercices, application et accompagnement personnalisé. Paiement en 1×, 4×, 6× ou 10×.'
         }
         path={path}
         noindex
@@ -468,10 +474,10 @@ export default function VenteOffre({ variant }) {
           <div className="order-2 text-center md:text-left">
             <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-corail/10 text-corail text-[11px] font-semibold uppercase tracking-widest mb-4">
               <span className="w-1.5 h-1.5 rounded-full bg-corail animate-pulse" />
-              {isVip ? 'Offre exceptionnelle — inscrites liste d\'attente' : 'Lancement YoGyFace'}
+              {isVip ? 'Offre exceptionnelle — inscrites liste d\'attente' : 'Programme Studio'}
             </div>
             <h1 className="font-display text-[clamp(1.9rem,5vw,3.4rem)] font-black leading-[0.95] tracking-tighter text-noir mb-3">
-              {isVip ? 'TU ES VIP.' : 'LE NOUVEAU'}
+              {isVip ? 'TU ES VIP.' : 'STUDIO'}
               <br />
               <span className="font-serif italic text-corail font-semibold">
                 {isVip ? 'Cette offre n\'est pas publique.' : 'YoGyFace.'}
@@ -484,7 +490,7 @@ export default function VenteOffre({ variant }) {
             <p className="text-gris text-[15px] leading-relaxed mb-5 max-w-lg md:max-w-none">
               {isVip
                 ? 'Accès en avant-première à l\'application, au diagnostic V2 et au nouveau programme — plus les bonus que le lancement public n\'aura pas.'
-                : 'Diagnostic V2, exercices refondus, application YoGyFace. L\'offre publique, sans les avantages de la liste d\'attente.'}
+                : 'Diagnostic V2, exercices refondus, application YoGyFace. Le programme Studio, sans les avantages de la liste d\'attente.'}
             </p>
 
             {SHOW_TRUSTPILOT ? (
@@ -519,6 +525,20 @@ export default function VenteOffre({ variant }) {
                 ))}
               </ul>
             )}
+            {!isVip && (
+              <ul className="text-left space-y-2 mb-6 max-w-md mx-auto md:mx-0">
+                {[
+                  'Programme Studio — 499 €',
+                  'Paiement en 1×, 4×, 6× ou 10×',
+                  '12h de coaching · 6 mois d\'accompagnement',
+                ].map((l) => (
+                  <li key={l} className="flex items-start gap-2 text-[14px] text-noir/80">
+                    <span className="text-corail mt-0.5">✓</span>
+                    {l}
+                  </li>
+                ))}
+              </ul>
+            )}
 
             {offer.once.price && (
               <p className="mb-4">
@@ -526,15 +546,15 @@ export default function VenteOffre({ variant }) {
                   <span className="text-gris/45 line-through text-lg mr-2">{offer.once.was} €</span>
                 )}
                 <span className="font-display font-black text-4xl tracking-tight text-noir">{offer.once.price} €</span>
-                {offer.installments && (
-                  <span className="block text-gris/50 text-sm mt-1">ou 3 × {offer.installments.amount} €</span>
+                {offer.installments.length > 0 && (
+                  <span className="block text-gris/50 text-sm mt-1">ou {installmentHint}</span>
                 )}
                 {isVip && <span className="block text-corail text-xs font-semibold mt-1">Tarif VIP — 200 € de moins que le public</span>}
               </p>
             )}
             <PayCta
               {...pay}
-              onceLabel={isVip ? `Rejoindre l'offre VIP — ${offer.once.price} €` : 'Rejoindre le programme →'}
+              onceLabel={isVip ? `Rejoindre l'offre VIP — ${offer.once.price} €` : `Rejoindre Studio — ${offer.once.price} €`}
             />
             <p className="text-gris/45 text-xs mt-3">
               {isVip ? 'Paiement sécurisé Stripe · Offre soumise à conditions' : 'Paiement sécurisé'}
@@ -674,7 +694,7 @@ export default function VenteOffre({ variant }) {
               <div className="text-center mt-6">
                 <PayCta
                   {...pay}
-                  onceLabel={isVip ? 'Rejoindre l\'offre VIP — 299 €' : 'Rejoindre le programme'}
+                  onceLabel={isVip ? 'Rejoindre l\'offre VIP — 299 €' : 'Rejoindre Studio — 499 €'}
                 />
               </div>
             </div>
@@ -686,7 +706,7 @@ export default function VenteOffre({ variant }) {
         cta={
           <PayCta
             {...pay}
-            onceLabel={isVip ? 'Rejoindre l\'offre VIP — 299 €' : 'Rejoindre le programme'}
+            onceLabel={isVip ? 'Rejoindre l\'offre VIP — 299 €' : 'Rejoindre Studio — 499 €'}
           />
         }
       />
@@ -799,7 +819,7 @@ export default function VenteOffre({ variant }) {
         <div className="text-center mt-10">
           <PayCta
             {...pay}
-            onceLabel={isVip ? 'Rejoindre l\'offre VIP — 299 €' : 'Rejoindre le programme'}
+            onceLabel={isVip ? 'Rejoindre l\'offre VIP — 299 €' : 'Rejoindre Studio — 499 €'}
           />
         </div>
       </section>
@@ -810,9 +830,9 @@ export default function VenteOffre({ variant }) {
           <div className="text-center mb-8">
             <div className="section-badge justify-center">Ce qui est inclus</div>
             <h2 className="font-display text-[clamp(1.6rem,4vw,2.6rem)] font-black tracking-tighter text-noir">
-              LE PROGRAMME
+              {isVip ? 'LE PROGRAMME' : 'STUDIO'}
               <br />
-              <span className="font-serif italic text-corail font-semibold">complet</span>
+              <span className="font-serif italic text-corail font-semibold">{isVip ? 'complet' : 'le programme complet'}</span>
             </h2>
           </div>
           <ul className="grid sm:grid-cols-2 gap-2.5">
@@ -965,7 +985,7 @@ export default function VenteOffre({ variant }) {
             <div className="text-center mt-8">
               <PayCta
                 {...pay}
-                onceLabel={isVip ? 'Rejoindre l\'offre VIP — 299 €' : 'Rejoindre le programme'}
+                onceLabel={isVip ? 'Rejoindre l\'offre VIP — 299 €' : 'Rejoindre Studio — 499 €'}
               />
             </div>
           </div>
@@ -987,21 +1007,23 @@ export default function VenteOffre({ variant }) {
           <p className="text-white/50 mb-6 text-[14px] md:text-[16px]">
             {isVip
               ? 'Avant-première + tarif VIP + bonus. Ça ne sera plus le cas au lancement public.'
-              : 'L\'offre publique du nouveau YoGyFace — sans les bonus ni l\'accès anticipé de la liste.'}
+              : 'Le programme Studio — sans les bonus ni l\'accès anticipé de la liste.'}
           </p>
-          {isVip && offer.once.price && (
+          {offer.once.price && (
             <p className="text-white mb-6">
-              <span className="text-white/35 line-through mr-2">{offer.once.was} €</span>
+              {offer.once.was && (
+                <span className="text-white/35 line-through mr-2">{offer.once.was} €</span>
+              )}
               <span className="font-display font-black text-3xl">{offer.once.price} €</span>
-              {offer.installments && (
-                <span className="block text-white/40 text-sm mt-1">ou 3 × {offer.installments.amount} €</span>
+              {offer.installments.length > 0 && (
+                <span className="block text-white/40 text-sm mt-1">ou {installmentHint}</span>
               )}
             </p>
           )}
           <PayCta
             {...pay}
             dark
-            onceLabel={isVip ? `Payer ${offer.once.price} € en 1 fois →` : 'Rejoindre le programme →'}
+            onceLabel={isVip ? `Payer ${offer.once.price} € en 1 fois →` : `Payer Studio — ${offer.once.price} € en 1 fois →`}
           />
           <p className="text-white/30 text-sm mt-6">
             Des questions ?{' '}

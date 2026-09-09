@@ -16,6 +16,16 @@ import {
 } from './meta-pixel'
 import { isValidEmail, rememberPrefillEmail } from './stripe-checkout'
 
+/** false = formulaire + inscription auto (lien email) coupés. */
+export const WAITLIST_OPEN = false
+
+/** Ces URLs ne lient jamais vers /vente, /vente-vip ni /vente-upsell. */
+export const WAITLIST_PATHS = ['/liste-attente', '/merci-liste-attente']
+
+export function isWaitlistPath(pathname) {
+  return WAITLIST_PATHS.includes(pathname)
+}
+
 const DONE_KEY = 'yf_waitlist_done'
 const AC_EMAIL_TAG = '%EMAIL%'
 const AC_PRENOM_TAG = '%FIRSTNAME%'
@@ -60,6 +70,7 @@ export function waitlistPrenomFromSearch(searchParams) {
  * @returns {Promise<{id: string, existing?: boolean}>}
  */
 export async function enrollWaitlist({ email, prenom, phone } = {}) {
+  if (!WAITLIST_OPEN) throw new Error("Liste d'attente fermée")
   if (!isValidEmail(email)) throw new Error('Email invalide')
   const fields = {
     Email: email.trim(),
@@ -93,6 +104,7 @@ export function useWaitlistConfirm() {
   const [status, setStatus] = useState('ready')
 
   useEffect(() => {
+    if (!WAITLIST_OPEN) return
     // Lien testé avec le tag AC brut, ou email mal formé.
     if (rawEmail && !email) {
       setStatus('error')
