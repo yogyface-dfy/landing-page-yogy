@@ -4,7 +4,12 @@
 
 ### ✨ Added
 
+- **Mail 9 (J-1 VIP)** : template AC `emails/launch/final/email9-j1.html` — logo Studio + mockup exercices (`mail-2-programme.jpg`). Pas de CTA.
 - **Mail 8 (Studio VIP)** : template AC `emails/launch/final/email8-studio.html` — lives, 3 coachs, 6 expertes, bonus VIP. Visuels `mail-8-*.jpg` + GIF Alexis. Pas de CTA. Logo officiel `yogyface STUDIO` recadré, pleine largeur.
+
+### 🐛 Fixed
+
+- **Logo Studio (mails 8 et 9)** : fond noir viré sans halo, PNG opaque blanc à l'URL déjà collée dans AC (`mail-8-logo-yogystudio.png?v=5`).
 
 ### 🔧 Changed
 
