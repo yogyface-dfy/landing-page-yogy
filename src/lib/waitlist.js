@@ -17,7 +17,7 @@ import {
 import { isValidEmail, rememberPrefillEmail } from './stripe-checkout'
 
 /** false = formulaire + inscription auto (lien email) coupés. */
-export const WAITLIST_OPEN = false
+export const WAITLIST_OPEN = true
 
 /** Ces URLs ne lient jamais vers /vente, /vente-vip ni /vente-upsell. */
 export const WAITLIST_PATHS = ['/liste-attente', '/merci-liste-attente']

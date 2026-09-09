@@ -13,6 +13,7 @@
 
 ### 🔧 Changed
 
+- **Liste d'attente** : rouverte (`WAITLIST_OPEN`). Formulaire `/liste-attente` et inscription auto (`/merci-liste-attente?email=` / `/liste-attente?email=`).
 - **Liste d'attente** : aucun accès à `/vente` ni `/vente-vip` depuis `/liste-attente` et `/merci-liste-attente`. Page fermée : logo seul, pas de nav/footer/ticker, uniquement « Retour à l'accueil ».
 
 ## 2026-09-08
