@@ -1,5 +1,19 @@
 # Changelog
 
+## 2026-09-11
+
+### 🔧 Changed
+
+- **CGV art. 6** : 14 jours dans tous les cas, pas de renonciation (pas de case au checkout). Situations exceptionnelles laissées vagues.
+- **CGV art. 11** : 12 lives, 2 par mois mini, dont 3 FAQ inclus dans les 12.
+
+## 2026-09-10
+
+### 🔧 Changed
+
+- **CGV** : art. 2 (Studio, contenus, pas de 1-to-1), art. 6 (rétractation 14 j.), art. 7 (pause / report 2 mois max), art. 10–11 (garantie hors résultat, éligibilité lives / suivis / activité), art. 13–20 (communauté, coachs, non-sollicitation). Demandes garantie : `contact@yogyface.fr`.
+- **Vente** : « Garantie de résultats » → « Garantie (sous conditions CGV) ».
+
 ## 2026-09-09
 
 ### ✨ Added

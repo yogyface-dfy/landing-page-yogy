@@ -311,7 +311,7 @@ const SALE_FAQ = [
   },
   {
     q: 'Comment fonctionne la garantie ?',
-    a: "Si après le programme, tes coachings, une pratique régulière et tes photos de suivi tu ne vois aucune amélioration de ton bien-être ou de ta confiance : je te rembourse. Les conditions précises sont dans les CGV.",
+    a: "Si après les 6 mois, tes lives, tes suivis et une pratique régulière tu ne vois aucune amélioration de ton bien-être ou de ta confiance : je te rembourse, sous les conditions d'éligibilité des CGV. Ce n'est pas une garantie de résultat automatique.",
   },
   {
     q: 'Que se passe-t-il après le paiement ?',
@@ -328,7 +328,7 @@ const includes = [
   '5 expertes (nutrition, émotions, face tape, yoga, compléments)',
   '+20 eBooks et guides pratiques',
   'Groupe WhatsApp privé',
-  'Garantie de résultats',
+  'Garantie (sous conditions CGV)',
 ]
 
 const renderBrand = (name, i) => (
