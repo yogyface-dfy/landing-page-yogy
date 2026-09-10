@@ -4,13 +4,24 @@
 
 ### ✨ Added
 
+- **`/vente-vip` CTA** : « Seulement 50 places disponibles » au-dessus des boutons d'achat, pastille verte ping + bounce.
 - **Mail 12 (M5 VIP)** : template AC `emails/launch/final/email12-m5-vip.html` — habitude 10 min, FOMO 48h, CTA `/vente-vip`, comparatif `mail-10-diagnostic.jpg`.
 - **Mail 11 (M4 soir VIP)** : template AC `emails/launch/final/email11-m4-soir-vip.html` — FOMO places, récap VIP, CTA `/vente-vip`, comparatif `mail-10-diagnostic.jpg`.
 - **Mail 10 (ouverture VIP)** : template AC `emails/launch/final/email10-ouverture-vip.html` — CTA `/vente-vip`, visuels mail-4 + mail-2-programme + `mail-10-diagnostic.jpg`.
 
+### 🐛 Fixed
+
+- **`/vente-vip`** : chaîne « Paiement sécurisé Stripe » coupée dans `vente-offre.jsx` (syntaxe cassée, page KO).
+
 ### 🔧 Changed
 
-- **VIP** : 299 € au lieu de 999 € ; colonne lancement public à 999 € aussi. Mention « 700 € de moins que le public ».
+- **VIP hero mobile** : titre « Vente privée / ouverte » au-dessus de la photo.
+- **Preuve sociale** : 700+ → 1200+ femmes accompagnées (vente, transformations, about, liste d'attente).
+- **Vente étapes** : photos recadrées sur le visage (plus le bandeau blanc du studio).
+- **Vente résultats mobile** : note 4.9 centrée, carte avant/après centrée, légende complète, CTA non coupé.
+- **VIP comparatif mobile** : 2 colonnes (critère + VIP), public en légende sous chaque ligne. Plus de texte coupé.
+- **Mail 12 (M5)** : gras, souligné, puces, 2 CTA, prix 299 €.
+- **VIP** : 299 € au lieu de 999 € ; colonne lancement public à 999 € aussi. Mention « 700 € de moins » retirée.
 - **Mail 10/11 visuel** : `mail-10-diagnostic.jpg` remplacé (comparatif 299 / 999, même URL).
 - **CGV art. 6** : 14 jours dans tous les cas, pas de renonciation (pas de case au checkout). Situations exceptionnelles laissées vagues.
 - **CGV art. 11** : 12 lives, 2 par mois mini, dont 3 FAQ inclus dans les 12.

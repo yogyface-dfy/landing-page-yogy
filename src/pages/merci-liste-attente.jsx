@@ -172,7 +172,7 @@ export default function MerciListeAttente() {
       {status !== "error" && (
         <>
           {/* Preuve sociale seulement — jamais de CTA /vente ni /vente-vip. */}
-          <VenteResultats proof="4.9/5 · 1 200 femmes déjà accompagnées" />
+          <VenteResultats proof="4.9/5 · 1200+ femmes déjà accompagnées" />
           <WaitlistAvis />
         </>
       )}

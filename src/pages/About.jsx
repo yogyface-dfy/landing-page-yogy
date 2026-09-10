@@ -38,7 +38,7 @@ const steps = [
   {
     num: "04",
     title: "MA MISSION",
-    text: "Plus de 700 femmes ont transformé leur visage avec cette méthode. Mon objectif : que chaque femme devienne experte de son propre visage — qu'elle comprenne son anatomie, maîtrise ses gestes, et ne dépende plus jamais d'un lobby cosmétique. Je ne promets pas du rapide. Je promets du définitif.",
+    text: "Plus de 1200 femmes ont transformé leur visage avec cette méthode. Mon objectif : que chaque femme devienne experte de son propre visage — qu'elle comprenne son anatomie, maîtrise ses gestes, et ne dépende plus jamais d'un lobby cosmétique. Je ne promets pas du rapide. Je promets du définitif.",
     image: null,
   },
 ];

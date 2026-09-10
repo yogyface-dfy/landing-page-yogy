@@ -21,7 +21,7 @@ const INTERVAL_MS = 4000
  * Carrousel auto-swipe (pause au survol / au touch).
  * @param {{ cta?: React.ReactNode, proof?: string }} props
  */
-export default function VenteResultats({ cta, proof = '4.9/5 · 700+ femmes déjà accompagnées' }) {
+export default function VenteResultats({ cta, proof = '4.9/5 · 1200+ femmes déjà accompagnées' }) {
   const scroller = useRef(null)
   const indexRef = useRef(0)
   const [active, setActive] = useState(0)
@@ -34,7 +34,10 @@ export default function VenteResultats({ cta, proof = '4.9/5 · 700+ femmes déj
     indexRef.current = next
     setActive(next)
     const card = el.children[next]
-    if (card) el.scrollTo({ left: card.offsetLeft, behavior: 'smooth' })
+    if (!card) return
+    // Centre la carte dans le scroller (mobile comme desktop).
+    const left = card.offsetLeft - (el.clientWidth - card.offsetWidth) / 2
+    el.scrollTo({ left, behavior: 'smooth' })
   }
 
   useEffect(() => {
@@ -45,11 +48,11 @@ export default function VenteResultats({ cta, proof = '4.9/5 · 700+ femmes déj
   }, [paused])
 
   return (
-    <section className="py-14 md:py-20 bg-white overflow-hidden">
+    <section className="py-14 md:py-20 bg-white">
       <div className="px-[5%] max-w-[1100px] mx-auto text-center mb-8">
-        <p className="flex items-center justify-center gap-2 text-sm text-noir mb-3">
+        <p className="flex flex-col sm:flex-row items-center justify-center gap-1 sm:gap-2 text-sm text-noir mb-3">
           <span className="text-corail tracking-tight" aria-hidden>★★★★★</span>
-          <span className="text-gris">{proof}</span>
+          <span className="text-gris text-center">{proof}</span>
         </p>
         <h2 className="font-display text-[clamp(1.6rem,4vw,2.6rem)] font-black tracking-tighter text-noir">
           DES RÉSULTATS
@@ -59,19 +62,19 @@ export default function VenteResultats({ cta, proof = '4.9/5 · 700+ femmes déj
       </div>
 
       <div
-        className="relative"
+        className="relative overflow-hidden"
         onMouseEnter={() => setPaused(true)}
         onMouseLeave={() => setPaused(false)}
         onTouchStart={() => setPaused(true)}
       >
         <div
           ref={scroller}
-          className="flex gap-3 md:gap-4 overflow-x-auto px-[5%] snap-x snap-mandatory scroll-smooth [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
+          className="flex gap-3 md:gap-4 overflow-x-auto px-[8%] md:px-[5%] snap-x snap-mandatory scroll-smooth [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
           aria-roledescription="carousel"
           aria-label="Résultats avant / après"
         >
           {RESULTS.map((r) => (
-            <article key={r.img} className="snap-start shrink-0 w-[82%] sm:w-[48%] md:w-[36%] rounded-2xl overflow-hidden bg-creme">
+            <article key={r.img} className="snap-center shrink-0 w-[84%] sm:w-[48%] md:w-[36%] rounded-2xl overflow-hidden bg-creme">
               <div className="relative">
                 <img src={r.img} alt={`Avant / après — ${r.name}, ${r.zone}`} loading="lazy" className="w-full h-auto block" />
                 <span className="absolute top-3 left-3 px-2.5 py-1 rounded-md bg-white/90 text-[10px] font-semibold uppercase tracking-wider text-gris">
@@ -81,9 +84,9 @@ export default function VenteResultats({ cta, proof = '4.9/5 · 700+ femmes déj
                   Après
                 </span>
               </div>
-              <div className="flex items-center justify-between px-3 pt-3 pb-5">
-                <p className="text-xs font-semibold text-noir">{r.name} · {r.zone}</p>
-                <p className="text-[11px] text-gris">{r.duration}</p>
+              <div className="px-3 pt-3 pb-4 text-center">
+                <p className="text-xs font-semibold text-noir leading-snug">{r.name} · {r.zone}</p>
+                <p className="text-[11px] text-gris mt-0.5">{r.duration}</p>
               </div>
             </article>
           ))}

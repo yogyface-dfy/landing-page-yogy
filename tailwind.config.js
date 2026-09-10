@@ -37,6 +37,7 @@ export default {
         'spin-slow':     'spin 20s linear infinite',
         'gradient':      'gradientShift 8s ease infinite',
         'shimmer':       'shimmer 2.5s ease-in-out infinite',
+        'live-bounce':   'liveBounce 1s ease-in-out infinite',
       },
       keyframes: {
         marquee: {
@@ -82,6 +83,10 @@ export default {
         shimmer: {
           '0%':   { backgroundPosition: '-200% 0' },
           '100%': { backgroundPosition: '200% 0' },
+        },
+        liveBounce: {
+          '0%, 100%': { transform: 'translateY(0)' },
+          '50%':      { transform: 'translateY(-3px)' },
         },
       },
       backgroundSize: {

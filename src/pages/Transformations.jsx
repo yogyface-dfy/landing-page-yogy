@@ -139,7 +139,7 @@ const testimonials = [
 
 const stats = [
   { number: "4.9/5", label: SHOW_TRUSTPILOT ? "Note moyenne sur Trustpilot" : "Note moyenne" },
-  { number: "700+", label: "Visages accompagnés" },
+  { number: "1200+", label: "Visages accompagnés" },
   { number: "3 sem.", label: "Pour les premiers effets" },
   { number: "96%", label: "La recommandent" },
 ];

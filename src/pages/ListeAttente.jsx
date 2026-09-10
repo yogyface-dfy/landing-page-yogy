@@ -17,7 +17,7 @@ const reassurances = [
   "Ouverture privée le 10 septembre",
   "La nouvelle plateforme",
   "Aucun engagement — tu décides plus tard",
-  "1 200 femmes m'ont déjà fait confiance",
+  "1200+ femmes m'ont déjà fait confiance",
 ];
 
 const whyWaitlist = [
@@ -214,7 +214,7 @@ export default function ListeAttente() {
                 <span>Aucun paiement requis. Aucun engagement.</span>
               </div>
               <p className="text-center text-gris/30 text-xs mt-2 font-serif italic">
-                1 200 femmes m'ont déjà fait confiance
+                1200+ femmes m'ont déjà fait confiance
               </p>
             </form>
           </div>
