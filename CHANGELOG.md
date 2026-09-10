@@ -4,13 +4,17 @@
 
 ### ✨ Added
 
+- **Mail 12 (M5 VIP)** : template AC `emails/launch/final/email12-m5-vip.html` — habitude 10 min, FOMO 48h, CTA `/vente-vip`, comparatif `mail-10-diagnostic.jpg`.
+- **Mail 11 (M4 soir VIP)** : template AC `emails/launch/final/email11-m4-soir-vip.html` — FOMO places, récap VIP, CTA `/vente-vip`, comparatif `mail-10-diagnostic.jpg`.
 - **Mail 10 (ouverture VIP)** : template AC `emails/launch/final/email10-ouverture-vip.html` — CTA `/vente-vip`, visuels mail-4 + mail-2-programme + `mail-10-diagnostic.jpg`.
 
 ### 🔧 Changed
 
+- **VIP** : 299 € au lieu de 999 € ; colonne lancement public à 999 € aussi. Mention « 700 € de moins que le public ».
+- **Mail 10/11 visuel** : `mail-10-diagnostic.jpg` remplacé (comparatif 299 / 999, même URL).
 - **CGV art. 6** : 14 jours dans tous les cas, pas de renonciation (pas de case au checkout). Situations exceptionnelles laissées vagues.
 - **CGV art. 11** : 12 lives, 2 par mois mini, dont 3 FAQ inclus dans les 12.
-- **`/vente-vip` comparatif** : colonne « Après lancement » retirée ; ligne Programme sous Diagnostic (2e programme offert à 6 mois). Prix VIP : 299 € en vert, 499 € barré.
+- **`/vente-vip` comparatif** : colonne « Après lancement » retirée ; ligne Programme sous Diagnostic (2e programme offert à 6 mois). Prix VIP : 299 € en vert, 999 € barré. Lancement public : 999 €.
 
 ## 2026-09-10
 

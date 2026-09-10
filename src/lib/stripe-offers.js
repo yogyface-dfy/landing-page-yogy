@@ -14,7 +14,7 @@ export const STUDIO_10X_CENTS = 4999
 const PRODUCT_IMAGE = 'https://yogyface.fr/logo-yogyface-dark.png'
 
 const VIP_DESCRIPTION =
-  'Avant-première plateforme · 299 € au lieu de 499 € · 18h de coaching · 12 mois d’accompagnement · diagnostic + renouvellement'
+  'Avant-première plateforme · 299 € au lieu de 999 € · 18h de coaching · 12 mois d’accompagnement · diagnostic + renouvellement'
 
 const STUDIO_DESCRIPTION =
   'Programme YoGyFace Studio · 499 € · 12h de coaching · 6 mois d’accompagnement · diagnostic'

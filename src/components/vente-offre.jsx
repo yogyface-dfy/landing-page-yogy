@@ -18,7 +18,7 @@ const OFFERS = {
       plan: 'vip-once',
       url: 'https://buy.stripe.com/7sY9AS2KtdrCcYF7aP8Zq0q',
       price: 299,
-      was: 499,
+      was: 999,
     },
     installments: [
       { plan: 'vip-3x', times: 3, amount: '99,99', url: 'https://buy.stripe.com/8x214mcl35Za1fX66L8Zq0r' },
@@ -45,8 +45,9 @@ const VIP_BONUSES = [
 ]
 
 // VIP / lancement public (plus de colonne « après lancement »).
+// Ancre marketing : VIP 299 € (999 € barré) vs lancement public 999 €.
 const COMPARE = [
-  { label: 'Prix du programme', vip: '299 €', was: '499 €', public: '499 €' },
+  { label: 'Prix du programme', vip: '299 €', was: '999 €', public: '999 €' },
   { label: 'Accès à la plateforme', vip: 'Avant-première', public: 'Lancement public' },
   { label: 'Coaching live', vip: '12h', bonus: '+6h', public: '12h' },
   { label: 'Accompagnement', vip: '6 mois', bonus: '+6 mois', public: '6 mois' },
@@ -445,7 +446,7 @@ export default function VenteOffre({ variant }) {
         title={isVip ? 'Offre VIP — Vente privée YoGyFace' : 'YoGyFace Studio — Programme'}
         description={
           isVip
-            ? 'Offre VIP exceptionnelle : 299 € au lieu de 499 €, accès en avant-première à l\'application, 18h de coaching et bonus réservés.'
+            ? 'Offre VIP exceptionnelle : 299 € au lieu de 999 €, accès en avant-première à l\'application, 18h de coaching et bonus réservés.'
             : 'Programme YoGyFace Studio : 499 €, diagnostic V2, nouveaux exercices, application et accompagnement personnalisé. Paiement en 1×, 4×, 6× ou 10×.'
         }
         path={path}
@@ -516,7 +517,7 @@ export default function VenteOffre({ variant }) {
               <ul className="text-left space-y-2 mb-6 max-w-md mx-auto md:mx-0">
                 {[
                   'Accès en avant-première à la plateforme',
-                  '299 € au lieu de 499 €',
+                  '299 € au lieu de 999 €',
                   '18h de coaching · 12 mois d\'accompagnement',
                 ].map((l) => (
                   <li key={l} className="flex items-start gap-2 text-[14px] text-noir/80">
@@ -550,7 +551,7 @@ export default function VenteOffre({ variant }) {
                 {offer.installments.length > 0 && (
                   <span className="block text-gris/50 text-sm mt-1">ou {installmentHint}</span>
                 )}
-                {isVip && <span className="block text-corail text-xs font-semibold mt-1">Tarif VIP — 200 € de moins que le public</span>}
+                {isVip && <span className="block text-corail text-xs font-semibold mt-1">Tarif VIP — 700 € de moins que le public</span>}
               </p>
             )}
             <PayCta
