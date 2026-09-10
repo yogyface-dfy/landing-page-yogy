@@ -44,14 +44,15 @@ const VIP_BONUSES = [
   { t: 'Renouvellement de diagnostic offert', d: 'Un second diagnostic complet pour ajuster la suite.', save: '299 €' },
 ]
 
-// VIP / lancement public / tarif plein (après la réduction de lancement).
+// VIP / lancement public (plus de colonne « après lancement »).
 const COMPARE = [
-  { label: 'Prix du programme', vip: '299 €', public: '499 €', after: '999 €' },
-  { label: 'Accès à la plateforme', vip: 'Avant-première', public: 'Lancement public', after: 'Accès standard' },
-  { label: 'Coaching live', vip: '12h', bonus: '+6h', public: '12h', after: '12h' },
-  { label: 'Accompagnement', vip: '6 mois', bonus: '+6 mois', public: '6 mois', after: '6 mois' },
-  { label: 'Diagnostic', vip: 'Initial', bonus: '+ renouvellement', public: 'Initial uniquement', after: 'Initial uniquement' },
-  { label: 'Bonus exclusifs', vip: 'Inclus', public: '—', after: '—' },
+  { label: 'Prix du programme', vip: '299 €', was: '499 €', public: '499 €' },
+  { label: 'Accès à la plateforme', vip: 'Avant-première', public: 'Lancement public' },
+  { label: 'Coaching live', vip: '12h', bonus: '+6h', public: '12h' },
+  { label: 'Accompagnement', vip: '6 mois', bonus: '+6 mois', public: '6 mois' },
+  { label: 'Diagnostic', vip: 'Initial', bonus: '+ renouvellement', public: 'Initial uniquement' },
+  { label: 'Programme', vip: 'Initial', bonus: '+ 2e offert à 6 mois', hint: 'pour travailler de nouvelles zones', public: 'Initial seulement' },
+  { label: 'Bonus exclusifs', vip: 'Inclus', public: '—' },
 ]
 
 const BRANDS = [
@@ -592,12 +593,12 @@ export default function VenteOffre({ variant }) {
             {/* Grille partagée : une ligne = un critère. La carte VIP est un fond, pas une colonne à part. */}
             <div className="overflow-x-auto -mx-2 px-2 py-5">
               <div
-                className="min-w-[700px] grid items-stretch"
-                style={{ gridTemplateColumns: '1.35fr 1fr 1fr 1fr' }}
+                className="min-w-[560px] grid items-stretch"
+                style={{ gridTemplateColumns: '1.35fr 1fr 1fr' }}
               >
                 <div
                   aria-hidden
-                  className="col-start-2 row-start-1 row-span-7 -my-3 rounded-2xl bg-white ring-2 ring-emerald-500 shadow-[0_12px_40px_rgba(16,185,129,0.18)] pointer-events-none"
+                  className="col-start-2 row-start-1 row-span-8 -my-3 rounded-2xl bg-white ring-2 ring-emerald-500 shadow-[0_12px_40px_rgba(16,185,129,0.18)] pointer-events-none"
                 />
 
                 <div className="h-12" style={{ gridColumn: 1, gridRow: 1 }} />
@@ -609,9 +610,6 @@ export default function VenteOffre({ variant }) {
                 <div className="h-12 flex items-center justify-center text-[10px] md:text-xs font-semibold uppercase tracking-wider text-gris/50" style={{ gridColumn: 3, gridRow: 1 }}>
                   Lancement public
                 </div>
-                <div className="h-12 flex items-center justify-center text-[10px] md:text-xs font-semibold uppercase tracking-wider text-gris/40" style={{ gridColumn: 4, gridRow: 1 }}>
-                  Après lancement
-                </div>
 
                 {COMPARE.map((row, i) => {
                   const gridRow = i + 2
@@ -620,19 +618,26 @@ export default function VenteOffre({ variant }) {
                       <div className="min-h-[54px] flex items-center px-2 text-[13px] text-gris border-t border-noir/8" style={{ gridColumn: 1, gridRow }}>
                         {row.label}
                       </div>
-                      <div className="relative z-10 min-h-[54px] flex items-center justify-center px-2 text-[13px] md:text-sm font-semibold text-noir text-center border-t border-emerald-100" style={{ gridColumn: 2, gridRow }}>
-                        <span>
-                          {row.vip}
-                          {row.bonus && (
-                            <span className="ml-1.5 font-semibold text-emerald-600 whitespace-nowrap">{row.bonus}</span>
-                          )}
-                        </span>
+                      <div className="relative z-10 min-h-[54px] flex flex-col items-center justify-center px-2 py-2 text-[13px] md:text-sm font-semibold text-noir text-center border-t border-emerald-100" style={{ gridColumn: 2, gridRow }}>
+                        {row.was ? (
+                          <span className="whitespace-nowrap">
+                            <span className="text-emerald-600">{row.vip}</span>
+                            <s className="ml-1.5 font-normal text-gris/40">{row.was}</s>
+                          </span>
+                        ) : (
+                          <span>
+                            {row.vip}
+                            {row.bonus && (
+                              <span className="ml-1.5 font-semibold text-emerald-600 whitespace-nowrap">{row.bonus}</span>
+                            )}
+                          </span>
+                        )}
+                        {row.hint && (
+                          <span className="mt-0.5 text-[11px] font-normal leading-snug text-gris/70">{row.hint}</span>
+                        )}
                       </div>
                       <div className="min-h-[54px] flex items-center justify-center px-2 text-[13px] text-gris/55 text-center border-t border-noir/8" style={{ gridColumn: 3, gridRow }}>
                         {row.public}
-                      </div>
-                      <div className="min-h-[54px] flex items-center justify-center px-2 text-[13px] text-gris/40 text-center border-t border-noir/8" style={{ gridColumn: 4, gridRow }}>
-                        {row.after}
                       </div>
                     </Fragment>
                   )

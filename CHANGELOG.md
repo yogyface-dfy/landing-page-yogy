@@ -2,10 +2,15 @@
 
 ## 2026-09-11
 
+### ✨ Added
+
+- **Mail 10 (ouverture VIP)** : template AC `emails/launch/final/email10-ouverture-vip.html` — CTA `/vente-vip`, visuels mail-4 + mail-2-programme + `mail-10-diagnostic.jpg`.
+
 ### 🔧 Changed
 
 - **CGV art. 6** : 14 jours dans tous les cas, pas de renonciation (pas de case au checkout). Situations exceptionnelles laissées vagues.
 - **CGV art. 11** : 12 lives, 2 par mois mini, dont 3 FAQ inclus dans les 12.
+- **`/vente-vip` comparatif** : colonne « Après lancement » retirée ; ligne Programme sous Diagnostic (2e programme offert à 6 mois). Prix VIP : 299 € en vert, 499 € barré.
 
 ## 2026-09-10
 
