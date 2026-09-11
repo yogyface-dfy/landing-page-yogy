@@ -15,6 +15,9 @@
 
 ### 🔧 Changed
 
+- **Stripe** : metadata `version=v2` sur chaque Checkout (VIP / Studio) — pas d'exos RESET V1.
+- **VIP prévente** : app dès l'achat, diagnostic à partir du 17 septembre (hero, comparatif, FAQ, merci).
+- **Upsell 1:1** : désactivé (`UPSELL_ENABLED = false`). Après paiement → `/merci-achat` directement.
 - **VIP hero mobile** : titre « Vente privée / ouverte » au-dessus de la photo.
 - **Preuve sociale** : 700+ → 1200+ femmes accompagnées (vente, transformations, about, liste d'attente).
 - **Vente étapes** : photos recadrées sur le visage (plus le bandeau blanc du studio).

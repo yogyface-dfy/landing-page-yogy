@@ -71,7 +71,8 @@ const COMPARE = [
   { label: "Prix du programme", vip: "299 €", was: "999 €", public: "999 €" },
   {
     label: "Accès à la plateforme",
-    vip: "Avant-première",
+    vip: "Dès l'achat",
+    hint: "prévente — l'app s'ouvre tout de suite",
     public: "Lancement public",
   },
   { label: "Coaching live", vip: "12h", bonus: "+6h", public: "12h" },
@@ -85,6 +86,7 @@ const COMPARE = [
     label: "Diagnostic",
     vip: "Initial",
     bonus: "+ renouvellement",
+    hint: "à réaliser à partir du 17 septembre",
     public: "Initial uniquement",
   },
   {
@@ -391,7 +393,9 @@ const SALE_FAQ = [
   },
   {
     q: "Que se passe-t-il après le paiement ?",
-    a: "Tu reçois l'accès à la plateforme. Juste après le paiement, une offre complémentaire peut t'être proposée (un clic, sans retaper ta carte). Ensuite tu fais ton diagnostic : ordonnance et programme sous 3 à 4 jours, lives + groupe.",
+    a: "Tu reçois l'accès à la plateforme. Ensuite tu fais ton diagnostic : ordonnance et programme sous 3 à 4 jours, lives + groupe.",
+    // VIP = prévente : app tout de suite, diagnostic calé au 17 sept.
+    aVip: "Tu es en prévente. L'application s'ouvre dès le paiement. Le diagnostic V2, lui, s'ouvre le 17 septembre — ensuite ordonnance, programme, lives et groupe.",
   },
 ];
 
@@ -623,7 +627,7 @@ export default function VenteOffre({ variant }) {
             </p>
             <p className="text-gris text-[15px] leading-relaxed mb-5 max-w-lg md:max-w-none">
               {isVip
-                ? "Accès en avant-première à l'application, au diagnostic V2 et au nouveau programme — plus les bonus que le lancement public n'aura pas."
+                ? "Prévente : l'application s'ouvre dès le paiement. Le diagnostic V2, lui, s'ouvre le 17 septembre — plus les bonus que le lancement public n'aura pas."
                 : "Diagnostic V2, exercices refondus, application YoGyFace. Le programme Studio, sans les avantages de la liste d'attente."}
             </p>
 
@@ -646,21 +650,38 @@ export default function VenteOffre({ variant }) {
             )}
 
             {isVip && (
-              <ul className="text-left space-y-2 mb-6 max-w-md mx-auto md:mx-0">
-                {[
-                  "Accès en avant-première à la plateforme",
-                  "299 € au lieu de 999 €",
-                  "18h de coaching · 12 mois d'accompagnement",
-                ].map((l) => (
-                  <li
-                    key={l}
-                    className="flex items-start gap-2 text-[14px] text-noir/80"
-                  >
-                    <span className="text-corail mt-0.5">✓</span>
-                    {l}
-                  </li>
-                ))}
-              </ul>
+              <>
+                <ul className="text-left space-y-2 mb-6 max-w-md mx-auto md:mx-0">
+                  {[
+                    "Accès à l'application dès l'achat",
+                    "Diagnostic V2 à partir du 17 septembre",
+                    "299 € au lieu de 999 €",
+                    "18h de coaching · 12 mois d'accompagnement",
+                  ].map((l) => (
+                    <li
+                      key={l}
+                      className="flex items-start gap-2 text-[14px] text-noir/80"
+                    >
+                      <span className="text-corail mt-0.5">✓</span>
+                      {l}
+                    </li>
+                  ))}
+                </ul>
+                {/* Prévente : app maintenant, diagnostic calé — à ne pas noyer dans le prix. */}
+                <div className="text-left mb-6 max-w-md mx-auto md:mx-0 rounded-2xl border border-noir/8 bg-creme/80 p-4">
+                  <p className="text-[11px] font-semibold uppercase tracking-[0.16em] text-corail mb-2">
+                    Prévente
+                  </p>
+                  <p className="text-[14px] text-noir/80 leading-relaxed">
+                    Tu as l'application tout de suite. Le diagnostic, lui,
+                    s'ouvre le{" "}
+                    <strong className="text-noir font-semibold">
+                      17 septembre,
+                    </strong>{" "}
+                    on part toutes ensemble.
+                  </p>
+                </div>
+              </>
             )}
             {!isVip && (
               <ul className="text-left space-y-2 mb-6 max-w-md mx-auto md:mx-0">
@@ -856,6 +877,11 @@ export default function VenteOffre({ variant }) {
                   <p className="text-gris text-[13px] md:text-[14px] leading-relaxed">
                     {s.desc}
                   </p>
+                  {s.n === 1 && isVip && (
+                    <p className="text-corail text-[13px] font-serif italic mt-2">
+                      À partir du 17 septembre.
+                    </p>
+                  )}
                 </div>
               </article>
             ))}
@@ -1213,7 +1239,7 @@ export default function VenteOffre({ variant }) {
                         {s.title}
                       </h3>
                       <span className="text-[10px] font-semibold text-corail bg-creme px-2 py-0.5 rounded-full">
-                        {s.tag}
+                        {isVip && s.num === "01" ? "17 sept." : s.tag}
                       </span>
                     </div>
                     <p className="text-gris text-[13px] md:text-[14px] leading-relaxed">
@@ -1292,7 +1318,7 @@ export default function VenteOffre({ variant }) {
                   </span>
                 </summary>
                 <p className="pb-4 text-gris text-[14px] leading-relaxed">
-                  {item.a}
+                  {isVip && item.aVip ? item.aVip : item.a}
                 </p>
               </details>
             ))}
@@ -1326,7 +1352,7 @@ export default function VenteOffre({ variant }) {
           </h2>
           <p className="text-white/50 mb-6 text-[14px] md:text-[16px]">
             {isVip
-              ? "Avant-première + tarif VIP + bonus. Ça ne sera plus le cas au lancement public."
+              ? "Prévente : l'app dès l'achat, le diagnostic le 17 septembre. Tarif VIP + bonus — plus au lancement public."
               : "Le programme Studio — sans les bonus ni l'accès anticipé de la liste."}
           </p>
           {offer.once.price && (

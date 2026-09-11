@@ -110,6 +110,9 @@ export const PLANS = {
   },
 }
 
+/** Post-achat 1:1. `false` = après Stripe on va sur /merci-achat (pas /vente-upsell). */
+export const UPSELL_ENABLED = false
+
 /** Post-achat 1 clic — 1 € le temps des tests, à remettre au tarif réel avant le live. */
 export const UPSELL = {
   amountCents: 50,

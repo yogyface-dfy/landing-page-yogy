@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react'
 import { Link, useLocation, useNavigate, useSearchParams } from 'react-router-dom'
 import Icon from '../components/Icon'
 import SEO from '../components/SEO'
-import { UPSELL } from '../lib/stripe-offers'
+import { UPSELL, UPSELL_ENABLED } from '../lib/stripe-offers'
 
 function euros(cents) {
   return (cents / 100).toLocaleString('fr-FR', { minimumFractionDigits: 0, maximumFractionDigits: 2 })
@@ -20,6 +20,12 @@ export default function VenteUpsell() {
   const [busy, setBusy] = useState(false)
 
   useEffect(() => {
+    // Filet si une vieille session Stripe pointe encore ici.
+    if (!UPSELL_ENABLED && !preview) {
+      const q = sessionId ? `?session_id=${encodeURIComponent(sessionId)}` : ''
+      navigate(`/merci-achat${q}`, { replace: true })
+      return
+    }
     if (preview) {
       setState({ status: 'ready', offer: { ...UPSELL, alreadyTaken: false }, error: '' })
       return

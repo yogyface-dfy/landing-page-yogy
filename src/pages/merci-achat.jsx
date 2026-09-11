@@ -36,14 +36,14 @@ export default function MerciAchat() {
             Tu vas recevoir un <strong className="text-noir">email de confirmation</strong> — pense à vérifier tes spams.
           </p>
           <p className="text-gris text-[15px] leading-relaxed mb-10">
-            Ensuite : diagnostic, ordonnance sous 3 à 4 jours, puis ta routine.
+            Tu es en prévente : l'accès à l'application arrive par mail. Le diagnostic s'ouvre le 17 septembre.
           </p>
 
           <div className="text-left space-y-3 mb-10">
             {[
-              { n: '1', t: 'Vérifie tes emails', d: 'L’accès à la plateforme arrive par mail. Regarde aussi les courriers indésirables.' },
-              { n: '2', t: 'Fais ton diagnostic', d: 'Questionnaire, photos, tests : je lis TON visage avant d’écrire quoi que ce soit.' },
-              { n: '3', t: 'Reçois ton programme', d: 'Ordonnance + routine personnalisée, faites main, sous 3 à 4 jours.' },
+              { n: '1', t: 'Vérifie tes emails', d: 'L’accès à l’application arrive par mail. Regarde aussi les courriers indésirables.' },
+              { n: '2', t: 'Explore l’application', d: 'Tu peux déjà te connecter, regarder, t’installer. Le diagnostic n’est pas encore ouvert.' },
+              { n: '3', t: 'Diagnostic dès le 17 septembre', d: 'À partir de cette date : questionnaire, photos, tests. Ensuite ton ordonnance, sous 3 à 4 jours.' },
             ].map((s) => (
               <div key={s.n} className="flex gap-4 p-4 rounded-2xl bg-white border border-noir/5 shadow-sm">
                 <span className="w-8 h-8 shrink-0 rounded-lg bg-corail text-white flex items-center justify-center font-display font-black text-sm">
