@@ -2,8 +2,13 @@
 
 ## 2026-09-12
 
+### 🔧 Changed
+
+- **`/vente-vip` CTA** : « Moins de 10 places disponibles sur 50 » + fermeture lundi soir 14 septembre, 00h.
+
 ### ✨ Added
 
+- **Mail 16 (M8 VIP)** : template AC `emails/launch/final/email16-m8-vip.html` — dernières heures / minuit, 2 CTA `/vente-vip`, comparatif `mail-10-diagnostic.jpg`.
 - **Mail 15 (M7 VIP)** : template AC `emails/launch/final/email15-m7-vip.html` — dernier jour minuit, 2 CTA `/vente-vip`, comparatif + mosaïque avant/après `mail-m7-mosaique.jpg`.
 - **Mail 14 (M6 VIP)** : template AC `emails/launch/final/email14-m6-vip.html` — FAQ, ferme 24h, 2 CTA `/vente-vip`, comparatif `mail-10-diagnostic.jpg`.
 - **Mail 13 (J-2)** : template AC `emails/launch/final/email13-j2.html` — refonte diagnostic, mockup exos `mail-2-programme.jpg`, avant/après Peggy + Emmanuelle. Pas de CTA.

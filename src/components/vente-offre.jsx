@@ -439,13 +439,17 @@ function PayCta({
     <div className="inline-flex flex-col items-stretch gap-3 w-full max-w-[380px] mx-auto">
       {scarcity && (
         <p
-          className={`flex items-center justify-center gap-2 text-[12px] font-semibold tracking-tight ${dark ? "text-white/80" : "text-noir/70"}`}
+          className={`flex items-center justify-center gap-2 text-[12px] font-semibold tracking-tight text-center leading-snug ${dark ? "text-white/80" : "text-noir/70"}`}
         >
-          <span className="relative flex h-2 w-2" aria-hidden>
+          <span className="relative flex h-2 w-2 shrink-0" aria-hidden>
             <span className="absolute inset-0 rounded-full bg-emerald-400 opacity-75 animate-ping motion-reduce:animate-none" />
             <span className="relative h-2 w-2 rounded-full bg-emerald-500 animate-live-bounce motion-reduce:animate-none" />
           </span>
-          Seulement 50 places disponibles
+          <span>
+            Moins de 10 places disponibles sur 50
+            <br />
+            Fermeture lundi soir 14 septembre, 00h
+          </span>
         </p>
       )}
       <button
