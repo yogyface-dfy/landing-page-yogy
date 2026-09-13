@@ -16,6 +16,29 @@ let df = null // client DataFast une fois initialisé
 let dfPromise = null
 let dfCookieless = null // mode du client courant (évite un re-init inutile)
 
+// DataFast crée un paiement si l'URL contient session_id (Stripe). On attribue
+// déjà via metadata Checkout : sans ça, chaque achat est compté deux fois.
+const DF_PAYMENT_QUERY_KEYS = ['session_id', 'order_id', 'checkout_id']
+
+function stripDataFastPaymentQuery() {
+  if (typeof window === 'undefined' || !window.history?.replaceState) return
+  const url = new URL(window.location.href)
+  const stripeCs = url.searchParams.get('session_id')
+  const onUpsell = url.pathname === '/vente-upsell' || url.pathname === '/vente-upsell-test'
+  // L'upsell a besoin de l'id Checkout, sous un nom que DataFast n'intercepte pas.
+  if (onUpsell && stripeCs?.startsWith('cs_') && !url.searchParams.get('cs')) {
+    url.searchParams.set('cs', stripeCs)
+  }
+  let dirty = false
+  for (const key of DF_PAYMENT_QUERY_KEYS) {
+    if (!url.searchParams.has(key)) continue
+    url.searchParams.delete(key)
+    dirty = true
+  }
+  if (!dirty) return
+  window.history.replaceState(window.history.state, '', `${url.pathname}${url.search}${url.hash}`)
+}
+
 // Renvoie 'granted', 'denied' ou null (pas encore de choix).
 export const getConsent = () =>
   typeof localStorage !== 'undefined' ? localStorage.getItem(CONSENT_KEY) : null
@@ -58,6 +81,7 @@ const persistDfIdentity = async (client, { setCookie, isValidVisitorId, isValidS
 // DataFast : cookieless par défaut, cookies après Accept. Désactivé sur localhost.
 const loadDataFast = (cookieless) => {
   if (typeof window === 'undefined') return Promise.resolve(null)
+  stripDataFastPaymentQuery()
   // File d'attente : un Accept pendant l'init cookieless ne lance pas 2 clients.
   dfPromise = (dfPromise || Promise.resolve()).then(async () => {
     if (df && dfCookieless === cookieless) return df

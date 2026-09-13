@@ -13,7 +13,7 @@ export default function VenteUpsell() {
   const [searchParams] = useSearchParams()
   const { pathname } = useLocation()
   const navigate = useNavigate()
-  const sessionId = searchParams.get('session_id') || ''
+  const sessionId = searchParams.get('cs') || searchParams.get('session_id') || ''
   // /vente-upsell-test : même UI, aucun appel Stripe.
   const preview = pathname === '/vente-upsell-test' || searchParams.get('preview') === '1'
   const [state, setState] = useState({ status: 'loading', offer: null, error: '' })
@@ -22,8 +22,7 @@ export default function VenteUpsell() {
   useEffect(() => {
     // Filet si une vieille session Stripe pointe encore ici.
     if (!UPSELL_ENABLED && !preview) {
-      const q = sessionId ? `?session_id=${encodeURIComponent(sessionId)}` : ''
-      navigate(`/merci-achat${q}`, { replace: true })
+      navigate('/merci-achat', { replace: true })
       return
     }
     if (preview) {
@@ -44,7 +43,7 @@ export default function VenteUpsell() {
       .then((data) => {
         if (cancelled) return
         if (data.upsell?.alreadyTaken) {
-          navigate(`/merci-achat?session_id=${encodeURIComponent(sessionId)}&upsell=1`, { replace: true })
+          navigate('/merci-achat?upsell=1', { replace: true })
           return
         }
         setState({ status: 'ready', offer: data.upsell, error: '' })
@@ -60,7 +59,7 @@ export default function VenteUpsell() {
       setState((s) => ({ ...s, error: 'Mode test — aucun débit, tu resterais sur /merci-achat.' }))
       return
     }
-    navigate(`/merci-achat?session_id=${encodeURIComponent(sessionId)}`, { replace: true })
+    navigate('/merci-achat', { replace: true })
   }
 
   const accept = async () => {
@@ -83,7 +82,7 @@ export default function VenteUpsell() {
         return
       }
       if (!res.ok) throw new Error(data.error || 'Paiement refusé')
-      navigate(`/merci-achat?session_id=${encodeURIComponent(sessionId)}&upsell=1`, { replace: true })
+      navigate('/merci-achat?upsell=1', { replace: true })
     } catch (err) {
       setState((s) => ({ ...s, error: err.message }))
       setBusy(false)
@@ -120,7 +119,7 @@ export default function VenteUpsell() {
               </p>
               <div className="flex flex-col items-center gap-3">
                 <Link
-                  to={`/merci-achat${sessionId ? `?session_id=${encodeURIComponent(sessionId)}` : ''}`}
+                  to="/merci-achat"
                   className="btn-corail inline-flex text-sm px-6 py-3"
                 >
                   Continuer

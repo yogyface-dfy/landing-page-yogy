@@ -4,10 +4,12 @@
 
 ### 🔧 Changed
 
+- **DataFast** : plus de `?session_id=` sur `/merci-achat` (et strip avant init) — le webhook Stripe + metadata suffisent, sinon chaque achat était doublé.
 - **`/vente-vip` CTA** : « Moins de 10 places disponibles sur 50 » + fermeture lundi soir 14 septembre, 00h.
 
 ### ✨ Added
 
+- **Mail 17 (M2 non VIP)** : template AC `emails/launch/final/email17-m2-non-vip.html` — diagnostic / cause, mockup exos `mail-2-programme.jpg`, portes demain / 50 places. Pas de CTA.
 - **Mail 16 (M8 VIP)** : template AC `emails/launch/final/email16-m8-vip.html` — dernières heures / minuit, 2 CTA `/vente-vip`, comparatif `mail-10-diagnostic.jpg`.
 - **Mail 15 (M7 VIP)** : template AC `emails/launch/final/email15-m7-vip.html` — dernier jour minuit, 2 CTA `/vente-vip`, comparatif + mosaïque avant/après `mail-m7-mosaique.jpg`.
 - **Mail 14 (M6 VIP)** : template AC `emails/launch/final/email14-m6-vip.html` — FAQ, ferme 24h, 2 CTA `/vente-vip`, comparatif `mail-10-diagnostic.jpg`.
