@@ -6,6 +6,7 @@
 
 - **`/vente` (Studio)** : tarif **299 €** (999 € barré), sans bonus VIP. Mensualités 4 × 74,99 € / 6 × 49,99 € (plus de 10×).
 - **`/vente` hero** : photo calée en haut, badge 50 places, titre mobile au-dessus, offre regroupée (prix + inclus + CTA) — plus de répétition 299 € / 4×.
+- **`/merci-achat`** : « Ton inscription est validée » (plus « offre VIP ») — même page pour Studio et VIP.
 
 ## 2026-09-14
 

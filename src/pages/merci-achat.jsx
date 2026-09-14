@@ -1,11 +1,11 @@
-import { Link, useSearchParams } from 'react-router-dom'
-import Icon from '../components/Icon'
-import SEO from '../components/SEO'
+import { Link, useSearchParams } from "react-router-dom";
+import Icon from "../components/Icon";
+import SEO from "../components/SEO";
 
 /** Confirmation après paiement VIP (+ upsell éventuel). Non indexée. */
 export default function MerciAchat() {
-  const [searchParams] = useSearchParams()
-  const withUpsell = searchParams.get('upsell') === '1'
+  const [searchParams] = useSearchParams();
+  const withUpsell = searchParams.get("upsell") === "1";
 
   return (
     <>
@@ -29,23 +29,44 @@ export default function MerciAchat() {
           <h1 className="font-display text-[clamp(2rem,6vw,3.6rem)] font-black leading-[0.95] tracking-tighter text-noir mb-4">
             C’EST
             <br />
-            <span className="font-serif italic text-corail font-semibold">officiel.</span>
+            <span className="font-serif italic text-corail font-semibold">
+              officiel.
+            </span>
           </h1>
           <p className="text-gris text-[15px] md:text-[17px] leading-relaxed mb-3">
-            Ton offre VIP est validée{withUpsell ? ', ainsi que ta séance individuelle' : ''}.
-            Tu vas recevoir un <strong className="text-noir">email de confirmation</strong> — pense à vérifier tes spams.
+            Ton inscription est validée
+            {withUpsell ? ", ainsi que ta séance individuelle" : ""}. Tu vas
+            recevoir un{" "}
+            <strong className="text-noir">email de confirmation</strong> — pense
+            à vérifier tes spams.
           </p>
           <p className="text-gris text-[15px] leading-relaxed mb-10">
-            Tu es en prévente : l'accès à l'application arrive par mail. Le diagnostic s'ouvre le 17 septembre.
+            Tu es en prévente : l'accès à l'application arrive par mail. Le
+            diagnostic s'ouvre le 17 septembre.
           </p>
 
           <div className="text-left space-y-3 mb-10">
             {[
-              { n: '1', t: 'Vérifie tes emails', d: 'L’accès à l’application arrive par mail. Regarde aussi les courriers indésirables.' },
-              { n: '2', t: 'Explore l’application', d: 'Tu peux déjà te connecter, regarder, t’installer. Le diagnostic n’est pas encore ouvert.' },
-              { n: '3', t: 'Diagnostic dès le 17 septembre', d: 'À partir de cette date : questionnaire, photos, tests. Ensuite ton ordonnance, sous 3 à 4 jours.' },
+              {
+                n: "1",
+                t: "Vérifie tes emails",
+                d: "L’accès à l’application arrive par mail. Regarde aussi les courriers indésirables.",
+              },
+              {
+                n: "2",
+                t: "Explore l’application",
+                d: "Tu peux déjà te connecter, regarder, t’installer. Le diagnostic n’est pas encore ouvert.",
+              },
+              {
+                n: "3",
+                t: "Diagnostic dès le 17 septembre",
+                d: "À partir de cette date : questionnaire, photos, tests. Ensuite ton ordonnance, sous 3 à 4 jours.",
+              },
             ].map((s) => (
-              <div key={s.n} className="flex gap-4 p-4 rounded-2xl bg-white border border-noir/5 shadow-sm">
+              <div
+                key={s.n}
+                className="flex gap-4 p-4 rounded-2xl bg-white border border-noir/5 shadow-sm"
+              >
                 <span className="w-8 h-8 shrink-0 rounded-lg bg-corail text-white flex items-center justify-center font-display font-black text-sm">
                   {s.n}
                 </span>
@@ -63,5 +84,5 @@ export default function MerciAchat() {
         </div>
       </section>
     </>
-  )
+  );
 }

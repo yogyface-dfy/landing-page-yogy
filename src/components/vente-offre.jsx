@@ -441,7 +441,11 @@ function PayCta({
   const extraClass = dark
     ? "inline-flex items-center justify-center px-7 py-3.5 min-h-[44px] rounded-full border-2 border-white/70 text-white font-semibold text-sm md:text-base hover:border-corail hover:text-corail transition-colors"
     : "btn-secondary text-sm md:text-base px-5 md:px-7 py-3.5 border-2 border-noir/25 font-semibold";
-  const scarcityLines = Array.isArray(scarcity) ? scarcity : scarcity ? [scarcity] : [];
+  const scarcityLines = Array.isArray(scarcity)
+    ? scarcity
+    : scarcity
+      ? [scarcity]
+      : [];
   return (
     <div
       className={`inline-flex flex-col items-stretch gap-3 w-full max-w-[380px] mx-auto ${alignClass}`}
@@ -562,7 +566,10 @@ export default function VenteOffre({ variant }) {
     oncePlan: offer.once.plan,
     onPay: startPay,
     scarcity: isVip
-      ? ["Plus que 2 places disponibles", "Fermeture lundi soir 14 septembre, 00h"]
+      ? [
+          "Plus que 2 places disponibles",
+          "Fermeture lundi soir 14 septembre, 00h",
+        ]
       : ["50 places dispos max", "jusqu'au 18 septembre"],
     installments: offer.installments.map((i) => ({
       plan: i.plan,
@@ -977,24 +984,14 @@ export default function VenteOffre({ variant }) {
                 className="w-full max-w-[420px] mx-auto md:ml-auto h-[380px] md:h-[520px] rounded-2xl md:rounded-3xl object-cover object-top"
               />
               <div className="text-center mt-6">
-                <PayCta
-                  {...pay}
-                  onceLabel={joinLabel}
-                />
+                <PayCta {...pay} onceLabel={joinLabel} />
               </div>
             </div>
           </div>
         </div>
       </section>
 
-      <VenteResultats
-        cta={
-          <PayCta
-            {...pay}
-            onceLabel={joinLabel}
-          />
-        }
-      />
+      <VenteResultats cta={<PayCta {...pay} onceLabel={joinLabel} />} />
 
       {/* Social proof — cartes au format Trustpilot */}
       <section className="py-14 md:py-20 px-[5%] bg-creme">
@@ -1130,10 +1127,7 @@ export default function VenteOffre({ variant }) {
           </div>
         </div>
         <div className="text-center mt-10">
-          <PayCta
-            {...pay}
-            onceLabel={joinLabel}
-          />
+          <PayCta {...pay} onceLabel={joinLabel} />
         </div>
       </section>
 
@@ -1367,10 +1361,7 @@ export default function VenteOffre({ variant }) {
               </details>
             ))}
             <div className="text-center mt-8">
-              <PayCta
-                {...pay}
-                onceLabel={joinLabel}
-              />
+              <PayCta {...pay} onceLabel={joinLabel} />
             </div>
           </div>
         </div>
