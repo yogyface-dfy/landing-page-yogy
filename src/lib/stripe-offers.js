@@ -5,6 +5,7 @@
  */
 export const VIP_ONCE_CENTS = 29900
 export const VIP_3X_CENTS = 9999
+export const VIP_6X_CENTS = 4999
 export const STUDIO_ONCE_CENTS = 49900
 export const STUDIO_4X_CENTS = 12499
 export const STUDIO_6X_CENTS = 8399
@@ -46,6 +47,21 @@ export const PLANS = {
       product_data: {
         name: 'YoGyFace Reset — Offre VIP (3 × 99,99 €)',
         description: `${VIP_DESCRIPTION} · 3 mensualités`,
+        images: [PRODUCT_IMAGE],
+      },
+    },
+  },
+  'vip-6x': {
+    offer: 'vip',
+    mode: 'subscription',
+    months: 6,
+    priceData: {
+      currency: 'eur',
+      unit_amount: VIP_6X_CENTS,
+      recurring: { interval: 'month' },
+      product_data: {
+        name: 'YoGyFace Reset — Offre VIP (6 × 49,99 €)',
+        description: `${VIP_DESCRIPTION} · 6 mensualités`,
         images: [PRODUCT_IMAGE],
       },
     },

@@ -31,6 +31,11 @@ const OFFERS = {
         amount: "99,99",
         url: "https://buy.stripe.com/8x214mcl35Za1fX66L8Zq0r",
       },
+      {
+        plan: "vip-6x",
+        times: 6,
+        amount: "49,99",
+      },
     ],
   },
   public: {
@@ -446,7 +451,7 @@ function PayCta({
             <span className="relative h-2 w-2 rounded-full bg-emerald-500 animate-live-bounce motion-reduce:animate-none" />
           </span>
           <span>
-            Moins de 10 places disponibles sur 50
+            Plus que 2 places disponibles
             <br />
             Fermeture lundi soir 14 septembre, 00h
           </span>

@@ -13,7 +13,9 @@
 
 ### 🔧 Changed
 
+- **`/vente-vip`** : paiement 6 × 49,99 € + rareté « Plus que 2 places disponibles ». `max_invoices` aussi sur la Checkout Session (webi).
 - **Checkout 1×** : plus de `setup_future_usage` tant que l'upsell est coupé — Stripe n'affiche plus « ce paiement et ceux à venir » sur VIP 299 € / Studio 499 €.
+- **VIP 3× / mensualités** : le schedule `from_subscription` restait en « forever » (update 400 : `start_date` + `duration`). Retry si le schedule existe déjà, 3 échéances puis `cancel`.
 - **Mail 15 (M7 VIP)** : « Moins de 10 places disponibles » sous le 1er CTA (aligné `/vente-vip`).
 
 ## 2026-09-12
