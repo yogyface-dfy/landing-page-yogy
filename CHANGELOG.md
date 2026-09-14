@@ -1,5 +1,21 @@
 # Changelog
 
+## 2026-09-14
+
+### ✨ Added
+
+- **Mail 23 (M8 soir non VIP)** : template AC `emails/launch/final/email23-m8-non-vip.html` — dernières heures minuit, 2 CTA `/vente`, 499 €.
+- **Mail 22 (M7 matin non VIP)** : template AC `emails/launch/final/email22-m7-non-vip.html` — dernier jour minuit, 2 CTA `/vente`, 499 €, mosaïque, « Moins de 10 places ».
+- **Mail 21 (M6 non VIP)** : template AC `emails/launch/final/email21-m6-non-vip.html` — FAQ, 2 CTA `/vente`, 499 € jusqu'à demain soir.
+- **Mail 20 (M5 non VIP)** : template AC `emails/launch/final/email20-m5-non-vip.html` — accompagnement vs bibliothèque, 1 CTA `/vente`, tarif de lancement « 2 jours ».
+- **Mail 19 (M4 soir non VIP)** : template AC `emails/launch/final/email19-m4-soir-non-vip.html` — FOMO places, récap, 2 CTA `/vente`, 499 € jusqu'au 15 sept.
+- **Mail 18 (M3 matin non VIP)** : template AC `emails/launch/final/email18-m3-non-vip.html` — ouverture publique, 2 CTA `/vente`, 499 € jusqu'au 15 sept., visuels mail-4 + `mail-2-programme.jpg`.
+
+### 🔧 Changed
+
+- **Checkout 1×** : plus de `setup_future_usage` tant que l'upsell est coupé — Stripe n'affiche plus « ce paiement et ceux à venir » sur VIP 299 € / Studio 499 €.
+- **Mail 15 (M7 VIP)** : « Moins de 10 places disponibles » sous le 1er CTA (aligné `/vente-vip`).
+
 ## 2026-09-12
 
 ### 🔧 Changed
