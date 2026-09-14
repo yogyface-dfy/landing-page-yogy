@@ -41,13 +41,12 @@ const OFFERS = {
   public: {
     once: {
       plan: "studio-once",
-      price: 499,
-      was: null,
+      price: 299,
+      was: 999,
     },
     installments: [
-      { plan: "studio-4x", times: 4, amount: "124,99" },
-      { plan: "studio-6x", times: 6, amount: "83,99" },
-      { plan: "studio-10x", times: 10, amount: "49,99" },
+      { plan: "studio-4x", times: 4, amount: "74,99" },
+      { plan: "studio-6x", times: 6, amount: "49,99" },
     ],
   },
 };
@@ -71,9 +70,9 @@ const VIP_BONUSES = [
 ];
 
 // VIP / lancement public (plus de colonne « après lancement »).
-// Ancre marketing : VIP 299 € (999 € barré) vs lancement public 999 €.
+// Ancre marketing : 299 € (999 € barré). VIP = bonus ; public = même tarif, sans bonus.
 const COMPARE = [
-  { label: "Prix du programme", vip: "299 €", was: "999 €", public: "999 €" },
+  { label: "Prix du programme", vip: "299 €", was: "999 €", public: "299 €" },
   {
     label: "Accès à la plateforme",
     vip: "Dès l'achat",
@@ -434,15 +433,20 @@ function PayCta({
   loading,
   error,
   dark = false,
-  scarcity = false,
+  scarcity = null,
+  /** Desktop : coller les CTA au titre (mx-auto les centre dans la colonne). */
+  alignClass = "",
 }) {
   const busy = Boolean(loading);
   const extraClass = dark
     ? "inline-flex items-center justify-center px-7 py-3.5 min-h-[44px] rounded-full border-2 border-white/70 text-white font-semibold text-sm md:text-base hover:border-corail hover:text-corail transition-colors"
     : "btn-secondary text-sm md:text-base px-5 md:px-7 py-3.5 border-2 border-noir/25 font-semibold";
+  const scarcityLines = Array.isArray(scarcity) ? scarcity : scarcity ? [scarcity] : [];
   return (
-    <div className="inline-flex flex-col items-stretch gap-3 w-full max-w-[380px] mx-auto">
-      {scarcity && (
+    <div
+      className={`inline-flex flex-col items-stretch gap-3 w-full max-w-[380px] mx-auto ${alignClass}`}
+    >
+      {scarcityLines.length > 0 && (
         <p
           className={`flex items-center justify-center gap-2 text-[12px] font-semibold tracking-tight text-center leading-snug ${dark ? "text-white/80" : "text-noir/70"}`}
         >
@@ -451,9 +455,12 @@ function PayCta({
             <span className="relative h-2 w-2 rounded-full bg-emerald-500 animate-live-bounce motion-reduce:animate-none" />
           </span>
           <span>
-            Plus que 2 places disponibles
-            <br />
-            Fermeture lundi soir 14 septembre, 00h
+            {scarcityLines.map((line, i) => (
+              <Fragment key={line}>
+                {i > 0 && <br />}
+                {line}
+              </Fragment>
+            ))}
           </span>
         </p>
       )}
@@ -495,6 +502,9 @@ export default function VenteOffre({ variant }) {
   const isVip = variant === "vip";
   const path = isVip ? "/vente-vip" : "/vente";
   const offer = OFFERS[variant];
+  const joinLabel = isVip
+    ? `Rejoindre l'offre VIP — ${offer.once.price} €`
+    : `Rejoindre Studio — ${offer.once.price} €`;
   const [searchParams] = useSearchParams();
   const [email, setEmail] = useState("");
   const [payLoading, setPayLoading] = useState(null);
@@ -551,7 +561,9 @@ export default function VenteOffre({ variant }) {
   const pay = {
     oncePlan: offer.once.plan,
     onPay: startPay,
-    scarcity: isVip,
+    scarcity: isVip
+      ? ["Plus que 2 places disponibles", "Fermeture lundi soir 14 septembre, 00h"]
+      : ["50 places dispos max", "jusqu'au 18 septembre"],
     installments: offer.installments.map((i) => ({
       plan: i.plan,
       label: `Payer en ${i.times} × ${i.amount} €`,
@@ -575,7 +587,7 @@ export default function VenteOffre({ variant }) {
         description={
           isVip
             ? "Offre VIP exceptionnelle : 299 € au lieu de 999 €, accès en avant-première à l'application, 18h de coaching et bonus réservés."
-            : "Programme YoGyFace Studio : 499 €, diagnostic V2, nouveaux exercices, application et accompagnement personnalisé. Paiement en 1×, 4×, 6× ou 10×."
+            : "Programme YoGyFace Studio : 299 €, diagnostic V2, nouveaux exercices, application et accompagnement personnalisé. Paiement en 1×, 4× ou 6×."
         }
         path={path}
         noindex
@@ -583,11 +595,11 @@ export default function VenteOffre({ variant }) {
 
       {/* Hero type fiche produit (rythme Lynae : visuel + offre + preuves) */}
       <section
-        id={isVip ? "offre" : undefined}
+        id="offre"
         className="relative pt-28 md:pt-36 pb-12 md:pb-16 px-[5%] overflow-hidden"
       >
         <div className="absolute inset-0 bg-gradient-to-b from-rose/25 via-white to-white pointer-events-none" />
-        <div className="max-w-[1100px] mx-auto relative z-10 grid md:grid-cols-2 gap-8 md:gap-14 items-center">
+        <div className="max-w-[1100px] mx-auto relative z-10 grid md:grid-cols-2 gap-8 md:gap-14 items-start">
           <div className="order-1">
             {/* Mobile : le H1 est sous la photo — un titre au-dessus pour remplir le vide. */}
             {isVip && (
@@ -600,16 +612,31 @@ export default function VenteOffre({ variant }) {
                 </span>
               </p>
             )}
+            {!isVip && (
+              <h1 className="md:hidden text-center mb-5">
+                <span className="block font-display font-black tracking-tighter text-noir text-[1.7rem] uppercase leading-none">
+                  Studio
+                </span>
+                <span className="block font-serif italic text-corail font-semibold text-[1.45rem] mt-1">
+                  YoGyFace.
+                </span>
+              </h1>
+            )}
             <div className="relative max-w-[480px] mx-auto md:mx-0">
               <div className="absolute -inset-3 bg-gradient-to-br from-corail/10 to-bleu/10 rounded-3xl blur-2xl pointer-events-none hidden md:block" />
               <img
                 src="/laury-massage.webp"
                 alt="Laury — méthode YoGyFace"
-                className="relative w-full h-auto rounded-2xl md:rounded-3xl shadow-2xl"
+                className="relative w-full h-[min(52vh,420px)] md:h-auto object-cover object-[50%_18%] rounded-2xl md:rounded-3xl shadow-2xl"
               />
               {isVip && (
                 <span className="absolute top-4 left-4 px-3 py-1.5 rounded-full bg-noir text-white text-[11px] font-semibold uppercase tracking-widest">
                   Offre VIP
+                </span>
+              )}
+              {!isVip && (
+                <span className="absolute top-4 left-4 px-3 py-1.5 rounded-full bg-noir text-white text-[11px] font-semibold uppercase tracking-widest">
+                  50 places
                 </span>
               )}
             </div>
@@ -620,9 +647,13 @@ export default function VenteOffre({ variant }) {
               <span className="w-1.5 h-1.5 rounded-full bg-corail animate-pulse" />
               {isVip
                 ? "Offre exceptionnelle — inscrites liste d'attente"
-                : "Programme Studio"}
+                : "Ouverture — jusqu'au 18 septembre"}
             </div>
-            <h1 className="font-display text-[clamp(1.9rem,5vw,3.4rem)] font-black leading-[0.95] tracking-tighter text-noir mb-3">
+            <h1
+              className={`font-display text-[clamp(1.9rem,5vw,3.4rem)] font-black leading-[0.95] tracking-tighter text-noir mb-3 ${
+                isVip ? "" : "hidden md:block"
+              }`}
+            >
               {isVip ? "TU ES VIP." : "STUDIO"}
               <br />
               <span className="font-serif italic text-corail font-semibold">
@@ -634,10 +665,10 @@ export default function VenteOffre({ variant }) {
               Crée les bonnes habitudes et supprime les causes de ton
               vieillissement.
             </p>
-            <p className="text-gris text-[15px] leading-relaxed mb-5 max-w-lg md:max-w-none">
+            <p className="text-gris text-[15px] leading-relaxed mb-5 max-w-lg mx-auto md:mx-0">
               {isVip
                 ? "Prévente : l'application s'ouvre dès le paiement. Le diagnostic V2, lui, s'ouvre le 17 septembre — plus les bonus que le lancement public n'aura pas."
-                : "Diagnostic V2, exercices refondus, application YoGyFace. Le programme Studio, sans les avantages de la liste d'attente."}
+                : "Diagnostic V2, exercices refondus, application YoGyFace. Le programme complet, à tarif de lancement."}
             </p>
 
             {SHOW_TRUSTPILOT ? (
@@ -692,25 +723,8 @@ export default function VenteOffre({ variant }) {
                 </div>
               </>
             )}
-            {!isVip && (
-              <ul className="text-left space-y-2 mb-6 max-w-md mx-auto md:mx-0">
-                {[
-                  "Programme Studio — 499 €",
-                  "Paiement en 1×, 4×, 6× ou 10×",
-                  "12h de coaching · 6 mois d'accompagnement",
-                ].map((l) => (
-                  <li
-                    key={l}
-                    className="flex items-start gap-2 text-[14px] text-noir/80"
-                  >
-                    <span className="text-corail mt-0.5">✓</span>
-                    {l}
-                  </li>
-                ))}
-              </ul>
-            )}
 
-            {offer.once.price && (
+            {isVip && offer.once.price && (
               <p className="mb-4">
                 {offer.once.was && (
                   <span className="text-gris/45 line-through text-lg mr-2">
@@ -727,17 +741,50 @@ export default function VenteOffre({ variant }) {
                 )}
               </p>
             )}
-            <PayCta
-              {...pay}
-              onceLabel={
-                isVip
-                  ? `Rejoindre l'offre VIP — ${offer.once.price} €`
-                  : `Rejoindre Studio — ${offer.once.price} €`
-              }
-            />
-            <p className="text-gris/45 text-xs mt-3">
-              {isVip ? "Paiement sécurisé Stripe" : "Paiement sécurisé"}
-            </p>
+            {isVip && (
+              <>
+                <PayCta {...pay} onceLabel={joinLabel} alignClass="md:mx-0" />
+                <p className="text-gris/45 text-xs mt-3">
+                  Paiement sécurisé Stripe
+                </p>
+              </>
+            )}
+
+            {/* Studio : prix + inclus + CTA dans un seul bloc (évite de répéter 299 € / 4×). */}
+            {!isVip && (
+              <div className="text-left max-w-md mx-auto md:mx-0 rounded-2xl border border-noir/8 bg-creme/80 p-5 md:p-6">
+                {offer.once.price && (
+                  <p className="mb-4">
+                    {offer.once.was && (
+                      <span className="text-gris/45 line-through text-lg mr-2">
+                        {offer.once.was} €
+                      </span>
+                    )}
+                    <span className="font-display font-black text-4xl tracking-tight text-noir">
+                      {offer.once.price} €
+                    </span>
+                  </p>
+                )}
+                <ul className="space-y-2 mb-5">
+                  {[
+                    "Diagnostic V2 + application YoGyFace",
+                    "12h de coaching · 6 mois d'accompagnement",
+                  ].map((l) => (
+                    <li
+                      key={l}
+                      className="flex items-start gap-2 text-[14px] text-noir/80"
+                    >
+                      <span className="text-corail mt-0.5">✓</span>
+                      {l}
+                    </li>
+                  ))}
+                </ul>
+                <PayCta {...pay} onceLabel={joinLabel} alignClass="mx-0" />
+                <p className="text-gris/45 text-xs mt-3 text-center">
+                  Paiement sécurisé Stripe
+                </p>
+              </div>
+            )}
           </div>
         </div>
       </section>
@@ -932,11 +979,7 @@ export default function VenteOffre({ variant }) {
               <div className="text-center mt-6">
                 <PayCta
                   {...pay}
-                  onceLabel={
-                    isVip
-                      ? "Rejoindre l'offre VIP — 299 €"
-                      : "Rejoindre Studio — 499 €"
-                  }
+                  onceLabel={joinLabel}
                 />
               </div>
             </div>
@@ -948,11 +991,7 @@ export default function VenteOffre({ variant }) {
         cta={
           <PayCta
             {...pay}
-            onceLabel={
-              isVip
-                ? "Rejoindre l'offre VIP — 299 €"
-                : "Rejoindre Studio — 499 €"
-            }
+            onceLabel={joinLabel}
           />
         }
       />
@@ -1093,11 +1132,7 @@ export default function VenteOffre({ variant }) {
         <div className="text-center mt-10">
           <PayCta
             {...pay}
-            onceLabel={
-              isVip
-                ? "Rejoindre l'offre VIP — 299 €"
-                : "Rejoindre Studio — 499 €"
-            }
+            onceLabel={joinLabel}
           />
         </div>
       </section>
@@ -1334,11 +1369,7 @@ export default function VenteOffre({ variant }) {
             <div className="text-center mt-8">
               <PayCta
                 {...pay}
-                onceLabel={
-                  isVip
-                    ? "Rejoindre l'offre VIP — 299 €"
-                    : "Rejoindre Studio — 499 €"
-                }
+                onceLabel={joinLabel}
               />
             </div>
           </div>

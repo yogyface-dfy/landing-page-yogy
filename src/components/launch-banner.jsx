@@ -12,15 +12,20 @@ const VIP_ITEMS = [
   'Bonus à durée limitée',
 ]
 
+const PUBLIC_ITEMS = [
+  'Ouverture Studio',
+  '50 places max',
+  "Jusqu'au 18 septembre",
+]
+
 /** Assez de cycles pour remplir un écran ultra-wide sans trous. */
 const CYCLES = 6
 
-/** Merci, liste d'attente, offre publique, tunnel upsell. /vente-vip a son ticker. */
+/** Merci, liste d'attente, tunnel upsell. /vente et /vente-vip ont leur ticker. */
 const HIDE = [
   '/liste-attente',
   '/merci-liste-attente',
   '/merci-achat',
-  '/vente',
   '/vente-upsell',
   '/vente-upsell-test',
 ]
@@ -45,19 +50,23 @@ function Track({ items }) {
   )
 }
 
-/** Bandeau ticker — home → liste d'attente ; VIP → ancre offre. */
+/** Bandeau ticker — home → liste d'attente ; vente / VIP → ancre offre. */
 export default function LaunchBanner() {
   const { pathname } = useLocation()
   const vip = pathname === '/vente-vip'
-  const items = vip ? VIP_ITEMS : HOME_ITEMS
+  const vente = pathname === '/vente'
+  const items = vip ? VIP_ITEMS : vente ? PUBLIC_ITEMS : HOME_ITEMS
+  const toOffer = vip || vente
 
   return (
     <Link
-      to={vip ? '#offre' : '/liste-attente'}
+      to={toOffer ? '#offre' : '/liste-attente'}
       aria-label={
         vip
           ? 'Ouverture VIP — tarif et bonus à durée limitée'
-          : "Rentrée YoGyFace — lancement du nouveau programme. Rejoindre la liste d'attente."
+          : vente
+            ? 'YoGyFace Studio — 50 places jusqu’au 18 septembre'
+            : "Rentrée YoGyFace — lancement du nouveau programme. Rejoindre la liste d'attente."
       }
       className="fixed top-0 left-0 right-0 z-[51] h-8 w-full bg-noir text-white flex items-center overflow-hidden hover:bg-[#111] transition-colors"
     >

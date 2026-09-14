@@ -1,5 +1,12 @@
 # Changelog
 
+## 2026-09-15
+
+### 🔧 Changed
+
+- **`/vente` (Studio)** : tarif **299 €** (999 € barré), sans bonus VIP. Mensualités 4 × 74,99 € / 6 × 49,99 € (plus de 10×).
+- **`/vente` hero** : photo calée en haut, badge 50 places, titre mobile au-dessus, offre regroupée (prix + inclus + CTA) — plus de répétition 299 € / 4×.
+
 ## 2026-09-14
 
 ### ✨ Added
@@ -13,6 +20,7 @@
 
 ### 🔧 Changed
 
+- **`/vente`** : ticker en haut (comme VIP) + pastille « 50 places dispos max / jusqu'au 18 septembre » sous les CTA.
 - **`/vente-vip`** : paiement 6 × 49,99 € + rareté « Plus que 2 places disponibles ». `max_invoices` aussi sur la Checkout Session (webi).
 - **Checkout 1×** : plus de `setup_future_usage` tant que l'upsell est coupé — Stripe n'affiche plus « ce paiement et ceux à venir » sur VIP 299 € / Studio 499 €.
 - **VIP 3× / mensualités** : le schedule `from_subscription` restait en « forever » (update 400 : `start_date` + `duration`). Retry si le schedule existe déjà, 3 échéances puis `cancel`.
