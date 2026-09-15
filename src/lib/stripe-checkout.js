@@ -42,14 +42,41 @@ export function withStripePrefill(url, email) {
 
 /** Crée une Checkout Session (VIP / Studio) puis redirige. fallbackUrl si Stripe n'est pas configuré. */
 export async function startCheckoutSession({ plan, email, cancelPath }) {
-  const { getDataFastIds } = await import('./analytics')
+  // Import dynamique : ce fichier est aussi chargé par Node (isValidEmail).
+  const [
+    { getDataFastIds },
+    { getFbCookies, newEventId, stashPurchaseConversion },
+    { purchaseContentName, purchaseValue },
+  ] = await Promise.all([
+    import('./analytics'),
+    import('./meta-pixel'),
+    import('./stripe-offers'),
+  ])
+  const eventId = newEventId()
   const res = await fetch('/api/stripe/checkout', {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({ plan, email, cancelPath, ...(await getDataFastIds()) }),
+    body: JSON.stringify({
+      plan,
+      email,
+      cancelPath,
+      meta_event_id: eventId,
+      ...getFbCookies(),
+      ...(await getDataFastIds()),
+    }),
   })
   const data = await res.json().catch(() => ({}))
-  if (data.url) return data
+  // Checkout Session à nous : pixel /merci-achat dédupliqué avec la CAPI webhook.
+  if (data.url) {
+    stashPurchaseConversion({
+      eventId,
+      plan,
+      email,
+      value: purchaseValue(plan),
+      contentName: purchaseContentName(plan),
+    })
+    return data
+  }
   if (data.fallbackUrl) return data
   throw new Error(data.error || 'Paiement indisponible')
 }

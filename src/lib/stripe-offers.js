@@ -110,6 +110,20 @@ export const PLANS = {
   },
 }
 
+/** Valeur Purchase Meta = montant du programme (1× ou N mensualités). */
+export function purchaseValue(plan) {
+  const spec = PLANS[plan]
+  if (!spec) return 0
+  return ((spec.months || 1) * spec.priceData.unit_amount) / 100
+}
+
+export function purchaseContentName(plan) {
+  const kind = PLANS[plan]?.offer
+  if (kind === 'vip') return 'YoGyFace VIP'
+  if (kind === 'studio') return 'YoGyFace Studio'
+  return 'YoGyFace'
+}
+
 /** Post-achat 1:1. `false` = après Stripe on va sur /merci-achat (pas /vente-upsell). */
 export const UPSELL_ENABLED = false
 

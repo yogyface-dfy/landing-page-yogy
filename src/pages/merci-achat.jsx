@@ -1,11 +1,22 @@
 import { Link, useSearchParams } from "react-router-dom";
+import { useEffect } from "react";
 import Icon from "../components/Icon";
 import SEO from "../components/SEO";
+import {
+  consumePurchaseConversion,
+  firePurchasePixel,
+} from "../lib/meta-pixel";
 
-/** Confirmation après paiement VIP (+ upsell éventuel). Non indexée. */
+/** Confirmation après paiement VIP / Studio. Non indexée. */
 export default function MerciAchat() {
   const [searchParams] = useSearchParams();
   const withUpsell = searchParams.get("upsell") === "1";
+
+  // Pixel Purchase (CAPI déjà partie du webhook Stripe, même event_id).
+  useEffect(() => {
+    const payload = consumePurchaseConversion();
+    if (payload) firePurchasePixel(payload);
+  }, []);
 
   return (
     <>

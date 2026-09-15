@@ -8,6 +8,10 @@
 - **`/vente` hero** : photo calée en haut, badge 50 places, titre mobile au-dessus, offre regroupée (prix + inclus + CTA) — plus de répétition 299 € / 4×.
 - **`/merci-achat`** : « Ton inscription est validée » (plus « offre VIP ») — même page pour Studio et VIP.
 
+### ✨ Added
+
+- **Meta Purchase** : pixel + CAPI (`Purchase`) à l'achat VIP / Studio — webhook Stripe + `/merci-achat`, même `event_id`. Mensualités 2..N : pas de 2e Purchase.
+
 ## 2026-09-14
 
 ### ✨ Added
