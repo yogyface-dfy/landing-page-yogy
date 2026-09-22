@@ -10,6 +10,9 @@ export const STUDIO_ONCE_CENTS = 29900
 export const STUDIO_4X_CENTS = 7499
 export const STUDIO_6X_CENTS = 4999
 
+/** false = /vente-vip reste en ligne, checkout VIP refusé. */
+export const VIP_SALES_OPEN = false
+
 /** Image publique : Stripe la charge depuis internet (pas localhost). */
 const PRODUCT_IMAGE = 'https://yogyface.fr/logo-yogyface-dark.png'
 

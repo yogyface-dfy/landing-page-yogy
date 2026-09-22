@@ -1,5 +1,11 @@
 # Changelog
 
+## 2026-09-22
+
+### 🔧 Changed
+
+- **`/vente-vip`** : ventes VIP fermées — page conservée, plus de checkout. CTA vers `/vente`. API refuse les plans `vip-*`.
+
 ## 2026-09-15
 
 ### 🔧 Changed

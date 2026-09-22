@@ -10,6 +10,7 @@ import {
   withStripePrefill,
 } from "../lib/stripe-checkout";
 import { SHOW_TRUSTPILOT } from "../lib/trustpilot";
+import { VIP_SALES_OPEN } from "../lib/stripe-offers";
 
 /**
  * Pages de vente privées (non indexées).
@@ -436,11 +437,37 @@ function PayCta({
   scarcity = null,
   /** Desktop : coller les CTA au titre (mx-auto les centre dans la colonne). */
   alignClass = "",
+  closed = false,
 }) {
   const busy = Boolean(loading);
   const extraClass = dark
     ? "inline-flex items-center justify-center px-7 py-3.5 min-h-[44px] rounded-full border-2 border-white/70 text-white font-semibold text-sm md:text-base hover:border-corail hover:text-corail transition-colors"
     : "btn-secondary text-sm md:text-base px-5 md:px-7 py-3.5 border-2 border-noir/25 font-semibold";
+  if (closed) {
+    return (
+      <div
+        className={`inline-flex flex-col items-stretch gap-3 w-full max-w-[380px] mx-auto ${alignClass}`}
+      >
+        <p
+          className={`text-center text-[13px] font-semibold uppercase tracking-[0.16em] ${
+            dark ? "text-white/80" : "text-noir/70"
+          }`}
+        >
+          Ventes VIP fermées
+        </p>
+        <Link
+          to="/vente"
+          className={
+            dark
+              ? "inline-flex items-center justify-center px-7 py-3.5 min-h-[44px] rounded-full border-2 border-white/70 text-white font-semibold text-sm md:text-base hover:border-corail hover:text-corail transition-colors"
+              : "btn-corail justify-center text-sm md:text-base px-5 md:px-7 py-3.5"
+          }
+        >
+          Voir l'offre Studio
+        </Link>
+      </div>
+    );
+  }
   const scarcityLines = Array.isArray(scarcity)
     ? scarcity
     : scarcity
@@ -504,6 +531,7 @@ function PayCta({
  */
 export default function VenteOffre({ variant }) {
   const isVip = variant === "vip";
+  const vipClosed = isVip && !VIP_SALES_OPEN;
   const path = isVip ? "/vente-vip" : "/vente";
   const offer = OFFERS[variant];
   const joinLabel = isVip
@@ -541,6 +569,7 @@ export default function VenteOffre({ variant }) {
   }, []);
 
   const startPay = async (plan) => {
+    if (vipClosed) return;
     setPayError("");
     setPayLoading(plan);
     try {
@@ -565,12 +594,15 @@ export default function VenteOffre({ variant }) {
   const pay = {
     oncePlan: offer.once.plan,
     onPay: startPay,
-    scarcity: isVip
-      ? [
-          "Plus que 2 places disponibles",
-          "Fermeture lundi soir 14 septembre, 00h",
-        ]
-      : ["50 places dispos max", "jusqu'au 18 septembre"],
+    closed: vipClosed,
+    scarcity: vipClosed
+      ? null
+      : isVip
+        ? [
+            "Plus que 2 places disponibles",
+            "Fermeture lundi soir 14 septembre, 00h",
+          ]
+        : ["50 places dispos max", "jusqu'au 18 septembre"],
     installments: offer.installments.map((i) => ({
       plan: i.plan,
       label: `Payer en ${i.times} × ${i.amount} €`,
@@ -588,12 +620,16 @@ export default function VenteOffre({ variant }) {
       <SEO
         title={
           isVip
-            ? "Offre VIP — Vente privée YoGyFace"
+            ? vipClosed
+              ? "Ventes VIP fermées — YoGyFace"
+              : "Offre VIP — Vente privée YoGyFace"
             : "YoGyFace Studio — Programme"
         }
         description={
           isVip
-            ? "Offre VIP exceptionnelle : 299 € au lieu de 999 €, accès en avant-première à l'application, 18h de coaching et bonus réservés."
+            ? vipClosed
+              ? "Les ventes VIP YoGyFace sont fermées. Le programme Studio est ouvert."
+              : "Offre VIP exceptionnelle : 299 € au lieu de 999 €, accès en avant-première à l'application, 18h de coaching et bonus réservés."
             : "Programme YoGyFace Studio : 299 €, diagnostic V2, nouveaux exercices, application et accompagnement personnalisé. Paiement en 1×, 4× ou 6×."
         }
         path={path}
@@ -612,10 +648,10 @@ export default function VenteOffre({ variant }) {
             {isVip && (
               <p className="md:hidden text-center mb-5">
                 <span className="block font-display font-black tracking-tighter text-noir text-[1.7rem] uppercase leading-none">
-                  Vente privée
+                  Ventes VIP
                 </span>
                 <span className="block font-serif italic text-corail font-semibold text-[1.45rem] mt-1">
-                  ouverte
+                  {vipClosed ? "fermées" : "ouvertes"}
                 </span>
               </p>
             )}
@@ -638,7 +674,7 @@ export default function VenteOffre({ variant }) {
               />
               {isVip && (
                 <span className="absolute top-4 left-4 px-3 py-1.5 rounded-full bg-noir text-white text-[11px] font-semibold uppercase tracking-widest">
-                  Offre VIP
+                  {vipClosed ? "Fermée" : "Offre VIP"}
                 </span>
               )}
               {!isVip && (
@@ -653,7 +689,9 @@ export default function VenteOffre({ variant }) {
             <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-corail/10 text-corail text-[11px] font-semibold uppercase tracking-widest mb-4">
               <span className="w-1.5 h-1.5 rounded-full bg-corail animate-pulse" />
               {isVip
-                ? "Offre exceptionnelle — inscrites liste d'attente"
+                ? vipClosed
+                  ? "Vente privée close"
+                  : "Offre exceptionnelle — inscrites liste d'attente"
                 : "Ouverture — jusqu'au 18 septembre"}
             </div>
             <h1
@@ -661,10 +699,14 @@ export default function VenteOffre({ variant }) {
                 isVip ? "" : "hidden md:block"
               }`}
             >
-              {isVip ? "TU ES VIP." : "STUDIO"}
+              {isVip ? (vipClosed ? "VENTES VIP" : "TU ES VIP.") : "STUDIO"}
               <br />
               <span className="font-serif italic text-corail font-semibold">
-                {isVip ? "Cette offre n'est pas publique." : "YoGyFace."}
+                {isVip
+                  ? vipClosed
+                    ? "fermées."
+                    : "Cette offre n'est pas publique."
+                  : "YoGyFace."}
               </span>
             </h1>
             {/* Accroche Reset — sous-titre, ne remplace pas le hero VIP. */}
@@ -674,7 +716,9 @@ export default function VenteOffre({ variant }) {
             </p>
             <p className="text-gris text-[15px] leading-relaxed mb-5 max-w-lg mx-auto md:mx-0">
               {isVip
-                ? "Prévente : l'application s'ouvre dès le paiement. Le diagnostic V2, lui, s'ouvre le 17 septembre — plus les bonus que le lancement public n'aura pas."
+                ? vipClosed
+                  ? "L'offre privée est close. Le programme Studio, lui, est ouvert."
+                  : "Prévente : l'application s'ouvre dès le paiement. Le diagnostic V2, lui, s'ouvre le 17 septembre — plus les bonus que le lancement public n'aura pas."
                 : "Diagnostic V2, exercices refondus, application YoGyFace. Le programme complet, à tarif de lancement."}
             </p>
 
@@ -696,7 +740,7 @@ export default function VenteOffre({ variant }) {
               </p>
             )}
 
-            {isVip && (
+            {isVip && !vipClosed && (
               <>
                 <ul className="text-left space-y-2 mb-6 max-w-md mx-auto md:mx-0">
                   {[
@@ -731,7 +775,7 @@ export default function VenteOffre({ variant }) {
               </>
             )}
 
-            {isVip && offer.once.price && (
+            {isVip && !vipClosed && offer.once.price && (
               <p className="mb-4">
                 {offer.once.was && (
                   <span className="text-gris/45 line-through text-lg mr-2">
@@ -1371,22 +1415,24 @@ export default function VenteOffre({ variant }) {
         <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[320px] h-[320px] bg-corail/8 rounded-full blur-3xl pointer-events-none" />
         <div className="max-w-xl mx-auto relative z-10">
           <h2 className="font-display text-[clamp(1.8rem,5vw,3rem)] font-black tracking-tighter mb-4">
-            {isVip ? "CETTE OFFRE EST" : "PRÊTE À COMMENCER ?"}
+            {isVip ? (vipClosed ? "VENTES VIP" : "CETTE OFFRE EST") : "PRÊTE À COMMENCER ?"}
             {isVip && (
               <>
                 <br />
                 <span className="font-serif italic text-corail font-semibold">
-                  pour toi seule.
+                  {vipClosed ? "fermées." : "pour toi seule."}
                 </span>
               </>
             )}
           </h2>
           <p className="text-white/50 mb-6 text-[14px] md:text-[16px]">
             {isVip
-              ? "Prévente : l'app dès l'achat, le diagnostic le 17 septembre. Tarif VIP + bonus — plus au lancement public."
+              ? vipClosed
+                ? "L'offre privée n'est plus disponible. Rejoins Studio."
+                : "Prévente : l'app dès l'achat, le diagnostic le 17 septembre. Tarif VIP + bonus — plus au lancement public."
               : "Le programme Studio — sans les bonus ni l'accès anticipé de la liste."}
           </p>
-          {offer.once.price && (
+          {offer.once.price && !vipClosed && (
             <p className="text-white mb-6">
               {offer.once.was && (
                 <span className="text-white/35 line-through mr-2">
