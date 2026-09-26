@@ -22,6 +22,7 @@ const staticPages = [
   ['/transformations', '0.7', 'monthly'],
   ['/faq', '0.7', 'monthly'],
   ['/contact', '0.6', 'yearly'],
+  ['/installer-app', '0.5', 'yearly'],
   ['/liste-attente', '0.9', 'weekly'],
   ['/mentions-legales', '0.3', 'yearly'],
   ['/cgv', '0.3', 'yearly'],

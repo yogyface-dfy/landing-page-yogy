@@ -1,5 +1,11 @@
 # Changelog
 
+## 2026-09-26
+
+### ✨ Added
+
+- **`/installer-app`** : tutos iPhone et Android pour installer YoGyFace sur l’écran d’accueil.
+
 ## 2026-09-22
 
 ### 🔧 Changed

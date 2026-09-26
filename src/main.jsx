@@ -36,6 +36,7 @@ export const routes = [
       { path: 'vente-upsell', lazy: page(() => import('./pages/vente-upsell')) },
       { path: 'vente-upsell-test', lazy: page(() => import('./pages/vente-upsell')) },
       { path: 'merci-achat', lazy: page(() => import('./pages/merci-achat')) },
+      { path: 'installer-app', lazy: page(() => import('./pages/installer-app')) },
       { path: 'mentions-legales', lazy: page(() => import('./pages/MentionsLegales')) },
       { path: 'cgv', lazy: page(() => import('./pages/CGV')) },
       { path: 'confidentialite', lazy: page(() => import('./pages/Confidentialite')) },
