@@ -4,7 +4,7 @@
 
 ### ✨ Added
 
-- **`/installer-app`** : tutos iPhone et Android pour installer YoGyFace sur l’écran d’accueil.
+- **`/installer-app`** : tutos iPhone et Android pour installer YoGyFace sur l’écran d’accueil. Sans bandeau ni CTA liste d’attente.
 
 ## 2026-09-22
 

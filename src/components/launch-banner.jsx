@@ -25,6 +25,7 @@ const HIDE = [
   '/liste-attente',
   '/merci-liste-attente',
   '/merci-achat',
+  '/installer-app',
   '/vente-upsell',
   '/vente-upsell-test',
 ]

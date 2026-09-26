@@ -18,6 +18,8 @@ export default function Navbar({ offsetTop = false, logoOnly = false }) {
   const [scrolled, setScrolled] = useState(false)
   const [menuOpen, setMenuOpen] = useState(false)
   const location = useLocation()
+  // Page support : pas de CTA liste d'attente.
+  const hideWaitlist = location.pathname === '/installer-app'
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 20)
@@ -85,12 +87,14 @@ export default function Navbar({ offsetTop = false, logoOnly = false }) {
 
         {/* CTA + mobile toggle */}
         <div className="flex items-center gap-3">
+          {!hideWaitlist && (
           <Link
             to="/liste-attente"
             className="hidden sm:inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-corail/10 text-corail font-semibold text-sm tracking-tight border border-corail/20 hover:bg-corail hover:text-white hover:border-corail hover:shadow-lg hover:shadow-corail/20 transition-all duration-300 hover:-translate-y-0.5"
           >
             Liste d'attente
           </Link>
+          )}
           <button
             className="md:hidden p-3 -mr-1 rounded-lg hover:bg-noir/5 transition-colors"
             onClick={() => setMenuOpen(v => !v)}
@@ -155,7 +159,7 @@ export default function Navbar({ offsetTop = false, logoOnly = false }) {
           ))}
         </div>
 
-        {/* CTA at bottom */}
+        {!hideWaitlist && (
         <div className="px-[5%] pb-8">
           <Link
             to="/liste-attente"
@@ -165,6 +169,7 @@ export default function Navbar({ offsetTop = false, logoOnly = false }) {
             Liste d'attente
           </Link>
         </div>
+        )}
       </div>
       )}
     </>
