@@ -6,12 +6,14 @@
 export const VIP_ONCE_CENTS = 29900
 export const VIP_3X_CENTS = 9999
 export const VIP_6X_CENTS = 4999
-export const STUDIO_ONCE_CENTS = 29900
-export const STUDIO_4X_CENTS = 7499
-export const STUDIO_6X_CENTS = 4999
+export const STUDIO_ONCE_CENTS = 49900
+export const STUDIO_4X_CENTS = 12475
+export const STUDIO_6X_CENTS = 8317
 
 /** false = /vente-vip reste en ligne, checkout VIP refusé. */
 export const VIP_SALES_OPEN = false
+/** false = /vente reste en ligne, checkout Studio refusé. */
+export const STUDIO_SALES_OPEN = true
 
 /** Image publique : Stripe la charge depuis internet (pas localhost). */
 const PRODUCT_IMAGE = 'https://yogyface.fr/logo-yogyface-dark.png'
@@ -20,7 +22,7 @@ const VIP_DESCRIPTION =
   'Avant-première plateforme · 299 € au lieu de 999 € · 18h de coaching · 12 mois d’accompagnement · diagnostic + renouvellement'
 
 const STUDIO_DESCRIPTION =
-  'Programme YoGyFace Studio · 299 € · 12h de coaching · 6 mois d’accompagnement · diagnostic'
+  'Programme YoGyFace Studio · 499 € · 12h de coaching · 6 mois d’accompagnement · diagnostic'
 
 export const PLANS = {
   'vip-once': {
@@ -90,7 +92,7 @@ export const PLANS = {
       unit_amount: STUDIO_4X_CENTS,
       recurring: { interval: 'month' },
       product_data: {
-        name: 'YoGyFace Studio (4 × 74,99 €)',
+        name: 'YoGyFace Studio (4 × 124,75 €)',
         description: `${STUDIO_DESCRIPTION} · 4 mensualités`,
         images: [PRODUCT_IMAGE],
       },
@@ -105,7 +107,7 @@ export const PLANS = {
       unit_amount: STUDIO_6X_CENTS,
       recurring: { interval: 'month' },
       product_data: {
-        name: 'YoGyFace Studio (6 × 49,99 €)',
+        name: 'YoGyFace Studio (6 × 83,17 €)',
         description: `${STUDIO_DESCRIPTION} · 6 mensualités`,
         images: [PRODUCT_IMAGE],
       },

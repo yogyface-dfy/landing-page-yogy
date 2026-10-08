@@ -1,5 +1,11 @@
 # Changelog
 
+## 2026-10-08
+
+### 🔧 Changed
+
+- **`/vente` (Studio)** : tarif **499 €** (999 € barré). Mensualités 4 × 124,75 € / 6 × 83,17 €.
+
 ## 2026-09-26
 
 ### ✨ Added
