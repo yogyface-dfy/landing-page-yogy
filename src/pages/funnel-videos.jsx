@@ -19,6 +19,7 @@ export default function FunnelVideos() {
         <div className="max-w-[800px] mx-auto relative z-10">
           <div className="text-center mb-10">
             <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-noir text-white text-[11px] font-semibold uppercase tracking-widest mb-4">
+              <span className="live-dot" aria-hidden="true" />
               Coaching live · <FunnelLiveDate />
             </div>
             <h1 className="font-display text-[clamp(1.6rem,4.5vw,2.6rem)] font-black leading-[1] tracking-tighter text-noir">
@@ -35,7 +36,7 @@ export default function FunnelVideos() {
                 <h2 className="font-display text-[clamp(1.25rem,3vw,1.7rem)] font-black leading-tight tracking-tight text-noir mb-4">
                   {v.title}
                 </h2>
-                <FunnelPlayer src={v.src} title={v.title} />
+                <FunnelPlayer src={v.src} title={v.title} poster={v.poster} />
               </article>
             ))}
           </div>

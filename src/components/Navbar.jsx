@@ -37,8 +37,9 @@ export default function Navbar({ offsetTop = false, logoOnly = false }) {
 
   return (
     <>
+    {/* Tunnel (logo seul) : pas de barre glass — le wash rose reste visible derrière. */}
     <nav className={`fixed ${offsetTop ? 'top-8' : 'top-0'} left-0 right-0 z-50 px-[5%] transition-all duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] ${
-      scrolled
+      scrolled && !logoOnly
         ? 'py-2.5 glass shadow-sm'
         : 'py-5 bg-transparent border-b border-transparent'
     }`}>

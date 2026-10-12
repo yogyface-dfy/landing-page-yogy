@@ -29,7 +29,7 @@ function GiftBody({ gift }) {
           href={gift.href}
           target="_blank"
           rel="noopener noreferrer"
-          className="btn-corail inline-flex text-sm px-8 py-3.5"
+          className="btn-corail inline-flex w-full sm:w-auto text-sm px-8 py-3.5"
         >
           Clique pour accéder à l'EBOOK
         </a>
@@ -48,7 +48,7 @@ function GiftBody({ gift }) {
           href={YOUTUBE_LAURY}
           target="_blank"
           rel="noopener noreferrer"
-          className="btn-secondary inline-flex text-sm px-8 py-3.5"
+          className="btn-secondary inline-flex w-full sm:w-auto text-sm px-8 py-3.5"
         >
           Suivre la page YouTube de Laury
         </a>
@@ -134,6 +134,7 @@ export default function FunnelCadeau() {
         <div className="max-w-[800px] mx-auto relative z-10">
           <div className="text-center mb-8">
             <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-noir text-white text-[11px] font-semibold uppercase tracking-widest mb-4">
+              <span className="live-dot" aria-hidden="true" />
               Coaching live · <FunnelLiveDate />
             </div>
             {all ? (

@@ -8,10 +8,16 @@ export default defineConfig({
   ssr: {
     noExternal: ['react-helmet-async'],
   },
-  // En dev local, proxy /api vers le serveur Express (npm run dev:server)
+  // IPv4 + IPv6, port figé. .env.local touché = plus de restart (page blanche).
   server: {
+    host: true,
+    port: 5173,
+    strictPort: true,
+    watch: {
+      ignored: ['**/.env.local', '**/.env', '**/CHANGELOG.md'],
+    },
     proxy: {
-      '/api': 'http://localhost:3001',
+      '/api': 'http://127.0.0.1:3003',
     },
   },
 })

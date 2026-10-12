@@ -4,7 +4,7 @@ import { useState } from 'react'
  * Lecteur landscape (façade play, puis <video>).
  * preload=metadata : les fichiers Systeme.io font 50–700 Mo.
  */
-export default function FunnelPlayer({ src, title }) {
+export default function FunnelPlayer({ src, title, poster }) {
   const [active, setActive] = useState(false)
   if (!src) return null
 
@@ -14,6 +14,7 @@ export default function FunnelPlayer({ src, title }) {
         <video
           className="absolute inset-0 h-full w-full"
           src={src}
+          poster={poster}
           controls
           playsInline
           autoPlay
@@ -28,10 +29,17 @@ export default function FunnelPlayer({ src, title }) {
           className="group absolute inset-0 h-full w-full bg-noir"
           aria-label={`Lire la vidéo : ${title}`}
         >
-          <span className="absolute inset-0 bg-gradient-to-br from-corail/25 to-noir" />
-          <span className="absolute left-1/2 top-1/2 flex h-16 w-16 -translate-x-1/2 -translate-y-1/2 items-center justify-center rounded-full bg-corail shadow-xl transition-transform group-hover:scale-110">
-            <PlayIcon />
-          </span>
+          {poster ? (
+            // Le PNG Systeme.io a déjà play + « Regarder ».
+            <img src={poster} alt="" className="absolute inset-0 h-full w-full object-cover" />
+          ) : (
+            <>
+              <span className="absolute inset-0 bg-gradient-to-br from-corail/25 to-noir" />
+              <span className="absolute left-1/2 top-1/2 flex h-16 w-16 -translate-x-1/2 -translate-y-1/2 items-center justify-center rounded-full bg-corail shadow-xl transition-transform group-hover:scale-110">
+                <PlayIcon />
+              </span>
+            </>
+          )}
         </button>
       )}
     </div>

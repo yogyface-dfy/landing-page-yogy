@@ -1,6 +1,6 @@
 /**
  * Tunnel d'acquisition (ex-Systeme.io). Pages hors nav / sitemap / Google.
- * Vidéos : CDN Systeme.io tant qu'elles n'ont pas été réhébergées.
+ * Vidéos bonus : MP4 CloudFront, posters locaux /videos/funnel-bonus-0*.png.
  */
 import { createRecord } from './airtable'
 import { captureEvent } from './analytics'
@@ -105,18 +105,21 @@ export const VIDEOS = [
     path: '/video-01',
     title: 'Les secrets cachés des lobbies cosmétiques et pharmaceutiques',
     src: `${CF}/69f31aa8dfc219.23664402_videobonus1.mp4`,
+    poster: '/videos/funnel-bonus-01.png',
   },
   {
     slug: '02',
     path: '/video-02',
     title: "Comment j'ai transformé ma souffrance en mission de vie",
     src: `${CF}/69f329caa730c0.98540995_VIDEOBONUS2_compressed.mp4`,
+    poster: '/videos/funnel-bonus-02.png',
   },
   {
     slug: '03',
     path: '/video-03',
     title: 'La vraie raison derrière ton manque de motivation',
     src: `${CF}/69f32a17481c30.20770819_V1VIDEOBONUS31_compressed.mp4`,
+    poster: '/videos/funnel-bonus-03.png',
   },
 ]
 
