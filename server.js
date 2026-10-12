@@ -77,6 +77,11 @@ const NOINDEX_PATHS = [
   '/video-01',
   '/video-02',
   '/video-03',
+  '/video-123',
+  '/cadeau1',
+  '/cadeau2',
+  '/cadeau3',
+  '/cadeaux-123',
   '/replay-gratuit',
   '/confirmation-achat-bienvenue',
 ]

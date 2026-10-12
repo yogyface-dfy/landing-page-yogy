@@ -12,6 +12,11 @@ export const FUNNEL_PATHS = [
   '/video-01',
   '/video-02',
   '/video-03',
+  '/video-123',
+  '/cadeau1',
+  '/cadeau2',
+  '/cadeau3',
+  '/cadeaux-123',
   '/replay-gratuit',
   '/confirmation-achat-bienvenue',
   '/merci-achat',
@@ -116,6 +121,51 @@ export const VIDEOS = [
 ]
 
 export const CONFIRM_VIDEO_SRC = `${CF}/6910b53c95f74_VALITADIONINSCRIPTIONSANSALICIA.mp4`
+
+export const YOUTUBE_LAURY = 'https://www.youtube.com/@LauryYoGyFace'
+
+/** Cadeaux drip (emails) : #2/#3 se déverrouillent page après page. */
+export const GIFTS = [
+  {
+    n: 1,
+    path: '/cadeau1',
+    title: 'Ta routine SKINCARE',
+    kind: 'video',
+    src: `${CF}/69383e21841c5_308-etapeskincare1.mp4`,
+    thumb: `${CF}/69495e11b515f_Capturedecran2025-12-22a16.04.42.png`,
+  },
+  {
+    n: 2,
+    path: '/cadeau2',
+    title: 'Ebook médecine chinoise',
+    kind: 'ebook',
+    href: `${CF}/6949551223569_Medecinechinoise-YogyfaceEbook.pdf`,
+    cover: `${CF}/694954c204e8c_Capturedecran2025-12-22a15.25.11.png`,
+    thumb: `${CF}/69495ac941244_Capturedecran2025-12-22a15.49.18.png`,
+  },
+  {
+    n: 3,
+    path: '/cadeau3',
+    title: 'Podcast',
+    kind: 'podcast',
+    youtubeId: '6fLqjMbjQpU',
+    youtubeStart: 1429,
+    subtitle:
+      '5 minutes par jour pour freiner le temps sans Botox : découvre le yoga du visage (+ démonstrations)',
+    thumb: `${CF}/694958b325c36_Capturedecran2025-09-01a17.31.39.png`,
+  },
+]
+
+export function giftFromPath(pathname) {
+  return GIFTS.find((g) => g.path === pathname) || GIFTS[0]
+}
+
+/** /cadeau1 → 1, /cadeau2 → 2, /cadeau3 et /cadeaux-123 → 3. */
+export function giftUnlockLevel(pathname) {
+  if (pathname === '/cadeau3' || pathname === '/cadeaux-123') return 3
+  if (pathname === '/cadeau2') return 2
+  return 1
+}
 
 /** Vide tant que le replay n'a pas de fichier (page Systeme.io = CTA vente). */
 export const REPLAY_VIDEO_SRC = ''

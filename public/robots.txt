@@ -12,6 +12,11 @@ Disallow: /confirmation-inscription
 Disallow: /video-01
 Disallow: /video-02
 Disallow: /video-03
+Disallow: /video-123
+Disallow: /cadeau1
+Disallow: /cadeau2
+Disallow: /cadeau3
+Disallow: /cadeaux-123
 Disallow: /replay-gratuit
 Disallow: /confirmation-achat-bienvenue
 
