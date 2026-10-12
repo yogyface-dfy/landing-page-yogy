@@ -4,6 +4,7 @@
 
 ### 🔧 Changed
 
+- **Atelier** : plus de dédoublonnage email — chaque inscription crée une nouvelle fiche Airtable.
 - **Canonique www** : `yogyface.fr` → `www.yogyface.fr` (301). Sitemap, canonical, JSON-LD et robots alignés.
 - **Vite local** : écoute IPv4+IPv6 sur **5173** (`strictPort`). Plus de restart à chaque touch de `.env.local`.
 

@@ -165,7 +165,7 @@ const sanitize = (value) =>
 const escapeFormula = (value) =>
   String(value).replace(/\\/g, '\\\\').replace(/'/g, "\\'")
 
-/** Doublon : même email déjà dans la table → on ne recrée pas la fiche. */
+/** Liste d'attente only : même email → on flag, on ne recrée pas. */
 async function findByEmail(table, email) {
   const { baseId, tableId } = airtableTarget(table)
   const formula = `LOWER({Email})=LOWER('${escapeFormula(email)}')`
@@ -234,15 +234,17 @@ app.post('/api/airtable', async (req, res) => {
       if (!email || !EMAIL_RE.test(String(email))) {
         return res.status(400).json({ error: 'Email invalide' })
       }
-      const existing = await findByEmail(table, email)
+      if (!cleanFields['Prénom']) cleanFields['Prénom'] = '—'
+    }
+
+    // Atelier : une fiche neuve à chaque submit (même email).
+    if (table === "Liste d'attente") {
+      const existing = await findByEmail(table, cleanFields.Email)
       if (existing) {
-        if (table === "Liste d'attente") {
-          const flagged = await flagWaitlistDuplicate(existing.id)
-          if (!flagged) return res.status(502).json({ error: 'Enregistrement impossible' })
-        }
+        const flagged = await flagWaitlistDuplicate(existing.id)
+        if (!flagged) return res.status(502).json({ error: 'Enregistrement impossible' })
         return res.json({ id: existing.id, existing: true })
       }
-      if (!cleanFields['Prénom']) cleanFields['Prénom'] = '—'
     }
 
     const { baseId, tableId } = airtableTarget(table)
