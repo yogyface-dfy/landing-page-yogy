@@ -4,7 +4,7 @@
 
 ### 🔧 Changed
 
-- **Navbar** : CTA « Se connecter » → `https://perso.yogyface.fr` (plus « Liste d'attente »).
+- **Navbar** : CTA « Mon Espace » → `https://perso.yogyface.fr` (plus « Liste d'attente »).
 
 ### 🐛 Fixed
 
