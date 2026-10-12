@@ -1,5 +1,11 @@
 # Changelog
 
+## 2026-10-13
+
+### 🐛 Fixed
+
+- **SEO HTML** : les URLs propres servent le fichier SSG (`/programme` → `programme.html`), plus le fallback SPA. 404 réelle. 301 `*.html` → URL propre. 301 `/yogyface-reset` → `/programme`, `/pol-co` → `/`.
+
 ## 2026-10-12
 
 ### 🔧 Changed

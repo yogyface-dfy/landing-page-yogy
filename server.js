@@ -16,6 +16,7 @@
  *   DATAFAST_BOT_TOKEN    — optionnel (dfbot_…) si auth Bot traffic activée
  */
 import express from 'express'
+import fs from 'fs'
 import path from 'path'
 import { fileURLToPath } from 'url'
 import dotenv from 'dotenv'
@@ -279,13 +280,39 @@ app.post('/api/stripe/checkout', createCheckoutSession)
 app.get('/api/stripe/session', getCheckoutSession)
 app.post('/api/stripe/upsell', chargeUpsell)
 
-// Sert le front buildé
-app.use(express.static(path.join(__dirname, 'dist')))
+const DIST = path.join(__dirname, 'dist')
+const NOT_FOUND = path.join(DIST, '404.html')
 
-// Fallback SPA : toute requête GET non gérée renvoie index.html
+// Vieilles URLs Systeme.io (GSC 404 / clics encore actifs).
+const LEGACY_REDIRECTS = {
+  '/yogyface-reset': '/programme',
+  '/pol-co': '/',
+}
+
 app.use((req, res, next) => {
-  if (req.method !== 'GET') return next()
-  res.sendFile(path.join(__dirname, 'dist', 'index.html'))
+  if (req.method !== 'GET' && req.method !== 'HEAD') return next()
+  const q = req.url.includes('?') ? req.url.slice(req.url.indexOf('?')) : ''
+  const dest = LEGACY_REDIRECTS[req.path]
+  if (dest) return res.redirect(301, dest + q)
+  // /programme.html → /programme (évite le doublon indexable).
+  if (req.path.endsWith('.html')) {
+    const clean = req.path === '/index.html' ? '/' : req.path.slice(0, -5)
+    return res.redirect(301, clean + q)
+  }
+  if (req.path.length > 1 && req.path.endsWith('/')) {
+    return res.redirect(301, req.path.slice(0, -1) + q)
+  }
+  next()
+})
+
+// /programme sert dist/programme.html (sinon Express tombait sur index.html).
+app.use(express.static(DIST, { extensions: ['html'] }))
+
+app.use((req, res, next) => {
+  if (req.method !== 'GET' && req.method !== 'HEAD') return next()
+  res.status(404)
+  if (fs.existsSync(NOT_FOUND)) return res.sendFile(NOT_FOUND)
+  res.type('html').send('Page introuvable')
 })
 
 const PORT = process.env.PORT || 3001

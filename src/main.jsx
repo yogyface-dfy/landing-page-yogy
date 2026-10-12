@@ -53,6 +53,8 @@ export const routes = [
       { path: 'mentions-legales', lazy: page(() => import('./pages/MentionsLegales')) },
       { path: 'cgv', lazy: page(() => import('./pages/CGV')) },
       { path: 'confidentialite', lazy: page(() => import('./pages/Confidentialite')) },
+      // Fichier dist/404.html — le serveur l’envoie avec le statut 404.
+      { path: '404', lazy: page(() => import('./pages/NotFound')) },
       // Événements : accessibles (protégés par mot de passe côté serveur), sans
       // lien visible dans la navigation. Prérendus pour la relecture.
       { path: 'evenements', lazy: page(() => import('./pages/Evenements')) },
