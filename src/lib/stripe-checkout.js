@@ -66,7 +66,7 @@ export async function startCheckoutSession({ plan, email, cancelPath }) {
     }),
   })
   const data = await res.json().catch(() => ({}))
-  // Checkout Session à nous : pixel /merci-achat dédupliqué avec la CAPI webhook.
+  // Checkout Session : pixel /confirmation-achat-bienvenue dédupliqué avec la CAPI.
   if (data.url) {
     stashPurchaseConversion({
       eventId,

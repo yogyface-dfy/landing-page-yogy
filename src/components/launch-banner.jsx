@@ -1,4 +1,5 @@
 import { Link, useLocation } from 'react-router-dom'
+import { isFunnelChrome } from '../lib/funnel'
 import { STUDIO_SALES_OPEN, VIP_SALES_OPEN } from '../lib/stripe-offers'
 
 const HOME_ITEMS = [
@@ -30,8 +31,8 @@ const HIDE = [
   '/vente-upsell-test',
 ]
 
-export function shouldShowLaunchBanner(pathname) {
-  return !HIDE.includes(pathname)
+export function shouldShowLaunchBanner(pathname, search = '') {
+  return !HIDE.includes(pathname) && !isFunnelChrome(pathname, search)
 }
 
 /** Une bande compacte : items collés, répétés, pr-6 = même espace entre les 2 tracks. */

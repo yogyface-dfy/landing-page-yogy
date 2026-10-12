@@ -1,5 +1,14 @@
 # Changelog
 
+## 2026-10-12
+
+### ✨ Added
+
+- **Tunnel acquisition** (ex-Systeme.io) : `/atelier-gratuit`, `/confirmation-inscription`, `/video-01` `/02` `/03`, `/replay-gratuit`, `/confirmation-achat-bienvenue`. Hors nav, sitemap et Google (`noindex` + `robots.txt` + `X-Robots-Tag`). Opt-in → base Airtable atelier (`AIRTABLE_ATELIER_BASE_ID` / `AIRTABLE_ATELIER_TABLE_ID`).
+- **Live atelier** : badge « Mardi [date] à 20h » (Paris). Passé 20h le mardi → mardi suivant.
+- **`/atelier-gratuit`** : formulaire en popup (clic + auto au scroll), 2e CTA en bas, footer légal (mentions / confidentialité / CGV).
+- **Légal depuis le tunnel** : `?from=funnel` — logo seul, pas de menu site, retour à l’atelier.
+
 ## 2026-10-08
 
 ### 🔧 Changed

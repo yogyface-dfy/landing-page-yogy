@@ -22,7 +22,7 @@ export default function VenteUpsell() {
   useEffect(() => {
     // Filet si une vieille session Stripe pointe encore ici.
     if (!UPSELL_ENABLED && !preview) {
-      navigate('/merci-achat', { replace: true })
+      navigate('/confirmation-achat-bienvenue', { replace: true })
       return
     }
     if (preview) {
@@ -43,7 +43,7 @@ export default function VenteUpsell() {
       .then((data) => {
         if (cancelled) return
         if (data.upsell?.alreadyTaken) {
-          navigate('/merci-achat?upsell=1', { replace: true })
+          navigate('/confirmation-achat-bienvenue?upsell=1', { replace: true })
           return
         }
         setState({ status: 'ready', offer: data.upsell, error: '' })
@@ -56,10 +56,10 @@ export default function VenteUpsell() {
 
   const skip = () => {
     if (preview) {
-      setState((s) => ({ ...s, error: 'Mode test — aucun débit, tu resterais sur /merci-achat.' }))
+      setState((s) => ({ ...s, error: 'Mode test — aucun débit, tu resterais sur /confirmation-achat-bienvenue.' }))
       return
     }
-    navigate('/merci-achat', { replace: true })
+    navigate('/confirmation-achat-bienvenue', { replace: true })
   }
 
   const accept = async () => {
@@ -82,7 +82,7 @@ export default function VenteUpsell() {
         return
       }
       if (!res.ok) throw new Error(data.error || 'Paiement refusé')
-      navigate('/merci-achat?upsell=1', { replace: true })
+      navigate('/confirmation-achat-bienvenue?upsell=1', { replace: true })
     } catch (err) {
       setState((s) => ({ ...s, error: err.message }))
       setBusy(false)
@@ -119,7 +119,7 @@ export default function VenteUpsell() {
               </p>
               <div className="flex flex-col items-center gap-3">
                 <Link
-                  to="/merci-achat"
+                  to="/confirmation-achat-bienvenue"
                   className="btn-corail inline-flex text-sm px-6 py-3"
                 >
                   Continuer

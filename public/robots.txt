@@ -7,5 +7,12 @@ Disallow: /vente
 Disallow: /vente-vip
 Disallow: /vente-upsell
 Disallow: /vente-upsell-test
+Disallow: /atelier-gratuit
+Disallow: /confirmation-inscription
+Disallow: /video-01
+Disallow: /video-02
+Disallow: /video-03
+Disallow: /replay-gratuit
+Disallow: /confirmation-achat-bienvenue
 
 Sitemap: https://yogyface.fr/sitemap.xml

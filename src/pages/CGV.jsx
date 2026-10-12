@@ -1,5 +1,5 @@
-import { Link } from 'react-router-dom'
 import SEO from '../components/SEO'
+import { FunnelLegalBack, FunnelLegalLink } from '../components/funnel-legal-nav'
 
 /* Numérotation interne : art. 10 = garantie, art. 11 = éligibilité (le brouillon Laury les fusionnait en « 11 »). */
 
@@ -12,6 +12,7 @@ export default function CGV() {
         path="/cgv"
       />
       <div className="max-w-[800px] mx-auto">
+        <FunnelLegalBack />
         <div className="animate-on-scroll section-badge" data-anim="fade">Légal</div>
         <h1 className="animate-on-scroll font-display text-[clamp(2rem,5vw,3.5rem)] font-black tracking-tighter text-noir mb-4">
           CONDITIONS GÉNÉRALES DE VENTE
@@ -146,7 +147,7 @@ export default function CGV() {
               <li><strong>Respect des coachs et de l'équipe :</strong> La Cliente s'engage à adopter un comportement respectueux à l'égard des coachs, intervenantes et membres de l'équipe participant au programme. Tout comportement agressif, insultant, menaçant, harcelant ou inapproprié pourra entraîner la suspension ou la résiliation de l'accès au programme, sans remboursement.</li>
               <li><strong>Non-sollicitation des coachs et intervenantes :</strong> Pendant la durée du programme et après son terme, la Cliente s'engage à ne pas solliciter directement, à des fins commerciales ou professionnelles, les coachs ou intervenantes participant au programme en dehors des canaux prévus par le Vendeur, ni à chercher à contourner le Vendeur dans le cadre des services proposés.</li>
               <li><strong>Programmes proposés par les coachs :</strong> Sauf accord exprès du Vendeur ou de la coach concernée, la Cliente s'engage à ne pas solliciter ou souscrire directement auprès d'une coach intervenant dans le programme à une prestation ou un programme proposé par celle-ci, lorsque cette démarche a pour objet de contourner le programme ou le Vendeur.</li>
-              <li><strong>Données personnelles :</strong> Conformément au RGPD. Contact : <a href="mailto:contact@yogyface.fr" className="text-corail hover:underline">contact@yogyface.fr</a>. Représentant UE (article 27) : DataRep — <a href="mailto:datarequest@datarep.com?subject=YGF%20LLC" className="text-corail hover:underline">datarequest@datarep.com</a> (objet : « YGF LLC »). Détails : <Link to="/confidentialite" className="text-corail hover:underline">Politique de Confidentialité</Link></li>
+              <li><strong>Données personnelles :</strong> Conformément au RGPD. Contact : <a href="mailto:contact@yogyface.fr" className="text-corail hover:underline">contact@yogyface.fr</a>. Représentant UE (article 27) : DataRep — <a href="mailto:datarequest@datarep.com?subject=YGF%20LLC" className="text-corail hover:underline">datarequest@datarep.com</a> (objet : « YGF LLC »). Détails : <FunnelLegalLink to="/confidentialite" className="text-corail hover:underline">Politique de Confidentialité</FunnelLegalLink></li>
               <li><strong>Droit applicable :</strong> Droit de l'État du Wyoming (États-Unis). Tribunaux compétents de Sheridan, Wyoming. Les consommatrices résidant dans l'Union européenne conservent le bénéfice des dispositions impératives de protection des consommateurs de leur pays de résidence.</li>
               <li><strong>Réclamation :</strong> Toute réclamation peut être adressée à <a href="mailto:contact@yogyface.fr" className="text-corail hover:underline">contact@yogyface.fr</a></li>
             </ul>

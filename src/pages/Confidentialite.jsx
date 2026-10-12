@@ -1,4 +1,5 @@
 import SEO from '../components/SEO'
+import { FunnelLegalBack } from '../components/funnel-legal-nav'
 
 export default function Confidentialite() {
   return (
@@ -9,6 +10,7 @@ export default function Confidentialite() {
         path="/confidentialite"
       />
       <div className="max-w-[800px] mx-auto">
+        <FunnelLegalBack />
         <div className="animate-on-scroll section-badge" data-anim="fade">Légal</div>
         <h1 className="animate-on-scroll font-display text-[clamp(2rem,5vw,3.5rem)] font-black tracking-tighter text-noir mb-4">
           POLITIQUE DE CONFIDENTIALITÉ

@@ -8,6 +8,7 @@ import CookieConsent from './CookieConsent'
 import { initAnalytics, capturePageview } from '../lib/analytics'
 import { captureMetaPageview } from '../lib/meta-pixel'
 import { SHOW_TRUSTPILOT } from '../lib/trustpilot'
+import { isFunnelChrome } from '../lib/funnel'
 import { WAITLIST_OPEN, isWaitlistPath } from '../lib/waitlist'
 
 /* JSON-LD structured data for Google rich results */
@@ -59,13 +60,14 @@ const personJsonLd = {
 }
 
 export default function Layout() {
-  const { pathname } = useLocation()
+  const { pathname, search } = useLocation()
   // Tunnel upsell : Oui / Non uniquement — pas de nav, footer, cookies, ticker.
   const bare = pathname === '/vente-upsell' || pathname === '/vente-upsell-test'
-  // Offre + liste fermée : logo seul, pas de nav/footer — aucun chemin vers /vente*.
+  // Offre + liste fermée + légal depuis le tunnel : logo seul, pas de nav/footer.
   const funnel =
     pathname === '/vente' ||
     pathname === '/vente-vip' ||
+    isFunnelChrome(pathname, search) ||
     (isWaitlistPath(pathname) && !WAITLIST_OPEN)
 
   /* Analytics : (ré)active PostHog si le consentement a déjà été donné. */
@@ -191,9 +193,9 @@ export default function Layout() {
         <script type="application/ld+json">{JSON.stringify(websiteJsonLd)}</script>
         <script type="application/ld+json">{JSON.stringify(personJsonLd)}</script>
       </Head>
-      {!bare && shouldShowLaunchBanner(pathname) && <LaunchBanner />}
-      {!bare && <Navbar logoOnly={funnel} offsetTop={shouldShowLaunchBanner(pathname)} />}
-      <main className={!bare && shouldShowLaunchBanner(pathname) ? 'pt-8' : ''}>
+      {!bare && shouldShowLaunchBanner(pathname, search) && <LaunchBanner />}
+      {!bare && <Navbar logoOnly={funnel} offsetTop={shouldShowLaunchBanner(pathname, search)} />}
+      <main className={!bare && shouldShowLaunchBanner(pathname, search) ? 'pt-8' : ''}>
         {/* Suspense : fallback pendant le chargement des chunks de page (code-splitting) */}
         <Suspense fallback={<div className="min-h-screen" />}>
           <Outlet />

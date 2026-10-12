@@ -118,7 +118,7 @@ export function consumeWaitlistConversion() {
 const PURCHASE_KEY = 'yf_purchase'
 const PURCHASE_TTL_MS = 2 * 60 * 60 * 1000
 
-/** Stash avant Stripe — pixel sur /merci-achat, même event_id que la CAPI webhook. */
+/** Stash avant Stripe — pixel sur /confirmation-achat-bienvenue, même event_id que la CAPI. */
 export function stashPurchaseConversion({ eventId, plan, email, value, contentName }) {
   try {
     sessionStorage.setItem(

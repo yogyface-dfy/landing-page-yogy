@@ -1,5 +1,5 @@
-import { Link } from 'react-router-dom'
 import SEO from '../components/SEO'
+import { FunnelLegalBack, FunnelLegalLink } from '../components/funnel-legal-nav'
 
 export default function MentionsLegales() {
   return (
@@ -10,6 +10,7 @@ export default function MentionsLegales() {
         path="/mentions-legales"
       />
       <div className="max-w-[800px] mx-auto">
+        <FunnelLegalBack />
         <div className="animate-on-scroll section-badge" data-anim="fade">Légal</div>
         <h1 className="animate-on-scroll font-display text-[clamp(2rem,5vw,3.5rem)] font-black tracking-tighter text-noir mb-4">
           MENTIONS LÉGALES
@@ -64,7 +65,7 @@ export default function MentionsLegales() {
             <h2 className="font-display font-black text-xl tracking-tight text-noir mb-3">Article 7 — Données personnelles</h2>
             <p>Les données personnelles collectées sont traitées conformément au RGPD. Vous disposez d'un droit d'accès, de rectification et de suppression en contactant <a href="mailto:contact@yogyface.fr" className="text-corail hover:underline">contact@yogyface.fr</a>.</p>
             <p className="mt-2">YGF LLC a désigné <strong>DataRep</strong> (Data Protection Representative Limited, 12 Northbrook Road, Dublin, D06 E8W5, Irlande) comme représentant dans l'Union européenne au titre de l'article 27 du RGPD. Contact : <a href="mailto:datarequest@datarep.com?subject=YGF%20LLC" className="text-corail hover:underline">datarequest@datarep.com</a> (objet : « YGF LLC »).</p>
-            <p className="mt-2">Pour plus de détails, consultez notre <Link to="/confidentialite" className="text-corail hover:underline">Politique de Confidentialité</Link>.</p>
+            <p className="mt-2">Pour plus de détails, consultez notre <FunnelLegalLink to="/confidentialite" className="text-corail hover:underline">Politique de Confidentialité</FunnelLegalLink>.</p>
           </div>
 
           <div>

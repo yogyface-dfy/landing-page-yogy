@@ -1,12 +1,14 @@
 import { useState, useEffect } from 'react'
-import { Link } from 'react-router-dom'
+import { Link, useLocation } from 'react-router-dom'
 import { getConsent, grantConsent, denyConsent } from '../lib/analytics'
+import { isFunnelChrome, legalTo } from '../lib/funnel'
 
 // Bandeau RGPD : PostHog + Meta + cookies DataFast. Refus = DataFast cookieless.
 // La décision d'affichage se fait après montage (accès à localStorage côté
 // client uniquement) : pas de bannière dans le HTML prérendu (SSG), et pas de
 // désynchronisation d'hydratation pour les visiteurs ayant déjà choisi.
 export default function CookieConsent() {
+  const { pathname, search } = useLocation()
   const [visible, setVisible] = useState(false)
 
   useEffect(() => {
@@ -32,7 +34,7 @@ export default function CookieConsent() {
         rendre tes prochaines visites plus simples. Tu peux accepter ou
         refuser — ça ne change rien à ta lecture.{' '}
         <Link
-          to="/confidentialite"
+          to={legalTo('/confidentialite', isFunnelChrome(pathname, search))}
           className="underline underline-offset-2 hover:text-corail"
         >
           En savoir plus

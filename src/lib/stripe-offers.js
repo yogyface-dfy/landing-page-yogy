@@ -129,7 +129,7 @@ export function purchaseContentName(plan) {
   return 'YoGyFace'
 }
 
-/** Post-achat 1:1. `false` = après Stripe on va sur /merci-achat (pas /vente-upsell). */
+/** Post-achat 1:1. `false` = après Stripe on va sur /confirmation-achat-bienvenue. */
 export const UPSELL_ENABLED = false
 
 /** Post-achat 1 clic — 1 € le temps des tests, à remettre au tarif réel avant le live. */

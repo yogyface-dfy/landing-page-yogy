@@ -6,7 +6,8 @@
  *
  * Variables d'environnement requises (SANS préfixe VITE_) :
  *   AIRTABLE_PAT      — Personal Access Token (data.records:write + :read)
- *   AIRTABLE_BASE_ID  — Base ID (commence par "app...")
+ *   AIRTABLE_BASE_ID  — Base ID liste d'attente / contact (commence par "app...")
+ *   AIRTABLE_ATELIER_BASE_ID / AIRTABLE_ATELIER_TABLE_ID — tunnel /atelier-gratuit
  *   STRIPE_SECRET_KEY — Checkout Session + upsell (fallback Payment Link si absente)
  *   STRIPE_WEBHOOK_SECRET — signature /api/stripe/webhook (3× : schedule 3 mois)
  *   META_CAPI_TOKEN       — Events Manager → Pixel 604268118937812 (serveur only)
@@ -64,7 +65,21 @@ app.use((req, res, next) => {
 })
 
 // Pages privées (emails / liste d'attente) : noindex même si un bot ignore la meta.
-const NOINDEX_PATHS = ['/merci-liste-attente', '/merci-achat', '/vente', '/vente-vip', '/vente-upsell', '/vente-upsell-test']
+const NOINDEX_PATHS = [
+  '/merci-liste-attente',
+  '/merci-achat',
+  '/vente',
+  '/vente-vip',
+  '/vente-upsell',
+  '/vente-upsell-test',
+  '/atelier-gratuit',
+  '/confirmation-inscription',
+  '/video-01',
+  '/video-02',
+  '/video-03',
+  '/replay-gratuit',
+  '/confirmation-achat-bienvenue',
+]
 app.use((req, res, next) => {
   if (NOINDEX_PATHS.some((p) => req.path === p || req.path.startsWith(p + '/'))) {
     res.set('X-Robots-Tag', 'noindex, nofollow')
@@ -116,14 +131,26 @@ app.use((req, res, next) => {
 
 const PAT = process.env.AIRTABLE_PAT
 const BASE_ID = process.env.AIRTABLE_BASE_ID
+// Tunnel atelier : autre base que la liste d'attente.
+const ATELIER_BASE_ID = process.env.AIRTABLE_ATELIER_BASE_ID || 'appSz9eVZWu6PoA2A'
+const ATELIER_TABLE_ID = process.env.AIRTABLE_ATELIER_TABLE_ID || 'tblgeGEVgkZnDxwfR'
 
 // Allowlist : seules ces tables sont accessibles via l'API publique
-const ALLOWED_TABLES = new Set(['Messages Contact', "Liste d'attente"])
+const ALLOWED_TABLES = new Set(['Messages Contact', "Liste d'attente", 'Atelier gratuit'])
 
 // Champs autorisés par table (empêche l'injection de champs arbitraires)
 const ALLOWED_FIELDS = {
   'Messages Contact': ['Nom', 'Email', 'Sujet', 'Message'],
   "Liste d'attente": ['Prénom', 'Email', 'Phone'],
+  'Atelier gratuit': ['Prénom', 'Email', 'Phone', 'Source', 'formName'],
+}
+
+/** Base + id table Airtable (le client n'envoie que le nom logique). */
+function airtableTarget(table) {
+  if (table === 'Atelier gratuit') {
+    return { baseId: ATELIER_BASE_ID, tableId: ATELIER_TABLE_ID }
+  }
+  return { baseId: BASE_ID, tableId: table }
 }
 
 const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
@@ -135,11 +162,12 @@ const sanitize = (value) =>
 const escapeFormula = (value) =>
   String(value).replace(/\\/g, '\\\\').replace(/'/g, "\\'")
 
-/** Doublon : même email déjà sur la liste → on ne recrée pas la fiche. */
-async function findWaitlistByEmail(email) {
+/** Doublon : même email déjà dans la table → on ne recrée pas la fiche. */
+async function findByEmail(table, email) {
+  const { baseId, tableId } = airtableTarget(table)
   const formula = `LOWER({Email})=LOWER('${escapeFormula(email)}')`
   const url =
-    `https://api.airtable.com/v0/${BASE_ID}/${encodeURIComponent("Liste d'attente")}` +
+    `https://api.airtable.com/v0/${baseId}/${encodeURIComponent(tableId)}` +
     `?maxRecords=1&filterByFormula=${encodeURIComponent(formula)}`
   const r = await fetch(url, { headers: { Authorization: `Bearer ${PAT}` } })
   if (!r.ok) {
@@ -148,6 +176,10 @@ async function findWaitlistByEmail(email) {
   }
   const data = await r.json().catch(() => ({}))
   return data.records?.[0] || null
+}
+
+async function findWaitlistByEmail(email) {
+  return findByEmail("Liste d'attente", email)
 }
 
 /** 2ᵉ inscription (formulaire ou lien email) : flag pour l'automation mail. */
@@ -194,22 +226,25 @@ app.post('/api/airtable', async (req, res) => {
       if (fields[key] !== undefined) cleanFields[key] = sanitize(fields[key])
     }
 
-    if (table === "Liste d'attente") {
+    if (table === "Liste d'attente" || table === 'Atelier gratuit') {
       const email = cleanFields.Email
       if (!email || !EMAIL_RE.test(String(email))) {
         return res.status(400).json({ error: 'Email invalide' })
       }
-      const existing = await findWaitlistByEmail(email)
+      const existing = await findByEmail(table, email)
       if (existing) {
-        const flagged = await flagWaitlistDuplicate(existing.id)
-        if (!flagged) return res.status(502).json({ error: 'Enregistrement impossible' })
+        if (table === "Liste d'attente") {
+          const flagged = await flagWaitlistDuplicate(existing.id)
+          if (!flagged) return res.status(502).json({ error: 'Enregistrement impossible' })
+        }
         return res.json({ id: existing.id, existing: true })
       }
       if (!cleanFields['Prénom']) cleanFields['Prénom'] = '—'
     }
 
+    const { baseId, tableId } = airtableTarget(table)
     const r = await fetch(
-      `https://api.airtable.com/v0/${BASE_ID}/${encodeURIComponent(table)}`,
+      `https://api.airtable.com/v0/${baseId}/${encodeURIComponent(tableId)}`,
       {
         method: 'POST',
         headers: {
