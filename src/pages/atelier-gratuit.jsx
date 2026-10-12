@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom'
 import SEO from '../components/SEO'
 import FunnelLiveDate from '../components/funnel-live-date'
 import FunnelOptinModal from '../components/funnel-optin-modal'
+import { stashAttribution } from '../lib/attribution'
 import { legalTo } from '../lib/funnel'
 
 // Photos originales Systeme.io, stockées en local.
@@ -52,6 +53,11 @@ export default function AtelierGratuit() {
     } catch {
       /* private mode */
     }
+  }, [])
+
+  // UTM / ads : stash à l’arrivée, avant que l’URL ne soit nettoyée.
+  useEffect(() => {
+    stashAttribution()
   }, [])
 
   // Auto-ouverture une fois, après un scroll hors du hero.

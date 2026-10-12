@@ -16,7 +16,7 @@ export const VIP_SALES_OPEN = false
 export const STUDIO_SALES_OPEN = true
 
 /** Image publique : Stripe la charge depuis internet (pas localhost). */
-const PRODUCT_IMAGE = 'https://yogyface.fr/logo-yogyface-dark.png'
+const PRODUCT_IMAGE = 'https://www.yogyface.fr/logo-yogyface-dark.png'
 
 const VIP_DESCRIPTION =
   'Avant-première plateforme · 299 € au lieu de 999 € · 18h de coaching · 12 mois d’accompagnement · diagnostic + renouvellement'

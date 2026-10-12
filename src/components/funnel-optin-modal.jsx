@@ -51,6 +51,7 @@ export default function FunnelOptinModal({ open, onClose }) {
         email: form.email,
         prenom: form.prenom,
         phone: phone || undefined,
+        country: form.iso,
       })
       navigate('/confirmation-inscription')
     } catch (err) {

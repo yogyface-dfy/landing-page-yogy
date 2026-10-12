@@ -8,7 +8,7 @@ const CONSENT_KEY = 'yf_consent'
 const KEY = import.meta.env.VITE_POSTHOG_KEY
 const HOST = import.meta.env.VITE_POSTHOG_HOST || 'https://eu.i.posthog.com'
 const DATAFAST_WEBSITE_ID = 'dfid_VK30OLHyu2v9ALKIQfjxn'
-const DATAFAST_DOMAIN = 'yogyface.fr'
+const DATAFAST_DOMAIN = 'www.yogyface.fr'
 
 let ph = null // instance PostHog une fois chargée
 let phPromise = null // évite les chargements concurrents

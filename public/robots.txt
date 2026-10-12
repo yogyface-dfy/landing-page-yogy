@@ -20,4 +20,4 @@ Disallow: /cadeaux-123
 Disallow: /replay-gratuit
 Disallow: /confirmation-achat-bienvenue
 
-Sitemap: https://yogyface.fr/sitemap.xml
+Sitemap: https://www.yogyface.fr/sitemap.xml

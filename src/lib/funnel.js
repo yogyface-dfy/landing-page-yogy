@@ -4,6 +4,7 @@
  */
 import { createRecord } from './airtable'
 import { captureEvent } from './analytics'
+import { readAttribution } from './attribution'
 import { isValidEmail, rememberPrefillEmail } from './stripe-checkout'
 
 export const FUNNEL_PATHS = [
@@ -177,15 +178,19 @@ export function videoFromPath(pathname) {
   return VIDEOS.find((v) => v.path === pathname) || VIDEOS[0]
 }
 
-export async function enrollAtelier({ email, prenom, phone } = {}) {
+export async function enrollAtelier({ email, prenom, phone, country } = {}) {
   if (!isValidEmail(email)) throw new Error('Email invalide')
   const fields = {
     Email: email.trim(),
     Prénom: (prenom && String(prenom).trim()) || '—',
-    Source: 'yogyface.fr/atelier-gratuit',
+    Source: 'www.yogyface.fr/atelier-gratuit',
     formName: 'atelier-gratuit',
   }
   if (phone) fields.Phone = phone
+  // ISO du sélecteur téléphone (FR, BE…) — colonne Airtable Country.
+  const iso = String(country || '').trim().toUpperCase()
+  if (/^[A-Z]{2}$/.test(iso)) fields.Country = iso
+  Object.assign(fields, readAttribution())
   // Nom logique : le serveur mappe vers tblgeGEVgkZnDxwfR (autre base).
   const result = await createRecord('Atelier gratuit', fields)
   rememberPrefillEmail(email)

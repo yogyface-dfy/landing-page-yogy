@@ -5,10 +5,10 @@
 import { writeFileSync } from 'node:fs'
 import { dirname, join } from 'node:path'
 import { fileURLToPath } from 'node:url'
+import { SITE } from '../src/lib/site.js'
 
 const __dirname = dirname(fileURLToPath(import.meta.url))
 const root = join(__dirname, '..')
-const SITE = 'https://yogyface.fr'
 const TODAY = new Date().toISOString().slice(0, 10)
 
 // Pages statiques (loc, priority, changefreq).

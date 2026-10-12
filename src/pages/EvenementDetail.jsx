@@ -2,6 +2,7 @@ import { useParams, Link, Navigate } from "react-router-dom";
 import { Head } from "vite-react-ssg";
 import SEO from "../components/SEO";
 import events from "../data/events";
+import { SITE } from "../lib/site";
 
 export default function EvenementDetail() {
   const { id } = useParams();
@@ -19,8 +20,8 @@ export default function EvenementDetail() {
     description: ev.longDescription,
     eventAttendanceMode: "https://schema.org/OfflineEventAttendanceMode",
     organizer: { "@type": "Organization", name: ev.brand },
-    performer: { "@id": "https://yogyface.fr/#laury" },
-    ...(ev.img && { image: `https://yogyface.fr${ev.img}` }),
+    performer: { "@id": `${SITE}/#laury` },
+    ...(ev.img && { image: `${SITE}${ev.img}` }),
     ...(!isPlaceholder && { startDate: ev.date }),
     ...(!isPlaceholder && {
       location: { "@type": "Place", name: ev.location },
@@ -31,9 +32,9 @@ export default function EvenementDetail() {
     "@context": "https://schema.org",
     "@type": "BreadcrumbList",
     itemListElement: [
-      { "@type": "ListItem", position: 1, name: "Accueil", item: "https://yogyface.fr/" },
-      { "@type": "ListItem", position: 2, name: "Événements", item: "https://yogyface.fr/evenements" },
-      { "@type": "ListItem", position: 3, name: ev.title, item: `https://yogyface.fr/evenements/${ev.id}` },
+      { "@type": "ListItem", position: 1, name: "Accueil", item: `${SITE}/` },
+      { "@type": "ListItem", position: 2, name: "Événements", item: `${SITE}/evenements` },
+      { "@type": "ListItem", position: 3, name: ev.title, item: `${SITE}/evenements/${ev.id}` },
     ],
   };
 

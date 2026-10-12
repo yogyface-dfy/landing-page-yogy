@@ -27,6 +27,7 @@ import {
   handleStripeWebhook,
 } from './lib/stripe-server.js'
 import { handleCapiEvent } from './lib/meta-capi.js'
+import { ATTRIBUTION_KEYS } from './src/lib/attribution.js'
 
 // En local les secrets sont dans .env.local (convention Vite).
 // Sur Railway, les variables sont déjà dans process.env : ces appels sont no-op.
@@ -42,7 +43,7 @@ app.set('trust proxy', 1)
 app.use(
   createExpressAICrawlerMiddleware({
     websiteId: 'dfid_VK30OLHyu2v9ALKIQfjxn',
-    publicOrigin: 'https://yogyface.fr',
+    publicOrigin: 'https://www.yogyface.fr',
     authToken: process.env.DATAFAST_BOT_TOKEN || undefined,
   }),
 )
@@ -92,14 +93,11 @@ app.use((req, res, next) => {
   next()
 })
 
-// Canonicalisation du domaine : on force www.yogyface.fr → yogyface.fr (apex)
-// en 301. Indispensable pour que Google n'indexe qu'UNE seule version (l'apex,
-// qui correspond aux balises canonical et au sitemap) et évite le doublon www.
-// N'a d'effet que si le DNS du www pointe bien vers cette app (Railway).
+// Canonique = www. L’apex yogyface.fr → www (301). Pas le domaine Railway.
 app.use((req, res, next) => {
-  const host = req.headers.host || ''
-  if (host.startsWith('www.')) {
-    return res.redirect(301, `https://${host.slice(4)}${req.originalUrl}`)
+  const host = (req.headers.host || '').split(':')[0]
+  if (host === 'yogyface.fr') {
+    return res.redirect(301, `https://www.yogyface.fr${req.originalUrl}`)
   }
   next()
 })
@@ -147,7 +145,7 @@ const ALLOWED_TABLES = new Set(['Messages Contact', "Liste d'attente", 'Atelier 
 const ALLOWED_FIELDS = {
   'Messages Contact': ['Nom', 'Email', 'Sujet', 'Message'],
   "Liste d'attente": ['Prénom', 'Email', 'Phone'],
-  'Atelier gratuit': ['Prénom', 'Email', 'Phone', 'Source', 'formName'],
+  'Atelier gratuit': ['Prénom', 'Email', 'Phone', 'Country', 'Source', 'formName', ...ATTRIBUTION_KEYS],
 }
 
 /** Base + id table Airtable (le client n'envoie que le nom logique). */

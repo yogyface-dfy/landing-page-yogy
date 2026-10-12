@@ -4,8 +4,7 @@ import SEO from '../components/SEO'
 import YouTubeEmbed from '../components/YouTubeEmbed'
 import { getArticle } from '../lib/articles'
 import { formatDate } from '../lib/formatDate'
-
-const SITE = 'https://yogyface.fr'
+import { SITE } from '../lib/site'
 
 // Construit une URL absolue pour l'image de partage social.
 const socialImage = (a) => {

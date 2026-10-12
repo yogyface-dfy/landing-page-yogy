@@ -10,18 +10,19 @@ import { captureMetaPageview } from '../lib/meta-pixel'
 import { SHOW_TRUSTPILOT } from '../lib/trustpilot'
 import { isFunnelChrome } from '../lib/funnel'
 import { WAITLIST_OPEN, isWaitlistPath } from '../lib/waitlist'
+import { SITE } from '../lib/site'
 
 /* JSON-LD structured data for Google rich results */
 const jsonLd = {
   '@context': 'https://schema.org',
   '@type': 'HealthAndBeautyBusiness',
-  '@id': 'https://yogyface.fr/#business',
+  '@id': `${SITE}/#business`,
   name: 'YoGyFace',
   description: 'Méthode RESET™ de yoga du visage par Laury. Programmes personnalisés pour tonifier, lifter et rajeunir le visage naturellement.',
-  url: 'https://yogyface.fr',
-  logo: 'https://yogyface.fr/favicon.png',
-  image: 'https://yogyface.fr/og-image.jpg?v=20260830',
-  founder: { '@id': 'https://yogyface.fr/#laury' },
+  url: SITE,
+  logo: `${SITE}/favicon.png`,
+  image: `${SITE}/og-image.jpg?v=20260830`,
+  founder: { '@id': `${SITE}/#laury` },
   email: 'contact@yogyface.fr',
   sameAs: [
     'https://www.instagram.com/yogyface/',
@@ -35,24 +36,24 @@ const jsonLd = {
 const websiteJsonLd = {
   '@context': 'https://schema.org',
   '@type': 'WebSite',
-  '@id': 'https://yogyface.fr/#website',
+  '@id': `${SITE}/#website`,
   name: 'YoGyFace',
   alternateName: 'YoGyFace — Yoga du visage & anti-âge naturel',
-  url: 'https://yogyface.fr',
+  url: SITE,
   inLanguage: 'fr-FR',
-  publisher: { '@id': 'https://yogyface.fr/#business' },
+  publisher: { '@id': `${SITE}/#business` },
 }
 
 /* Standalone Person schema for Laury (E-E-A-T) */
 const personJsonLd = {
   '@context': 'https://schema.org',
   '@type': 'Person',
-  '@id': 'https://yogyface.fr/#laury',
+  '@id': `${SITE}/#laury`,
   name: 'Laury Anater',
   jobTitle: 'Fondatrice & experte en yoga du visage',
   description: "Fondatrice de YoGyFace et créatrice de la méthode RESET™. Plus de 10 ans d'expérience dans les plus grands laboratoires cosmétiques (Chanel, L'Oréal, Weleda), formée auprès de Sylvie LeFranc, Ena Narumi et Fumiko Takatsu.",
-  url: 'https://yogyface.fr/about',
-  worksFor: { '@id': 'https://yogyface.fr/#business' },
+  url: `${SITE}/about`,
+  worksFor: { '@id': `${SITE}/#business` },
   sameAs: [
     'https://www.instagram.com/yogyface/',
     'https://www.youtube.com/@LauryYoGyFace',

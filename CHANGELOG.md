@@ -4,6 +4,7 @@
 
 ### 🔧 Changed
 
+- **Canonique www** : `yogyface.fr` → `www.yogyface.fr` (301). Sitemap, canonical, JSON-LD et robots alignés.
 - **Vite local** : écoute IPv4+IPv6 sur **5173** (`strictPort`). Plus de restart à chaque touch de `.env.local`.
 
 ### ✨ Added
@@ -13,7 +14,7 @@
 - **Miniatures bonus** : posters `/videos/funnel-bonus-01.png` `/02` `/03` sur `/video-01` `/02` `/03` et `/video-123`.
 - **`/video-01` `/02` `/03`** : playlist à droite (miniatures nettes / floutées selon le jour du drip). WhatsApp + espace perso en 2 étapes, sur les 3 pages. Point live clignotant + CTA qui pulse.
 - **Live atelier** : badge « Mardi [date] à 20h » (Paris). Passé 20h le mardi → mardi suivant.
-- **`/atelier-gratuit`** : formulaire en popup (clic + auto au scroll), 2e CTA en bas, footer légal (mentions / confidentialité / CGV). Photos originales Systeme.io : collage Laury + visages fondus au hero, 3 photos au-dessus des cartes « TU VAS apprendre ». Wash rose continu sous le header (plus de coupure blanche). Espacement resserré entre le CTA et « TU VAS apprendre ».
+- **`/atelier-gratuit`** : formulaire en popup (clic + auto au scroll), 2e CTA en bas, footer légal (mentions / confidentialité / CGV). Photos originales Systeme.io : collage Laury + visages fondus au hero, 3 photos au-dessus des cartes « TU VAS apprendre ». Wash rose continu sous le header (plus de coupure blanche). Espacement resserré entre le CTA et « TU VAS apprendre ». Opt-in : ISO pays → `Country`. UTM / ads (`utm_source`, `utm_medium`, `utm_campaign`, `utm_content`, `campaign_id`, `campaign_name`, `adset_id`, `ad_name`, `adgroup_name`, `placement`) si présents dans l’URL.
 - **Légal depuis le tunnel** : `?from=funnel` — logo seul, pas de menu site, retour à l’atelier.
 
 ## 2026-10-08
