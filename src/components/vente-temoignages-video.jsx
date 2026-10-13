@@ -50,10 +50,10 @@ export default function VenteTemoignagesVideo() {
       >
         <p className="section-badge justify-center">Elles en parlent</p>
         <h2 className="font-display text-[clamp(1.6rem,4vw,2.6rem)] font-black tracking-tighter text-noir">
-          DES VOIX RÉELLES,
+          LES CLIENTES
           <br />
           <span className="font-serif italic text-corail font-semibold">
-            pas des slogans
+            en parlent
           </span>
         </h2>
       </div>

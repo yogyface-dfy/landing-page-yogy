@@ -12,12 +12,31 @@ export default function VenteGarantie() {
   return (
     <section className="py-14 md:py-20 px-[5%] bg-creme">
       <div className="max-w-[880px] mx-auto">
-        <p className="text-[11px] font-semibold uppercase tracking-[0.2em] text-noir/30 mb-2">
-          La garantie YoGyFace
-        </p>
-        <h2 className="font-display font-black tracking-tighter text-noir text-[clamp(1.7rem,4.2vw,2.6rem)] leading-[0.95] mb-8">
-          Tu ne prends pas de risque
+        <h2 className="font-display font-black tracking-tighter text-noir text-[clamp(1.45rem,3.6vw,2.2rem)] leading-[1.05] mb-5">
+          Garantie YoGyFace : remboursée en totalité si tu ne vois aucune
+          amélioration.
         </h2>
+        <div className="text-gris text-[15px] leading-relaxed space-y-3 mb-8">
+          <p>
+            Je propose cette garantie car, après avoir accompagné des centaines
+            de femmes, je suis sûre qu'en pratiquant tu obtiendras des
+            résultats.
+          </p>
+          <p>
+            Si tu remplis ces conditions et que tu ne vois pas de résultats
+            après 6 mois, je te rembourse.
+          </p>
+          <p>
+            Demande par e-mail à{" "}
+            <a
+              href="mailto:contact@yogyface.fr"
+              className="font-semibold text-noir underline hover:text-corail"
+            >
+              contact@yogyface.fr
+            </a>{" "}
+            à la fin des 6 mois.
+          </p>
+        </div>
 
         <div className="grid md:grid-cols-2 gap-3 md:gap-4 items-stretch">
           <div className="rounded-2xl bg-white p-6 md:p-8">

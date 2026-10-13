@@ -3,8 +3,8 @@ import { Link, useSearchParams } from "react-router-dom";
 import SEO from "./SEO";
 import VenteResultats from "./vente-resultats";
 import VentePlateforme from "./vente-plateforme";
-import VenteReconnaissance from "./vente-reconnaissance";
-import VenteEchecs from "./vente-echecs";
+// import VenteReconnaissance from "./vente-reconnaissance";
+// import VenteEchecs from "./vente-echecs";
 import VenteTemoignagesVideo from "./vente-temoignages-video";
 import VenteValeur from "./vente-valeur";
 import VenteGarantie from "./vente-garantie";
@@ -669,11 +669,11 @@ export default function VenteOffre({ variant }) {
             )}
             {!isVip && (
               <h1 className="md:hidden text-center mb-5">
-                <span className="block font-display font-black tracking-tighter text-noir text-[1.7rem] uppercase leading-none">
-                  {studioClosed ? "Ventes" : "Studio"}
+                <span className="block font-display font-black tracking-tighter text-noir text-[1.45rem] uppercase leading-none">
+                  {studioClosed ? "Ventes" : "Accompagnement"}
                 </span>
-                <span className="block font-serif italic text-corail font-semibold text-[1.45rem] mt-1">
-                  {studioClosed ? "fermées" : "YoGyFace."}
+                <span className="block font-serif italic text-corail font-semibold text-[1.35rem] mt-1">
+                  {studioClosed ? "fermées" : "YoGyFace Studio"}
                 </span>
               </h1>
             )}
@@ -708,7 +708,7 @@ export default function VenteOffre({ variant }) {
                   ? "Ventes closes"
                   : isDix
                     ? "Offre flash, 2 places sur 20"
-                    : "Programme Studio"}
+                    : "Accompagnement YoGyFace Studio"}
             </div>
             <h1
               className={`font-display text-[clamp(1.9rem,5vw,3.4rem)] font-black leading-[0.95] tracking-tighter text-noir mb-3 ${
@@ -721,7 +721,7 @@ export default function VenteOffre({ variant }) {
                   : "TU ES VIP."
                 : studioClosed
                   ? "VENTES"
-                  : "STUDIO"}
+                  : "ACCOMPAGNEMENT"}
               <br />
               <span className="font-serif italic text-corail font-semibold">
                 {isVip
@@ -730,7 +730,7 @@ export default function VenteOffre({ variant }) {
                     : "Cette offre n'est pas publique."
                   : studioClosed
                     ? "fermées."
-                    : "YoGyFace."}
+                    : "YoGyFace Studio"}
               </span>
             </h1>
             {/* Accroche Reset, sous-titre, ne remplace pas le hero VIP. */}
@@ -893,8 +893,10 @@ export default function VenteOffre({ variant }) {
       <VenteValeur price={offer.once.price} />
       <VenteGarantie />
 
+      {/* Cachées pour le moment
       <VenteReconnaissance />
       <VenteEchecs cta={<PayCta {...pay} onceLabel={joinLabel} />} />
+      */}
 
       {/* Comparatif VIP vs public */}
       {isVip && (
@@ -1187,7 +1189,7 @@ export default function VenteOffre({ variant }) {
           />
           <div className="text-left">
             <h2 className="font-display text-[clamp(1.5rem,3.5vw,2.2rem)] font-black tracking-tighter text-noir leading-tight mb-4">
-              Conçu professionnellement
+              Une méthode basée sur la science
               <br />
               <span className="font-serif italic text-corail font-semibold">
                 par Laury Anater

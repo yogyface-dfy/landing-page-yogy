@@ -104,9 +104,11 @@ export default function VentePlateforme() {
         <div className="text-center mb-12 md:mb-16">
           <div className="section-badge justify-center">La plateforme</div>
           <h2 className="font-display text-[clamp(1.6rem,4vw,2.6rem)] font-black tracking-tighter text-noir">
-            TOUT EST LÀ.
+            UNE PLATEFORME REPENSÉE
             <br />
-            <span className="font-serif italic text-corail font-semibold">Sur téléphone comme sur ordi.</span>
+            <span className="font-serif italic text-corail font-semibold">
+              pour te donner le meilleur suivi
+            </span>
           </h2>
         </div>
 

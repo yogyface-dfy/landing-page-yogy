@@ -39,6 +39,7 @@
 
 ### 🔧 Changed
 
+- **`/vente`** : reconnaissance et échecs commentés ; titres (clientes, science, plateforme, produit, garantie) mis à jour.
 - **`/vente`** : messagerie, plus « fils par sujet ».
 - **`/vente`** : messagerie, plus « avec Laury et l'équipe ».
 - **`/vente`** : messagerie, plus « Tout de suite ».
