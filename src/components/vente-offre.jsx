@@ -51,7 +51,7 @@ const OFFERS = {
     once: {
       plan: "studio-once",
       price: 449,
-      was: 999,
+      was: 899,
     },
     installments: [
       { plan: "studio-4x", times: 4, amount: "112,25" },
@@ -62,12 +62,12 @@ const OFFERS = {
     once: {
       plan: "studio-10x",
       price: 449,
-      was: 999,
+      was: 899,
     },
     // 10× reste le CTA principal ; 1× et 4× en secondaire.
     installments: [
-      { plan: "studio-once", label: "Payer 449 € en 1 fois" },
       { plan: "studio-4x", times: 4, amount: "112,25" },
+      { plan: "studio-once", label: "Payer 449 € en 1 fois" },
     ],
   },
 };
@@ -91,7 +91,7 @@ const VIP_BONUSES = [
 ];
 
 // VIP / lancement public (plus de colonne « après lancement »).
-// Ancre marketing : VIP 299 € / Studio 449 € (999 € barré).
+// Ancre marketing : VIP 299 € / Studio 449 € (899 € barré).
 const COMPARE = [
   { label: "Prix du programme", vip: "299 €", was: "999 €", public: "449 €" },
   {
@@ -848,11 +848,6 @@ export default function VenteOffre({ variant }) {
                     <span className="font-display font-black text-4xl tracking-tight text-noir">
                       {offer.once.price} €
                     </span>
-                    {isDix && (
-                      <span className="block text-corail text-sm font-semibold mt-1">
-                        {installmentHint}, fermeture à minuit
-                      </span>
-                    )}
                   </p>
                 )}
                 <ul className="space-y-2 mb-5">
@@ -1518,9 +1513,9 @@ export default function VenteOffre({ variant }) {
               <span className="font-display font-black text-3xl">
                 {offer.once.price} €
               </span>
-              {(offer.installments.length > 0 || isDix) && (
+              {offer.installments.length > 0 && !isDix && (
                 <span className="block text-white/40 text-sm mt-1">
-                  {isDix ? `en ${installmentHint}` : `ou ${installmentHint}`}
+                  ou {installmentHint}
                 </span>
               )}
             </p>

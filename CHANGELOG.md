@@ -17,7 +17,8 @@
 
 ### ✨ Added
 
-- **`/vente-10x`** : CTA 10 × 44,99 € + 1× et 4 × 112,25 €.
+- **`/vente`** `/vente-10x` : 449 €, **899 €** barré (plus 999 €).
+- **`/vente-10x`** : CTA dans l'ordre 10×, 4×, 1×.
 - **`/vente-10x#temoignages`** : même ancre que `/vente`, offset calé sur le bandeau bordeaux.
 - **`/vente-10x`** : mensualité **10 × 44,99 €**.
 - **`/vente-10x`** : bandeau **bordeaux** (`#841435`) + countdown minuit plus grand.
