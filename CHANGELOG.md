@@ -12,7 +12,7 @@
 - **`/vente`** : montage ordonnances, bas des 2 pages flouté (texte plus lisible).
 - **`/vente`** : plus de CTA d'achat sous la FAQ (déjà dans « Prête à commencer »).
 - **`/vente`** : bloc Studio réagencé (parcours / plateforme / accompagnement) + portraits des 5 expertes.
-- **`/vente`** : 36 avis Trustpilot 5★ (les 1★ restent hors page). Note affichée **4,4/5**.
+- **`/vente`** : 36 avis Trustpilot 5★ (les 1★ restent hors page). Note affichée **4.9/5**.
 - **`/vente`** : témoignages vidéo en 16:9 + bouton play sur la miniature (plus de crop 3:4).
 
 ### ✨ Added
@@ -29,6 +29,8 @@
 
 ### 🔧 Changed
 
+- **`/vente#temoignages`** : ancre sur le titre (plus le bloc prix du dessus).
+- **`/vente`** : note Trustpilot affichée **4.9/5** (hardcodée, pas d'API).
 - **`/vente`** : ancre `#temoignages` sur « Elles en parlent ».
 - **`/bonus-live`** : CTA → « Studio : Découvrir la Méthode YoGyFace Studio » (plus RESET).
 - **`/vente`** `/programme` : « Groupe WhatsApp privé » → « Communauté privée dans la plateforme ».

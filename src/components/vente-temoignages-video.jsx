@@ -1,3 +1,5 @@
+import { useEffect } from 'react'
+import { useLocation } from 'react-router-dom'
 import FunnelPlayer from './funnel-player'
 
 const CF = 'https://d1yei2z3i6k35z.cloudfront.net/6457367'
@@ -21,9 +23,29 @@ const CLIPS = [
 ]
 
 export default function VenteTemoignagesVideo() {
+  const { hash } = useLocation()
+
+  // Re-scroll after images above (résultats) poussent le layout.
+  useEffect(() => {
+    if (hash !== '#temoignages') return
+    const el = document.getElementById('temoignages')
+    if (!el) return
+    const go = () => el.scrollIntoView({ behavior: 'auto', block: 'start' })
+    go()
+    const t1 = setTimeout(go, 200)
+    const t2 = setTimeout(go, 800)
+    return () => {
+      clearTimeout(t1)
+      clearTimeout(t2)
+    }
+  }, [hash])
+
   return (
-    <section id="temoignages" className="py-14 md:py-20 bg-creme scroll-mt-24">
-      <div className="px-[5%] max-w-[1100px] mx-auto text-center mb-8">
+    <section className="py-14 md:py-20 bg-creme">
+      <div
+        id="temoignages"
+        className="scroll-mt-28 px-[5%] max-w-[1100px] mx-auto text-center mb-8"
+      >
         <p className="section-badge justify-center">Elles en parlent</p>
         <h2 className="font-display text-[clamp(1.6rem,4vw,2.6rem)] font-black tracking-tighter text-noir">
           DES VOIX RÉELLES,

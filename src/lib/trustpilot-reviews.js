@@ -1,9 +1,9 @@
 /**
  * Avis Trustpilot 5★ (yogyface.fr). Les 1★ (Margot, Vanessa, Elizabeth, Amandine)
- * restent hors page de vente. Score public : 4,4/5 (négatifs inclus).
+ * restent hors page de vente. Note affichée : 4.9/5 (hardcodée, pas d'API).
  * name vide = prénom pas dans l'avis ni la réponse Laury.
  */
-export const TRUSTPILOT_SCORE = "4,4";
+export const TRUSTPILOT_SCORE = "4.9";
 
 export const TRUSTPILOT_REVIEWS = [
   {

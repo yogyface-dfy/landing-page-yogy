@@ -21,7 +21,7 @@ const INTERVAL_MS = 4000
  * Carrousel auto-swipe (pause au survol / au touch).
  * @param {{ cta?: React.ReactNode, proof?: string }} props
  */
-export default function VenteResultats({ cta, proof = '4,4/5 · 1200+ femmes déjà accompagnées' }) {
+export default function VenteResultats({ cta, proof = '4.9/5 · 1200+ femmes déjà accompagnées' }) {
   const scroller = useRef(null)
   const indexRef = useRef(0)
   const [active, setActive] = useState(0)
