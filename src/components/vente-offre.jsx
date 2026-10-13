@@ -259,7 +259,7 @@ const steps = [
   },
   {
     num: "03",
-    title: "Programme 4 semaines",
+    title: "Programme de 3 mois",
     tag: "J+6",
     desc: "Une routine progressive de 3 à 10 min/jour. La durée augmente semaine après semaine : on installe l'habitude sans te cramer dès le départ.",
     detail:
@@ -284,7 +284,7 @@ const steps = [
     num: "06",
     title: "Suivi & communauté",
     tag: "À vie",
-    desc: "Questionnaires à 1, 2, 3 et 6 mois. Replays, communauté privée dans la plateforme, et le Club des Marques : 1 live mensuel avec un intervenant.",
+    desc: "Questionnaires à 1, 2, 3, 4, 5 et 6 mois. Replays, communauté privée dans la plateforme, et le Club des Marques : 1 live mensuel avec un intervenant.",
     detail: "Jamais toute seule, motivation collective et soutien continu.",
   },
 ];
@@ -384,7 +384,7 @@ const SALE_FAQ = [
   },
   {
     q: "Combien de temps j'ai accès ?",
-    a: "Le contenu reste accessible, 24h/24. Tu deviens autonome en 4 semaines, puis tu pioches dans la bibliothèque à vie.",
+    a: "Le programme YoGyFace Studio se déroule sur 3 mois, et tu y accèdes 24h/24. La plateforme, ton programme, tes replays et ta communauté restent à toi, à vie. Tu as 6 mois pour suivre tes 12 lives et tes 6 suivis photo (1, 2, 3, 4, 5 et 6 mois). Les mises à jour sont incluses, sans coût supplémentaire.",
   },
   {
     q: "J'ai peur de mal faire et d'abîmer mon visage.",
@@ -396,7 +396,7 @@ const SALE_FAQ = [
   },
   {
     q: "Que se passe-t-il après le paiement ?",
-    a: "Tu reçois l'accès à la plateforme. Ensuite tu fais ton diagnostic : ordonnance et programme sous 3 à 4 jours, lives + groupe.",
+    a: "Tu reçois l'accès à la plateforme. Ensuite tu fais ton diagnostic : ordonnance et programme sous 3 à 4 jours, lives + groupe. Une fois ton programme réceptionné, tes 6 mois de suivi commencent : un point photo chaque mois (1, 2, 3, 4, 5 et 6 mois).",
     // VIP = prévente : app tout de suite, diagnostic calé au 17 sept.
     aVip: "Tu es en prévente. L'application s'ouvre dès le paiement. Le diagnostic V2, lui, s'ouvre le 17 septembre, ensuite ordonnance, programme, lives et groupe.",
   },

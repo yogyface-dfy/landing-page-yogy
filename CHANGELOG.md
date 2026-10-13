@@ -39,6 +39,14 @@
 
 ### 🔧 Changed
 
+- **`/vente`** : messagerie, plus « fils par sujet ».
+- **`/vente`** : messagerie, plus « avec Laury et l'équipe ».
+- **`/vente`** : messagerie, plus « Tout de suite ».
+- **`/vente`** : parcours étape 3, « Programme de 3 mois » (plus 4 semaines).
+- **`/vente`** : suivis photo chaque mois (1, 2, 3, 4, 5 et 6), plus seulement 1-2-3-6.
+- **`/vente`** FAQ après paiement : les 6 mois de suivi commencent à la réception du programme.
+- **`/vente`** FAQ accès : programme 3 mois, plateforme à vie, lives et suivis photo sur 6 mois.
+- **`/vente`** : garantie en 2 cartes (conditions + « Tu m'écris. Je te rembourse. »).
 - **`/vente`** : cadeaux, prix barré et « Offert » sur la même ligne.
 - **`/vente`** : 4 piliers à moitié (149 / 75 / 40 / 185 = 449 €) en vert, ancien prix barré.
 - **`/vente`** : sceau garantie = badge officiel (plus le rond CSS).

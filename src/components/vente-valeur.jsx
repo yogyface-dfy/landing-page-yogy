@@ -7,7 +7,7 @@ const LEFT = [
   { t: "Ton ordonnance beauté", now: "75 €", was: "149 €" },
   { t: "Ton ordonnance skincare", now: "40 €", was: "80 €" },
   { t: "Ton plan guidé 100 % sur mesure, 3 mois", now: "185 €", was: "399 €" },
-  { t: "6 mois de suivi photo", p: "199 €", gift: true },
+  { t: "6 suivis photo (1, 2, 3, 4, 5 et 6 mois)", p: "199 €", gift: true },
   { t: "12 lives offerts", p: "300 à 360 €", gift: true },
 ];
 

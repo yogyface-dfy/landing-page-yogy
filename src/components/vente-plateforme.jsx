@@ -43,9 +43,9 @@ const FEATURES = [
   },
   {
     kicker: 'Messagerie',
-    title: 'Tu écris. On te répond. Tout de suite.',
-    desc: 'Messagerie instantanée avec Laury et l\'équipe, plus besoin d\'attendre un mail. Les notifications te préviennent dès qu\'il y a un retour, un live, ou un suivi à faire.',
-    points: ['Chat en direct, fils par sujet', 'Notifications instantanées (cloche + pastilles)', 'Retours de Laury, diagnostic, paliers, rien ne se perd'],
+    title: 'Tu écris. On te répond.',
+    desc: 'Messagerie instantanée, plus besoin d\'attendre un mail. Les notifications te préviennent dès qu\'il y a un retour, un live, ou un suivi à faire.',
+    points: ['Chat en direct', 'Notifications instantanées (cloche + pastilles)', 'Retours de Laury, diagnostic, paliers, rien ne se perd'],
     desktop: '/app/desktop-messages.png',
     mobile: '/app/mobile-messages.png',
     mobile2: '/app/mobile-notifications.png',
