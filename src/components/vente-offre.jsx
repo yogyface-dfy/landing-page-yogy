@@ -1,12 +1,13 @@
 import { Fragment, useEffect, useRef, useState } from "react";
 import { Link, useSearchParams } from "react-router-dom";
-import Icon from "./Icon";
 import SEO from "./SEO";
 import VenteResultats from "./vente-resultats";
 import VentePlateforme from "./vente-plateforme";
 import VenteReconnaissance from "./vente-reconnaissance";
 import VenteEchecs from "./vente-echecs";
 import VenteTemoignagesVideo from "./vente-temoignages-video";
+import VenteValeur from "./vente-valeur";
+import VenteGarantie from "./vente-garantie";
 import {
   readPrefillEmail,
   startCheckoutSession,
@@ -889,6 +890,9 @@ export default function VenteOffre({ variant }) {
         </div>
       </section>
 
+      <VenteValeur price={offer.once.price} />
+      <VenteGarantie />
+
       <VenteReconnaissance />
       <VenteEchecs cta={<PayCta {...pay} onceLabel={joinLabel} />} />
 
@@ -1399,32 +1403,6 @@ export default function VenteOffre({ variant }) {
               );
             })}
           </ol>
-        </div>
-      </section>
-
-      <section className="py-14 md:py-20 px-[5%] bg-creme">
-        <div className="max-w-[640px] mx-auto text-center">
-          <div className="inline-flex items-center justify-center w-14 h-14 rounded-2xl bg-corail/10 text-corail mb-5">
-            <Icon name="shield" size={28} />
-          </div>
-          <h2 className="font-display text-2xl md:text-3xl font-black tracking-tight text-noir mb-3">
-            Garantie YoGyFace
-          </h2>
-          <p className="text-gris text-[15px] leading-relaxed mb-3">
-            Si après le programme, tes coachings, une pratique régulière et tes
-            photos de suivi, tu ne vois aucune amélioration de ton bien-être ou
-            de ta confiance :
-          </p>
-          <p className="text-noir font-display font-black text-lg">
-            je te rembourse en totalité.*
-          </p>
-          <p className="text-center text-gris/40 text-[11px] mt-5">
-            * Offre soumise à conditions.{" "}
-            <Link to="/cgv#garantie" className="underline hover:text-corail">
-              Voir les CGV
-            </Link>
-            .
-          </p>
         </div>
       </section>
 

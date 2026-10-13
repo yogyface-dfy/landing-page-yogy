@@ -17,6 +17,10 @@
 
 ### ✨ Added
 
+- **`/vente`** : miniature avant/après sur le témoignage Carine.
+- **`/vente`** : témoignage vidéo relabelé **Carine** (plus « Carine & Céline »).
+- **`/vente`** : miniatures avant/après sur Marion 32 ans et Julie 28 ans.
+- **`/vente`** `/vente-10x` : stacked value Systeme.io (plus de 2 200 € vs 449 €) sous « Elles m'ont fait confiance », puis garantie 6 mois remontée.
 - **`/vente`** `/vente-10x` : 449 €, **899 €** barré (plus 999 €).
 - **`/vente-10x`** : CTA dans l'ordre 10×, 4×, 1×.
 - **`/vente-10x#temoignages`** : même ancre que `/vente`, offset calé sur le bandeau bordeaux.
@@ -35,6 +39,12 @@
 
 ### 🔧 Changed
 
+- **`/vente`** : cadeaux, prix barré et « Offert » sur la même ligne.
+- **`/vente`** : 4 piliers à moitié (149 / 75 / 40 / 185 = 449 €) en vert, ancien prix barré.
+- **`/vente`** : sceau garantie = badge officiel (plus le rond CSS).
+- **`/vente`** : prix des cadeaux barrés + mention Offert.
+- **`/vente`** : garantie sans bandeau corail, titre orange, conditions numérotées.
+- **`/vente`** : stacked value, plus le titre « PLUS DE 2 200 € si tu achetais chaque pièce à part ».
 - **`/vente#temoignages`** : ancre sur le titre (plus le bloc prix du dessus).
 - **`/vente`** : note Trustpilot affichée **4.9/5** (hardcodée, pas d'API).
 - **`/vente`** : ancre `#temoignages` sur « Elles en parlent ».

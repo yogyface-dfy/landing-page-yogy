@@ -158,6 +158,16 @@ const icons = {
     </>
   ),
 
+  /* ── Offers ── */
+  gift: (
+    <>
+      <rect x="3" y="8" width="18" height="13" rx="1.5" />
+      <path d="M12 8v13" />
+      <path d="M3 12h18" />
+      <path d="M12 8c-2.2 0-4-1.2-4-2.8S10.2 3 12 4.4C13.8 3 16 3.6 16 5.2S14.2 8 12 8z" />
+    </>
+  ),
+
   /* ── Trust & Security ── */
   shield: (
     <>
