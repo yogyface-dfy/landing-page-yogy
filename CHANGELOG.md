@@ -17,6 +17,8 @@
 
 ### ✨ Added
 
+- **`/vente-10x`** : bandeau **bordeaux** (`#841435`) + countdown minuit plus grand.
+- **`/vente-10x`** : même page que `/vente`, paiement **10 × 44,90 €** seulement, bandeau urgence (2/20 + countdown minuit Paris).
 - **`/vente`** : étape 3, mockup programme (desktop + tablette) à la place de la photo Laury.
 - **`/vente`** : étape 2, montage carré des ordonnances (beauté + skincare) à la place de la photo Laury.
 - **`/vente`** : étape 1 (diagnostic) en mockup plateforme (écran Suivi desktop + iPhone) à la place de la photo Laury.

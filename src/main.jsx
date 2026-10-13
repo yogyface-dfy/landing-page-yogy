@@ -33,6 +33,7 @@ export const routes = [
       { path: 'merci-liste-attente', lazy: page(() => import('./pages/merci-liste-attente')) },
       { path: 'vente', lazy: page(() => import('./pages/vente')) },
       { path: 'vente-vip', lazy: page(() => import('./pages/vente-vip')) },
+      { path: 'vente-10x', lazy: page(() => import('./pages/vente-10x')) },
       { path: 'vente-upsell', lazy: page(() => import('./pages/vente-upsell')) },
       { path: 'vente-upsell-test', lazy: page(() => import('./pages/vente-upsell')) },
       // Tunnel acquisition (ex-Systeme.io) : noindex, hors sitemap, hors nav.

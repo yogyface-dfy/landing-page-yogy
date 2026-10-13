@@ -5,6 +5,7 @@ Disallow: /merci-liste-attente
 Disallow: /merci-achat
 Disallow: /vente
 Disallow: /vente-vip
+Disallow: /vente-10x
 Disallow: /vente-upsell
 Disallow: /vente-upsell-test
 Disallow: /atelier-gratuit

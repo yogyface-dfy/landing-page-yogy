@@ -13,8 +13,8 @@ const links = [
   { href: '/contact',        label: 'Contact' },
 ]
 
-/** @param {{ offsetTop?: boolean, logoOnly?: boolean }} props */
-export default function Navbar({ offsetTop = false, logoOnly = false }) {
+/** @param {{ offsetTop?: boolean, logoOnly?: boolean, offsetClass?: string }} props */
+export default function Navbar({ offsetTop = false, logoOnly = false, offsetClass }) {
   const [scrolled, setScrolled] = useState(false)
   const [menuOpen, setMenuOpen] = useState(false)
   const location = useLocation()
@@ -38,7 +38,7 @@ export default function Navbar({ offsetTop = false, logoOnly = false }) {
   return (
     <>
     {/* Tunnel (logo seul) : pas de barre glass — le wash rose reste visible derrière. */}
-    <nav className={`fixed ${offsetTop ? 'top-8' : 'top-0'} left-0 right-0 z-50 px-[5%] transition-all duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] ${
+    <nav className={`fixed ${offsetClass || (offsetTop ? 'top-8' : 'top-0')} left-0 right-0 z-50 px-[5%] transition-all duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] ${
       scrolled && !logoOnly
         ? 'py-2.5 glass shadow-sm'
         : 'py-5 bg-transparent border-b border-transparent'

@@ -23,6 +23,7 @@ import { STUDIO_SALES_OPEN, VIP_SALES_OPEN } from "../lib/stripe-offers";
  * Pages de vente privées (non indexées).
  * variant "vip"   → offre envoyée aux inscrites liste d'attente
  * variant "public" → offre classique
+ * variant "dix"   → Studio, 10× seulement (/vente-10x)
  */
 const OFFERS = {
   vip: {
@@ -56,6 +57,14 @@ const OFFERS = {
       { plan: "studio-4x", times: 4, amount: "112,25" },
       { plan: "studio-6x", times: 6, amount: "74,99" },
     ],
+  },
+  dix: {
+    once: {
+      plan: "studio-10x",
+      price: 449,
+      was: 999,
+    },
+    installments: [],
   },
 };
 
@@ -503,18 +512,21 @@ function PayCta({
 }
 
 /**
- * @param {{ variant: 'vip' | 'public' }} props
+ * @param {{ variant: 'vip' | 'public' | 'dix' }} props
  */
 export default function VenteOffre({ variant }) {
   const isVip = variant === "vip";
+  const isDix = variant === "dix";
   const vipClosed = isVip && !VIP_SALES_OPEN;
   const studioClosed = !isVip && !STUDIO_SALES_OPEN;
   const salesClosed = vipClosed || studioClosed;
-  const path = isVip ? "/vente-vip" : "/vente";
+  const path = isVip ? "/vente-vip" : isDix ? "/vente-10x" : "/vente";
   const offer = OFFERS[variant];
-  const joinLabel = isVip
-    ? `Rejoindre l'offre VIP, ${offer.once.price} €`
-    : `Rejoindre Studio, ${offer.once.price} €`;
+  const joinLabel = isDix
+    ? "Payer en 10 × 44,90 €"
+    : isVip
+      ? `Rejoindre l'offre VIP, ${offer.once.price} €`
+      : `Rejoindre Studio, ${offer.once.price} €`;
   const [searchParams] = useSearchParams();
   const [email, setEmail] = useState("");
   const [payLoading, setPayLoading] = useState(null);
@@ -580,12 +592,14 @@ export default function VenteOffre({ variant }) {
       isVip && STUDIO_SALES_OPEN ? "Voir l'offre Studio" : "Retour à l'accueil",
     scarcity: salesClosed
       ? null
-      : isVip
-        ? [
-            "Plus que 2 places disponibles",
-            "Fermeture lundi soir 14 septembre, 00h",
-          ]
-        : null,
+      : isDix
+        ? ["Plus que 2 places sur 20", "Fermeture à minuit"]
+        : isVip
+          ? [
+              "Plus que 2 places disponibles",
+              "Fermeture lundi soir 14 septembre, 00h",
+            ]
+          : null,
     installments: offer.installments.map((i) => ({
       plan: i.plan,
       label: `Payer en ${i.times} × ${i.amount} €`,
@@ -594,9 +608,9 @@ export default function VenteOffre({ variant }) {
     error: payError,
   };
 
-  const installmentHint = offer.installments
-    .map((i) => `${i.times} × ${i.amount} €`)
-    .join(" · ");
+  const installmentHint = isDix
+    ? "10 × 44,90 €"
+    : offer.installments.map((i) => `${i.times} × ${i.amount} €`).join(" · ");
 
   return (
     <>
@@ -608,7 +622,9 @@ export default function VenteOffre({ variant }) {
               : "Offre VIP, Vente privée YoGyFace"
             : studioClosed
               ? "Ventes fermées, YoGyFace Studio"
-              : "YoGyFace Studio, Programme"
+              : isDix
+                ? "YoGyFace Studio, 10 × 44,90 €"
+                : "YoGyFace Studio, Programme"
         }
         description={
           isVip
@@ -619,7 +635,9 @@ export default function VenteOffre({ variant }) {
               : "Offre VIP exceptionnelle : 299 € au lieu de 999 €, accès en avant-première à l'application, 18h de coaching et bonus réservés."
             : studioClosed
               ? "Les ventes YoGyFace Studio sont fermées."
-              : "Programme YoGyFace Studio : 449 €, diagnostic V2, nouveaux exercices, application et accompagnement personnalisé. Paiement en 1×, 4× ou 6×."
+              : isDix
+                ? "Programme YoGyFace Studio : 449 € en 10 × 44,90 €. Plus que 2 places sur 20, fermeture à minuit."
+                : "Programme YoGyFace Studio : 449 €, diagnostic V2, nouveaux exercices, application et accompagnement personnalisé. Paiement en 1×, 4× ou 6×."
         }
         path={path}
         noindex
@@ -683,7 +701,9 @@ export default function VenteOffre({ variant }) {
                   : "Offre exceptionnelle, inscrites liste d'attente"
                 : studioClosed
                   ? "Ventes closes"
-                  : "Programme Studio"}
+                  : isDix
+                    ? "Offre flash, 2 places sur 20"
+                    : "Programme Studio"}
             </div>
             <h1
               className={`font-display text-[clamp(1.9rem,5vw,3.4rem)] font-black leading-[0.95] tracking-tighter text-noir mb-3 ${
@@ -722,7 +742,9 @@ export default function VenteOffre({ variant }) {
                   : "Prévente : l'application s'ouvre dès le paiement. Le diagnostic V2, lui, s'ouvre le 17 septembre, plus les bonus que le lancement public n'aura pas."
                 : studioClosed
                   ? "Les inscriptions sont closes."
-                  : "Diagnostic V2, exercices refondus, application YoGyFace. Le programme complet, à tarif de lancement."}
+                  : isDix
+                    ? "Paiement en 10 fois seulement. Plus que 2 places sur 20. Fermeture à minuit."
+                    : "Diagnostic V2, exercices refondus, application YoGyFace. Le programme complet, à tarif de lancement."}
             </p>
 
             {SHOW_TRUSTPILOT ? (
@@ -822,12 +844,18 @@ export default function VenteOffre({ variant }) {
                     <span className="font-display font-black text-4xl tracking-tight text-noir">
                       {offer.once.price} €
                     </span>
+                    {isDix && (
+                      <span className="block text-corail text-sm font-semibold mt-1">
+                        en {installmentHint}, fermeture à minuit
+                      </span>
+                    )}
                   </p>
                 )}
                 <ul className="space-y-2 mb-5">
                   {[
                     "Diagnostic V2 + application YoGyFace",
                     "12h de coaching · 6 mois d'accompagnement",
+                    ...(isDix ? ["Paiement en 10 × 44,90 € seulement"] : []),
                   ].map((l) => (
                     <li
                       key={l}
@@ -1470,9 +1498,11 @@ export default function VenteOffre({ variant }) {
                   ? "L'offre privée n'est plus disponible. Rejoins Studio."
                   : "Les inscriptions sont actuellement fermées."
                 : "Prévente : l'app dès l'achat, le diagnostic le 17 septembre. Tarif VIP + bonus, plus au lancement public."
-              : studioClosed
-                ? "Les inscriptions sont closes."
-                : "Le programme Studio, sans les bonus ni l'accès anticipé de la liste."}
+                : studioClosed
+                  ? "Les inscriptions sont closes."
+                  : isDix
+                    ? "Plus que 2 places sur 20. Paiement en 10 × 44,90 €. Fermeture à minuit."
+                    : "Le programme Studio, sans les bonus ni l'accès anticipé de la liste."}
           </p>
           {offer.once.price && !salesClosed && (
             <p className="text-white mb-6">
@@ -1484,9 +1514,9 @@ export default function VenteOffre({ variant }) {
               <span className="font-display font-black text-3xl">
                 {offer.once.price} €
               </span>
-              {offer.installments.length > 0 && (
+              {(offer.installments.length > 0 || isDix) && (
                 <span className="block text-white/40 text-sm mt-1">
-                  ou {installmentHint}
+                  {isDix ? `en ${installmentHint}` : `ou ${installmentHint}`}
                 </span>
               )}
             </p>
@@ -1495,9 +1525,11 @@ export default function VenteOffre({ variant }) {
             {...pay}
             dark
             onceLabel={
-              isVip
-                ? `Payer ${offer.once.price} € en 1 fois →`
-                : `Payer Studio, ${offer.once.price} € en 1 fois →`
+              isDix
+                ? "Payer en 10 × 44,90 € →"
+                : isVip
+                  ? `Payer ${offer.once.price} € en 1 fois →`
+                  : `Payer Studio, ${offer.once.price} € en 1 fois →`
             }
           />
           <p className="text-white/30 text-sm mt-6">

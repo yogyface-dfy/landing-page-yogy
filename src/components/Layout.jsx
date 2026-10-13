@@ -3,6 +3,7 @@ import { useEffect, useCallback, Suspense } from 'react'
 import { Head } from 'vite-react-ssg'
 import Navbar from './Navbar'
 import LaunchBanner, { shouldShowLaunchBanner } from './launch-banner'
+import VenteUrgenceBanner from './vente-urgence-banner'
 import Footer from './Footer'
 import CookieConsent from './CookieConsent'
 import { initAnalytics, capturePageview } from '../lib/analytics'
@@ -65,9 +66,11 @@ export default function Layout() {
   // Tunnel upsell : Oui / Non uniquement — pas de nav, footer, cookies, ticker.
   const bare = pathname === '/vente-upsell' || pathname === '/vente-upsell-test'
   // Offre + liste fermée + légal depuis le tunnel : logo seul, pas de nav/footer.
+  const flash = pathname === '/vente-10x'
   const funnel =
     pathname === '/vente' ||
     pathname === '/vente-vip' ||
+    flash ||
     isFunnelChrome(pathname, search) ||
     (isWaitlistPath(pathname) && !WAITLIST_OPEN)
 
@@ -194,9 +197,16 @@ export default function Layout() {
         <script type="application/ld+json">{JSON.stringify(websiteJsonLd)}</script>
         <script type="application/ld+json">{JSON.stringify(personJsonLd)}</script>
       </Head>
-      {!bare && shouldShowLaunchBanner(pathname, search) && <LaunchBanner />}
-      {!bare && <Navbar logoOnly={funnel} offsetTop={shouldShowLaunchBanner(pathname, search)} />}
-      <main className={!bare && shouldShowLaunchBanner(pathname, search) ? 'pt-8' : ''}>
+      {flash && <VenteUrgenceBanner />}
+      {!bare && !flash && shouldShowLaunchBanner(pathname, search) && <LaunchBanner />}
+      {!bare && (
+        <Navbar
+          logoOnly={funnel}
+          offsetTop={!flash && shouldShowLaunchBanner(pathname, search)}
+          offsetClass={flash ? 'top-16 md:top-20' : undefined}
+        />
+      )}
+      <main className={flash ? 'pt-16 md:pt-20' : !bare && shouldShowLaunchBanner(pathname, search) ? 'pt-8' : ''}>
         {/* Suspense : fallback pendant le chargement des chunks de page (code-splitting) */}
         <Suspense fallback={<div className="min-h-screen" />}>
           <Outlet />
@@ -204,7 +214,7 @@ export default function Layout() {
       </main>
       {!bare && !funnel && <Footer />}
       {/* Checkout : pas de bandeau cookies au-dessus des CTA. */}
-      {!bare && pathname !== '/vente' && pathname !== '/vente-vip' && (
+      {!bare && pathname !== '/vente' && pathname !== '/vente-vip' && pathname !== '/vente-10x' && (
         <CookieConsent />
       )}
     </div>

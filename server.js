@@ -74,6 +74,7 @@ const NOINDEX_PATHS = [
   '/merci-achat',
   '/vente',
   '/vente-vip',
+  '/vente-10x',
   '/vente-upsell',
   '/vente-upsell-test',
   '/atelier-gratuit',

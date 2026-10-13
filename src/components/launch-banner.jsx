@@ -29,6 +29,7 @@ const HIDE = [
   '/installer-app',
   '/vente-upsell',
   '/vente-upsell-test',
+  '/vente-10x',
 ]
 
 export function shouldShowLaunchBanner(pathname, search = '') {
