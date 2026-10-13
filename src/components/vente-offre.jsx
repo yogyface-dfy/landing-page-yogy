@@ -64,7 +64,11 @@ const OFFERS = {
       price: 449,
       was: 999,
     },
-    installments: [],
+    // 10× reste le CTA principal ; 1× et 4× en secondaire.
+    installments: [
+      { plan: "studio-once", label: "Payer 449 € en 1 fois" },
+      { plan: "studio-4x", times: 4, amount: "112,25" },
+    ],
   },
 };
 
@@ -523,7 +527,7 @@ export default function VenteOffre({ variant }) {
   const path = isVip ? "/vente-vip" : isDix ? "/vente-10x" : "/vente";
   const offer = OFFERS[variant];
   const joinLabel = isDix
-    ? "Payer en 10 × 44,90 €"
+    ? "Payer en 10 × 44,99 €"
     : isVip
       ? `Rejoindre l'offre VIP, ${offer.once.price} €`
       : `Rejoindre Studio, ${offer.once.price} €`;
@@ -602,14 +606,14 @@ export default function VenteOffre({ variant }) {
           : null,
     installments: offer.installments.map((i) => ({
       plan: i.plan,
-      label: `Payer en ${i.times} × ${i.amount} €`,
+      label: i.label || `Payer en ${i.times} × ${i.amount} €`,
     })),
     loading: payLoading,
     error: payError,
   };
 
   const installmentHint = isDix
-    ? "10 × 44,90 €"
+    ? "1 fois · 4 × 112,25 € · 10 × 44,99 €"
     : offer.installments.map((i) => `${i.times} × ${i.amount} €`).join(" · ");
 
   return (
@@ -623,7 +627,7 @@ export default function VenteOffre({ variant }) {
             : studioClosed
               ? "Ventes fermées, YoGyFace Studio"
               : isDix
-                ? "YoGyFace Studio, 10 × 44,90 €"
+                ? "YoGyFace Studio, 10 × 44,99 €"
                 : "YoGyFace Studio, Programme"
         }
         description={
@@ -636,7 +640,7 @@ export default function VenteOffre({ variant }) {
             : studioClosed
               ? "Les ventes YoGyFace Studio sont fermées."
               : isDix
-                ? "Programme YoGyFace Studio : 449 € en 10 × 44,90 €. Plus que 2 places sur 20, fermeture à minuit."
+                ? "Programme YoGyFace Studio : 449 € en 1×, 4× ou 10 × 44,99 €. Plus que 2 places sur 20, fermeture à minuit."
                 : "Programme YoGyFace Studio : 449 €, diagnostic V2, nouveaux exercices, application et accompagnement personnalisé. Paiement en 1×, 4× ou 6×."
         }
         path={path}
@@ -743,7 +747,7 @@ export default function VenteOffre({ variant }) {
                 : studioClosed
                   ? "Les inscriptions sont closes."
                   : isDix
-                    ? "Paiement en 10 fois seulement. Plus que 2 places sur 20. Fermeture à minuit."
+                    ? "Paiement en 1×, 4× ou 10 × 44,99 €. Plus que 2 places sur 20. Fermeture à minuit."
                     : "Diagnostic V2, exercices refondus, application YoGyFace. Le programme complet, à tarif de lancement."}
             </p>
 
@@ -846,7 +850,7 @@ export default function VenteOffre({ variant }) {
                     </span>
                     {isDix && (
                       <span className="block text-corail text-sm font-semibold mt-1">
-                        en {installmentHint}, fermeture à minuit
+                        {installmentHint}, fermeture à minuit
                       </span>
                     )}
                   </p>
@@ -855,7 +859,7 @@ export default function VenteOffre({ variant }) {
                   {[
                     "Diagnostic V2 + application YoGyFace",
                     "12h de coaching · 6 mois d'accompagnement",
-                    ...(isDix ? ["Paiement en 10 × 44,90 € seulement"] : []),
+                    ...(isDix ? ["Paiement en 1×, 4× ou 10 × 44,99 €"] : []),
                   ].map((l) => (
                     <li
                       key={l}
@@ -1501,7 +1505,7 @@ export default function VenteOffre({ variant }) {
                 : studioClosed
                   ? "Les inscriptions sont closes."
                   : isDix
-                    ? "Plus que 2 places sur 20. Paiement en 10 × 44,90 €. Fermeture à minuit."
+                    ? "Plus que 2 places sur 20. 1×, 4× ou 10 × 44,99 €. Fermeture à minuit."
                     : "Le programme Studio, sans les bonus ni l'accès anticipé de la liste."}
           </p>
           {offer.once.price && !salesClosed && (
@@ -1526,7 +1530,7 @@ export default function VenteOffre({ variant }) {
             dark
             onceLabel={
               isDix
-                ? "Payer en 10 × 44,90 € →"
+                ? "Payer en 10 × 44,99 € →"
                 : isVip
                   ? `Payer ${offer.once.price} € en 1 fois →`
                   : `Payer Studio, ${offer.once.price} € en 1 fois →`

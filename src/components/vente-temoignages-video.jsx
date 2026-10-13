@@ -23,7 +23,9 @@ const CLIPS = [
 ]
 
 export default function VenteTemoignagesVideo() {
-  const { hash } = useLocation()
+  const { hash, pathname } = useLocation()
+  // /vente-10x : bandeau urgence plus haut que le ticker /vente.
+  const flash = pathname === "/vente-10x"
 
   // Re-scroll after images above (résultats) poussent le layout.
   useEffect(() => {
@@ -44,7 +46,7 @@ export default function VenteTemoignagesVideo() {
     <section className="py-14 md:py-20 bg-creme">
       <div
         id="temoignages"
-        className="scroll-mt-28 px-[5%] max-w-[1100px] mx-auto text-center mb-8"
+        className={`${flash ? "scroll-mt-40 md:scroll-mt-44" : "scroll-mt-28"} px-[5%] max-w-[1100px] mx-auto text-center mb-8`}
       >
         <p className="section-badge justify-center">Elles en parlent</p>
         <h2 className="font-display text-[clamp(1.6rem,4vw,2.6rem)] font-black tracking-tighter text-noir">

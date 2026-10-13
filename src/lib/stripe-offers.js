@@ -9,7 +9,7 @@ export const VIP_6X_CENTS = 4999
 export const STUDIO_ONCE_CENTS = 44900
 export const STUDIO_4X_CENTS = 11225
 export const STUDIO_6X_CENTS = 7499
-export const STUDIO_10X_CENTS = 4490
+export const STUDIO_10X_CENTS = 4499
 
 /** false = /vente-vip reste en ligne, checkout VIP refusé. */
 export const VIP_SALES_OPEN = false
@@ -123,7 +123,7 @@ export const PLANS = {
       unit_amount: STUDIO_10X_CENTS,
       recurring: { interval: 'month' },
       product_data: {
-        name: 'YoGyFace Studio (10 × 44,90 €)',
+        name: 'YoGyFace Studio (10 × 44,99 €)',
         description: `${STUDIO_DESCRIPTION} · 10 mensualités`,
         images: [PRODUCT_IMAGE],
       },
