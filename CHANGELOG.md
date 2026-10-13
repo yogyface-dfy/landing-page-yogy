@@ -25,10 +25,12 @@
 - **`/vente`** : plus de bandeau cookies (ni sur `/vente-vip`).
 - **`/vente`** : plus de « 50 places » / « 18 septembre » (CTA, badge, bandeau).
 - **`/vente`** : blocs « Si tu te reconnais », « Pourquoi ça n'a pas marché », 14 témoignages vidéo Systeme.io, 4 FAQ (âge, injections, peau, accès).
-- **`/bonus-live`** : 3 bonus YouTube extraits de Systeme.io (front `99Doy7fS6dI`, SCM `3JAZd76I6Nw`, muscles `1NDbQgwNCp8`) + miniatures + CTA RESET.
+- **`/bonus-live`** : 3 bonus YouTube extraits de Systeme.io (front `99Doy7fS6dI`, SCM `3JAZd76I6Nw`, muscles `1NDbQgwNCp8`) + miniatures + CTA Studio.
 
 ### 🔧 Changed
 
+- **`/vente`** : ancre `#temoignages` sur « Elles en parlent ».
+- **`/bonus-live`** : CTA → « Studio : Découvrir la Méthode YoGyFace Studio » (plus RESET).
 - **`/vente`** `/programme` : « Groupe WhatsApp privé » → « Communauté privée dans la plateforme ».
 - **`/replay-gratuit`** : embed YouTube via short link `go.yogyface.fr/replay-yt` (`GET /api/replay`). Plus de redeploy pour changer la vidéo.
 - **`/vente` (Studio)** : **449 €** (999 € barré). Mensualités 4 × 112,25 € / 6 × 74,99 €.

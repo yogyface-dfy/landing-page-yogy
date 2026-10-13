@@ -22,7 +22,7 @@ const CLIPS = [
 
 export default function VenteTemoignagesVideo() {
   return (
-    <section className="py-14 md:py-20 bg-creme">
+    <section id="temoignages" className="py-14 md:py-20 bg-creme scroll-mt-24">
       <div className="px-[5%] max-w-[1100px] mx-auto text-center mb-8">
         <p className="section-badge justify-center">Elles en parlent</p>
         <h2 className="font-display text-[clamp(1.6rem,4vw,2.6rem)] font-black tracking-tighter text-noir">

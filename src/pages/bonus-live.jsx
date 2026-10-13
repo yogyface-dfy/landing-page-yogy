@@ -42,7 +42,7 @@ export default function BonusLive() {
 
           <div className="text-center mt-14">
             <Link to="/vente" className="btn-corail inline-flex text-sm md:text-base px-8 py-3.5">
-              Découvrir la Méthode YoGyFace RESET
+              Studio : Découvrir la Méthode YoGyFace Studio
             </Link>
           </div>
         </div>
