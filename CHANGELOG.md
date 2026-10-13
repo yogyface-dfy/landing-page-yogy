@@ -39,6 +39,8 @@
 
 ### 🔧 Changed
 
+- **`/vente`** : plus la phrase « Diagnostic V2, exercices refondus… » ; V2 → diagnostic ultra personnalisé.
+- **`/vente`** : stacked value dans le hero sur mobile seulement (desktop : section d'origine).
 - **`/vente`** : reconnaissance et échecs commentés ; titres (clientes, science, plateforme, produit, garantie) mis à jour.
 - **`/vente`** : messagerie, plus « fils par sujet ».
 - **`/vente`** : messagerie, plus « avec Laury et l'équipe ».

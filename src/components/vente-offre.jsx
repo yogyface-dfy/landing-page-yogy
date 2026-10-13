@@ -294,7 +294,7 @@ const INCLUDE_GROUPS = [
   {
     k: "Ton parcours",
     items: [
-      "Nouveau diagnostic V2",
+      "Diagnostic ultra personnalisé",
       "Programme 100 % personnalisé, fait main",
       "Nouveaux exercices & programme refondu",
     ],
@@ -398,7 +398,7 @@ const SALE_FAQ = [
     q: "Que se passe-t-il après le paiement ?",
     a: "Tu reçois l'accès à la plateforme. Ensuite tu fais ton diagnostic : ordonnance et programme sous 3 à 4 jours, lives + groupe. Une fois ton programme réceptionné, tes 6 mois de suivi commencent : un point photo chaque mois (1, 2, 3, 4, 5 et 6 mois).",
     // VIP = prévente : app tout de suite, diagnostic calé au 17 sept.
-    aVip: "Tu es en prévente. L'application s'ouvre dès le paiement. Le diagnostic V2, lui, s'ouvre le 17 septembre, ensuite ordonnance, programme, lives et groupe.",
+    aVip: "Tu es en prévente. L'application s'ouvre dès le paiement. Le diagnostic, lui, s'ouvre le 17 septembre, ensuite ordonnance, programme, lives et groupe.",
   },
 ];
 
@@ -642,7 +642,7 @@ export default function VenteOffre({ variant }) {
               ? "Les ventes YoGyFace Studio sont fermées."
               : isDix
                 ? "Programme YoGyFace Studio : 449 € en 1×, 4× ou 10 × 44,99 €. Plus que 2 places sur 20, fermeture à minuit."
-                : "Programme YoGyFace Studio : 449 €, diagnostic V2, nouveaux exercices, application et accompagnement personnalisé. Paiement en 1×, 4× ou 6×."
+                : "Programme YoGyFace Studio : 449 €, diagnostic ultra personnalisé, nouveaux exercices, application et accompagnement. Paiement en 1×, 4× ou 6×."
         }
         path={path}
         noindex
@@ -738,19 +738,19 @@ export default function VenteOffre({ variant }) {
               Crée les bonnes habitudes et supprime les causes de ton
               vieillissement.
             </p>
-            <p className="text-gris text-[15px] leading-relaxed mb-5 max-w-lg mx-auto md:mx-0">
-              {isVip
-                ? vipClosed
-                  ? STUDIO_SALES_OPEN
-                    ? "L'offre privée est close. Le programme Studio, lui, est ouvert."
-                    : "L'offre privée est close. Les inscriptions sont actuellement fermées."
-                  : "Prévente : l'application s'ouvre dès le paiement. Le diagnostic V2, lui, s'ouvre le 17 septembre, plus les bonus que le lancement public n'aura pas."
-                : studioClosed
-                  ? "Les inscriptions sont closes."
-                  : isDix
-                    ? "Paiement en 1×, 4× ou 10 × 44,99 €. Plus que 2 places sur 20. Fermeture à minuit."
-                    : "Diagnostic V2, exercices refondus, application YoGyFace. Le programme complet, à tarif de lancement."}
-            </p>
+            {(isVip || studioClosed || isDix) && (
+              <p className="text-gris text-[15px] leading-relaxed mb-5 max-w-lg mx-auto md:mx-0">
+                {isVip
+                  ? vipClosed
+                    ? STUDIO_SALES_OPEN
+                      ? "L'offre privée est close. Le programme Studio, lui, est ouvert."
+                      : "L'offre privée est close. Les inscriptions sont actuellement fermées."
+                    : "Prévente : l'application s'ouvre dès le paiement. Le diagnostic, lui, s'ouvre le 17 septembre, plus les bonus que le lancement public n'aura pas."
+                  : studioClosed
+                    ? "Les inscriptions sont closes."
+                    : "Paiement en 1×, 4× ou 10 × 44,99 €. Plus que 2 places sur 20. Fermeture à minuit."}
+              </p>
+            )}
 
             {SHOW_TRUSTPILOT ? (
               <a
@@ -775,7 +775,7 @@ export default function VenteOffre({ variant }) {
                 <ul className="text-left space-y-2 mb-6 max-w-md mx-auto md:mx-0">
                   {[
                     "Accès à l'application dès l'achat",
-                    "Diagnostic V2 à partir du 17 septembre",
+                    "Diagnostic ultra personnalisé à partir du 17 septembre",
                     "299 € au lieu de 999 €",
                     "18h de coaching · 12 mois d'accompagnement",
                   ].map((l) => (
@@ -837,6 +837,12 @@ export default function VenteOffre({ variant }) {
             {!isVip && studioClosed && (
               <PayCta {...pay} onceLabel={joinLabel} alignClass="md:mx-0" />
             )}
+            {/* Mobile : stacked value juste avant l'encart prix. */}
+            {!isVip && !studioClosed && (
+              <div className="md:hidden mb-5 text-left">
+                <VenteValeur price={offer.once.price} compact />
+              </div>
+            )}
             {!isVip && !studioClosed && (
               <div className="text-left max-w-md mx-auto md:mx-0 rounded-2xl border border-noir/8 bg-creme/80 p-5 md:p-6">
                 {offer.once.price && (
@@ -853,7 +859,7 @@ export default function VenteOffre({ variant }) {
                 )}
                 <ul className="space-y-2 mb-5">
                   {[
-                    "Diagnostic V2 + application YoGyFace",
+                    "Diagnostic ultra personnalisé + application YoGyFace",
                     "12h de coaching · 6 mois d'accompagnement",
                     ...(isDix ? ["Paiement en 1×, 4× ou 10 × 44,99 €"] : []),
                   ].map((l) => (
@@ -890,7 +896,10 @@ export default function VenteOffre({ variant }) {
         </div>
       </section>
 
-      <VenteValeur price={offer.once.price} />
+      {/* Desktop : stacked value à sa place d'origine. Mobile : déjà dans le hero. */}
+      <div className="hidden md:block">
+        <VenteValeur price={offer.once.price} />
+      </div>
       <VenteGarantie />
 
       {/* Cachées pour le moment
