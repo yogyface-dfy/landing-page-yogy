@@ -4,12 +4,19 @@ import Icon from "./Icon";
 import SEO from "./SEO";
 import VenteResultats from "./vente-resultats";
 import VentePlateforme from "./vente-plateforme";
+import VenteReconnaissance from "./vente-reconnaissance";
+import VenteEchecs from "./vente-echecs";
+import VenteTemoignagesVideo from "./vente-temoignages-video";
 import {
   readPrefillEmail,
   startCheckoutSession,
   withStripePrefill,
 } from "../lib/stripe-checkout";
 import { SHOW_TRUSTPILOT } from "../lib/trustpilot";
+import {
+  TRUSTPILOT_REVIEWS,
+  TRUSTPILOT_SCORE,
+} from "../lib/trustpilot-reviews";
 import { STUDIO_SALES_OPEN, VIP_SALES_OPEN } from "../lib/stripe-offers";
 
 /**
@@ -42,12 +49,12 @@ const OFFERS = {
   public: {
     once: {
       plan: "studio-once",
-      price: 499,
+      price: 449,
       was: 999,
     },
     installments: [
-      { plan: "studio-4x", times: 4, amount: "124,75" },
-      { plan: "studio-6x", times: 6, amount: "83,17" },
+      { plan: "studio-4x", times: 4, amount: "112,25" },
+      { plan: "studio-6x", times: 6, amount: "74,99" },
     ],
   },
 };
@@ -71,13 +78,13 @@ const VIP_BONUSES = [
 ];
 
 // VIP / lancement public (plus de colonne « après lancement »).
-// Ancre marketing : VIP 299 € / Studio 499 € (999 € barré).
+// Ancre marketing : VIP 299 € / Studio 449 € (999 € barré).
 const COMPARE = [
-  { label: "Prix du programme", vip: "299 €", was: "999 €", public: "499 €" },
+  { label: "Prix du programme", vip: "299 €", was: "999 €", public: "449 €" },
   {
     label: "Accès à la plateforme",
     vip: "Dès l'achat",
-    hint: "prévente — l'app s'ouvre tout de suite",
+    hint: "prévente, l'app s'ouvre tout de suite",
     public: "Lancement public",
   },
   { label: "Coaching live", vip: "12h", bonus: "+6h", public: "12h" },
@@ -117,93 +124,7 @@ const BRANDS = [
   "Lauvée",
 ];
 
-// 12 avis Trustpilot authentiques (profil yogyface.fr — titres officiels ou extraits).
-const TESTIMONIALS = [
-  {
-    headline: "Ma ride du lion devient presque invisible.",
-    text: "Elle me dérangeait énormément. La différence la plus impressionnante est pour mes paupières. Laury est exceptionnelle. Ses diagnostics sont tellement personnalisés que j'ai l'impression d'être sa « patiente » plutôt que sa cliente.",
-    name: "Jeanne R. - 29 ans",
-    tags: ["Ride du lion", "Paupières"],
-    link: "https://www.trustpilot.com/reviews/6a008d013da13a0d8a16d222",
-  },
-  {
-    headline: "J'ai l'impression d'avoir gagné 10 ans.",
-    text: "En 6 mois de YoGyFace, un regard rajeuni et plus ouvert. Je me regarde avec joie dans le miroir. Je recommande Laury à 200 %.",
-    name: "Elisabeth — 66 ans",
-    tags: ["Regard", "Fermeté"],
-    link: "https://www.trustpilot.com/reviews/6a2a71cf6ece41f3321f45d1",
-  },
-  {
-    headline: "Je n'ai jamais vu un programme aussi complet.",
-    text: "Je pratique depuis presque un an. Mes sillons et ma ride du lion sont moins creusés, ma peau est repulpée et mon regard défatigué.",
-    name: "Fanny — 47 ans",
-    tags: ["Sillons", "Ride du lion"],
-    link: "https://www.trustpilot.com/reviews/6a2b1c8f882a16df3f40b20f",
-  },
-  {
-    headline: "Bien plus efficace que les autres coachs en ligne.",
-    text: "En 3 mois, mes poches sont moins marquées, ma mâchoire plus lisse et ma ride du lion a quasi disparu. Un visage plus détendu, sans chirurgie.",
-    name: "Aurore",
-    tags: ["Poches", "Sans chirurgie"],
-    link: "https://www.trustpilot.com/reviews/6a2e78b79141ca5435afe805",
-  },
-  {
-    headline: "Une relation plus douce avec mon visage.",
-    text: "Ce qui m'a convaincue, c'est le diagnostic sur mesure. Quelques semaines plus tard, l'ovale est plus tonique et mon regard plus ouvert.",
-    name: "Emmanuelle — 41 ans",
-    tags: ["Ovale", "Regard"],
-    link: "https://www.trustpilot.com/reviews/6a2ffddb273694f0e9347c55",
-  },
-  {
-    headline: "Les douleurs à la mâchoire ont disparu.",
-    text: "J'ai 61 ans. Dès les premières séances, elles se sont apaisées. Le diagnostic et l'ordonnance personnalisée sont d'une grande justesse.",
-    name: "Christine — 61 ans",
-    tags: ["Mâchoire", "Bien-être"],
-    link: "https://www.trustpilot.com/reviews/6a345206ee1958e77fdf80e8",
-  },
-  {
-    headline: "Une renaissance.",
-    text: "Un an de pratique. Le botox m'avait créé de nouvelles problématiques — le yoga du visage a tout corrigé. J'ai repris totalement confiance en moi.",
-    name: "Carine",
-    tags: ["Après Botox", "Confiance"],
-    link: "https://www.trustpilot.com/reviews/6a29584db820ab188088ce5e",
-  },
-  {
-    headline: "De vrais résultats.",
-    text: "Après une lourde opération, je ne me reconnaissais plus. J'ai détendu cervicales, trapèzes, masséters — les rides se sont estompées et mon visage s'est de nouveau arrondi.",
-    name: "Virginie — 45 ans",
-    tags: ["Tensions", "Rides"],
-    link: "https://www.trustpilot.com/reviews/6a2ee612c96cedba939ad6a5",
-  },
-  {
-    headline: "Le miroir n'était plus mon ami.",
-    text: "À 66 ans, je psychotais sur mes rides et les poches. J'avais déjà fait des injections — résultat éphémère. J'ai plongé avec des doutes. Autant dire que je suis scotchée.",
-    name: "Marie-Noëlle — 66 ans",
-    tags: ["Rides", "Poches"],
-    link: "https://www.trustpilot.com/reviews/6a8bfb8d973db1d60805acb8",
-  },
-  {
-    headline: "Un investissement à long terme.",
-    text: "J'ai hésité (le prix, le doute). Aucun regret : des ressources précieuses et un environnement pensé pour la motivation et l'envie de prendre soin de soi.",
-    name: "Nina",
-    tags: ["Motivation", "Holistique"],
-    link: "https://www.trustpilot.com/reviews/6a89790c5de7e449fca04f88",
-  },
-  {
-    headline: "Un vrai programme personnalisé.",
-    text: "Tout a commencé par une poche sous un œil. J'ai découvert fascias, tensions, déséquilibres — et qu'un problème qui paraît simple peut avoir de nombreuses causes.",
-    name: "Stéph — 43 ans",
-    tags: ["Poches", "Fascias"],
-    link: "https://www.trustpilot.com/reviews/6a808010b957da8ce7e23c2e",
-  },
-  {
-    headline: "100 % conquise par ce programme.",
-    text: "Livres, tutos au hasard, gua sha… j'ai décidé de faire les choses correctement. La qualité du programme et le fait que ce soit ultra personnalisé m'ont convaincue.",
-    name: "Camille — 35 ans",
-    tags: ["Prévention", "Accompagnement"],
-    link: "https://www.trustpilot.com/reviews/6a623b362ddab66529ca1592",
-  },
-];
+const TESTIMONIALS = TRUSTPILOT_REVIEWS;
 
 const TP_GREEN = "#00B67A";
 
@@ -223,13 +144,14 @@ function TpStars({ size = 16 }) {
   );
 }
 
-// Parcours en 3 temps (bloc type Lynae). Les 6 étapes détaillées restent plus bas.
+// Parcours en 3 temps. 1 ligne desktop, empilé mobile. Visuels produit, même hauteur.
+// Cropped assets so the 3 cards stay on one desktop row without empty chrome.
 const HOW = [
   {
     n: 1,
-    img: "/laury-expertise.webp",
-    pos: "object-[50%_18%]",
-    alt: "Laury — diagnostic et anatomie du visage",
+    img: "/app/how-diagnostic.jpg",
+    pos: "object-contain bg-[#F7F2F0]",
+    alt: "Diagnostic YoGyFace : questionnaire et question vidéo dans la plateforme",
     title: "Tu réalises ton diagnostic",
     desc: (
       <>
@@ -240,22 +162,22 @@ const HOW = [
   },
   {
     n: 2,
-    img: "/laury-ecriture.webp",
-    pos: "object-[50%_16%]",
-    alt: "Laury — écriture de l'ordonnance personnalisée",
+    img: "/ordonnance-montage-card.jpg",
+    pos: "object-contain bg-[#F7F2F0] p-4",
+    alt: "Ordonnance beauté et ordonnance skincare YoGyFace, rédigées à la main",
     title: "Je te crée ton ordonnance et ton programme",
     desc: (
       <>
-        Sous <strong>3 à 4 jours</strong> max. Chaque programme est unique — ça
+        Sous <strong>3 à 4 jours</strong> max. Chaque programme est unique, ça
         demande un peu de travail, à la main.
       </>
     ),
   },
   {
     n: 3,
-    img: "/laury-yeux.webp",
-    pos: "object-[50%_20%]",
-    alt: "Routine YoGyFace au quotidien",
+    img: "/programme-montage.jpg",
+    pos: "object-contain bg-[#F7F2F0]",
+    alt: "Programme YoGyFace personnalisé, semaine par semaine, sur ordinateur et téléphone",
     title: "Tu en fais ton rituel quotidien",
     desc: (
       <>
@@ -274,7 +196,7 @@ const TIMELINE = [
     text: (
       <>
         Tu prends les <strong>bases</strong> pour installer de bonnes habitudes.
-        Puis tu commences à corriger tes comportements et tes mimiques — souvent{" "}
+        Puis tu commences à corriger tes comportements et tes mimiques, souvent{" "}
         <strong>la cause de tes rides</strong>.
       </>
     ),
@@ -285,7 +207,7 @@ const TIMELINE = [
     text: (
       <>
         L'ovale se raffermit, le regard s'ouvre, certaines rides d'expression
-        s'adoucissent. <strong>L'entourage commence à le voir</strong> — pas
+        s'adoucissent. <strong>L'entourage commence à le voir</strong>, pas
         seulement toi dans le miroir.
       </>
     ),
@@ -297,13 +219,13 @@ const TIMELINE = [
       <>
         Tu dis de nouveau <strong>oui</strong> aux photos, aux dîners, aux
         selfies. Tu te regardes dans le miroir sans détourner les yeux. Tu
-        reprends du temps pour toi — et tu n'as plus peur de vieillir.
+        reprends du temps pour toi, et tu n'as plus peur de vieillir.
       </>
     ),
   },
 ];
 
-// Détail aligné sur /programme (Reset) — pas un nouveau bloc, on étoffe les 6 étapes.
+// Détail aligné sur /programme (Reset), pas un nouveau bloc, on étoffe les 6 étapes.
 const steps = [
   {
     num: "01",
@@ -311,7 +233,7 @@ const steps = [
     tag: "J+0",
     desc: "Questionnaire de 30 min, 25 thématiques, tests musculaires et photos de face et de profil : j'analyse TON visage avant de construire quoi que ce soit.",
     detail:
-      "Une analyse fine pour créer ta routine unique — pas un protocole générique.",
+      "Une analyse fine pour créer ta routine unique, pas un protocole générique.",
   },
   {
     num: "02",
@@ -319,7 +241,7 @@ const steps = [
     tag: "J+3",
     desc: "Un document de 3 à 7 pages : tes 3 priorités, les causes réelles, tes conseils skincare et mode de vie. C'est mon point de référence pour suivre ton évolution.",
     detail:
-      "Tes priorités identifiées — et les causes, pas seulement les symptômes.",
+      "Tes priorités identifiées, et les causes, pas seulement les symptômes.",
   },
   {
     num: "03",
@@ -327,7 +249,7 @@ const steps = [
     tag: "J+6",
     desc: "Une routine progressive de 3 à 10 min/jour. La durée augmente semaine après semaine : on installe l'habitude sans te cramer dès le départ.",
     detail:
-      "Fondations d'abord, maîtrise ensuite — 21 jours pour ancrer le geste.",
+      "Fondations d'abord, maîtrise ensuite, 21 jours pour ancrer le geste.",
   },
   {
     num: "04",
@@ -342,37 +264,83 @@ const steps = [
     title: "Lives coaching",
     tag: "Inclus",
     desc: "FAQ pour te corriger les premières semaines, puis lives thématiques pour aller plus loin. Ce ne sont pas des vidéos pré-enregistrées.",
-    detail: "Mon équipe et moi sommes là pour te guider — en direct.",
+    detail: "Mon équipe et moi sommes là pour te guider, en direct.",
   },
   {
     num: "06",
     title: "Suivi & communauté",
     tag: "À vie",
-    desc: "Questionnaires à 1, 2, 3 et 6 mois. Replays, groupe WhatsApp, et le Club des Marques : 1 live mensuel avec un intervenant.",
-    detail: "Jamais toute seule — motivation collective et soutien continu.",
+    desc: "Questionnaires à 1, 2, 3 et 6 mois. Replays, communauté privée dans la plateforme, et le Club des Marques : 1 live mensuel avec un intervenant.",
+    detail: "Jamais toute seule, motivation collective et soutien continu.",
   },
 ];
 
-// Catalogue compact (Reset / /programme) — expertes + guides, pas la stack « 2 497 € ».
+// 3 familles plutôt qu'une checklist plate (le « 5 expertes » est le bloc portraits).
+const INCLUDE_GROUPS = [
+  {
+    k: "Ton parcours",
+    items: [
+      "Nouveau diagnostic V2",
+      "Programme 100 % personnalisé, fait main",
+      "Nouveaux exercices & programme refondu",
+    ],
+  },
+  {
+    k: "La plateforme",
+    items: [
+      "Application YoGyFace",
+      "Messagerie instantanée + notifications",
+      "+20 eBooks et guides pratiques",
+    ],
+  },
+  {
+    k: "Avec toi",
+    items: [
+      "Communauté privée dans la plateforme",
+      "Garantie (sous conditions CGV)",
+    ],
+  },
+];
+
+// Portraits croppés depuis le catalogue plateforme (mail-8-expertes).
 const BONUS_CATALOG = [
   {
     t: "EFT & émotions",
-    d: "Irina — libérer les blocages qui se cristallisent sur le visage.",
+    name: "Irina",
+    d: "Libérer les blocages qui se cristallisent sur le visage.",
+    img: "/experts/irina.jpg",
   },
-  { t: "Face Tape", d: "Laëtitia — applications ciblées entre les séances." },
-  { t: "Yoga 30 min", d: "Alicia — respiration, posture, étirements guidés." },
+  {
+    t: "Face Tape",
+    name: "Laëtitia",
+    d: "Applications ciblées entre les séances.",
+    img: "/experts/laetitia.jpg",
+  },
+  {
+    t: "Yoga 30 min",
+    name: "Alicia",
+    d: "Respiration, posture, étirements guidés.",
+    img: "/experts/alicia.jpg",
+  },
   {
     t: "Nutrition P.E.A.U",
-    d: "Camille — agir de l'intérieur sur rides, taches, éclat.",
+    name: "Camille",
+    d: "Agir de l'intérieur sur rides, taches, éclat.",
+    img: "/experts/camille.jpg",
   },
-  { t: "Bible des actifs", d: "Guide + décryptage collagène (Julie / Natis)." },
+  {
+    t: "Bible des actifs",
+    name: "Julie",
+    d: "Guide + décryptage collagène (Natis).",
+    img: "/experts/julie.jpg",
+  },
 ];
 
 // FAQ vente : extraits de /faq, du calendrier résultats et des CGV.
 const SALE_FAQ = [
   {
     q: "En combien de temps vais-je voir des résultats ?",
-    a: "Effet « bonne mine » dès les premières séances. En 3–4 semaines tu poses les habitudes et tu corriges tes mimiques. Les changements visibles (ovale, regard, rides d'expression) se voient surtout entre 2 et 4 mois. À 6 mois, la transformation est installée — si tu es régulière.",
+    a: "Effet « bonne mine » dès les premières séances. En 3–4 semaines tu poses les habitudes et tu corriges tes mimiques. Les changements visibles (ovale, regard, rides d'expression) se voient surtout entre 2 et 4 mois. À 6 mois, la transformation est installée, si tu es régulière.",
   },
   {
     q: "Combien de temps faut-il pratiquer par jour ?",
@@ -381,16 +349,32 @@ const SALE_FAQ = [
   {
     q: "Est-ce que ça marche vraiment ?",
     a: SHOW_TRUSTPILOT
-      ? "Oui, si tu travailles le visage en globalité — pas une ride isolée. On détend les muscles trop contractés, on réveille ceux qui se sont endormis, et on corrige les habitudes qui creusent les traits. 4.9/5 sur Trustpilot, 1200+ femmes accompagnées."
-      : "Oui, si tu travailles le visage en globalité — pas une ride isolée. On détend les muscles trop contractés, on réveille ceux qui se sont endormis, et on corrige les habitudes qui creusent les traits. 4.9/5, 1200+ femmes accompagnées.",
+      ? `Oui, si tu travailles le visage en globalité, pas une ride isolée. On détend les muscles trop contractés, on réveille ceux qui se sont endormis, et on corrige les habitudes qui creusent les traits. ${TRUSTPILOT_SCORE}/5 sur Trustpilot, 1200+ femmes accompagnées.`
+      : `Oui, si tu travailles le visage en globalité, pas une ride isolée. On détend les muscles trop contractés, on réveille ceux qui se sont endormis, et on corrige les habitudes qui creusent les traits. ${TRUSTPILOT_SCORE}/5, 1200+ femmes accompagnées.`,
   },
   {
     q: "Est-ce que ça peut remplacer les injections ?",
     a: "Ce n'est pas une injection : ça n'est pas figé. Beaucoup de femmes ont espacé ou arrêté leurs injections une fois la pratique installée. C'est complémentaire, et ça te rend autonome.",
   },
   {
+    q: "À quel âge puis-je commencer ?",
+    a: "Dès 25 ans en prévention. Autour de 40 ans pour les premiers relâchements. Après 60 ans pour soutenir fermeté et vitalité. À tout âge, c'est le bon moment.",
+  },
+  {
+    q: "J'ai eu un lifting ou des injections. Je peux pratiquer ?",
+    a: "Oui, en complément, et tu le notes au diagnostic pour que j'adapte. En général on attend environ 1 mois après le geste, et l'accord de ton médecin esthétique.",
+  },
+  {
+    q: "J'ai de l'acné, de la rosacée ou de la couperose.",
+    a: "Oui, en douceur. Drainage et automassages aident souvent à apaiser. Environ 40 % de mes clientes ont ce type de peau, on est plus attentives en cas de grosse crise.",
+  },
+  {
+    q: "Combien de temps j'ai accès ?",
+    a: "Le contenu reste accessible, 24h/24. Tu deviens autonome en 4 semaines, puis tu pioches dans la bibliothèque à vie.",
+  },
+  {
     q: "J'ai peur de mal faire et d'abîmer mon visage.",
-    a: "Chaque geste est expliqué : placement, pression, rythme, sensations. Les lives servent à te corriger. Pratiquer au hasard peut être contre-productif — c'est pour ça que tu n'es pas seule.",
+    a: "Chaque geste est expliqué : placement, pression, rythme, sensations. Les lives servent à te corriger. Pratiquer au hasard peut être contre-productif, c'est pour ça que tu n'es pas seule.",
   },
   {
     q: "Comment fonctionne la garantie ?",
@@ -400,20 +384,8 @@ const SALE_FAQ = [
     q: "Que se passe-t-il après le paiement ?",
     a: "Tu reçois l'accès à la plateforme. Ensuite tu fais ton diagnostic : ordonnance et programme sous 3 à 4 jours, lives + groupe.",
     // VIP = prévente : app tout de suite, diagnostic calé au 17 sept.
-    aVip: "Tu es en prévente. L'application s'ouvre dès le paiement. Le diagnostic V2, lui, s'ouvre le 17 septembre — ensuite ordonnance, programme, lives et groupe.",
+    aVip: "Tu es en prévente. L'application s'ouvre dès le paiement. Le diagnostic V2, lui, s'ouvre le 17 septembre, ensuite ordonnance, programme, lives et groupe.",
   },
-];
-
-const includes = [
-  "Nouveau diagnostic V2",
-  "Nouveaux exercices & programme refondu",
-  "Application YoGyFace",
-  "Messagerie instantanée + notifications",
-  "Programme 100 % personnalisé, fait main",
-  "5 expertes (nutrition, émotions, face tape, yoga, compléments)",
-  "+20 eBooks et guides pratiques",
-  "Groupe WhatsApp privé",
-  "Garantie (sous conditions CGV)",
 ];
 
 const renderBrand = (name, i) => (
@@ -425,7 +397,7 @@ const renderBrand = (name, i) => (
   </span>
 );
 
-/** CTA 1× + mensualités — Checkout Session (fallback Payment Link si Stripe n'est pas configuré). */
+/** CTA 1× + mensualités, Checkout Session (fallback Payment Link si Stripe n'est pas configuré). */
 function PayCta({
   onceLabel,
   oncePlan,
@@ -541,8 +513,8 @@ export default function VenteOffre({ variant }) {
   const path = isVip ? "/vente-vip" : "/vente";
   const offer = OFFERS[variant];
   const joinLabel = isVip
-    ? `Rejoindre l'offre VIP — ${offer.once.price} €`
-    : `Rejoindre Studio — ${offer.once.price} €`;
+    ? `Rejoindre l'offre VIP, ${offer.once.price} €`
+    : `Rejoindre Studio, ${offer.once.price} €`;
   const [searchParams] = useSearchParams();
   const [email, setEmail] = useState("");
   const [payLoading, setPayLoading] = useState(null);
@@ -613,7 +585,7 @@ export default function VenteOffre({ variant }) {
             "Plus que 2 places disponibles",
             "Fermeture lundi soir 14 septembre, 00h",
           ]
-        : ["50 places dispos max", "jusqu'au 18 septembre"],
+        : null,
     installments: offer.installments.map((i) => ({
       plan: i.plan,
       label: `Payer en ${i.times} × ${i.amount} €`,
@@ -632,11 +604,11 @@ export default function VenteOffre({ variant }) {
         title={
           isVip
             ? vipClosed
-              ? "Ventes VIP fermées — YoGyFace"
-              : "Offre VIP — Vente privée YoGyFace"
+              ? "Ventes VIP fermées, YoGyFace"
+              : "Offre VIP, Vente privée YoGyFace"
             : studioClosed
-              ? "Ventes fermées — YoGyFace Studio"
-              : "YoGyFace Studio — Programme"
+              ? "Ventes fermées, YoGyFace Studio"
+              : "YoGyFace Studio, Programme"
         }
         description={
           isVip
@@ -647,7 +619,7 @@ export default function VenteOffre({ variant }) {
               : "Offre VIP exceptionnelle : 299 € au lieu de 999 €, accès en avant-première à l'application, 18h de coaching et bonus réservés."
             : studioClosed
               ? "Les ventes YoGyFace Studio sont fermées."
-              : "Programme YoGyFace Studio : 499 €, diagnostic V2, nouveaux exercices, application et accompagnement personnalisé. Paiement en 1×, 4× ou 6×."
+              : "Programme YoGyFace Studio : 449 €, diagnostic V2, nouveaux exercices, application et accompagnement personnalisé. Paiement en 1×, 4× ou 6×."
         }
         path={path}
         noindex
@@ -661,7 +633,7 @@ export default function VenteOffre({ variant }) {
         <div className="absolute inset-0 bg-gradient-to-b from-rose/25 via-white to-white pointer-events-none" />
         <div className="max-w-[1100px] mx-auto relative z-10 grid md:grid-cols-2 gap-8 md:gap-14 items-start">
           <div className="order-1">
-            {/* Mobile : le H1 est sous la photo — un titre au-dessus pour remplir le vide. */}
+            {/* Mobile : le H1 est sous la photo, un titre au-dessus pour remplir le vide. */}
             {isVip && (
               <p className="md:hidden text-center mb-5">
                 <span className="block font-display font-black tracking-tighter text-noir text-[1.7rem] uppercase leading-none">
@@ -686,7 +658,7 @@ export default function VenteOffre({ variant }) {
               <div className="absolute -inset-3 bg-gradient-to-br from-corail/10 to-bleu/10 rounded-3xl blur-2xl pointer-events-none hidden md:block" />
               <img
                 src="/laury-massage.webp"
-                alt="Laury — méthode YoGyFace"
+                alt="Laury, méthode YoGyFace"
                 className="relative w-full h-[min(52vh,420px)] md:h-auto object-cover object-[50%_18%] rounded-2xl md:rounded-3xl shadow-2xl"
               />
               {isVip && (
@@ -696,7 +668,7 @@ export default function VenteOffre({ variant }) {
               )}
               {!isVip && (
                 <span className="absolute top-4 left-4 px-3 py-1.5 rounded-full bg-noir text-white text-[11px] font-semibold uppercase tracking-widest">
-                  {studioClosed ? "Fermée" : "50 places"}
+                  {studioClosed ? "Fermée" : "Studio"}
                 </span>
               )}
             </div>
@@ -708,10 +680,10 @@ export default function VenteOffre({ variant }) {
               {isVip
                 ? vipClosed
                   ? "Vente privée close"
-                  : "Offre exceptionnelle — inscrites liste d'attente"
+                  : "Offre exceptionnelle, inscrites liste d'attente"
                 : studioClosed
                   ? "Ventes closes"
-                  : "Ouverture — jusqu'au 18 septembre"}
+                  : "Programme Studio"}
             </div>
             <h1
               className={`font-display text-[clamp(1.9rem,5vw,3.4rem)] font-black leading-[0.95] tracking-tighter text-noir mb-3 ${
@@ -736,7 +708,7 @@ export default function VenteOffre({ variant }) {
                     : "YoGyFace."}
               </span>
             </h1>
-            {/* Accroche Reset — sous-titre, ne remplace pas le hero VIP. */}
+            {/* Accroche Reset, sous-titre, ne remplace pas le hero VIP. */}
             <p className="font-serif italic text-corail text-[16px] md:text-[18px] mb-3">
               Crée les bonnes habitudes et supprime les causes de ton
               vieillissement.
@@ -747,7 +719,7 @@ export default function VenteOffre({ variant }) {
                   ? STUDIO_SALES_OPEN
                     ? "L'offre privée est close. Le programme Studio, lui, est ouvert."
                     : "L'offre privée est close. Les inscriptions sont actuellement fermées."
-                  : "Prévente : l'application s'ouvre dès le paiement. Le diagnostic V2, lui, s'ouvre le 17 septembre — plus les bonus que le lancement public n'aura pas."
+                  : "Prévente : l'application s'ouvre dès le paiement. Le diagnostic V2, lui, s'ouvre le 17 septembre, plus les bonus que le lancement public n'aura pas."
                 : studioClosed
                   ? "Les inscriptions sont closes."
                   : "Diagnostic V2, exercices refondus, application YoGyFace. Le programme complet, à tarif de lancement."}
@@ -760,13 +732,13 @@ export default function VenteOffre({ variant }) {
                 rel="noopener"
                 className="inline-flex items-center gap-2 text-sm mb-5"
               >
-                <span className="font-display font-black text-noir">4.9/5</span>
+                <span className="font-display font-black text-noir">{TRUSTPILOT_SCORE}/5</span>
                 <span className="text-gris/70">Excellent · Trustpilot</span>
                 <span className="text-gris/40">· 1200+ femmes</span>
               </a>
             ) : (
               <p className="inline-flex items-center gap-2 text-sm mb-5">
-                <span className="font-display font-black text-noir">4.9/5</span>
+                <span className="font-display font-black text-noir">{TRUSTPILOT_SCORE}/5</span>
                 <span className="text-gris/40">· 1200+ femmes</span>
               </p>
             )}
@@ -789,7 +761,7 @@ export default function VenteOffre({ variant }) {
                     </li>
                   ))}
                 </ul>
-                {/* Prévente : app maintenant, diagnostic calé — à ne pas noyer dans le prix. */}
+                {/* Prévente : app maintenant, diagnostic calé, à ne pas noyer dans le prix. */}
                 <div className="text-left mb-6 max-w-md mx-auto md:mx-0 rounded-2xl border border-noir/8 bg-creme/80 p-4">
                   <p className="text-[11px] font-semibold uppercase tracking-[0.16em] text-corail mb-2">
                     Prévente
@@ -876,7 +848,7 @@ export default function VenteOffre({ variant }) {
         </div>
       </section>
 
-      {/* Brand proof — bandeau marques (même liste que l'accueil) */}
+      {/* Brand proof, bandeau marques (même liste que l'accueil) */}
       <section className="py-10 md:py-14 px-[5%] bg-white border-y border-noir/5 overflow-hidden">
         <p className="text-center text-[11px] font-semibold uppercase tracking-[0.2em] text-noir/30 mb-6">
           Elles m'ont fait confiance
@@ -889,6 +861,9 @@ export default function VenteOffre({ variant }) {
           </div>
         </div>
       </section>
+
+      <VenteReconnaissance />
+      <VenteEchecs cta={<PayCta {...pay} onceLabel={joinLabel} />} />
 
       {/* Comparatif VIP vs public */}
       {isVip && (
@@ -920,7 +895,7 @@ export default function VenteOffre({ variant }) {
                   style={{ gridColumn: 2, gridRow: 1 }}
                 >
                   <span className="text-[10px] md:text-xs font-bold uppercase tracking-wider text-emerald-700 bg-emerald-50 rounded-full px-2.5 md:px-3 py-1">
-                    VIP — toi
+                    VIP, toi
                   </span>
                 </div>
                 <div
@@ -1003,12 +978,12 @@ export default function VenteOffre({ variant }) {
             {HOW.map((s) => (
               <article
                 key={s.n}
-                className="rounded-2xl overflow-hidden bg-white shadow-sm"
+                className="rounded-2xl bg-white overflow-hidden ring-1 ring-noir/5 shadow-[0_8px_20px_rgba(26,26,26,0.10),0_22px_50px_rgba(26,26,26,0.20)]"
               >
                 <img
                   src={s.img}
                   alt={s.alt}
-                  className={`w-full h-64 md:h-64 object-cover ${s.pos}`}
+                  className={`w-full h-56 md:h-64 ${s.pos.startsWith("object-contain") ? s.pos : `object-cover ${s.pos}`}`}
                 />
                 <div className="p-5 text-left">
                   <p className="font-serif italic text-corail text-sm mb-1">
@@ -1060,7 +1035,7 @@ export default function VenteOffre({ variant }) {
             <div>
               <img
                 src="/laury-yeux.webp"
-                alt="Routine YoGyFace — les effets s'installent semaine après semaine"
+                alt="Routine YoGyFace, les effets s'installent semaine après semaine"
                 className="w-full max-w-[420px] mx-auto md:ml-auto h-[380px] md:h-[520px] rounded-2xl md:rounded-3xl object-cover object-top"
               />
               <div className="text-center mt-6">
@@ -1073,14 +1048,16 @@ export default function VenteOffre({ variant }) {
 
       <VenteResultats cta={<PayCta {...pay} onceLabel={joinLabel} />} />
 
-      {/* Social proof — cartes au format Trustpilot */}
+      <VenteTemoignagesVideo />
+
+      {/* Social proof, cartes au format Trustpilot */}
       <section className="py-14 md:py-20 px-[5%] bg-creme">
         <div className="max-w-[1100px] mx-auto">
           <div className="text-center mb-10">
             <p className="flex items-center justify-center gap-2 text-sm text-noir mb-3">
               <TpStars size={16} />
               <span>
-                Noté <strong>4.9/5</strong>
+                Noté <strong>{TRUSTPILOT_SCORE}/5</strong>
                 {SHOW_TRUSTPILOT && (
                   <>
                     {" "}
@@ -1123,9 +1100,11 @@ export default function VenteOffre({ variant }) {
                       <span className="text-sm font-bold text-noir">5.0</span>
                       <TpStars />
                     </span>
-                    <span className="text-[11px] text-gris whitespace-nowrap">
-                      {t.name}
-                    </span>
+                    {t.name ? (
+                      <span className="text-[11px] text-gris whitespace-nowrap">
+                        {t.name}
+                      </span>
+                    ) : null}
                   </div>
                   <p className="font-semibold text-noir text-[15px] leading-snug mb-2">
                     « {t.headline} »
@@ -1167,12 +1146,12 @@ export default function VenteOffre({ variant }) {
         </div>
       </section>
 
-      {/* Autorité — calqué sur le bloc « formulé par » Lynae, faits About/Home. */}
+      {/* Autorité, calqué sur le bloc « formulé par » Lynae, faits About/Home. */}
       <section className="py-14 md:py-20 px-[5%] bg-white">
         <div className="max-w-[1000px] mx-auto grid md:grid-cols-2 gap-8 md:gap-14 items-center">
           <img
             src="/laury-expertise.webp"
-            alt="Laury Anater — fondatrice de YoGyFace"
+            alt="Laury Anater, fondatrice de YoGyFace"
             className="w-full max-w-[420px] mx-auto md:mx-0 h-[380px] md:h-[520px] rounded-2xl md:rounded-3xl object-cover object-top"
           />
           <div className="text-left">
@@ -1193,9 +1172,9 @@ export default function VenteOffre({ variant }) {
               Chaque geste est choisi pour son rôle précis dans :
             </p>
             <ul className="space-y-1.5 text-gris text-[14px] mb-6">
-              <li>— la tonification des 45 muscles du visage</li>
-              <li>— le relâchement des tensions (mâchoire, regard, cou)</li>
-              <li>— la reprogrammation des habitudes qui font vieillir</li>
+              <li>la tonification des 45 muscles du visage</li>
+              <li>le relâchement des tensions (mâchoire, regard, cou)</li>
+              <li>la reprogrammation des habitudes qui font vieillir</li>
             </ul>
             <p className="text-noir text-[14px] leading-relaxed">
               Aucun programme copié-collé.
@@ -1211,9 +1190,9 @@ export default function VenteOffre({ variant }) {
         </div>
       </section>
 
-      {/* Inclus */}
+      {/* Inclus : 3 familles + portraits des 5 expertes */}
       <section className="py-14 md:py-20 px-[5%] bg-creme">
-        <div className="max-w-[800px] mx-auto">
+        <div className="max-w-[1100px] mx-auto">
           <div className="text-center mb-8">
             <div className="section-badge justify-center">
               Ce qui est inclus
@@ -1226,31 +1205,51 @@ export default function VenteOffre({ variant }) {
               </span>
             </h2>
           </div>
-          <ul className="grid sm:grid-cols-2 gap-2.5">
-            {includes.map((item) => (
-              <li
-                key={item}
-                className="flex items-start gap-2.5 p-3.5 rounded-xl bg-white border border-noir/5 text-sm text-noir/80"
+          <div className="grid sm:grid-cols-3 gap-3 md:gap-4">
+            {INCLUDE_GROUPS.map((g) => (
+              <div
+                key={g.k}
+                className="rounded-2xl bg-white border border-noir/5 p-5 text-left"
               >
-                <span className="text-corail mt-0.5">✓</span>
-                {item}
-              </li>
+                <p className="text-[11px] font-semibold uppercase tracking-[0.18em] text-corail mb-3">
+                  {g.k}
+                </p>
+                <ul className="space-y-2.5">
+                  {g.items.map((item) => (
+                    <li
+                      key={item}
+                      className="flex items-start gap-2 text-sm text-noir/80"
+                    >
+                      <span className="text-corail mt-0.5">✓</span>
+                      {item}
+                    </li>
+                  ))}
+                </ul>
+              </div>
             ))}
-          </ul>
-          <div className="mt-8">
-            <p className="text-[11px] font-semibold uppercase tracking-[0.2em] text-noir/30 mb-3 text-center">
-              Inclus aussi — expertes & guides
+          </div>
+          <div className="mt-10">
+            <p className="text-[11px] font-semibold uppercase tracking-[0.2em] text-noir/30 mb-5 text-center">
+              5 expertes pour aller plus loin
             </p>
-            <ul className="grid sm:grid-cols-2 gap-2.5">
+            <ul className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 gap-3 md:gap-4">
               {BONUS_CATALOG.map((b) => (
                 <li
                   key={b.t}
-                  className="p-3.5 rounded-xl bg-white border border-noir/5 text-left"
+                  className="rounded-2xl bg-white border border-noir/5 p-4 text-center"
                 >
-                  <p className="font-medium text-sm text-noir">{b.t}</p>
-                  <p className="text-gris text-[13px] leading-relaxed mt-0.5">
-                    {b.d}
+                  <img
+                    src={b.img}
+                    alt={b.name}
+                    className="w-20 h-20 md:w-[88px] md:h-[88px] rounded-full object-cover mx-auto mb-3"
+                  />
+                  <p className="font-display font-black text-[13px] text-noir tracking-tight">
+                    {b.name}
                   </p>
+                  <p className="text-corail text-[11px] font-semibold mb-1.5">
+                    {b.t}
+                  </p>
+                  <p className="text-gris text-[12px] leading-snug">{b.d}</p>
                 </li>
               ))}
             </ul>
@@ -1440,9 +1439,6 @@ export default function VenteOffre({ variant }) {
                 </p>
               </details>
             ))}
-            <div className="text-center mt-8">
-              <PayCta {...pay} onceLabel={joinLabel} />
-            </div>
           </div>
         </div>
       </section>
@@ -1473,10 +1469,10 @@ export default function VenteOffre({ variant }) {
                 ? STUDIO_SALES_OPEN
                   ? "L'offre privée n'est plus disponible. Rejoins Studio."
                   : "Les inscriptions sont actuellement fermées."
-                : "Prévente : l'app dès l'achat, le diagnostic le 17 septembre. Tarif VIP + bonus — plus au lancement public."
+                : "Prévente : l'app dès l'achat, le diagnostic le 17 septembre. Tarif VIP + bonus, plus au lancement public."
               : studioClosed
                 ? "Les inscriptions sont closes."
-                : "Le programme Studio — sans les bonus ni l'accès anticipé de la liste."}
+                : "Le programme Studio, sans les bonus ni l'accès anticipé de la liste."}
           </p>
           {offer.once.price && !salesClosed && (
             <p className="text-white mb-6">
@@ -1501,7 +1497,7 @@ export default function VenteOffre({ variant }) {
             onceLabel={
               isVip
                 ? `Payer ${offer.once.price} € en 1 fois →`
-                : `Payer Studio — ${offer.once.price} € en 1 fois →`
+                : `Payer Studio, ${offer.once.price} € en 1 fois →`
             }
           />
           <p className="text-white/30 text-sm mt-6">

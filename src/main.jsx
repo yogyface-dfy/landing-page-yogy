@@ -47,6 +47,7 @@ export const routes = [
       { path: 'cadeau3', lazy: page(() => import('./pages/funnel-cadeau')) },
       { path: 'cadeaux-123', lazy: page(() => import('./pages/funnel-cadeau')) },
       { path: 'replay-gratuit', lazy: page(() => import('./pages/replay-gratuit')) },
+      { path: 'bonus-live', lazy: page(() => import('./pages/bonus-live')) },
       { path: 'confirmation-achat-bienvenue', lazy: page(() => import('./pages/confirmation-achat-bienvenue')) },
       { path: 'merci-achat', lazy: page(() => import('./pages/merci-achat')) },
       { path: 'installer-app', lazy: page(() => import('./pages/installer-app')) },

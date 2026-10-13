@@ -14,6 +14,7 @@
  *   META_PIXEL_ID         — 604268118937812 (défaut)
  *   META_TEST_EVENT_CODE  — vide en prod ; TEST… en QA
  *   DATAFAST_BOT_TOKEN    — optionnel (dfbot_…) si auth Bot traffic activée
+ *   REPLAY_SHORT_URL      — short link replay (défaut go.yogyface.fr/replay-yt)
  */
 import express from 'express'
 import fs from 'fs'
@@ -28,6 +29,7 @@ import {
   handleStripeWebhook,
 } from './lib/stripe-server.js'
 import { handleCapiEvent } from './lib/meta-capi.js'
+import { handleReplayYoutube } from './lib/replay-youtube.js'
 import { ATTRIBUTION_KEYS } from './src/lib/attribution.js'
 
 // En local les secrets sont dans .env.local (convention Vite).
@@ -85,6 +87,7 @@ const NOINDEX_PATHS = [
   '/cadeau3',
   '/cadeaux-123',
   '/replay-gratuit',
+  '/bonus-live',
   '/confirmation-achat-bienvenue',
 ]
 app.use((req, res, next) => {
@@ -275,6 +278,7 @@ app.post('/api/airtable', async (req, res) => {
   }
 })
 
+app.get('/api/replay', handleReplayYoutube)
 app.post('/api/capi-event', handleCapiEvent)
 app.post('/api/stripe/checkout', createCheckoutSession)
 app.get('/api/stripe/session', getCheckoutSession)

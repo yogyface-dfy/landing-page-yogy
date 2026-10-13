@@ -2,8 +2,36 @@
 
 ## 2026-10-13
 
+### 🚀 Improved
+
+- **`/vente`** : étape 1, mockup diagnostic (liste + carte vidéo) à la place des photos Suivi.
+- **`/vente`** : étapes 1 et 2 en `object-contain` (plus de crop), comme l'étape 3.
+- **`/vente`** : ombres renforcées sur les 3 cartes « Comment ça se passe ».
+- **`/vente`** : étapes 1 et 2 recadrées (photos diagnostic, ordonnances sans marge crème).
+- **`/vente`** : 3 étapes (diagnostic, ordo, programme) à nouveau sur 1 ligne desktop.
+- **`/vente`** : montage ordonnances, bas des 2 pages flouté (texte plus lisible).
+- **`/vente`** : plus de CTA d'achat sous la FAQ (déjà dans « Prête à commencer »).
+- **`/vente`** : bloc Studio réagencé (parcours / plateforme / accompagnement) + portraits des 5 expertes.
+- **`/vente`** : 36 avis Trustpilot 5★ (les 1★ restent hors page). Note affichée **4,4/5**.
+- **`/vente`** : témoignages vidéo en 16:9 + bouton play sur la miniature (plus de crop 3:4).
+
+### ✨ Added
+
+- **`/vente`** : étape 3, mockup programme (desktop + tablette) à la place de la photo Laury.
+- **`/vente`** : étape 2, montage carré des ordonnances (beauté + skincare) à la place de la photo Laury.
+- **`/vente`** : étape 1 (diagnostic) en mockup plateforme (écran Suivi desktop + iPhone) à la place de la photo Laury.
+- **`/vente`** : titre échecs → « Pourquoi ce que tu as déjà essayé n'a pas fonctionné ».
+- **`/vente`** : tirets cadratins « — » remplacés par des virgules (copy moins « IA »).
+- **`/vente`** : plus de bandeau cookies (ni sur `/vente-vip`).
+- **`/vente`** : plus de « 50 places » / « 18 septembre » (CTA, badge, bandeau).
+- **`/vente`** : blocs « Si tu te reconnais », « Pourquoi ça n'a pas marché », 14 témoignages vidéo Systeme.io, 4 FAQ (âge, injections, peau, accès).
+- **`/bonus-live`** : 3 bonus YouTube extraits de Systeme.io (front `99Doy7fS6dI`, SCM `3JAZd76I6Nw`, muscles `1NDbQgwNCp8`) + miniatures + CTA RESET.
+
 ### 🔧 Changed
 
+- **`/vente`** `/programme` : « Groupe WhatsApp privé » → « Communauté privée dans la plateforme ».
+- **`/replay-gratuit`** : embed YouTube via short link `go.yogyface.fr/replay-yt` (`GET /api/replay`). Plus de redeploy pour changer la vidéo.
+- **`/vente` (Studio)** : **449 €** (999 € barré). Mensualités 4 × 112,25 € / 6 × 74,99 €.
 - **Navbar** : CTA « Mon Espace » → `https://perso.yogyface.fr` (plus « Liste d'attente »).
 
 ### 🐛 Fixed

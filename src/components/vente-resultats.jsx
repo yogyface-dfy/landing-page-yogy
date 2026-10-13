@@ -21,7 +21,7 @@ const INTERVAL_MS = 4000
  * Carrousel auto-swipe (pause au survol / au touch).
  * @param {{ cta?: React.ReactNode, proof?: string }} props
  */
-export default function VenteResultats({ cta, proof = '4.9/5 · 1200+ femmes déjà accompagnées' }) {
+export default function VenteResultats({ cta, proof = '4,4/5 · 1200+ femmes déjà accompagnées' }) {
   const scroller = useRef(null)
   const indexRef = useRef(0)
   const [active, setActive] = useState(0)
@@ -76,7 +76,7 @@ export default function VenteResultats({ cta, proof = '4.9/5 · 1200+ femmes dé
           {RESULTS.map((r) => (
             <article key={r.img} className="snap-center shrink-0 w-[84%] sm:w-[48%] md:w-[36%] rounded-2xl overflow-hidden bg-creme">
               <div className="relative">
-                <img src={r.img} alt={`Avant / après — ${r.name}, ${r.zone}`} loading="lazy" className="w-full h-auto block" />
+                <img src={r.img} alt={`Avant / après, ${r.name}, ${r.zone}`} loading="lazy" className="w-full h-auto block" />
                 <span className="absolute top-3 left-3 px-2.5 py-1 rounded-md bg-white/90 text-[10px] font-semibold uppercase tracking-wider text-gris">
                   Avant
                 </span>

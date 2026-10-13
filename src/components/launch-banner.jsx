@@ -15,7 +15,7 @@ const VIP_ITEMS = VIP_SALES_OPEN
     : ['Ventes VIP fermées']
 
 const PUBLIC_ITEMS = STUDIO_SALES_OPEN
-  ? ['Ouverture Studio', '50 places max', "Jusqu'au 18 septembre"]
+  ? ['Ouverture Studio', 'Programme YoGyFace']
   : ['Ventes fermées']
 
 /** Assez de cycles pour remplir un écran ultra-wide sans trous. */
@@ -51,7 +51,7 @@ function Track({ items }) {
   )
 }
 
-/** Bandeau ticker — home → liste d'attente ; vente ouverte → ancre offre ; fermée → accueil. */
+/** Bandeau ticker, home → liste d'attente ; vente ouverte → ancre offre ; fermée → accueil. */
 export default function LaunchBanner() {
   const { pathname } = useLocation()
   const vip = pathname === '/vente-vip'
@@ -75,15 +75,15 @@ export default function LaunchBanner() {
       aria-label={
         vipClosed
           ? STUDIO_SALES_OPEN
-            ? 'Ventes VIP fermées — voir l’offre Studio'
+            ? 'Ventes VIP fermées, voir l’offre Studio'
             : 'Ventes VIP fermées'
           : studioClosed
             ? 'Ventes Studio fermées'
             : vip
-              ? 'Ouverture VIP — tarif et bonus à durée limitée'
+              ? 'Ouverture VIP, tarif et bonus à durée limitée'
               : vente
-                ? 'YoGyFace Studio — 50 places jusqu’au 18 septembre'
-                : "Rentrée YoGyFace — lancement du nouveau programme. Rejoindre la liste d'attente."
+                ? 'YoGyFace Studio, programme'
+                : "Rentrée YoGyFace, lancement du nouveau programme. Rejoindre la liste d'attente."
       }
       className="fixed top-0 left-0 right-0 z-[51] h-8 w-full bg-noir text-white flex items-center overflow-hidden hover:bg-[#111] transition-colors"
     >

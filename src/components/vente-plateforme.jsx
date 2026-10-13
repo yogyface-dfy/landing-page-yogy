@@ -1,55 +1,55 @@
 /**
- * Showcase de la plateforme V2 — captures réelles, layout type « info + mockups ».
+ * Showcase de la plateforme V2, captures réelles, layout type « info + mockups ».
  */
 const FEATURES = [
   {
     kicker: 'Exercices',
     title: 'Guidés. Pas à pas. Hors ligne.',
-    desc: 'Chaque geste a sa fiche : quoi faire, quoi éviter, combien de temps, quelle zone. Tu télécharges, tu pratiques — même sans réseau.',
+    desc: 'Chaque geste a sa fiche : quoi faire, quoi éviter, combien de temps, quelle zone. Tu télécharges, tu pratiques, même sans réseau.',
     points: ['Vidéo + fiche pas à pas', 'À faire / à éviter, répétitions, zone', 'Téléchargeables hors ligne'],
     desktop: '/app/desktop-exercices.png',
     mobile: '/app/mobile-exercice.png',
     mobile2: '/app/mobile-exercice-fiche.png',
-    alt: 'Plateforme YoGyFace — exercices guidés',
+    alt: 'Plateforme YoGyFace, exercices guidés',
   },
   {
     kicker: 'Suivi',
     title: 'Tes photos. Ton autonomie. Tes paliers.',
-    desc: 'Compare tes visages mois après mois, suis tes notes /10, et remplis tes questionnaires au bon moment — plus besoin de te demander si ça avance.',
-    points: ['Comparaison face / profils par palier', 'Radar d\'autonomie (tensions, habitudes, mimiques…)', 'Suivis 1, 2, 3 mois — et la suite'],
+    desc: 'Compare tes visages mois après mois, suis tes notes /10, et remplis tes questionnaires au bon moment, plus besoin de te demander si ça avance.',
+    points: ['Comparaison face / profils par palier', 'Radar d\'autonomie (tensions, habitudes, mimiques…)', 'Suivis 1, 2, 3 mois, et la suite'],
     desktop: '/app/desktop-suivi.png',
     mobile: '/app/mobile-suivi.png',
-    alt: 'Plateforme YoGyFace — écran de suivi',
+    alt: 'Plateforme YoGyFace, écran de suivi',
     flip: true,
   },
   {
     kicker: 'Coaching',
     title: 'Les lives, le calendrier, les replays.',
-    desc: 'Tu t\'inscris en un clic, tu ajoutes à ton agenda, tu retrouves tes séances. FAQ avec Laury, lives thématiques, 1-1 — tout est au même endroit.',
+    desc: 'Tu t\'inscris en un clic, tu ajoutes à ton agenda, tu retrouves tes séances. FAQ avec Laury, lives thématiques, 1-1, tout est au même endroit.',
     points: ['Réservation des lives avec places restantes', 'Inscrite / désinscription / calendrier', 'Replays filtrés par mois, coach, thème'],
     desktop: '/app/desktop-coaching.png',
     mobile: '/app/mobile-coaching.png',
-    alt: 'Plateforme YoGyFace — coaching et lives',
+    alt: 'Plateforme YoGyFace, coaching et lives',
   },
   {
     kicker: 'Cosmétique',
     title: 'Ta routine, pas celle de tout le monde.',
-    desc: 'Les produits sont rangés par étape. Ce qui est cerné de vert correspond à TES problématiques — tu n\'achètes plus au hasard.',
+    desc: 'Les produits sont rangés par étape. Ce qui est cerné de vert correspond à TES problématiques, tu n\'achètes plus au hasard.',
     points: ['Recommandé selon ton diagnostic', 'Filtres marques et budget', 'Démaquillage, soins, le soir comme le matin'],
     desktop: '/app/desktop-cosmetique.png',
     mobile: '/app/mobile-cosmetique.png',
-    alt: 'Plateforme YoGyFace — routine cosmétique',
+    alt: 'Plateforme YoGyFace, routine cosmétique',
     flip: true,
   },
   {
     kicker: 'Messagerie',
     title: 'Tu écris. On te répond. Tout de suite.',
-    desc: 'Messagerie instantanée avec Laury et l\'équipe — plus besoin d\'attendre un mail. Les notifications te préviennent dès qu\'il y a un retour, un live, ou un suivi à faire.',
-    points: ['Chat en direct, fils par sujet', 'Notifications instantanées (cloche + pastilles)', 'Retours de Laury, diagnostic, paliers — rien ne se perd'],
+    desc: 'Messagerie instantanée avec Laury et l\'équipe, plus besoin d\'attendre un mail. Les notifications te préviennent dès qu\'il y a un retour, un live, ou un suivi à faire.',
+    points: ['Chat en direct, fils par sujet', 'Notifications instantanées (cloche + pastilles)', 'Retours de Laury, diagnostic, paliers, rien ne se perd'],
     desktop: '/app/desktop-messages.png',
     mobile: '/app/mobile-messages.png',
     mobile2: '/app/mobile-notifications.png',
-    alt: 'Plateforme YoGyFace — messagerie et notifications',
+    alt: 'Plateforme YoGyFace, messagerie et notifications',
   },
 ]
 

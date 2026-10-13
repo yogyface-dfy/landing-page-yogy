@@ -19,6 +19,7 @@ export const FUNNEL_PATHS = [
   '/cadeau3',
   '/cadeaux-123',
   '/replay-gratuit',
+  '/bonus-live',
   '/confirmation-achat-bienvenue',
   '/merci-achat',
 ]
@@ -171,8 +172,17 @@ export function giftUnlockLevel(pathname) {
   return 1
 }
 
-/** Vide tant que le replay n'a pas de fichier (page Systeme.io = CTA vente). */
-export const REPLAY_VIDEO_SRC = ''
+export { youtubeIdFrom } from './youtube'
+
+/** Short link replay — la destination YouTube se change dans le shortener. */
+export const REPLAY_SHORT_URL = 'https://go.yogyface.fr/replay-yt'
+
+/** Bonus post-live (`/bonus-live`) — ids extraits de systeme.io/bonus-live. */
+export const LIVE_BONUSES = [
+  { n: 1, title: 'La rééducation de ton front', youtubeId: '99Doy7fS6dI' },
+  { n: 2, title: 'Routine SCM', youtubeId: '3JAZd76I6Nw' },
+  { n: 3, title: 'Théorie Muscles', youtubeId: '1NDbQgwNCp8' },
+]
 
 export function videoFromPath(pathname) {
   return VIDEOS.find((v) => v.path === pathname) || VIDEOS[0]

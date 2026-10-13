@@ -203,7 +203,10 @@ export default function Layout() {
         </Suspense>
       </main>
       {!bare && !funnel && <Footer />}
-      {!bare && <CookieConsent />}
+      {/* Checkout : pas de bandeau cookies au-dessus des CTA. */}
+      {!bare && pathname !== '/vente' && pathname !== '/vente-vip' && (
+        <CookieConsent />
+      )}
     </div>
   )
 }

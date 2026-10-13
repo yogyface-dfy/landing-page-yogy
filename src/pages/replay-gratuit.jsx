@@ -1,9 +1,30 @@
+import { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
-import FunnelPlayer from '../components/funnel-player'
+import FunnelFooter from '../components/funnel-footer'
+import { FunnelYoutube } from '../components/funnel-player'
 import SEO from '../components/SEO'
-import { REPLAY_VIDEO_SRC } from '../lib/funnel'
+
+/** Id YouTube via /api/replay (short link go.yogyface.fr/replay-yt). */
+function useReplayId() {
+  const [id, setId] = useState('')
+  useEffect(() => {
+    let cancelled = false
+    fetch('/api/replay')
+      .then((r) => r.json())
+      .then((data) => {
+        if (!cancelled && data?.id) setId(data.id)
+      })
+      .catch((err) => console.error('replay:', err))
+    return () => {
+      cancelled = true
+    }
+  }, [])
+  return id
+}
 
 export default function ReplayGratuit() {
+  const youtubeId = useReplayId()
+
   return (
     <>
       <SEO
@@ -13,38 +34,35 @@ export default function ReplayGratuit() {
         noindex
       />
 
-      <section className="relative pt-28 md:pt-32 pb-20 px-[5%] overflow-hidden">
+      <section className="relative min-h-[80vh] pt-28 md:pt-32 pb-20 px-[5%] overflow-hidden">
         <div className="absolute inset-0 bg-gradient-to-b from-rose/25 via-white to-creme pointer-events-none" />
-        <div className="max-w-[720px] mx-auto relative z-10 text-center">
-          <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-corail/8 text-corail text-xs font-semibold mb-5">
-            Replay à durée limitée
-          </div>
-          <h1 className="font-display text-[clamp(1.85rem,6vw,3.4rem)] font-black leading-[0.95] tracking-tighter text-noir mb-4">
-            REPRENDS LE CONTRÔLE
-            <br />
-            <span className="font-serif italic text-corail font-semibold">
-              de ton vieillissement.
-            </span>
-          </h1>
-          <p className="text-gris text-[15px] leading-relaxed mb-8">
-            Sans crème miracle. Sans chirurgie. En 8 minutes par jour.
-          </p>
-
-          {REPLAY_VIDEO_SRC ? (
-            <div className="mb-8">
-              <FunnelPlayer src={REPLAY_VIDEO_SRC} title="Replay de l'atelier" />
+        <div className="max-w-[800px] mx-auto relative z-10">
+          <div className="text-center mb-8">
+            <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-corail/8 text-corail text-xs font-semibold mb-5">
+              Replay à durée limitée
             </div>
-          ) : (
-            <p className="text-gris text-sm mb-8">
-              Le lien du replay t'est envoyé par email après l'atelier.
+            <h1 className="font-display text-[clamp(1.85rem,6vw,3.4rem)] font-black leading-[0.95] tracking-tighter text-noir">
+              REPRENDS LE CONTRÔLE
+            </h1>
+            <p className="font-serif italic text-corail font-semibold text-[clamp(1.6rem,4.5vw,2.4rem)] leading-none tracking-normal mt-2 mb-4">
+              de ton vieillissement.
             </p>
-          )}
+            <p className="text-gris text-[15px] leading-relaxed max-w-xl mx-auto">
+              Sans crème miracle. Sans chirurgie. En 8 minutes par jour.
+            </p>
+          </div>
 
-          <Link to="/vente" className="btn-corail inline-flex text-sm md:text-base px-8 py-3.5">
-            Rejoindre le programme
-          </Link>
+          <FunnelYoutube id={youtubeId} title="Replay de l'atelier" />
+
+          <div className="text-center mt-8">
+            <Link to="/vente" className="btn-corail inline-flex text-sm md:text-base px-8 py-3.5">
+              Rejoindre le programme
+            </Link>
+          </div>
         </div>
       </section>
+
+      <FunnelFooter />
     </>
   )
 }

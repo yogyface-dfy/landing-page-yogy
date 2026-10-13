@@ -18,6 +18,7 @@ Disallow: /cadeau2
 Disallow: /cadeau3
 Disallow: /cadeaux-123
 Disallow: /replay-gratuit
+Disallow: /bonus-live
 Disallow: /confirmation-achat-bienvenue
 
 Sitemap: https://www.yogyface.fr/sitemap.xml

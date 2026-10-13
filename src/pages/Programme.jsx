@@ -87,8 +87,8 @@ const steps = [
     desc: (
       <>
         Questionnaires de suivi à 1, 2, 3 et 6 mois.
-        <br />À vie: Les replays des lives, le groupe WhatsApp privé pour
-        t'aider à progresser et le Club des Marques.
+        <br />À vie: Les replays des lives, la communauté privée dans la
+        plateforme pour t'aider à progresser et le Club des Marques.
       </>
     ),
     tag: "À vie",
