@@ -7,6 +7,7 @@ import VenteUrgenceBanner from './vente-urgence-banner'
 import Footer from './Footer'
 import CookieConsent from './CookieConsent'
 import { initAnalytics, capturePageview } from '../lib/analytics'
+import { pingVenteHit } from '../lib/vente-hit'
 import { captureMetaPageview } from '../lib/meta-pixel'
 import { SHOW_TRUSTPILOT } from '../lib/trustpilot'
 import { isFunnelChrome } from '../lib/funnel'
@@ -78,6 +79,11 @@ export default function Layout() {
   useEffect(() => {
     initAnalytics()
   }, [])
+
+  // Identité first-party (cookie hid) — pas un pixel pub.
+  useEffect(() => {
+    pingVenteHit(pathname)
+  }, [pathname])
 
   useEffect(() => {
     const id = window.location.hash.slice(1)

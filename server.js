@@ -15,6 +15,7 @@
  *   META_TEST_EVENT_CODE  — vide en prod ; TEST… en QA
  *   DATAFAST_BOT_TOKEN    — optionnel (dfbot_…) si auth Bot traffic activée
  *   REPLAY_SHORT_URL      — short link replay (défaut go.yogyface.fr/replay-yt)
+ *   WEBI_APP_URL / INSCRIPTION_WEBHOOK_SECRET — identity cookie + ping /vente
  */
 import express from 'express'
 import fs from 'fs'
@@ -31,6 +32,7 @@ import {
 import { handleCapiEvent } from './lib/meta-capi.js'
 import { handleReplayYoutube } from './lib/replay-youtube.js'
 import { ATTRIBUTION_KEYS } from './src/lib/attribution.js'
+import { setHidCookie, readHidCookie } from './lib/hid-cookie.js'
 
 // En local les secrets sont dans .env.local (convention Vite).
 // Sur Railway, les variables sont déjà dans process.env : ces appels sont no-op.
@@ -142,6 +144,66 @@ const BASE_ID = process.env.AIRTABLE_BASE_ID
 // Tunnel atelier : autre base que la liste d'attente.
 const ATELIER_BASE_ID = process.env.AIRTABLE_ATELIER_BASE_ID || 'appSz9eVZWu6PoA2A'
 const ATELIER_TABLE_ID = process.env.AIRTABLE_ATELIER_TABLE_ID || 'tblgeGEVgkZnDxwfR'
+const WEBI_APP_URL = (process.env.WEBI_APP_URL || 'https://webi.yogyface.fr').replace(/\/$/, '')
+const IDENTIFY_SECRET = process.env.INSCRIPTION_WEBHOOK_SECRET || ''
+
+/** Upsert users côté webi + hid à poser en cookie. Timeout court : l'Airtable atelier reste la source. */
+async function identifyWithWebi(fields, { ip, ua } = {}) {
+  if (!IDENTIFY_SECRET) return null
+  const ctrl = new AbortController()
+  const t = setTimeout(() => ctrl.abort(), 2500)
+  try {
+    const r = await fetch(`${WEBI_APP_URL}/api/identify`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'x-webhook-secret': IDENTIFY_SECRET,
+      },
+      signal: ctrl.signal,
+      body: JSON.stringify({
+        email: fields.Email,
+        firstName: fields['Prénom'],
+        phone: fields.Phone,
+        source: 'atelier-gratuit',
+        form_name: fields.formName,
+        client_ip: ip,
+        client_user_agent: ua,
+        ...Object.fromEntries(ATTRIBUTION_KEYS.map((k) => [k, fields[k]]).filter(([, v]) => v)),
+      }),
+    })
+    if (!r.ok) return null
+    const data = await r.json().catch(() => ({}))
+    return data.hid || null
+  } catch (e) {
+    console.error('identify webi:', e.message || e)
+    return null
+  } finally {
+    clearTimeout(t)
+  }
+}
+
+async function forwardVenteHit({ hid, path, email, record, ip }) {
+  const ctrl = new AbortController()
+  const t = setTimeout(() => ctrl.abort(), 2500)
+  try {
+    const r = await fetch(`${WEBI_APP_URL}/api/vente-hit`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      signal: ctrl.signal,
+      body: JSON.stringify({
+        hid,
+        path,
+        email,
+        record,
+        client_ip: ip,
+      }),
+    })
+    const data = await r.json().catch(() => ({}))
+    return { known: !!data.known, hid: data.hid || hid }
+  } finally {
+    clearTimeout(t)
+  }
+}
 
 // Allowlist : seules ces tables sont accessibles via l'API publique
 const ALLOWED_TABLES = new Set(['Messages Contact', "Liste d'attente", 'Atelier gratuit'])
@@ -272,6 +334,14 @@ app.post('/api/airtable', async (req, res) => {
       return res.status(502).json({ error: 'Enregistrement impossible' })
     }
 
+    if (table === 'Atelier gratuit') {
+      const hid = await identifyWithWebi(cleanFields, {
+        ip: req.ip,
+        ua: req.headers['user-agent'],
+      })
+      if (hid) setHidCookie(res, hid, req)
+    }
+
     return res.json({ id: data.id })
   } catch (e) {
     console.error('Server error:', e)
@@ -279,7 +349,28 @@ app.post('/api/airtable', async (req, res) => {
   }
 })
 
-app.get('/api/replay', handleReplayYoutube)
+app.post('/api/vente-hit', async (req, res) => {
+  try {
+    const pathName = String(req.body?.path || '/vente').split('?')[0]
+    const hid = req.body?.h || req.body?.hid || readHidCookie(req)
+    const email = String(req.body?.email || '').replace(/ /g, '+').trim()
+    const record = req.body?.record !== false
+    const out = await forwardVenteHit({
+      hid,
+      path: pathName,
+      email,
+      record,
+      ip: req.ip,
+    })
+    if (out.hid) setHidCookie(res, out.hid, req)
+    return res.json({ ok: true, known: out.known })
+  } catch (e) {
+    console.error('vente-hit:', e)
+    return res.json({ ok: true, known: false })
+  }
+})
+
+app.get('/api/replay', handleReplayYoutube))
 app.post('/api/capi-event', handleCapiEvent)
 app.post('/api/stripe/checkout', createCheckoutSession)
 app.get('/api/stripe/session', getCheckoutSession)

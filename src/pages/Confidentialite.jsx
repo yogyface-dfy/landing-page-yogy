@@ -121,7 +121,7 @@ export default function Confidentialite() {
           <div>
             <h2 className="font-display font-black text-xl tracking-tight text-noir mb-3">Article 9 — Cookies & mesure d'audience</h2>
             <h3 className="font-semibold text-noir text-sm mt-1 mb-2">Site vitrine (yogyface.fr) :</h3>
-            <p>Seuls des cookies strictement nécessaires au fonctionnement technique du site sont déposés sans votre accord (session, sécurité). Le site vitrine <strong>n'utilise aucun cookie publicitaire ni de marketing</strong>.</p>
+            <p>Seuls des cookies strictement nécessaires au fonctionnement technique du site sont déposés sans votre accord (session, sécurité, et le cookie « yf_hid » pour les personnes déjà inscrites à l'atelier, afin de rattacher une visite de la page d'offre à leur fiche). Le site vitrine <strong>n'utilise aucun cookie publicitaire ni de marketing</strong>.</p>
             <p className="mt-2">Nous utilisons <strong>DataFast</strong> pour la mesure d'audience et l'attribution marketing (pages vues, parcours). Sans votre accord, il fonctionne <strong>sans cookie</strong> (identifiant de session uniquement). Si vous acceptez, DataFast dépose des cookies pour reconnaître vos visites suivantes.</p>
             <p className="mt-2">Nous utilisons aussi <strong>PostHog</strong>, hébergé dans l'Union européenne, pour un suivi plus détaillé. Ces cookies ne sont déposés <strong>qu'après votre consentement</strong>, recueilli via la bannière affichée à votre première visite. Vous pouvez refuser sans conséquence sur votre navigation.</p>
             {/* Section webi : on décrit factuellement le pixel Meta (obligation de
@@ -131,7 +131,7 @@ export default function Confidentialite() {
                 côté app — cf. docs/consentement-meta-webi.md. */}
             <h3 className="font-semibold text-noir text-sm mt-4 mb-2">Application du parcours (webi.yogyface.fr) :</h3>
             <p>L'application utilise également le <strong>pixel Meta</strong> et la <strong>Conversions API de Meta</strong> afin de mesurer l'efficacité de nos campagnes publicitaires. Ces traceurs déposent les cookies « _fbp » et « _fbc » et transmettent à Meta Platforms Ireland Ltd. votre adresse e-mail, votre numéro de téléphone et votre prénom sous forme <strong>hachée</strong> (SHA-256, non réversible en pratique), ainsi que votre adresse IP et votre navigateur.</p>
-            <p className="mt-2">Vous pouvez vous opposer à ces traceurs via les réglages de votre navigateur et de votre appareil, ainsi que depuis vos préférences publicitaires Meta. Un stockage local technique (« yf_token ») conserve votre session de connexion : il est nécessaire au fonctionnement du service et ne sert à aucune finalité publicitaire.</p>
+            <p className="mt-2">Vous pouvez vous opposer à ces traceurs via les réglages de votre navigateur et de votre appareil, ainsi que depuis vos préférences publicitaires Meta. Un stockage local technique (« yf_token ») conserve votre session de connexion, et un cookie first-party « yf_hid » (sous-domaine .yogyface.fr) relie le navigateur à votre inscription : ils sont nécessaires au fonctionnement du service et ne servent à aucune finalité publicitaire.</p>
           </div>
 
           <div>
