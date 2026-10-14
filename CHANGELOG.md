@@ -4,6 +4,7 @@
 
 ### ✨ Added
 
+- **Partenariat ODEN** : visuels publics `yogyfaceXoden.jpg` et `oden-fondatrices.jpg`.
 - **Meta Lead `/atelier-gratuit`** : pixel + CAPI (email hashé, pixel `604268118937812`) au submit, event standard `Lead` pour optimiser la campagne.
 - **Identité page vente** : cookie first-party `yf_hid` (`.yogyface.fr`) posé à l'opt-in `/atelier-gratuit` via l'app webi ; ping `/api/vente-hit` sur `/vente` `/vente-vip` `/vente-10x` (lien générique, sans Meta forcé).
 - **`yf_hid` Airtable** : `users.id` écrit sur la table **Inscription** (`tblgeGEVgkZnDxwfR`) après l'opt-in.
