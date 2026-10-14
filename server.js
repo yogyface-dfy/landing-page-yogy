@@ -315,9 +315,10 @@ async function patchInscriptionVente(userId) {
       body: JSON.stringify({
         fields: {
           opened_vente: true,
-          vente_page_first_at: first,
+          vente_page_first_at: String(first),
           vente_page_last_at: now,
-          vente_page_hits: hits,
+          // Airtable : champ texte, pas number — un int fait 422 sur tout le PATCH.
+          vente_page_hits: String(hits),
         },
       }),
     })
