@@ -219,8 +219,12 @@ export default function Layout() {
         </Suspense>
       </main>
       {!bare && !funnel && <Footer />}
-      {/* Checkout : pas de bandeau cookies au-dessus des CTA. */}
-      {!bare && pathname !== '/vente' && pathname !== '/vente-vip' && pathname !== '/vente-10x' && (
+      {/* Checkout + opt-in atelier : pas de bandeau (le formulaire d'inscription suffit). */}
+      {!bare &&
+        pathname !== '/vente' &&
+        pathname !== '/vente-vip' &&
+        pathname !== '/vente-10x' &&
+        pathname !== '/atelier-gratuit' && (
         <CookieConsent />
       )}
     </div>

@@ -370,7 +370,7 @@ app.post('/api/vente-hit', async (req, res) => {
   }
 })
 
-app.get('/api/replay', handleReplayYoutube))
+app.get('/api/replay', handleReplayYoutube)
 app.post('/api/capi-event', handleCapiEvent)
 app.post('/api/stripe/checkout', createCheckoutSession)
 app.get('/api/stripe/session', getCheckoutSession)

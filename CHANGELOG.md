@@ -7,6 +7,14 @@
 - **Identité page vente** : cookie first-party `yf_hid` (`.yogyface.fr`) posé à l'opt-in `/atelier-gratuit` via l'app webi ; ping `/api/vente-hit` sur `/vente` `/vente-vip` `/vente-10x` (lien générique, sans Meta forcé).
 - **Couverture** : `?email=` (mails AC `%EMAIL%`) et IP unique de la cohorte si pas de cookie ; stamp cookie aussi sur le tunnel si l'email est dans l'URL.
 
+### 🐛 Fixed
+
+- **Railway** : `server.js` — parenthèse en trop après `/api/replay` (healthcheck KO au boot).
+
+### 🔧 Changed
+
+- **`/atelier-gratuit`** : plus de bandeau cookies (comme `/vente`).
+
 ### 📚 Documentation
 
 - **Confidentialité** : cookie technique `yf_hid` pour rattacher la visite offre à la fiche d'une inscrite.
