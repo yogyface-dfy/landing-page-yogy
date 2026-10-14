@@ -6,6 +6,7 @@
 
 - **Meta Lead `/atelier-gratuit`** : pixel + CAPI (email hashé, pixel `604268118937812`) au submit, event standard `Lead` pour optimiser la campagne.
 - **Identité page vente** : cookie first-party `yf_hid` (`.yogyface.fr`) posé à l'opt-in `/atelier-gratuit` via l'app webi ; ping `/api/vente-hit` sur `/vente` `/vente-vip` `/vente-10x` (lien générique, sans Meta forcé).
+- **`yf_hid` Airtable** : `users.id` écrit sur la table **Inscription** (`tblgeGEVgkZnDxwfR`) après l'opt-in.
 - **Couverture** : `?email=` (mails AC `%EMAIL%`) et IP unique de la cohorte si pas de cookie ; stamp cookie aussi sur le tunnel si l'email est dans l'URL.
 
 ### 🐛 Fixed
@@ -15,6 +16,8 @@
 ### 🔧 Changed
 
 - **`/atelier-gratuit`** : plus de bandeau cookies (comme `/vente`).
+- **`/confirmation-inscription`** : plus de bandeau cookies, plus de CTA bonus #1, WhatsApp vert bounce au-dessus des étapes.
+- **`/confirmation-inscription`** : miniature vidéo (frame sourire Laury) + bouton play.
 
 ### 📚 Documentation
 

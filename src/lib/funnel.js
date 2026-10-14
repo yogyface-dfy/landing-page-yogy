@@ -127,6 +127,7 @@ export const VIDEOS = [
 ]
 
 export const CONFIRM_VIDEO_SRC = `${CF}/6910b53c95f74_VALITADIONINSCRIPTIONSANSALICIA.mp4`
+export const CONFIRM_VIDEO_POSTER = '/videos/funnel-confirm.webp'
 
 export const YOUTUBE_LAURY = 'https://www.youtube.com/@LauryYoGyFace'
 

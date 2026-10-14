@@ -224,7 +224,8 @@ export default function Layout() {
         pathname !== '/vente' &&
         pathname !== '/vente-vip' &&
         pathname !== '/vente-10x' &&
-        pathname !== '/atelier-gratuit' && (
+        pathname !== '/atelier-gratuit' &&
+        pathname !== '/confirmation-inscription' && (
         <CookieConsent />
       )}
     </div>

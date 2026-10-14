@@ -173,7 +173,7 @@ async function identifyWithWebi(fields, { ip, ua } = {}) {
     })
     if (!r.ok) return null
     const data = await r.json().catch(() => ({}))
-    return data.hid || null
+    return { hid: data.hid || null, userId: data.userId || null }
   } catch (e) {
     console.error('identify webi:', e.message || e)
     return null
@@ -250,6 +250,30 @@ async function findByEmail(table, email) {
 
 async function findWaitlistByEmail(email) {
   return findByEmail("Liste d'attente", email)
+}
+
+/** Pose users.id sur la fiche atelier (champ texte `yf_hid`). 422 si le champ n'existe pas. */
+async function patchAtelierHid(recordId, userId) {
+  try {
+    const { baseId, tableId } = airtableTarget('Atelier gratuit')
+    const r = await fetch(
+      `https://api.airtable.com/v0/${baseId}/${encodeURIComponent(tableId)}/${recordId}`,
+      {
+        method: 'PATCH',
+        headers: {
+          Authorization: `Bearer ${PAT}`,
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ fields: { yf_hid: userId } }),
+      },
+    )
+    if (!r.ok) {
+      const err = await r.json().catch(() => ({}))
+      console.error('atelier yf_hid:', r.status, err?.error)
+    }
+  } catch (e) {
+    console.error('atelier yf_hid:', e.message || e)
+  }
 }
 
 /** 2ᵉ inscription (formulaire ou lien email) : flag pour l'automation mail. */
@@ -335,11 +359,13 @@ app.post('/api/airtable', async (req, res) => {
     }
 
     if (table === 'Atelier gratuit') {
-      const hid = await identifyWithWebi(cleanFields, {
+      const out = await identifyWithWebi(cleanFields, {
         ip: req.ip,
         ua: req.headers['user-agent'],
       })
-      if (hid) setHidCookie(res, hid, req)
+      if (out?.hid) setHidCookie(res, out.hid, req)
+      // Champ texte `yf_hid` = users.id (même id que le cookie). Best-effort.
+      if (out?.userId && data.id) patchAtelierHid(data.id, out.userId)
     }
 
     return res.json({ id: data.id })

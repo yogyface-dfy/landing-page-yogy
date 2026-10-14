@@ -138,6 +138,17 @@
   @keyframes btn-pulse-wa {
     50% { transform: scale(1.05); box-shadow: 0 8px 22px rgba(37, 211, 102, 0.5); }
   }
+  .btn-whatsapp.btn-bounce {
+    animation: btn-bounce-wa 1.2s ease-in-out infinite;
+  }
+  .btn-whatsapp.btn-bounce:hover {
+    animation: none;
+  }
+  @keyframes btn-bounce-wa {
+    0%, 100% { transform: translateY(0); }
+    40% { transform: translateY(-8px); }
+    55% { transform: translateY(0); }
+  }
 
   /* ══════════════════════════════════════
      SECTION BADGE

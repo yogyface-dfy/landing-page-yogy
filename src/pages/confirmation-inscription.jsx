@@ -1,7 +1,6 @@
-import { Link } from 'react-router-dom'
 import FunnelPlayer from '../components/funnel-player'
 import SEO from '../components/SEO'
-import { CONFIRM_VIDEO_SRC, VIDEOS, WHATSAPP_GROUP } from '../lib/funnel'
+import { CONFIRM_VIDEO_POSTER, CONFIRM_VIDEO_SRC, WHATSAPP_GROUP } from '../lib/funnel'
 
 const STEPS = [
   {
@@ -12,7 +11,7 @@ const STEPS = [
   {
     n: '2',
     t: 'Regarde la vidéo jusqu’au bout',
-    d: "Elle te prépare à l'atelier. Ensuite, ouvre la vidéo bonus #1.",
+    d: 'Elle te prépare à l’atelier.',
   },
   {
     n: '3',
@@ -49,6 +48,15 @@ export default function ConfirmationInscription() {
             Il te reste une dernière étape pour valider ta participation.
           </p>
 
+          <a
+            href={WHATSAPP_GROUP}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="btn-whatsapp btn-bounce justify-center text-sm px-6 py-3.5 w-full sm:w-auto mb-8"
+          >
+            Rejoindre le WhatsApp VIP
+          </a>
+
           <div className="text-left space-y-3 mb-8">
             {STEPS.map((s) => (
               <div
@@ -66,24 +74,12 @@ export default function ConfirmationInscription() {
             ))}
           </div>
 
-          <FunnelPlayer src={CONFIRM_VIDEO_SRC} title="Prépare l'atelier" />
-
-          <div className="flex flex-col sm:flex-row gap-3 mt-8">
-            <a
-              href={WHATSAPP_GROUP}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="btn-corail justify-center text-sm px-6 py-3.5"
-            >
-              Rejoindre le WhatsApp VIP
-            </a>
-            <Link
-              to={VIDEOS[0].path}
-              className="btn-secondary justify-center text-sm px-6 py-3.5"
-            >
-              Voir la vidéo bonus #1
-            </Link>
-          </div>
+          <FunnelPlayer
+            src={CONFIRM_VIDEO_SRC}
+            poster={CONFIRM_VIDEO_POSTER}
+            title="Prépare l'atelier"
+            showPlay
+          />
         </div>
       </section>
     </>
