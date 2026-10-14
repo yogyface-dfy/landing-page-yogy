@@ -12,6 +12,7 @@
 
 ### 🐛 Fixed
 
+- **`/vente` → Airtable Inscription** : écrit `opened_vente` / `vente_page_*` sur la fiche `yf_hid` (plus seulement via le lien webi).
 - **Railway** : `server.js` — parenthèse en trop après `/api/replay` (healthcheck KO au boot).
 
 ### 🔧 Changed

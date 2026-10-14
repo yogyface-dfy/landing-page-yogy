@@ -148,7 +148,7 @@ const WEBI_APP_URL = (process.env.WEBI_APP_URL || 'https://webi.yogyface.fr').re
 const IDENTIFY_SECRET = process.env.INSCRIPTION_WEBHOOK_SECRET || ''
 
 /** Upsert users côté webi + hid à poser en cookie. Timeout court : l'Airtable atelier reste la source. */
-async function identifyWithWebi(fields, { ip, ua } = {}) {
+async function identifyWithWebi(fields, { ip, ua, airtableRecordId } = {}) {
   if (!IDENTIFY_SECRET) return null
   const ctrl = new AbortController()
   const t = setTimeout(() => ctrl.abort(), 2500)
@@ -168,6 +168,7 @@ async function identifyWithWebi(fields, { ip, ua } = {}) {
         form_name: fields.formName,
         client_ip: ip,
         client_user_agent: ua,
+        airtableRecordId: airtableRecordId || undefined,
         ...Object.fromEntries(ATTRIBUTION_KEYS.map((k) => [k, fields[k]]).filter(([, v]) => v)),
       }),
     })
@@ -199,9 +200,19 @@ async function forwardVenteHit({ hid, path, email, record, ip }) {
       }),
     })
     const data = await r.json().catch(() => ({}))
-    return { known: !!data.known, hid: data.hid || hid }
+    return { known: !!data.known, hid: data.hid || hid, userId: data.userId || '' }
   } finally {
     clearTimeout(t)
+  }
+}
+
+/** `sub` du JWT yf_hid, sans vérif (uuid public, déjà dans Airtable). */
+function hidUserId(token) {
+  try {
+    const payload = JSON.parse(Buffer.from(String(token).split('.')[1], 'base64url').toString())
+    return typeof payload?.sub === 'string' ? payload.sub : ''
+  } catch {
+    return ''
   }
 }
 
@@ -252,27 +263,70 @@ async function findWaitlistByEmail(email) {
   return findByEmail("Liste d'attente", email)
 }
 
+function inscriptionUrl(recordId = '') {
+  const { baseId, tableId } = airtableTarget('Atelier gratuit')
+  const path = recordId ? `/${recordId}` : ''
+  return `https://api.airtable.com/v0/${baseId}/${encodeURIComponent(tableId)}${path}`
+}
+
+const AT_HEADERS = () => ({
+  Authorization: `Bearer ${PAT}`,
+  'Content-Type': 'application/json',
+})
+
 /** Pose users.id sur la fiche atelier (champ texte `yf_hid`). 422 si le champ n'existe pas. */
 async function patchAtelierHid(recordId, userId) {
   try {
-    const { baseId, tableId } = airtableTarget('Atelier gratuit')
-    const r = await fetch(
-      `https://api.airtable.com/v0/${baseId}/${encodeURIComponent(tableId)}/${recordId}`,
-      {
-        method: 'PATCH',
-        headers: {
-          Authorization: `Bearer ${PAT}`,
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({ fields: { yf_hid: userId } }),
-      },
-    )
+    const r = await fetch(inscriptionUrl(recordId), {
+      method: 'PATCH',
+      headers: AT_HEADERS(),
+      body: JSON.stringify({ fields: { yf_hid: userId } }),
+    })
     if (!r.ok) {
       const err = await r.json().catch(() => ({}))
       console.error('atelier yf_hid:', r.status, err?.error)
     }
   } catch (e) {
     console.error('atelier yf_hid:', e.message || e)
+  }
+}
+
+/** Visite /vente → même fiche Inscription que l'opt-in (`yf_hid`). */
+async function patchInscriptionVente(userId) {
+  if (!userId || !PAT) return
+  try {
+    const formula = `{yf_hid}="${escapeFormula(userId)}"`
+    const r = await fetch(
+      `${inscriptionUrl()}?maxRecords=1&filterByFormula=${encodeURIComponent(formula)}`,
+      { headers: { Authorization: `Bearer ${PAT}` } },
+    )
+    const data = await r.json().catch(() => ({}))
+    const rec = data.records?.[0]
+    if (!rec?.id) {
+      console.error('vente-hit airtable: no row for', userId)
+      return
+    }
+    const now = new Date().toISOString()
+    const first = rec.fields?.vente_page_first_at || now
+    const hits = Number(rec.fields?.vente_page_hits || 0) + 1
+    const p = await fetch(inscriptionUrl(rec.id), {
+      method: 'PATCH',
+      headers: AT_HEADERS(),
+      body: JSON.stringify({
+        fields: {
+          opened_vente: true,
+          vente_page_first_at: first,
+          vente_page_last_at: now,
+          vente_page_hits: hits,
+        },
+      }),
+    })
+    if (!p.ok) {
+      const err = await p.json().catch(() => ({}))
+      console.error('vente-hit airtable:', p.status, err?.error)
+    }
+  } catch (e) {
+    console.error('vente-hit airtable:', e.message || e)
   }
 }
 
@@ -362,6 +416,7 @@ app.post('/api/airtable', async (req, res) => {
       const out = await identifyWithWebi(cleanFields, {
         ip: req.ip,
         ua: req.headers['user-agent'],
+        airtableRecordId: data.id,
       })
       if (out?.hid) setHidCookie(res, out.hid, req)
       // Champ texte `yf_hid` = users.id (même id que le cookie). Best-effort.
@@ -389,7 +444,12 @@ app.post('/api/vente-hit', async (req, res) => {
       ip: req.ip,
     })
     if (out.hid) setHidCookie(res, out.hid, req)
-    return res.json({ ok: true, known: out.known })
+    const userId = out.userId || hidUserId(hid)
+    const isVente = pathName === '/vente' || pathName === '/vente-vip' || pathName === '/vente-10x'
+    if (record && isVente && userId) {
+      patchInscriptionVente(userId).catch((e) => console.error('vente-hit airtable:', e))
+    }
+    return res.json({ ok: true, known: out.known || !!userId })
   } catch (e) {
     console.error('vente-hit:', e)
     return res.json({ ok: true, known: false })
