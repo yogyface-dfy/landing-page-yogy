@@ -4,6 +4,7 @@ import SEO from '../components/SEO'
 import FunnelLiveDate from '../components/funnel-live-date'
 import FunnelOptinModal from '../components/funnel-optin-modal'
 import { stashAttribution } from '../lib/attribution'
+import { getFbCookies } from '../lib/meta-pixel'
 import { legalTo } from '../lib/funnel'
 
 // Photos originales Systeme.io, stockées en local.
@@ -55,9 +56,10 @@ export default function AtelierGratuit() {
     }
   }, [])
 
-  // UTM / ads : stash à l’arrivée, avant que l’URL ne soit nettoyée.
+  // UTM / ads + fbclid : stash à l’arrivée, avant que l’URL ne soit nettoyée.
   useEffect(() => {
     stashAttribution()
+    getFbCookies()
   }, [])
 
   // Auto-ouverture une fois, après un scroll hors du hero.

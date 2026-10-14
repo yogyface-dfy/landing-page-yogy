@@ -37,12 +37,19 @@ export function fbSetUser({ email, phone, firstName } = {}) {
   }
 }
 
+const FBCLID_KEY = 'yf_fbclid'
+
+/** _fbp/_fbc cookies, sinon fbc reconstruit depuis fbclid (URL ou session). */
 export function getFbCookies() {
   try {
     const read = (name) =>
       document.cookie.match(new RegExp(`(?:^|; )${name}=([^;]*)`))?.[1]
     const fbp = read('_fbp')
-    const fbc = read('_fbc')
+    let fbc = read('_fbc')
+    const fromUrl = new URLSearchParams(window.location.search).get('fbclid')
+    if (fromUrl) sessionStorage.setItem(FBCLID_KEY, fromUrl.slice(0, 500))
+    const fbclid = fromUrl || sessionStorage.getItem(FBCLID_KEY) || ''
+    if (!fbc && fbclid) fbc = `fb.1.${Date.now()}.${fbclid}`
     return {
       ...(fbp ? { fbp: decodeURIComponent(fbp) } : {}),
       ...(fbc ? { fbc: decodeURIComponent(fbc) } : {}),
@@ -179,6 +186,32 @@ export function fireWaitlistConversion(payload) {
       firstName: payload.firstName,
       fbp: payload.fbp,
       fbc: payload.fbc,
+    }),
+    keepalive: true,
+  }).catch(() => {})
+}
+
+/**
+ * Lead atelier — pixel si chargé + CAPI (email hashé serveur).
+ * Même event_id pour la dédup. CAPI part même si le bandeau est masqué.
+ */
+export function fireAtelierLead({ email, phone, firstName } = {}) {
+  const eventId = newEventId()
+  const { fbp, fbc } = getFbCookies()
+  fbSetUser({ email, phone, firstName })
+  fbTrack('Lead', { content_name: 'atelier-gratuit' }, { eventId })
+  fetch('/api/capi-event', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({
+      eventName: 'Lead',
+      eventId,
+      pageUrl: `${window.location.origin}/atelier-gratuit`,
+      email,
+      phone: phone || '',
+      firstName: firstName || '',
+      fbp,
+      fbc,
     }),
     keepalive: true,
   }).catch(() => {})

@@ -5,6 +5,7 @@
 import { createRecord } from './airtable'
 import { captureEvent } from './analytics'
 import { readAttribution } from './attribution'
+import { fireAtelierLead } from './meta-pixel'
 import { isValidEmail, rememberPrefillEmail } from './stripe-checkout'
 
 export const FUNNEL_PATHS = [
@@ -205,5 +206,7 @@ export async function enrollAtelier({ email, prenom, phone, country } = {}) {
   const result = await createRecord('Atelier gratuit', fields)
   rememberPrefillEmail(email)
   captureEvent('atelier_optin')
+  // Après Airtable OK — CAPI hash l'email côté serveur (pixel 604268118937812).
+  fireAtelierLead({ email, phone, firstName: prenom })
   return result
 }
