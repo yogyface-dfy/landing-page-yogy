@@ -1,5 +1,11 @@
 # Changelog
 
+## 2026-10-16
+
+### 🐛 Fixed
+
+- **`/atelier-gratuit`** : pixel Meta chargé dès l'arrivée (PageView) + `Lead` au submit. Le bandeau est masqué, donc `fbq` ne partait jamais — seul le CAPI filait.
+
 ## 2026-10-14
 
 ### ✨ Added

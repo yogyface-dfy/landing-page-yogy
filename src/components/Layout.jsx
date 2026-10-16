@@ -8,7 +8,7 @@ import Footer from './Footer'
 import CookieConsent from './CookieConsent'
 import { initAnalytics, capturePageview } from '../lib/analytics'
 import { pingVenteHit } from '../lib/vente-hit'
-import { captureMetaPageview } from '../lib/meta-pixel'
+import { captureMetaPageview, loadMetaPixel } from '../lib/meta-pixel'
 import { SHOW_TRUSTPILOT } from '../lib/trustpilot'
 import { isFunnelChrome } from '../lib/funnel'
 import { WAITLIST_OPEN, isWaitlistPath } from '../lib/waitlist'
@@ -79,6 +79,11 @@ export default function Layout() {
   useEffect(() => {
     initAnalytics()
   }, [])
+
+  // Ads : pas de bandeau sur l'atelier, mais le pixel Lead doit quand même charger.
+  useEffect(() => {
+    if (pathname === '/atelier-gratuit') loadMetaPixel()
+  }, [pathname])
 
   // Identité first-party (cookie hid) — pas un pixel pub.
   useEffect(() => {

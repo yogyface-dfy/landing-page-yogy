@@ -1,4 +1,5 @@
-/** Pixel Meta 604268118937812 — même ID que webi. Chargé après consentement. */
+/** Pixel Meta 604268118937812 — même ID que webi.
+ * Chargé après consentement, et tout de suite sur /atelier-gratuit (ads Lead). */
 
 export const META_PIXEL_ID = '604268118937812'
 const WAITLIST_KEY = 'yf_waitlist_optin'
@@ -196,6 +197,7 @@ export function fireWaitlistConversion(payload) {
  * Même event_id pour la dédup. CAPI part même si le bandeau est masqué.
  */
 export function fireAtelierLead({ email, phone, firstName } = {}) {
+  loadMetaPixel()
   const eventId = newEventId()
   const { fbp, fbc } = getFbCookies()
   fbSetUser({ email, phone, firstName })
