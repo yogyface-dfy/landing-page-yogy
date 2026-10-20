@@ -4,10 +4,12 @@
 
 ### ✨ Added
 
+- **Upsell pack** : le paiement 99 € (1 clic ou 3DS) pose `studio_extension` sur Stripe. Webi crédite +12 h, +6 mois, ticket diag. Purchase CAPI aussi sur le 1 clic.
 - **`/vente-6x`** : Studio **359 €** — 1×, **4 × 89,99 €**, **6 × 59,99 €**. Upsell pack après paiement.
 
 ### 🔧 Changed
 
+- **`/vente`** `/vente-6x` : Studio **359,99 €** en 1× (Stripe aligné). 4× et 6× inchangés.
 - **Upsell** : `/vente`, `/vente-6x` et `/vente-10x` redirigent vers `/vente-upsell`. Preview `/vente-upsell-test` et variante coaching retirées.
 
 ### 🐛 Fixed

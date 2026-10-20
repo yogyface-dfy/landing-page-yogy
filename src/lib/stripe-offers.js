@@ -5,10 +5,10 @@
 export const VIP_ONCE_CENTS = 29900;
 export const VIP_3X_CENTS = 9999;
 export const VIP_6X_CENTS = 4999;
-/** /vente : 359 € en 1×, ou 4 × 89,99 €. */
-export const STUDIO_ONCE_CENTS = 35900;
+/** /vente : 359,99 € en 1×, ou 4 × 89,99 €. */
+export const STUDIO_ONCE_CENTS = 35999;
 export const STUDIO_4X_CENTS = 8999;
-/** /vente-6x : 6 × 59,99 € (≈ 359 €). */
+/** /vente-6x : 6 × 59,99 € (≈ 359,99 €). */
 export const STUDIO_6X_CENTS = 5999;
 export const STUDIO_10X_CENTS = 4499;
 /** /vente-10x : les CTA 1× et 4× restent au tarif précédent. */
@@ -27,7 +27,7 @@ const VIP_DESCRIPTION =
   "Avant-première plateforme · 299 € au lieu de 999 € · 18h de coaching · 12 mois d’accompagnement · diagnostic + renouvellement";
 
 const STUDIO_DESCRIPTION =
-  "Programme YoGyFace Studio · 359 € · 12h de coaching · 6 mois d’accompagnement · diagnostic";
+  "Programme YoGyFace Studio · 359,99 € · 12h de coaching · 6 mois d’accompagnement · diagnostic";
 
 const STUDIO_DESCRIPTION_449 =
   "Programme YoGyFace Studio · 449 € · 12h de coaching · 6 mois d’accompagnement · diagnostic";
@@ -193,7 +193,7 @@ export function shouldShowUpsell(plan) {
 export const UPSELL_VARIANTS = {
   pack: {
     amountCents: 9900,
-    compareAtCents: 35900,
+    compareAtCents: 35999,
     name: "Extension YoGyFace STUDIO — 1 an",
     image: "/programme-montage.jpg",
     headline: "Félicitations, tu rejoins YoGyFace STUDIO",
@@ -206,7 +206,7 @@ export const UPSELL_VARIANTS = {
       "+ 6 mois de suivi photo",
     ],
     withLabel: "Ce que tu peux avoir pour 99 €",
-    withoutLabel: "Ce que tu as acheté pour 359 €",
+    withoutLabel: "Ce que tu as acheté pour 359,99 €",
     compare: [
       {
         label: "Accompagnement",
@@ -235,4 +235,32 @@ export const UPSELL_VARIANTS = {
 
 export function resolveUpsellOffer() {
   return { ...UPSELL_VARIANTS.pack, variant: "pack" };
+}
+
+/** Kind webi : +12 h lives, +6 mois, ticket diag. Doit matcher l’app. */
+export const STUDIO_EXTENSION_KIND = "studio_extension";
+export const STUDIO_EXTENSION_HOURS = 12;
+
+/** Metadata Stripe (PI 1 clic + Checkout 3DS) lue par le webhook webi. */
+export function studioExtensionStripeMeta({
+  parentSessionId,
+  origEmail = "",
+  extra = {},
+} = {}) {
+  const offer = resolveUpsellOffer();
+  const em = String(origEmail || "").trim().toLowerCase();
+  return {
+    kind: "upsell",
+    product_id: STUDIO_EXTENSION_KIND,
+    product_kind: STUDIO_EXTENSION_KIND,
+    product_label: offer.name,
+    qty: "1",
+    unit_amount_cents: String(offer.amountCents),
+    amount_cents: String(offer.amountCents),
+    coaching_hours: String(STUDIO_EXTENSION_HOURS),
+    upsell_variant: offer.variant,
+    parent_session: parentSessionId,
+    ...(em ? { orig_email: em, user_email: em } : {}),
+    ...extra,
+  };
 }

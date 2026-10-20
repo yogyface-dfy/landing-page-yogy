@@ -113,7 +113,10 @@ function UpsellCompare({ offer }) {
           className="pointer-events-none -my-2 md:-my-3 rounded-2xl bg-white ring-2 ring-emerald-500 shadow-[0_12px_40px_rgba(16,185,129,0.18)]"
           style={{ gridColumn: 2, gridRow: `1 / span ${span}` }}
         />
-        <div className="min-h-[64px] md:min-h-[72px]" style={{ gridColumn: 1, gridRow: 1 }} />
+        <div
+          className="min-h-[64px] md:min-h-[72px]"
+          style={{ gridColumn: 1, gridRow: 1 }}
+        />
         <div
           className="relative z-10 flex min-h-[64px] md:min-h-[72px] items-center justify-center px-1.5 py-2"
           style={{ gridColumn: 2, gridRow: 1 }}
@@ -174,22 +177,61 @@ function StepIcon({ kind, state }) {
       }`}
     >
       {kind === "pay" && (
-        <svg className={cls} width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden>
-          <rect x="3" y="6" width="18" height="13" rx="2" stroke="currentColor" strokeWidth="2" />
+        <svg
+          className={cls}
+          width="16"
+          height="16"
+          viewBox="0 0 24 24"
+          fill="none"
+          aria-hidden
+        >
+          <rect
+            x="3"
+            y="6"
+            width="18"
+            height="13"
+            rx="2"
+            stroke="currentColor"
+            strokeWidth="2"
+          />
           <path d="M3 10h18" stroke="currentColor" strokeWidth="2" />
         </svg>
       )}
       {kind === "cart" && (
-        <svg className={cls} width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden>
-          <path d="M6 8h15l-1.5 8H8L6 8Z" stroke="currentColor" strokeWidth="2" />
+        <svg
+          className={cls}
+          width="16"
+          height="16"
+          viewBox="0 0 24 24"
+          fill="none"
+          aria-hidden
+        >
+          <path
+            d="M6 8h15l-1.5 8H8L6 8Z"
+            stroke="currentColor"
+            strokeWidth="2"
+          />
           <path d="M6 8 5 5H2" stroke="currentColor" strokeWidth="2" />
           <circle cx="9" cy="20" r="1.4" fill="currentColor" />
           <circle cx="18" cy="20" r="1.4" fill="currentColor" />
         </svg>
       )}
       {kind === "check" && (
-        <svg className={cls} width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden>
-          <path d="M5 12.5 9.5 17 19 7.5" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round" />
+        <svg
+          className={cls}
+          width="16"
+          height="16"
+          viewBox="0 0 24 24"
+          fill="none"
+          aria-hidden
+        >
+          <path
+            d="M5 12.5 9.5 17 19 7.5"
+            stroke="currentColor"
+            strokeWidth="2.2"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+          />
         </svg>
       )}
     </span>
@@ -205,8 +247,14 @@ function FunnelSteps() {
   ];
   return (
     <div className="relative mx-auto mb-10 max-w-[560px] px-1">
-      <div className="absolute left-[16%] right-[16%] top-[17px] h-[2px] bg-[#e8d9b0]" aria-hidden />
-      <div className="absolute left-[16%] right-1/2 top-[17px] h-[2px] bg-bordeaux/55" aria-hidden />
+      <div
+        className="absolute left-[16%] right-[16%] top-[17px] h-[2px] bg-[#e8d9b0]"
+        aria-hidden
+      />
+      <div
+        className="absolute left-[16%] right-1/2 top-[17px] h-[2px] bg-bordeaux/55"
+        aria-hidden
+      />
       <ol className="grid grid-cols-3">
         {steps.map((s) => (
           <li key={s.label} className="flex flex-col items-center gap-2">
@@ -274,9 +322,7 @@ function ConfirmDialog({ open, offer, busy, error, onClose, onConfirm }) {
           onClick={onConfirm}
           className={`btn-vert w-full justify-center text-sm md:text-base px-7 py-3.5 ${busy ? "opacity-60" : ""}`}
         >
-          {busy
-            ? "Paiement…"
-            : `Confirmer — ${euros(offer.amountCents)} €`}
+          {busy ? "Paiement…" : `Confirmer — ${euros(offer.amountCents)} €`}
         </button>
         <button
           type="button"
@@ -468,7 +514,10 @@ export default function VenteUpsell() {
               </h2>
               <ul className="text-left max-w-[560px] mx-auto space-y-3 mb-10">
                 {(offer.bullets || []).map((b) => (
-                  <li key={b} className="flex items-start gap-2.5 text-[14px] md:text-[15px] text-noir/80 leading-relaxed">
+                  <li
+                    key={b}
+                    className="flex items-start gap-2.5 text-[14px] md:text-[15px] text-noir/80 leading-relaxed"
+                  >
                     <span className="text-bordeaux font-bold mt-0.5">✓</span>
                     {b}
                   </li>

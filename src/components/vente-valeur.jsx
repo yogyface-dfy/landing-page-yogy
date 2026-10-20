@@ -19,7 +19,8 @@ const LEFT_GIFTS = [
 ];
 
 function leftRows(price) {
-  const nows = PAID[price] || PAID[449];
+  const n = Number(String(price).replace(",", "."));
+  const nows = PAID[n >= 400 ? 449 : 359];
   return [
     ...PAID_ROWS.map((row, i) => ({ ...row, now: nows[i] })),
     ...LEFT_GIFTS,

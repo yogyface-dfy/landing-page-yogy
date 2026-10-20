@@ -27,7 +27,7 @@ import { STUDIO_SALES_OPEN, VIP_SALES_OPEN } from "../lib/stripe-offers";
  * variant "vip"   → offre envoyée aux inscrites liste d'attente
  * variant "public" → offre classique
  * variant "dix"   → Studio 449 €, 10× (/vente-10x)
- * variant "six"   → Studio 359 €, 1× / 4× / 6 × 59,99 € (/vente-6x)
+ * variant "six"   → Studio 359,99 €, 1× / 4× / 6 × 59,99 € (/vente-6x)
  */
 const OFFERS = {
   vip: {
@@ -54,7 +54,7 @@ const OFFERS = {
   public: {
     once: {
       plan: "studio-once",
-      price: 359,
+      price: "359,99",
       was: 899,
     },
     installments: [{ plan: "studio-4x", times: 4, amount: "89,99" }],
@@ -74,12 +74,12 @@ const OFFERS = {
   six: {
     once: {
       plan: "studio-6x",
-      price: 359,
+      price: "359,99",
       was: 899,
     },
     installments: [
       { plan: "studio-4x", times: 4, amount: "89,99" },
-      { plan: "studio-once", label: "Payer 359 € en 1 fois" },
+      { plan: "studio-once", label: "Payer 359,99 € en 1 fois" },
     ],
   },
 };
@@ -103,9 +103,9 @@ const VIP_BONUSES = [
 ];
 
 // VIP / lancement public (plus de colonne « après lancement »).
-// Ancre marketing : VIP 299 € / Studio public 359 € (899 € barré).
+// Ancre marketing : VIP 299 € / Studio public 359,99 € (899 € barré).
 const COMPARE = [
-  { label: "Prix du programme", vip: "299 €", was: "999 €", public: "359 €" },
+  { label: "Prix du programme", vip: "299 €", was: "999 €", public: "359,99 €" },
   {
     label: "Accès à la plateforme",
     vip: "Dès l'achat",
@@ -669,8 +669,8 @@ export default function VenteOffre({ variant }) {
               : isDix
                 ? "Programme YoGyFace Studio : 449 € en 1×, 4× ou 10 × 44,99 €. Plus que 2 places sur 20, fermeture à minuit."
                 : isSix
-                  ? "Programme YoGyFace Studio : 359 € en 1×, 4 × 89,99 € ou 6 × 59,99 €."
-                  : "Programme YoGyFace Studio : 359 €, diagnostic ultra personnalisé, nouveaux exercices, application et accompagnement. Paiement en 1× ou 4 × 89,99 €."
+                  ? "Programme YoGyFace Studio : 359,99 € en 1×, 4 × 89,99 € ou 6 × 59,99 €."
+                  : "Programme YoGyFace Studio : 359,99 €, diagnostic ultra personnalisé, nouveaux exercices, application et accompagnement. Paiement en 1× ou 4 × 89,99 €."
         }
         path={path}
         noindex
