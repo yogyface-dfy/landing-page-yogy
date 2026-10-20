@@ -9,6 +9,7 @@
 
 ### 🔧 Changed
 
+- **`/vente`** : paiement en **1×**, **4 × 89,99 €** et **6 × 59,99 €** (même plans que `/vente-6x`).
 - **Confirmation achat** : plus de bouton « Écrire à Laury » sur `/confirmation-achat-bienvenue`.
 - **`/vente`** `/vente-6x` : Studio **359,99 €** en 1× (Stripe aligné). 4× et 6× inchangés.
 - **Upsell** : `/vente`, `/vente-6x` et `/vente-10x` redirigent vers `/vente-upsell`. Preview `/vente-upsell-test` et variante coaching retirées.

@@ -57,7 +57,10 @@ const OFFERS = {
       price: "359,99",
       was: 899,
     },
-    installments: [{ plan: "studio-4x", times: 4, amount: "89,99" }],
+    installments: [
+      { plan: "studio-4x", times: 4, amount: "89,99" },
+      { plan: "studio-6x", times: 6, amount: "59,99" },
+    ],
   },
   dix: {
     once: {
@@ -670,7 +673,7 @@ export default function VenteOffre({ variant }) {
                 ? "Programme YoGyFace Studio : 449 € en 1×, 4× ou 10 × 44,99 €. Plus que 2 places sur 20, fermeture à minuit."
                 : isSix
                   ? "Programme YoGyFace Studio : 359,99 € en 1×, 4 × 89,99 € ou 6 × 59,99 €."
-                  : "Programme YoGyFace Studio : 359,99 €, diagnostic ultra personnalisé, nouveaux exercices, application et accompagnement. Paiement en 1× ou 4 × 89,99 €."
+                  : "Programme YoGyFace Studio : 359,99 € en 1×, 4 × 89,99 € ou 6 × 59,99 €."
         }
         path={path}
         noindex
@@ -891,9 +894,7 @@ export default function VenteOffre({ variant }) {
                     "12h de coaching · 6 mois d'accompagnement",
                     ...(isDix
                       ? ["Paiement en 1×, 4× ou 10 × 44,99 €"]
-                      : isSix
-                        ? ["Paiement en 1×, 4× ou 6 × 59,99 €"]
-                        : []),
+                      : ["Paiement en 1×, 4× ou 6 × 59,99 €"]),
                   ].map((l) => (
                     <li
                       key={l}

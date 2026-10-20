@@ -5,7 +5,7 @@
 export const VIP_ONCE_CENTS = 29900;
 export const VIP_3X_CENTS = 9999;
 export const VIP_6X_CENTS = 4999;
-/** /vente : 359,99 € en 1×, ou 4 × 89,99 €. */
+/** /vente : 359,99 € en 1×, 4 × 89,99 € ou 6 × 59,99 €. */
 export const STUDIO_ONCE_CENTS = 35999;
 export const STUDIO_4X_CENTS = 8999;
 /** /vente-6x : 6 × 59,99 € (≈ 359,99 €). */
