@@ -1,6 +1,6 @@
 /**
  * Offres Stripe. Le serveur est la source de vérité pour les montants
- * (le client n'envoie jamais le prix). Upsell A/B : variant hashé sur le cs_ Stripe.
+ * (le client n'envoie jamais le prix). Upsell live = pack uniquement (/vente).
  */
 export const VIP_ONCE_CENTS = 29900;
 export const VIP_3X_CENTS = 9999;
@@ -180,53 +180,55 @@ export function purchaseContentName(plan) {
   return "YoGyFace";
 }
 
-/** Post-achat A/B. `false` = après Stripe on va sur /confirmation-achat-bienvenue. */
-export const UPSELL_ENABLED = false;
+/** true = après /vente, Stripe envoie sur /vente-upsell (pack). */
+export const UPSELL_ENABLED = true;
 
-/** pack = A, coaching = B. Prix / copy ici — pas d'override env (ça casserait le split). */
+/** /vente 359 € seulement — pas VIP, pas /vente-10x. */
+export const UPSELL_PLANS = new Set(["studio-once", "studio-4x"]);
+
+export function shouldShowUpsell(plan) {
+  return UPSELL_ENABLED && UPSELL_PLANS.has(plan);
+}
+
+/** pack = live. coaching = preview ?v=coaching seulement. */
 export const UPSELL_VARIANTS = {
   pack: {
     amountCents: 9900,
     compareAtCents: 35900,
-    name: "Pack VIP — 2e programme à 6 mois",
-    headline:
-      "Mets toutes les chances de ton côté avec mon suivi 1 an au lieu de 6 mois",
-    sub: "Un nouveau programme complet après tes 6 premiers mois, pour travailler de nouvelles zones.",
+    name: "Extension YoGyFace STUDIO — 1 an",
+    image: "/programme-montage.jpg",
+    headline: "Félicitations, tu rejoins YoGyFace STUDIO",
+    sub: "Une dernière question avant d’aller plus loin : veux-tu profiter de l’extension « YoGyFace STUDIO 1 an » ?",
     bullets: [
       "+ 6 mois d’accompagnement",
-      "Renouvellement de ton programme",
-      "1 diagnostic à l’achat, et un nouveau pour 6 nouveaux mois",
-      "12h de coaching live",
-      "6 mois de suivi photo",
+      "Renouvellement de ton programme après 6 mois",
+      "Renouvellement de ton diagnostic personnalisé au bout de 6 mois",
+      "+ 12h de coaching live",
+      "+ 6 mois de suivi photo",
     ],
-    withLabel: "Avec l’offre 1 an",
-    withoutLabel: "Sans",
+    withLabel: "Ce que tu peux avoir pour 99 €",
+    withoutLabel: "Ce que tu as acheté pour 359 €",
     compare: [
-      { label: "Prix", with: "99 €", was: "359 €", without: "—" },
       {
         label: "Accompagnement",
-        with: "6 mois",
-        bonus: "+6 mois",
+        with: "12 mois",
         without: "6 mois",
       },
       {
         label: "Programme",
-        with: "Initial",
-        bonus: "+ 2e à 6 mois",
-        without: "Initial seulement",
+        with: "Renouvellement de ton\nprogramme après 6 mois",
+        without: "Programme initial de 6 mois seulement",
       },
       {
         label: "Diagnostic",
-        with: "1 à l’achat",
-        bonus: "+ 1 · 6 nouveaux mois",
-        without: "Initial uniquement",
+        with: "Renouvellement de ton\ndiagnostic après 6 mois",
+        without: "Diagnostic de départ seulement",
       },
       { label: "Coaching live", with: "12h", bonus: "+12h", without: "12h" },
       {
         label: "Suivi photo",
-        with: "6 mois",
-        bonus: "+6 mois",
-        without: "6 mois",
+        with: "Jusqu’à 12 mois de suivis",
+        without: "6 premiers mois",
       },
     ],
   },
@@ -234,6 +236,7 @@ export const UPSELL_VARIANTS = {
     amountCents: 7900,
     compareAtCents: 24900,
     name: "12h de coaching en plus",
+    image: "/email/launch/mail-4-coaching.jpg",
     headline: "Continue les lives, sans tout recommencer",
     sub: "12h de coaching après tes 6 premiers mois d’accompagnement — tes exercices restent à toi.",
     bullets: [
@@ -244,7 +247,6 @@ export const UPSELL_VARIANTS = {
     withLabel: "Les 12 en +",
     withoutLabel: "Sans",
     compare: [
-      { label: "Prix", with: "79 €", was: "249 €", without: "—" },
       { label: "Coaching live", with: "12h", bonus: "+12h", without: "12h" },
       {
         label: "6 nouveaux mois",
@@ -256,28 +258,15 @@ export const UPSELL_VARIANTS = {
   },
 };
 
-const UPSELL_KEYS = ["pack", "coaching"];
-
-/** Preview : ?v=a|pack ou ?v=b|coaching. */
+/** Preview : ?v=a|pack ou ?v=b|coaching. Live = pack. */
 export function parseUpsellPreviewKey(raw) {
   const v = String(raw || "").toLowerCase();
   if (v === "b" || v === "coaching") return "coaching";
   return "pack";
 }
 
-/** Sticky 50/50 : même Checkout Session = toujours le même bras. */
-export function upsellKeyFromSession(sessionId) {
-  const s = String(sessionId || "");
-  let h = 2166136261;
-  for (let i = 0; i < s.length; i++)
-    h = Math.imul(h ^ s.charCodeAt(i), 16777619);
-  return UPSELL_KEYS[(h >>> 0) % 2];
-}
-
-export function resolveUpsellOffer(sessionId, previewKey) {
-  const key = previewKey
-    ? parseUpsellPreviewKey(previewKey)
-    : upsellKeyFromSession(sessionId);
+export function resolveUpsellOffer(_sessionId, previewKey) {
+  const key = previewKey ? parseUpsellPreviewKey(previewKey) : "pack";
   const offer = UPSELL_VARIANTS[key] || UPSELL_VARIANTS.pack;
   return { ...offer, variant: key };
 }

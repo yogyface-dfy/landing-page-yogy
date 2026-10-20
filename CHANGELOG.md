@@ -24,6 +24,26 @@
 - **`/vente-upsell`** : titre « UNE DERNIÈRE chose. » sur une ligne, bordeaux.
 - **Upsell coaching** : pill desktop « Les 12 en + ».
 - **Upsell** : « Après 6 mois » → « 6 nouveaux mois ».
+- **Pack upsell** : tableau « Ce que tu peux avoir pour 99 € » vs « Ce que tu as acheté pour 359 € ».
+- **`/vente-upsell`** : layout OTO Systeme.io (étapes, compte à rebours, carte produit, liste, Oui / Non). Tableau pack conservé.
+- **`/vente-upsell`** : 2 clics — « Oui ! je le veux ! » ouvre un dialog, « Confirmer » déclenche le débit.
+- **`/vente-upsell`** : chrono 15 min + « ou quand tu fermeras cette page ».
+- **Upsell** : retrait de la ligne Prix du tableau (déjà dans les titres / carte produit).
+- **Upsell** : colonne verte = uniquement le bonus (`+6 mois`, `+12h`…) — l’initial reste à droite.
+- **Pack upsell** : Diagnostic = renouvellement après 6 mois vs diagnostic de départ seulement.
+- **Pack upsell** : Suivi photo = jusqu’à 12 mois vs 6 premiers mois.
+- **Pack upsell** : titre « Félicitations, tu rejoins YoGyFace STUDIO » + question sur l’extension 1 an.
+- **Pack upsell** : Accompagnement = 12 mois vs 6 mois.
+- **Pack upsell** : Programme = renouvellement à 6 mois vs programme initial seulement.
+- **`/vente-upsell`** : CTA « Oui ! je le veux ! » et « Confirmer » en vert achat.
+- **`/vente-upsell`** : retrait de « Le paiement part sur la carte… » dans le dialog.
+- **Pack upsell** : nom « Extension YoGyFace STUDIO — 1 an ».
+- **`/vente-upsell`** : sous-titre (question extension) en noir gras.
+- **Pack upsell** : Programme « après 6 mois » (plus « au bout de »).
+- **Pack upsell** : puces « Cette offre contient » (renouvellement programme / diagnostic, +12h, +6 mois suivi).
+- **Pack upsell** : « après 6 mois » à la ligne en mobile ; une ligne en desktop (colonne élargie).
+- **Pack upsell** : mobile = « Renouvellement de ton » puis « programme/diagnostic après 6 mois ».
+- **Upsell live** : pack uniquement après `/vente` (359 € 1× ou 4×). Plus de split coaching. VIP et `/vente-10x` restent sur la confirmation.
 
 ## 2026-10-16
 
