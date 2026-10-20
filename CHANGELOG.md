@@ -2,8 +2,17 @@
 
 ## 2026-10-20
 
+### ✨ Added
+
+- **`/vente-6x`** : Studio **359 €** — 1×, **4 × 89,99 €**, **6 × 59,99 €**. Upsell pack après paiement.
+
+### 🔧 Changed
+
+- **Upsell** : `/vente`, `/vente-6x` et `/vente-10x` redirigent vers `/vente-upsell`. Preview `/vente-upsell-test` et variante coaching retirées.
+
 ### 🐛 Fixed
 
+- **Checkout** : le CTA ouvre Stripe tout de suite, plus de « Email requis ». L’email se saisit sur Stripe ; s’il vient de `?email=`, on rattache le `cus_` existant.
 - **Stripe** : plus de customers en double. Checkout `/vente` exige l’email, réutilise le `cus_` existant (ou en crée un seul) au lieu de `customer_creation: always` sans lookup.
 
 ### 🔧 Changed

@@ -24,7 +24,7 @@ function stripDataFastPaymentQuery() {
   if (typeof window === 'undefined' || !window.history?.replaceState) return
   const url = new URL(window.location.href)
   const stripeCs = url.searchParams.get('session_id')
-  const onUpsell = url.pathname === '/vente-upsell' || url.pathname === '/vente-upsell-test'
+  const onUpsell = url.pathname === '/vente-upsell'
   // L'upsell a besoin de l'id Checkout, sous un nom que DataFast n'intercepte pas.
   if (onUpsell && stripeCs?.startsWith('cs_') && !url.searchParams.get('cs')) {
     url.searchParams.set('cs', stripeCs)

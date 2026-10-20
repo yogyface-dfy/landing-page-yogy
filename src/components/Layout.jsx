@@ -65,12 +65,13 @@ const personJsonLd = {
 export default function Layout() {
   const { pathname, search } = useLocation()
   // Tunnel upsell : Oui / Non uniquement — pas de nav, footer, cookies, ticker.
-  const bare = pathname === '/vente-upsell' || pathname === '/vente-upsell-test'
+  const bare = pathname === '/vente-upsell'
   // Offre + liste fermée + légal depuis le tunnel : logo seul, pas de nav/footer.
   const flash = pathname === '/vente-10x'
   const funnel =
     pathname === '/vente' ||
     pathname === '/vente-vip' ||
+    pathname === '/vente-6x' ||
     flash ||
     isFunnelChrome(pathname, search) ||
     (isWaitlistPath(pathname) && !WAITLIST_OPEN)
@@ -229,6 +230,7 @@ export default function Layout() {
         pathname !== '/vente' &&
         pathname !== '/vente-vip' &&
         pathname !== '/vente-10x' &&
+        pathname !== '/vente-6x' &&
         pathname !== '/atelier-gratuit' &&
         pathname !== '/confirmation-inscription' && (
         <CookieConsent />

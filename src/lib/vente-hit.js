@@ -3,7 +3,7 @@
 import { isFunnelPath } from './funnel'
 import { PREFILL_EMAIL_KEY, isValidEmail } from './stripe-checkout'
 
-const VENTE_PATHS = new Set(['/vente', '/vente-vip', '/vente-10x'])
+const VENTE_PATHS = new Set(['/vente', '/vente-vip', '/vente-10x', '/vente-6x'])
 const SKIP = new Set(['/liste-attente', '/merci-liste-attente'])
 
 function urlEmail(url) {

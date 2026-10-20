@@ -77,8 +77,8 @@ const NOINDEX_PATHS = [
   '/vente',
   '/vente-vip',
   '/vente-10x',
+  '/vente-6x',
   '/vente-upsell',
-  '/vente-upsell-test',
   '/atelier-gratuit',
   '/confirmation-inscription',
   '/video-01',
@@ -446,7 +446,7 @@ app.post('/api/vente-hit', async (req, res) => {
     })
     if (out.hid) setHidCookie(res, out.hid, req)
     const userId = out.userId || hidUserId(hid)
-    const isVente = pathName === '/vente' || pathName === '/vente-vip' || pathName === '/vente-10x'
+    const isVente = pathName === '/vente' || pathName === '/vente-vip' || pathName === '/vente-10x' || pathName === '/vente-6x'
     if (record && isVente && userId) {
       patchInscriptionVente(userId).catch((e) => console.error('vente-hit airtable:', e))
     }
@@ -470,6 +470,7 @@ const NOT_FOUND = path.join(DIST, '404.html')
 const LEGACY_REDIRECTS = {
   '/yogyface-reset': '/programme',
   '/pol-co': '/',
+  '/vente-upsell-test': '/vente',
 }
 
 app.use((req, res, next) => {

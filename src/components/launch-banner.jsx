@@ -28,7 +28,6 @@ const HIDE = [
   '/merci-achat',
   '/installer-app',
   '/vente-upsell',
-  '/vente-upsell-test',
   '/vente-10x',
 ]
 
@@ -56,7 +55,7 @@ function Track({ items }) {
 export default function LaunchBanner() {
   const { pathname } = useLocation()
   const vip = pathname === '/vente-vip'
-  const vente = pathname === '/vente'
+  const vente = pathname === '/vente' || pathname === '/vente-6x'
   const items = vip ? VIP_ITEMS : vente ? PUBLIC_ITEMS : HOME_ITEMS
   const vipClosed = vip && !VIP_SALES_OPEN
   const studioClosed = vente && !STUDIO_SALES_OPEN

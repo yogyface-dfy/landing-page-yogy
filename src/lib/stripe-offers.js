@@ -1,6 +1,6 @@
 /**
  * Offres Stripe. Le serveur est la source de vérité pour les montants
- * (le client n'envoie jamais le prix). Upsell live = pack uniquement (/vente).
+ * (le client n'envoie jamais le prix). Upsell live = pack (Studio).
  */
 export const VIP_ONCE_CENTS = 29900;
 export const VIP_3X_CENTS = 9999;
@@ -8,7 +8,8 @@ export const VIP_6X_CENTS = 4999;
 /** /vente : 359 € en 1×, ou 4 × 89,99 €. */
 export const STUDIO_ONCE_CENTS = 35900;
 export const STUDIO_4X_CENTS = 8999;
-export const STUDIO_6X_CENTS = 7499;
+/** /vente-6x : 6 × 59,99 € (≈ 359 €). */
+export const STUDIO_6X_CENTS = 5999;
 export const STUDIO_10X_CENTS = 4499;
 /** /vente-10x : les CTA 1× et 4× restent au tarif précédent. */
 const STUDIO_DIX_ONCE_CENTS = 44900;
@@ -114,8 +115,8 @@ export const PLANS = {
       unit_amount: STUDIO_6X_CENTS,
       recurring: { interval: "month" },
       product_data: {
-        name: "YoGyFace Studio (6 × 74,99 €)",
-        description: `${STUDIO_DESCRIPTION_449} · 6 mensualités`,
+        name: "YoGyFace Studio (6 × 59,99 €)",
+        description: `${STUDIO_DESCRIPTION} · 6 mensualités`,
         images: [PRODUCT_IMAGE],
       },
     },
@@ -180,17 +181,15 @@ export function purchaseContentName(plan) {
   return "YoGyFace";
 }
 
-/** true = après /vente, Stripe envoie sur /vente-upsell (pack). */
+/** true = après checkout Studio, Stripe envoie sur /vente-upsell (pack). */
 export const UPSELL_ENABLED = true;
 
-/** /vente 359 € seulement — pas VIP, pas /vente-10x. */
-export const UPSELL_PLANS = new Set(["studio-once", "studio-4x"]);
-
+/** Studio (/vente, /vente-6x, /vente-10x) → pack. Pas VIP. */
 export function shouldShowUpsell(plan) {
-  return UPSELL_ENABLED && UPSELL_PLANS.has(plan);
+  return UPSELL_ENABLED && PLANS[plan]?.offer === "studio";
 }
 
-/** pack = live. coaching = preview ?v=coaching seulement. */
+/** Offre complémentaire live — pack uniquement. */
 export const UPSELL_VARIANTS = {
   pack: {
     amountCents: 9900,
@@ -232,41 +231,8 @@ export const UPSELL_VARIANTS = {
       },
     ],
   },
-  coaching: {
-    amountCents: 7900,
-    compareAtCents: 24900,
-    name: "12h de coaching en plus",
-    image: "/email/launch/mail-4-coaching.jpg",
-    headline: "Continue les lives, sans tout recommencer",
-    sub: "12h de coaching après tes 6 premiers mois d’accompagnement — tes exercices restent à toi.",
-    bullets: [
-      "12h de coaching live",
-      "Après tes 6 premiers mois",
-      "La plateforme et tes replays restent à toi, à vie",
-    ],
-    withLabel: "Les 12 en +",
-    withoutLabel: "Sans",
-    compare: [
-      { label: "Coaching live", with: "12h", bonus: "+12h", without: "12h" },
-      {
-        label: "6 nouveaux mois",
-        with: "12h de lives",
-        without: "Plus de coaching",
-      },
-      { label: "Plateforme", with: "À vie", without: "À vie" },
-    ],
-  },
 };
 
-/** Preview : ?v=a|pack ou ?v=b|coaching. Live = pack. */
-export function parseUpsellPreviewKey(raw) {
-  const v = String(raw || "").toLowerCase();
-  if (v === "b" || v === "coaching") return "coaching";
-  return "pack";
-}
-
-export function resolveUpsellOffer(_sessionId, previewKey) {
-  const key = previewKey ? parseUpsellPreviewKey(previewKey) : "pack";
-  const offer = UPSELL_VARIANTS[key] || UPSELL_VARIANTS.pack;
-  return { ...offer, variant: key };
+export function resolveUpsellOffer() {
+  return { ...UPSELL_VARIANTS.pack, variant: "pack" };
 }

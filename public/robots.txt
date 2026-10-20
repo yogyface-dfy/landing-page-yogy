@@ -6,8 +6,8 @@ Disallow: /merci-achat
 Disallow: /vente
 Disallow: /vente-vip
 Disallow: /vente-10x
+Disallow: /vente-6x
 Disallow: /vente-upsell
-Disallow: /vente-upsell-test
 Disallow: /atelier-gratuit
 Disallow: /confirmation-inscription
 Disallow: /video-01

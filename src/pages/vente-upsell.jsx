@@ -1,13 +1,8 @@
 import { Fragment, useEffect, useState } from "react";
-import {
-  Link,
-  useLocation,
-  useNavigate,
-  useSearchParams,
-} from "react-router-dom";
+import { Link, useNavigate, useSearchParams } from "react-router-dom";
 import SEO from "../components/SEO";
 import { captureEvent } from "../lib/analytics";
-import { resolveUpsellOffer, UPSELL_ENABLED } from "../lib/stripe-offers";
+import { UPSELL_ENABLED } from "../lib/stripe-offers";
 
 function euros(cents) {
   return (cents / 100).toLocaleString("fr-FR", {
@@ -299,14 +294,9 @@ function ConfirmDialog({ open, offer, busy, error, onClose, onConfirm }) {
 /** Upsell 2 clics — OTO Systeme.io + dialog de confirmation. */
 export default function VenteUpsell() {
   const [searchParams] = useSearchParams();
-  const { pathname } = useLocation();
   const navigate = useNavigate();
   const sessionId =
     searchParams.get("cs") || searchParams.get("session_id") || "";
-  // /vente-upsell-test : même UI, aucun appel Stripe. ?v=a|pack ou ?v=b|coaching.
-  const preview =
-    pathname === "/vente-upsell-test" || searchParams.get("preview") === "1";
-  const previewKey = searchParams.get("v") || "pack";
   const [state, setState] = useState({
     status: "loading",
     offer: null,
@@ -316,17 +306,8 @@ export default function VenteUpsell() {
   const [confirmOpen, setConfirmOpen] = useState(false);
 
   useEffect(() => {
-    // Filet si une vieille session Stripe pointe encore ici.
-    if (!UPSELL_ENABLED && !preview) {
+    if (!UPSELL_ENABLED) {
       navigate("/confirmation-achat-bienvenue", { replace: true });
-      return;
-    }
-    if (preview) {
-      setState({
-        status: "ready",
-        offer: { ...resolveUpsellOffer("", previewKey), alreadyTaken: false },
-        error: "",
-      });
       return;
     }
     if (!sessionId.startsWith("cs_")) {
@@ -364,10 +345,9 @@ export default function VenteUpsell() {
     return () => {
       cancelled = true;
     };
-  }, [preview, previewKey, sessionId, navigate]);
+  }, [sessionId, navigate]);
 
   const skip = () => {
-    if (preview) return;
     captureEvent("upsell_skip", { variant: state.offer?.variant });
     navigate("/confirmation-achat-bienvenue", { replace: true });
   };
@@ -378,10 +358,6 @@ export default function VenteUpsell() {
   };
 
   const accept = async () => {
-    if (preview) {
-      setConfirmOpen(false);
-      return;
-    }
     setBusy(true);
     setState((s) => ({ ...s, error: "" }));
     captureEvent("upsell_accept", { variant: state.offer?.variant });
@@ -415,7 +391,7 @@ export default function VenteUpsell() {
       <SEO
         title="Une dernière chose"
         description="Offre complémentaire après ton inscription YoGyFace."
-        path={preview ? "/vente-upsell-test" : "/vente-upsell"}
+        path="/vente-upsell"
         noindex
       />
 
