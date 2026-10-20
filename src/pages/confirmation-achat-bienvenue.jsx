@@ -80,17 +80,9 @@ export default function ConfirmationAchatBienvenue() {
             ))}
           </div>
 
-          <a
-            href="mailto:laury@yogyface.fr?subject=Accès%20programme%20YoGyFace"
-            className="btn-corail inline-flex text-sm px-6 py-3 mb-4"
-          >
-            Écrire à Laury
-          </a>
-          <div>
-            <Link to="/" className="btn-secondary inline-flex text-sm px-6 py-3">
-              Retour à l’accueil
-            </Link>
-          </div>
+          <Link to="/" className="btn-secondary inline-flex text-sm px-6 py-3">
+            Retour à l’accueil
+          </Link>
         </div>
       </section>
     </>
