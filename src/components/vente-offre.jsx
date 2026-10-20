@@ -51,13 +51,10 @@ const OFFERS = {
   public: {
     once: {
       plan: "studio-once",
-      price: 449,
+      price: 359,
       was: 899,
     },
-    installments: [
-      { plan: "studio-4x", times: 4, amount: "112,25" },
-      { plan: "studio-6x", times: 6, amount: "74,99" },
-    ],
+    installments: [{ plan: "studio-4x", times: 4, amount: "89,99" }],
   },
   dix: {
     once: {
@@ -65,10 +62,10 @@ const OFFERS = {
       price: 449,
       was: 899,
     },
-    // 10× reste le CTA principal ; 1× et 4× en secondaire.
+    // 10× reste le CTA principal ; 1× et 4× en secondaire (tarif 449 €).
     installments: [
-      { plan: "studio-4x", times: 4, amount: "112,25" },
-      { plan: "studio-once", label: "Payer 449 € en 1 fois" },
+      { plan: "studio-dix-4x", times: 4, amount: "112,25" },
+      { plan: "studio-dix-once", label: "Payer 449 € en 1 fois" },
     ],
   },
 };
@@ -92,9 +89,9 @@ const VIP_BONUSES = [
 ];
 
 // VIP / lancement public (plus de colonne « après lancement »).
-// Ancre marketing : VIP 299 € / Studio 449 € (899 € barré).
+// Ancre marketing : VIP 299 € / Studio public 359 € (899 € barré).
 const COMPARE = [
-  { label: "Prix du programme", vip: "299 €", was: "999 €", public: "449 €" },
+  { label: "Prix du programme", vip: "299 €", was: "999 €", public: "359 €" },
   {
     label: "Accès à la plateforme",
     vip: "Dès l'achat",
@@ -642,7 +639,7 @@ export default function VenteOffre({ variant }) {
               ? "Les ventes YoGyFace Studio sont fermées."
               : isDix
                 ? "Programme YoGyFace Studio : 449 € en 1×, 4× ou 10 × 44,99 €. Plus que 2 places sur 20, fermeture à minuit."
-                : "Programme YoGyFace Studio : 449 €, diagnostic ultra personnalisé, nouveaux exercices, application et accompagnement. Paiement en 1×, 4× ou 6×."
+                : "Programme YoGyFace Studio : 359 €, diagnostic ultra personnalisé, nouveaux exercices, application et accompagnement. Paiement en 1× ou 4 × 89,99 €."
         }
         path={path}
         noindex

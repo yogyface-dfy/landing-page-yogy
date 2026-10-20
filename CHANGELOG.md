@@ -1,5 +1,30 @@
 # Changelog
 
+## 2026-10-20
+
+### 🔧 Changed
+
+- **`/vente`** : Studio à **359 €** (899 € barré). Paiement en **1×** ou **4 × 89,99 €** (plus de 6×). Checkout Stripe aligné. `/vente-10x` reste à 449 €.
+
+### ✨ Added
+
+- **Upsell A/B post-achat** : pack VIP 99 € (2e programme à 6 mois, 359 € barré) vs 12h de coaching 79 € (249 € barré). Split 50/50 hashé sur le `cs_` Stripe. Preview `/vente-upsell-test?v=pack` et `?v=coaching`. Flag `UPSELL_ENABLED` toujours à `false` jusqu’à validation.
+
+### 🔧 Changed
+
+- **`/vente-upsell`** : accents et CTA en bordeaux `#841435` (même teinte que la carte garantie), plus de corail.
+- **`/vente-upsell`** : retrait de la mention « Un seul paiement · sans retaper ta carte ».
+- **`/vente-upsell-test`** : plus de badge « Mode test » — la preview est identique au live.
+- **`/vente-upsell`** : tableau comparatif avec / sans (même grille que VIP), colonne mise en avant en bordeaux.
+- **Pack VIP upsell** : Diagnostic = 1 à l’achat + 1 après 6 mois (sans le hint « nouvelles zones »).
+- **`/vente-upsell`** : avantages du tableau et CTA d’achat en vert (comme le comparatif VIP).
+- **`/vente-upsell`** : retrait du badge « Avec, toi ».
+- **Pack VIP upsell** : headline « suivi 1 an au lieu de 6 mois ».
+- **`/vente-upsell`** : plus de bandeau vide en mobile ; desktop « Avec l’offre 1 an ».
+- **`/vente-upsell`** : titre « UNE DERNIÈRE chose. » sur une ligne, bordeaux.
+- **Upsell coaching** : pill desktop « Les 12 en + ».
+- **Upsell** : « Après 6 mois » → « 6 nouveaux mois ».
+
 ## 2026-10-16
 
 ### 🐛 Fixed

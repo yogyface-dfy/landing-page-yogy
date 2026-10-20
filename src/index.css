@@ -101,6 +101,36 @@
     transform: translateY(0) scale(0.98);
   }
 
+  /* CTA vente / upsell — bordeaux #841435 (carte garantie). */
+  .btn-bordeaux {
+    @apply inline-flex items-center justify-center gap-2 px-6 py-3 min-h-[44px] rounded-full bg-bordeaux text-white font-semibold text-sm tracking-tight;
+    transition: all 320ms cubic-bezier(0.22, 1, 0.36, 1);
+    box-shadow: 0 2px 10px rgba(132, 20, 53, 0.28);
+  }
+  .btn-bordeaux:hover {
+    @apply bg-bordeaux/90;
+    transform: translateY(-2px) scale(1.02);
+    box-shadow: 0 10px 30px rgba(132, 20, 53, 0.35);
+  }
+  .btn-bordeaux:active {
+    transform: translateY(0) scale(0.98);
+  }
+
+  /* CTA upsell — vert tableau VIP. */
+  .btn-vert {
+    @apply inline-flex items-center justify-center gap-2 px-6 py-3 min-h-[44px] rounded-full bg-emerald-600 text-white font-semibold text-sm tracking-tight;
+    transition: all 320ms cubic-bezier(0.22, 1, 0.36, 1);
+    box-shadow: 0 2px 10px rgba(5, 150, 105, 0.28);
+  }
+  .btn-vert:hover {
+    @apply bg-emerald-700;
+    transform: translateY(-2px) scale(1.02);
+    box-shadow: 0 10px 30px rgba(5, 150, 105, 0.35);
+  }
+  .btn-vert:active {
+    transform: translateY(0) scale(0.98);
+  }
+
   /* Point live Systeme.io (onde rouge). */
   .live-dot {
     @apply relative inline-block w-2.5 h-2.5 shrink-0 rounded-full bg-corail;

@@ -60,7 +60,7 @@ export default function ConfirmationAchatBienvenue() {
           </h1>
           <p className="text-gris text-[15px] md:text-[17px] leading-relaxed mb-10">
             Et maintenant, voici la suite
-            {withUpsell ? ' — ta séance individuelle est bien enregistrée' : ''}.
+            {withUpsell ? ' — l’offre complémentaire est bien enregistrée' : ''}.
           </p>
 
           <div className="text-left space-y-3 mb-10">

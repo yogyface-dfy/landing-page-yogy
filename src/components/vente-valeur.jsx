@@ -1,14 +1,30 @@
 import Icon from "./Icon";
 
-// Valeurs Systeme.io. 149 + 75 + 40 + 185 = 449 € (moitié arrondie des 4 piliers).
-const LEFT = [
-  { t: "Ton diagnostic", now: "149 €", was: "299 €" },
-  { t: "Ton ordonnance beauté", now: "75 €", was: "149 €" },
-  { t: "Ton ordonnance skincare", now: "40 €", was: "80 €" },
-  { t: "Ton plan guidé 100 % sur mesure, 3 mois", now: "185 €", was: "399 €" },
+// Les 4 piliers suivent le prix de la page. 119+60+32+148 = 359, 149+75+40+185 = 449.
+const PAID = {
+  359: ["119 €", "60 €", "32 €", "148 €"],
+  449: ["149 €", "75 €", "40 €", "185 €"],
+};
+
+const PAID_ROWS = [
+  { t: "Ton diagnostic", was: "299 €" },
+  { t: "Ton ordonnance beauté", was: "149 €" },
+  { t: "Ton ordonnance skincare", was: "80 €" },
+  { t: "Ton plan guidé 100 % sur mesure, 3 mois", was: "399 €" },
+];
+
+const LEFT_GIFTS = [
   { t: "6 suivis photo (1 à 6 mois)", p: "199 €", gift: true },
   { t: "12 lives offerts", p: "300 à 360 €", gift: true },
 ];
+
+function leftRows(price) {
+  const nows = PAID[price] || PAID[449];
+  return [
+    ...PAID_ROWS.map((row, i) => ({ ...row, now: nows[i] })),
+    ...LEFT_GIFTS,
+  ];
+}
 
 const RIGHT = [
   { t: "Tous les replays à vie", p: "199 €", gift: true },
@@ -84,7 +100,7 @@ function Table({ price, tight }) {
         }`}
       >
         <ul className={tight ? "" : "md:border-r md:border-noir/6 md:pr-8"}>
-          {LEFT.map((item) => (
+          {leftRows(price).map((item) => (
             <Row key={item.t} tight={tight} {...item} />
           ))}
         </ul>
