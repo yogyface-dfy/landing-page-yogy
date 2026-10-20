@@ -9,7 +9,8 @@
     "prebuild": "node scripts/generate-sitemap.mjs",
     "build": "vite-react-ssg build",
     "preview": "vite preview",
-    "start": "node server.js"
+    "start": "node server.js",
+    "test": "node --test src/lib/*.test.js"
   },
   "dependencies": {
     "@datafast/ai-crawl": "^1.0.9",

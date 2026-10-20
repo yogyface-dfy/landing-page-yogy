@@ -189,6 +189,20 @@ export function shouldShowUpsell(plan) {
   return UPSELL_ENABLED && PLANS[plan]?.offer === "studio";
 }
 
+/**
+ * customer_creation n’est valide qu’en mode payment.
+ * En 4×/6× (subscription) Stripe 400 → « Impossible de créer le paiement ».
+ */
+export function checkoutCustomerFields({
+  customerId = null,
+  mode = "payment",
+  showUpsell = false,
+} = {}) {
+  if (customerId) return { customer: customerId };
+  if (showUpsell && mode === "payment") return { customer_creation: "if_required" };
+  return {};
+}
+
 /** Offre complémentaire live — pack uniquement. */
 export const UPSELL_VARIANTS = {
   pack: {

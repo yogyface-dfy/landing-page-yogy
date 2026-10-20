@@ -15,6 +15,7 @@
 
 ### 🐛 Fixed
 
+- **`/vente` 4×** : « Payer en 4 × 89,99 € » ouvre Stripe. `customer_creation` n’est plus envoyé sur l’abo (Stripe 400 → « Impossible de créer le paiement »).
 - **Upsell** : « Oui je le veux » débite la carte Studio en 1 clic. Plus de 2e Checkout ni de 2e 3DS. Si la banque refuse le débit hors session, le dialog le dit et elle peut passer.
 - **Stripe /vente** : la carte du 1er paiement est posée en `default_payment_method` (customer + abo 4×/6×) pour l’upsell.
 - **Checkout** : le CTA ouvre Stripe tout de suite, plus de « Email requis ». L’email se saisit sur Stripe ; s’il vient de `?email=`, on rattache le `cus_` existant.
