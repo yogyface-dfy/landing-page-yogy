@@ -4,7 +4,7 @@
 
 ### ✨ Added
 
-- **Upsell pack** : le paiement 99 € (1 clic ou 3DS) pose `studio_extension` sur Stripe. Webi crédite +12 h, +6 mois, ticket diag. Purchase CAPI aussi sur le 1 clic.
+- **Upsell pack** : le paiement 99 € (1 clic ou 3DS) pose `studio_extension` sur Stripe. App v2 crédite +12 h, +6 mois, ticket diag. Purchase CAPI aussi sur le 1 clic.
 - **`/vente-6x`** : Studio **359 €** — 1×, **4 × 89,99 €**, **6 × 59,99 €**. Upsell pack après paiement.
 
 ### 🔧 Changed
@@ -14,6 +14,8 @@
 
 ### 🐛 Fixed
 
+- **Upsell** : « Oui je le veux » débite la carte Studio en 1 clic. Plus de 2e Checkout ni de 2e 3DS. Si la banque refuse le débit hors session, le dialog le dit et elle peut passer.
+- **Stripe /vente** : la carte du 1er paiement est posée en `default_payment_method` (customer + abo 4×/6×) pour l’upsell.
 - **Checkout** : le CTA ouvre Stripe tout de suite, plus de « Email requis ». L’email se saisit sur Stripe ; s’il vient de `?email=`, on rattache le `cus_` existant.
 - **Stripe** : plus de customers en double. Checkout `/vente` exige l’email, réutilise le `cus_` existant (ou en crée un seul) au lieu de `customer_creation: always` sans lookup.
 

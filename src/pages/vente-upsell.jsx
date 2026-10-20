@@ -418,10 +418,6 @@ export default function VenteUpsell() {
         }),
       });
       const data = await res.json().catch(() => ({}));
-      if (data.url) {
-        window.location.href = data.url;
-        return;
-      }
       if (!res.ok) throw new Error(data.error || "Paiement refusé");
       navigate("/confirmation-achat-bienvenue?upsell=1", { replace: true });
     } catch (err) {
