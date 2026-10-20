@@ -9,7 +9,9 @@ import VenteTemoignagesVideo from "./vente-temoignages-video";
 import VenteValeur from "./vente-valeur";
 import VenteGarantie from "./vente-garantie";
 import {
+  isValidEmail,
   readPrefillEmail,
+  rememberPrefillEmail,
   startCheckoutSession,
   withStripePrefill,
 } from "../lib/stripe-checkout";
@@ -416,6 +418,8 @@ function PayCta({
   onPay,
   loading,
   error,
+  email = "",
+  onEmail,
   dark = false,
   scarcity = null,
   /** Desktop : coller les CTA au titre (mx-auto les centre dans la colonne). */
@@ -482,6 +486,20 @@ function PayCta({
           </span>
         </p>
       )}
+      <input
+        type="email"
+        name="email"
+        autoComplete="email"
+        required
+        value={email}
+        onChange={(e) => onEmail?.(e.target.value)}
+        placeholder="Ton email"
+        className={`w-full rounded-full px-5 py-3 text-sm outline-none ${
+          dark
+            ? "bg-white/10 text-white placeholder:text-white/40 border border-white/20"
+            : "bg-white text-noir placeholder:text-gris/50 border border-noir/15"
+        }`}
+      />
       <button
         type="button"
         disabled={busy}
@@ -562,6 +580,11 @@ export default function VenteOffre({ variant }) {
 
   const startPay = async (plan) => {
     if (salesClosed) return;
+    if (!isValidEmail(email)) {
+      setPayError("Indique ton email pour le paiement.");
+      return;
+    }
+    rememberPrefillEmail(email);
     setPayError("");
     setPayLoading(plan);
     try {
@@ -608,6 +631,8 @@ export default function VenteOffre({ variant }) {
     })),
     loading: payLoading,
     error: payError,
+    email,
+    onEmail: setEmail,
   };
 
   const installmentHint = isDix

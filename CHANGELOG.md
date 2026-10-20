@@ -2,6 +2,10 @@
 
 ## 2026-10-20
 
+### 🐛 Fixed
+
+- **Stripe** : plus de customers en double. Checkout `/vente` exige l’email, réutilise le `cus_` existant (ou en crée un seul) au lieu de `customer_creation: always` sans lookup.
+
 ### 🔧 Changed
 
 - **`/vente`** : Studio à **359 €** (899 € barré). Paiement en **1×** ou **4 × 89,99 €** (plus de 6×). Checkout Stripe aligné. `/vente-10x` reste à 449 €.
