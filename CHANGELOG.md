@@ -1,5 +1,11 @@
 # Changelog
 
+## 2026-10-21
+
+### ✨ Added
+
+- **`/atelier-gratuit`** : l’inscription Airtable lie le webi Studio du prochain mardi (`Webinars` → table Webinars), comme le SearchRecords Make.
+
 ## 2026-10-20
 
 ### ✨ Added
@@ -9,6 +15,7 @@
 
 ### 🔧 Changed
 
+- **Checkout 4×/6×** : bouton Stripe « Payer » / « Acheter » au lieu de « S’abonner » (`submit_type: pay`).
 - **`/vente`** : paiement en **1×**, **4 × 89,99 €** et **6 × 59,99 €** (même plans que `/vente-6x`).
 - **Confirmation achat** : plus de bouton « Écrire à Laury » sur `/confirmation-achat-bienvenue`.
 - **`/vente`** `/vente-6x` : Studio **359,99 €** en 1× (Stripe aligné). 4× et 6× inchangés.

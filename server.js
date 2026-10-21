@@ -31,6 +31,7 @@ import {
 } from './lib/stripe-server.js'
 import { handleCapiEvent } from './lib/meta-capi.js'
 import { handleReplayYoutube } from './lib/replay-youtube.js'
+import { findStudioWebinarId } from './lib/atelier-webinar.js'
 import { ATTRIBUTION_KEYS } from './src/lib/attribution.js'
 import { setHidCookie, readHidCookie } from './lib/hid-cookie.js'
 
@@ -394,6 +395,14 @@ app.post('/api/airtable', async (req, res) => {
     }
 
     const { baseId, tableId } = airtableTarget(table)
+
+    // Lien Inscription → Webinars (Make SearchRecords). Serveur only, pas ALLOWED_FIELDS.
+    if (table === 'Atelier gratuit') {
+      const webinarId = await findStudioWebinarId({ baseId: ATELIER_BASE_ID, pat: PAT })
+      if (webinarId) cleanFields.Webinars = [webinarId]
+      else console.error('atelier webinar: aucun record pour', new Date().toISOString())
+    }
+
     const r = await fetch(
       `https://api.airtable.com/v0/${baseId}/${encodeURIComponent(tableId)}`,
       {

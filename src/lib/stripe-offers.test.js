@@ -1,6 +1,6 @@
 import { test } from 'node:test'
 import assert from 'node:assert/strict'
-import { checkoutCustomerFields } from './stripe-offers.js'
+import { checkoutCustomerFields, checkoutSubmitType } from './stripe-offers.js'
 
 test('4× subscription sans email : pas de customer_creation', () => {
   assert.deepEqual(
@@ -21,4 +21,9 @@ test('email connu : rattache le cus_ même en 4×', () => {
     checkoutCustomerFields({ customerId: 'cus_x', mode: 'subscription', showUpsell: true }),
     { customer: 'cus_x' },
   )
+})
+
+test('4×/6× : CTA pay (pas subscribe)', () => {
+  assert.equal(checkoutSubmitType('subscription'), 'pay')
+  assert.equal(checkoutSubmitType('payment'), undefined)
 })

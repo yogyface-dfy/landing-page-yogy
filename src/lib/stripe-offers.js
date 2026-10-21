@@ -203,6 +203,15 @@ export function checkoutCustomerFields({
   return {};
 }
 
+/**
+ * CTA Checkout : en abo Stripe affiche « S’abonner » par défaut.
+ * `pay` → « Payer » / « Acheter » (mieux pour un 4×/6× sans abonnement).
+ * Valeurs Stripe : auto | book | donate | pay | subscribe.
+ */
+export function checkoutSubmitType(mode = "payment") {
+  return mode === "subscription" ? "pay" : undefined;
+}
+
 /** Offre complémentaire live — pack uniquement. */
 export const UPSELL_VARIANTS = {
   pack: {
