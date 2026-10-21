@@ -2,16 +2,25 @@ import { PHONE_COUNTRIES, flagEmoji } from '../lib/phone-countries'
 
 /**
  * Téléphone + sélecteur de pays (drapeau). Défaut France côté parent.
- * @param {{ hint?: string }} props — ligne sous le champ (ex. optionnel / SMS).
+ * @param {{ hint?: string, required?: boolean }} props
  */
-export default function PhoneField({ iso, phone, onIsoChange, onPhoneChange, hint }) {
+export default function PhoneField({
+  iso,
+  phone,
+  onIsoChange,
+  onPhoneChange,
+  hint,
+  required = false,
+}) {
   const selected = PHONE_COUNTRIES.find((c) => c.iso === iso) || PHONE_COUNTRIES[0]
 
   return (
     <div className="text-left">
       <label className="block text-[11px] font-semibold uppercase tracking-wider text-gris mb-1.5">
-        Ton téléphone{' '}
-        <span className="normal-case tracking-normal font-medium text-gris/45">(optionnel)</span>
+        Ton téléphone
+        {!required && (
+          <span className="normal-case tracking-normal font-medium text-gris/45"> (optionnel)</span>
+        )}
       </label>
       <div className="flex gap-2">
         <label className="sr-only" htmlFor="waitlist-country">Pays</label>
@@ -31,6 +40,7 @@ export default function PhoneField({ iso, phone, onIsoChange, onPhoneChange, hin
           type="tel"
           inputMode="tel"
           autoComplete="tel-national"
+          required={required}
           value={phone}
           onChange={(e) => onPhoneChange(e.target.value)}
           className="min-w-0 flex-1 px-4 py-3 md:py-3.5 rounded-xl border border-noir/8 text-sm focus:outline-none focus:border-corail focus:ring-2 focus:ring-corail/10 transition-all duration-300 bg-white/80"

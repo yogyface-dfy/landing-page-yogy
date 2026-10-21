@@ -383,6 +383,14 @@ app.post('/api/airtable', async (req, res) => {
       }
       if (!cleanFields['Prénom']) cleanFields['Prénom'] = '—'
     }
+    // Atelier : téléphone obligatoire (WhatsApp). Liste d'attente reste optionnelle.
+    if (table === 'Atelier gratuit') {
+      const phone = String(cleanFields.Phone || '').trim()
+      if (!phone || !/^\+[1-9]\d{6,14}$/.test(phone)) {
+        return res.status(400).json({ error: 'Téléphone requis' })
+      }
+      cleanFields.Phone = phone
+    }
 
     // Atelier : une fiche neuve à chaque submit (même email).
     if (table === "Liste d'attente") {

@@ -40,8 +40,9 @@ export default function FunnelOptinModal({ open, onClose }) {
     if (!form.prenom || !form.email || !form.consent) return
     const dial = PHONE_COUNTRIES.find((c) => c.iso === form.iso)?.dial || '33'
     const phone = toE164(dial, form.phone)
-    if (String(form.phone || '').replace(/\D/g, '') && !phone) {
-      setError('Indique un numéro valide, ou laisse le champ vide.')
+    // Téléphone obligatoire (rappel WhatsApp) — plus d’inscription sans numéro.
+    if (!phone) {
+      setError('Indique un numéro de téléphone valide.')
       return
     }
     setLoading(true)
@@ -50,7 +51,7 @@ export default function FunnelOptinModal({ open, onClose }) {
       await enrollAtelier({
         email: form.email,
         prenom: form.prenom,
-        phone: phone || undefined,
+        phone,
         country: form.iso,
       })
       navigate('/confirmation-inscription')
@@ -115,6 +116,7 @@ export default function FunnelOptinModal({ open, onClose }) {
               placeholder="Ton e-mail"
             />
             <PhoneField
+              required
               iso={form.iso}
               phone={form.phone}
               onIsoChange={(iso) => setForm((v) => ({ ...v, iso }))}

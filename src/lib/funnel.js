@@ -192,13 +192,14 @@ export function videoFromPath(pathname) {
 
 export async function enrollAtelier({ email, prenom, phone, country } = {}) {
   if (!isValidEmail(email)) throw new Error('Email invalide')
+  if (!phone) throw new Error('Téléphone requis')
   const fields = {
     Email: email.trim(),
     Prénom: (prenom && String(prenom).trim()) || '—',
+    Phone: phone,
     Source: 'www.yogyface.fr/atelier-gratuit',
     formName: 'atelier-gratuit',
   }
-  if (phone) fields.Phone = phone
   // ISO du sélecteur téléphone (FR, BE…) — colonne Airtable Country.
   const iso = String(country || '').trim().toUpperCase()
   if (/^[A-Z]{2}$/.test(iso)) fields.Country = iso

@@ -6,6 +6,10 @@
 
 - **`/atelier-gratuit`** : l’inscription Airtable lie le webi Studio du prochain mardi (`Webinars` → table Webinars), comme le SearchRecords Make.
 
+### 🔧 Changed
+
+- **`/atelier-gratuit`** : téléphone **obligatoire** (UI + API). Plus d’inscription sans numéro E.164.
+
 ## 2026-10-20
 
 ### ✨ Added
