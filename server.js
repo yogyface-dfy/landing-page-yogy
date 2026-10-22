@@ -483,17 +483,21 @@ app.post('/api/stripe/upsell', chargeUpsell)
 const DIST = path.join(__dirname, 'dist')
 const NOT_FOUND = path.join(DIST, '404.html')
 
-// Vieilles URLs Systeme.io (GSC 404 / clics encore actifs).
+// Vieilles URLs Systeme.io (GSC 404 / clics encore actifs) + liens externes.
 const LEGACY_REDIRECTS = {
   '/yogyface-reset': '/programme',
   '/pol-co': '/',
   '/vente-upsell-test': '/vente',
+  // Diagnostic Typeform / outil externe (sans email ni UTM).
+  '/diagnosticrevelateurygf': 'https://diagnostic.yogyface.fr/fw3rd9m9d',
 }
 
 app.use((req, res, next) => {
   if (req.method !== 'GET' && req.method !== 'HEAD') return next()
   const q = req.url.includes('?') ? req.url.slice(req.url.indexOf('?')) : ''
   const dest = LEGACY_REDIRECTS[req.path]
+  // Absolu = destination figée (pas de query/hash reportés).
+  if (dest?.startsWith('http')) return res.redirect(301, dest)
   if (dest) return res.redirect(301, dest + q)
   // /programme.html → /programme (évite le doublon indexable).
   if (req.path.endsWith('.html')) {

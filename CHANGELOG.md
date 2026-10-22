@@ -2,6 +2,10 @@
 
 ## 2026-10-22
 
+### ✨ Added
+
+- **`/diagnosticrevelateurygf`** : redirect 301 → `https://diagnostic.yogyface.fr/fw3rd9m9d` (sans email / UTM).
+
 ### 🔒 Security
 
 - **Node.js** : pin `22.23.4` (patch sécu 21/10 — CVE high dns/TLS/Brotli). `.nvmrc` + `engines`.
