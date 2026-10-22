@@ -1,5 +1,11 @@
 # Changelog
 
+## 2026-10-22
+
+### 🔒 Security
+
+- **Node.js** : pin `22.23.4` (patch sécu 21/10 — CVE high dns/TLS/Brotli). `.nvmrc` + `engines`.
+
 ## 2026-10-21
 
 ### ✨ Added
