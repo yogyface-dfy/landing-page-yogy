@@ -23,7 +23,7 @@ test('email connu : rattache le cus_ même en 4×', () => {
   )
 })
 
-test('4×/6× : CTA pay (pas subscribe)', () => {
-  assert.equal(checkoutSubmitType('subscription'), 'pay')
+test('subscription : pas de submit_type (Stripe refuse pay en abo)', () => {
+  assert.equal(checkoutSubmitType('subscription'), undefined)
   assert.equal(checkoutSubmitType('payment'), undefined)
 })

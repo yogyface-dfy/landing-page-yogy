@@ -2,9 +2,13 @@
 
 ## 2026-10-24
 
+### 🐛 Fixed
+
+- **Checkout Stripe 4×/6×/10×** : plus de `submit_type: pay` en mode abo (Stripe 400 → 500).
+
 ### 🔧 Changed
 
-- **`/vente-10x`** : tarif **359,99 €** (plus 449 €) — CTAs **10 × 35,99 €**, **6 × 59,99 €**, **1×**. Plans `studio-dix-*` retirés.
+- **`/vente-10x`** : hero prix **35,99 € en 10 mensualités** (plus le gros 359,99 / 899 barré). CTAs **10× / 6× / 1×**. Plans `studio-dix-*` retirés.
 
 ## 2026-10-22
 

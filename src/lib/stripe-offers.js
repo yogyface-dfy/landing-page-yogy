@@ -170,12 +170,11 @@ export function checkoutCustomerFields({
 }
 
 /**
- * CTA Checkout : en abo Stripe affiche « S’abonner » par défaut.
- * `pay` → « Payer » / « Acheter » (mieux pour un 4×/6× sans abonnement).
- * Valeurs Stripe : auto | book | donate | pay | subscribe.
+ * CTA Checkout. Stripe refuse désormais `submit_type: pay` en mode
+ * `subscription` (4×/6×/10×) → 500. On laisse le libellé Stripe par défaut.
  */
-export function checkoutSubmitType(mode = "payment") {
-  return mode === "subscription" ? "pay" : undefined;
+export function checkoutSubmitType(_mode = "payment") {
+  return undefined;
 }
 
 /** Offre complémentaire live — pack uniquement. */

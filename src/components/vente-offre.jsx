@@ -65,8 +65,9 @@ const OFFERS = {
   dix: {
     once: {
       plan: "studio-10x",
-      price: "359,99",
-      was: 899,
+      // Hero = mensualité 10× (pas le total 359,99).
+      price: "35,99",
+      priceNote: "en 10 mensualités",
     },
     // CTA principal = 10× ; secondaires = 6× et 1× (même total 359,99 €).
     installments: [
@@ -886,6 +887,11 @@ export default function VenteOffre({ variant }) {
                     <span className="font-display font-black text-4xl tracking-tight text-noir">
                       {offer.once.price} €
                     </span>
+                    {offer.once.priceNote && (
+                      <span className="block text-gris text-[14px] mt-1 font-medium">
+                        {offer.once.priceNote}
+                      </span>
+                    )}
                   </p>
                 )}
                 <ul className="space-y-2 mb-5">
@@ -1535,6 +1541,11 @@ export default function VenteOffre({ variant }) {
               <span className="font-display font-black text-3xl">
                 {offer.once.price} €
               </span>
+              {offer.once.priceNote && (
+                <span className="block text-white/50 text-sm mt-1">
+                  {offer.once.priceNote}
+                </span>
+              )}
               {offer.installments.length > 0 && !isDix && !isSix && (
                 <span className="block text-white/40 text-sm mt-1">
                   ou {installmentHint}
