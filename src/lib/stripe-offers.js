@@ -10,10 +10,8 @@ export const STUDIO_ONCE_CENTS = 35999;
 export const STUDIO_4X_CENTS = 8999;
 /** /vente-6x : 6 × 59,99 € (≈ 359,99 €). */
 export const STUDIO_6X_CENTS = 5999;
-export const STUDIO_10X_CENTS = 4499;
-/** /vente-10x : les CTA 1× et 4× restent au tarif précédent. */
-const STUDIO_DIX_ONCE_CENTS = 44900;
-const STUDIO_DIX_4X_CENTS = 11225;
+/** /vente-10x : 10 × 35,99 € (≈ 359,99 €). */
+export const STUDIO_10X_CENTS = 3599;
 
 /** false = /vente-vip reste en ligne, checkout VIP refusé. */
 export const VIP_SALES_OPEN = false;
@@ -28,9 +26,6 @@ const VIP_DESCRIPTION =
 
 const STUDIO_DESCRIPTION =
   "Programme YoGyFace Studio · 359,99 € · 12h de coaching · 6 mois d’accompagnement · diagnostic";
-
-const STUDIO_DESCRIPTION_449 =
-  "Programme YoGyFace Studio · 449 € · 12h de coaching · 6 mois d’accompagnement · diagnostic";
 
 export const PLANS = {
   "vip-once": {
@@ -130,37 +125,8 @@ export const PLANS = {
       unit_amount: STUDIO_10X_CENTS,
       recurring: { interval: "month" },
       product_data: {
-        name: "YoGyFace Studio (10 × 44,99 €)",
-        description: `${STUDIO_DESCRIPTION_449} · 10 mensualités`,
-        images: [PRODUCT_IMAGE],
-      },
-    },
-  },
-  // /vente-10x seulement : 1× et 4× au tarif 449 €.
-  "studio-dix-once": {
-    offer: "studio",
-    mode: "payment",
-    priceData: {
-      currency: "eur",
-      unit_amount: STUDIO_DIX_ONCE_CENTS,
-      product_data: {
-        name: "YoGyFace Studio",
-        description: STUDIO_DESCRIPTION_449,
-        images: [PRODUCT_IMAGE],
-      },
-    },
-  },
-  "studio-dix-4x": {
-    offer: "studio",
-    mode: "subscription",
-    months: 4,
-    priceData: {
-      currency: "eur",
-      unit_amount: STUDIO_DIX_4X_CENTS,
-      recurring: { interval: "month" },
-      product_data: {
-        name: "YoGyFace Studio (4 × 112,25 €)",
-        description: `${STUDIO_DESCRIPTION_449} · 4 mensualités`,
+        name: "YoGyFace Studio (10 × 35,99 €)",
+        description: `${STUDIO_DESCRIPTION} · 10 mensualités`,
         images: [PRODUCT_IMAGE],
       },
     },

@@ -1,5 +1,11 @@
 # Changelog
 
+## 2026-10-24
+
+### 🔧 Changed
+
+- **`/vente-10x`** : tarif **359,99 €** (plus 449 €) — CTAs **10 × 35,99 €**, **6 × 59,99 €**, **1×**. Plans `studio-dix-*` retirés.
+
 ## 2026-10-22
 
 ### ✨ Added
