@@ -542,9 +542,12 @@ export default function VenteOffre({ variant }) {
   const isVip = variant === "vip";
   const isDix = variant === "dix";
   const isSix = variant === "six";
+  const isPublic = variant === "public";
   const vipClosed = isVip && !VIP_SALES_OPEN;
   const studioClosed = !isVip && !STUDIO_SALES_OPEN;
   const salesClosed = vipClosed || studioClosed;
+  // Même polish UX que /vente-10x (CTA vert, hero allégé).
+  const studioLite = isDix || isPublic;
   const path = isVip
     ? "/vente-vip"
     : isDix
@@ -632,8 +635,8 @@ export default function VenteOffre({ variant }) {
     closedHref: isVip && STUDIO_SALES_OPEN ? "/vente" : "/",
     closedCta:
       isVip && STUDIO_SALES_OPEN ? "Voir l'offre Studio" : "Retour à l'accueil",
-    // CTA 10× : vert + bounce (tous les PayCta de la page).
-    onceBounce: isDix && !salesClosed,
+    // CTA principal : vert + bounce (/vente + /vente-10x).
+    onceBounce: studioLite && !salesClosed,
     scarcity: salesClosed
       ? null
       : isDix
@@ -744,17 +747,19 @@ export default function VenteOffre({ variant }) {
           </div>
 
           <div className="order-2 text-center md:text-left">
-            {/* /vente-10x : pas de pastille (le bandeau urgence suffit). */}
-            {!isDix && (
+            {/* Pastille / accroche : VIP seulement (/vente + /vente-10x allégés). */}
+            {isVip && (
               <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-corail/10 text-corail text-[11px] font-semibold uppercase tracking-widest mb-4">
                 <span className="w-1.5 h-1.5 rounded-full bg-corail animate-pulse" />
-                {isVip
-                  ? vipClosed
-                    ? "Vente privée close"
-                    : "Offre exceptionnelle, inscrites liste d'attente"
-                  : studioClosed
-                    ? "Ventes closes"
-                    : "Accompagnement YoGyFace Studio"}
+                {vipClosed
+                  ? "Vente privée close"
+                  : "Offre exceptionnelle, inscrites liste d'attente"}
+              </div>
+            )}
+            {studioClosed && (
+              <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-corail/10 text-corail text-[11px] font-semibold uppercase tracking-widest mb-4">
+                <span className="w-1.5 h-1.5 rounded-full bg-corail animate-pulse" />
+                Ventes closes
               </div>
             )}
             <h1
@@ -780,8 +785,7 @@ export default function VenteOffre({ variant }) {
                     : "YoGyFace Studio"}
               </span>
             </h1>
-            {/* Accroche Reset — masquée sur /vente-10x (bandeau urgence suffit). */}
-            {!isDix && (
+            {isVip && !vipClosed && (
               <p className="font-serif italic text-corail text-[16px] md:text-[18px] mb-3">
                 Crée les bonnes habitudes et supprime les causes de ton
                 vieillissement.

@@ -5,11 +5,13 @@
 ### ✨ Added
 
 - **Checkout vente** : `?firstname=` + `?phone=` → metadata Stripe + Customer (name/phone). Email déjà géré.
+- **Témoignages vidéo** : posters locaux (Marie, Sandrine, Julie 38, Fanny, Agathe, Julia) extraits des MP4.
 
 ### 🔧 Changed
 
 - **`/vente-10x`** : retrait du paragraphe hero paiement + accroche + pastille « Offre flash ».
 - **`/vente-10x`** : CTA 10× en **vert** avec bounce (`btn-vert btn-bounce`).
+- **`/vente`** : même polish que `/vente-10x` (CTA vert bounce, hero allégé, pastille/accroche retirées).
 - **Pages vente** : étoiles Trustpilot (design) → ancre `#temoignages`.
 - **VenteValeur desktop** : padding gauche colonne cadeaux (plus collé au séparateur).
 - **VenteValeur** : retrait de la barre bordeaux « Plus de 2 200 € / Ton prix ».
