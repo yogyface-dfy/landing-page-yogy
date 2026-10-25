@@ -1,5 +1,23 @@
 # Changelog
 
+## 2026-10-25
+
+### ✨ Added
+
+- **Checkout vente** : `?firstname=` + `?phone=` → metadata Stripe + Customer (name/phone). Email déjà géré.
+
+### 🔧 Changed
+
+- **`/vente-10x`** : retrait du paragraphe hero paiement + accroche + pastille « Offre flash ».
+- **`/vente-10x`** : CTA 10× en **vert** avec bounce (`btn-vert btn-bounce`).
+- **Pages vente** : étoiles Trustpilot (design) → ancre `#temoignages`.
+- **VenteValeur desktop** : padding gauche colonne cadeaux (plus collé au séparateur).
+- **VenteValeur** : retrait de la barre bordeaux « Plus de 2 200 € / Ton prix ».
+
+### 🐛 Fixed
+
+- **`/vente-10x`** : le hero ne passe plus au-dessus du bandeau urgence (z-index iOS + safe-area).
+
 ## 2026-10-24
 
 ### 🐛 Fixed

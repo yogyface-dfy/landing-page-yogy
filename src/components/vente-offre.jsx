@@ -10,6 +10,7 @@ import VenteValeur from "./vente-valeur";
 import VenteGarantie from "./vente-garantie";
 import {
   isValidEmail,
+  readPrefillContact,
   readPrefillEmail,
   rememberPrefillEmail,
   startCheckoutSession,
@@ -21,6 +22,7 @@ import {
   TRUSTPILOT_SCORE,
 } from "../lib/trustpilot-reviews";
 import { STUDIO_SALES_OPEN, VIP_SALES_OPEN } from "../lib/stripe-offers";
+import TrustpilotStars from "./trustpilot-stars";
 
 /**
  * Pages de vente privées (non indexées).
@@ -443,6 +445,8 @@ function PayCta({
   closedLabel = "Ventes fermées",
   closedHref = "/",
   closedCta = "Retour à l'accueil",
+  /** true = CTA principal vert qui bounce (/vente-10x). */
+  onceBounce = false,
 }) {
   const busy = Boolean(loading);
   const extraClass = dark
@@ -504,7 +508,7 @@ function PayCta({
         type="button"
         disabled={busy}
         onClick={() => onPay(oncePlan)}
-        className={`btn-corail justify-center text-sm md:text-base px-5 md:px-7 py-3.5 ${busy ? "opacity-60" : ""}`}
+        className={`${onceBounce ? "btn-vert btn-bounce" : "btn-corail"} justify-center text-sm md:text-base px-5 md:px-7 py-3.5 motion-reduce:animate-none ${busy ? "opacity-60" : ""}`}
       >
         {loading === oncePlan ? "Redirection…" : onceLabel}
       </button>
@@ -558,6 +562,8 @@ export default function VenteOffre({ variant }) {
         : `Rejoindre Studio, ${offer.once.price} €`;
   const [searchParams] = useSearchParams();
   const [email, setEmail] = useState("");
+  const [firstName, setFirstName] = useState("");
+  const [phone, setPhone] = useState("");
   const [payLoading, setPayLoading] = useState(null);
   const [payError, setPayError] = useState("");
   const spineRef = useRef(null);
@@ -565,6 +571,9 @@ export default function VenteOffre({ variant }) {
   // Query / session uniquement au mount (SSG n'a pas les params).
   useEffect(() => {
     setEmail(readPrefillEmail(searchParams));
+    const c = readPrefillContact(searchParams);
+    setFirstName(c.firstName);
+    setPhone(c.phone);
   }, [searchParams]);
 
   // Pointillés : --p = portion visible depuis le haut (gris → corail), sans re-render.
@@ -597,6 +606,8 @@ export default function VenteOffre({ variant }) {
       const data = await startCheckoutSession({
         plan,
         email,
+        firstName,
+        phone,
         cancelPath: path,
       });
       // Payment Link seulement si Stripe n'est pas configuré (503 + fallbackUrl).
@@ -621,6 +632,8 @@ export default function VenteOffre({ variant }) {
     closedHref: isVip && STUDIO_SALES_OPEN ? "/vente" : "/",
     closedCta:
       isVip && STUDIO_SALES_OPEN ? "Voir l'offre Studio" : "Retour à l'accueil",
+    // CTA 10× : vert + bounce (tous les PayCta de la page).
+    onceBounce: isDix && !salesClosed,
     scarcity: salesClosed
       ? null
       : isDix
@@ -685,8 +698,9 @@ export default function VenteOffre({ variant }) {
         id="offre"
         className="relative pt-28 md:pt-36 pb-12 md:pb-16 px-[5%] overflow-hidden"
       >
-        <div className="absolute inset-0 bg-gradient-to-b from-rose/25 via-white to-white pointer-events-none" />
-        <div className="max-w-[1100px] mx-auto relative z-10 grid md:grid-cols-2 gap-8 md:gap-14 items-start">
+        <div className="absolute inset-0 -z-[1] bg-gradient-to-b from-rose/25 via-white to-white pointer-events-none" />
+        {/* Pas de z-10 ici : sur iOS ça passait au-dessus du bandeau urgence fixed. */}
+        <div className="max-w-[1100px] mx-auto relative grid md:grid-cols-2 gap-8 md:gap-14 items-start">
           <div className="order-1">
             {/* Mobile : le H1 est sous la photo, un titre au-dessus pour remplir le vide. */}
             {isVip && (
@@ -730,18 +744,19 @@ export default function VenteOffre({ variant }) {
           </div>
 
           <div className="order-2 text-center md:text-left">
-            <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-corail/10 text-corail text-[11px] font-semibold uppercase tracking-widest mb-4">
-              <span className="w-1.5 h-1.5 rounded-full bg-corail animate-pulse" />
-              {isVip
-                ? vipClosed
-                  ? "Vente privée close"
-                  : "Offre exceptionnelle, inscrites liste d'attente"
-                : studioClosed
-                  ? "Ventes closes"
-                  : isDix
-                    ? "Offre flash, 2 places sur 20"
+            {/* /vente-10x : pas de pastille (le bandeau urgence suffit). */}
+            {!isDix && (
+              <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-corail/10 text-corail text-[11px] font-semibold uppercase tracking-widest mb-4">
+                <span className="w-1.5 h-1.5 rounded-full bg-corail animate-pulse" />
+                {isVip
+                  ? vipClosed
+                    ? "Vente privée close"
+                    : "Offre exceptionnelle, inscrites liste d'attente"
+                  : studioClosed
+                    ? "Ventes closes"
                     : "Accompagnement YoGyFace Studio"}
-            </div>
+              </div>
+            )}
             <h1
               className={`font-display text-[clamp(1.9rem,5vw,3.4rem)] font-black leading-[0.95] tracking-tighter text-noir mb-3 ${
                 isVip ? "" : "hidden md:block"
@@ -765,12 +780,14 @@ export default function VenteOffre({ variant }) {
                     : "YoGyFace Studio"}
               </span>
             </h1>
-            {/* Accroche Reset, sous-titre, ne remplace pas le hero VIP. */}
-            <p className="font-serif italic text-corail text-[16px] md:text-[18px] mb-3">
-              Crée les bonnes habitudes et supprime les causes de ton
-              vieillissement.
-            </p>
-            {(isVip || studioClosed || isDix) && (
+            {/* Accroche Reset — masquée sur /vente-10x (bandeau urgence suffit). */}
+            {!isDix && (
+              <p className="font-serif italic text-corail text-[16px] md:text-[18px] mb-3">
+                Crée les bonnes habitudes et supprime les causes de ton
+                vieillissement.
+              </p>
+            )}
+            {(isVip || studioClosed) && (
               <p className="text-gris text-[15px] leading-relaxed mb-5 max-w-lg mx-auto md:mx-0">
                 {isVip
                   ? vipClosed
@@ -778,29 +795,22 @@ export default function VenteOffre({ variant }) {
                       ? "L'offre privée est close. Le programme Studio, lui, est ouvert."
                       : "L'offre privée est close. Les inscriptions sont actuellement fermées."
                     : "Prévente : l'application s'ouvre dès le paiement. Le diagnostic, lui, s'ouvre le 17 septembre, plus les bonus que le lancement public n'aura pas."
-                  : studioClosed
-                    ? "Les inscriptions sont closes."
-                    : "Paiement en 1×, 6× ou 10 × 35,99 €. Plus que 2 places sur 20. Fermeture à minuit."}
+                  : "Les inscriptions sont closes."}
               </p>
             )}
 
-            {SHOW_TRUSTPILOT ? (
-              <a
-                href="https://fr.trustpilot.com/review/yogyface.fr"
-                target="_blank"
-                rel="noopener"
-                className="inline-flex items-center gap-2 text-sm mb-5"
-              >
-                <span className="font-display font-black text-noir">{TRUSTPILOT_SCORE}/5</span>
+            {/* Ancre → section témoignages vidéo (#temoignages). */}
+            <a
+              href="#temoignages"
+              className="inline-flex items-center gap-2 text-sm mb-5 hover:opacity-80 transition-opacity"
+            >
+              <TrustpilotStars size={16} />
+              <span className="font-display font-black text-noir">{TRUSTPILOT_SCORE}/5</span>
+              {SHOW_TRUSTPILOT && (
                 <span className="text-gris/70">Excellent · Trustpilot</span>
-                <span className="text-gris/40">· 1200+ femmes</span>
-              </a>
-            ) : (
-              <p className="inline-flex items-center gap-2 text-sm mb-5">
-                <span className="font-display font-black text-noir">{TRUSTPILOT_SCORE}/5</span>
-                <span className="text-gris/40">· 1200+ femmes</span>
-              </p>
-            )}
+              )}
+              <span className="text-gris/40">· 1200+ femmes</span>
+            </a>
 
             {isVip && !vipClosed && (
               <>

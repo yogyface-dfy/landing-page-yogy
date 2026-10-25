@@ -39,12 +39,12 @@ const RIGHT = [
 function Row({ t, p, now, was, gift, tight }) {
   return (
     <li
-      className={`flex items-start justify-between gap-3 border-b border-noir/6 last:border-0 ${
+      className={`flex items-start justify-between gap-4 md:gap-5 border-b border-noir/6 last:border-0 ${
         tight ? "py-2" : "py-3"
       }`}
     >
       <span
-        className={`flex items-start gap-1.5 text-noir leading-snug ${
+        className={`flex items-start gap-1.5 min-w-0 text-noir leading-snug ${
           tight ? "text-[12.5px]" : "text-[13.5px] md:text-[14.5px]"
         }`}
       >
@@ -57,9 +57,9 @@ function Row({ t, p, now, was, gift, tight }) {
         )}
         {t}
       </span>
-      <span className="shrink-0 text-right">
+      <span className="shrink-0 text-right pl-1">
         {gift ? (
-          <span className="inline-flex items-baseline gap-1.5">
+          <span className="inline-flex items-baseline gap-2">
             <span
               className={`font-display tabular-nums line-through text-noir/30 font-semibold ${
                 tight ? "text-[12.5px]" : "text-[13.5px] md:text-[14.5px]"
@@ -92,46 +92,31 @@ function Row({ t, p, now, was, gift, tight }) {
 
 function Table({ price, tight }) {
   return (
-    <>
-      <div
-        className={`grid gap-0 rounded-2xl bg-white border border-noir/6 ${
+    <div
+      className={`grid gap-0 rounded-2xl bg-white border border-noir/6 ${
+        tight
+          ? "grid-cols-1 px-3.5"
+          : "grid-cols-1 md:grid-cols-2 px-5 md:px-8 shadow-[0_12px_40px_rgba(132,20,53,0.06)]"
+      }`}
+    >
+      <ul className={tight ? "" : "md:border-r md:border-noir/6 md:pr-8"}>
+        {leftRows(price).map((item) => (
+          <Row key={item.t} tight={tight} {...item} />
+        ))}
+      </ul>
+      {/* md:pl-8 = miroir du pr-8 gauche (sinon cadeaux collés au séparateur). */}
+      <ul
+        className={
           tight
-            ? "grid-cols-1 px-3.5"
-            : "grid-cols-1 md:grid-cols-2 px-5 md:px-8 shadow-[0_12px_40px_rgba(132,20,53,0.06)]"
-        }`}
+            ? "border-t border-noir/6"
+            : "border-t border-noir/6 md:border-0 md:pl-8"
+        }
       >
-        <ul className={tight ? "" : "md:border-r md:border-noir/6 md:pr-8"}>
-          {leftRows(price).map((item) => (
-            <Row key={item.t} tight={tight} {...item} />
-          ))}
-        </ul>
-        <ul className={tight ? "border-t border-noir/6" : "border-t border-noir/6 md:border-0"}>
-          {RIGHT.map((item) => (
-            <Row key={item.t} tight={tight} {...item} />
-          ))}
-        </ul>
-      </div>
-      <div
-        className={`mt-3 rounded-2xl bg-bordeaux text-white flex flex-col sm:flex-row sm:items-center sm:justify-between gap-1 ${
-          tight ? "px-3.5 py-3" : "px-5 md:px-8 py-4 md:py-5 mt-5"
-        }`}
-      >
-        <p
-          className={`font-display font-black tracking-tight ${
-            tight ? "text-[15px]" : "text-lg md:text-xl"
-          }`}
-        >
-          Plus de 2 200 € séparément
-        </p>
-        <p
-          className={`font-display font-black tracking-tight ${
-            tight ? "text-[15px]" : "text-lg md:text-xl"
-          }`}
-        >
-          Ton prix : {price} €
-        </p>
-      </div>
-    </>
+        {RIGHT.map((item) => (
+          <Row key={item.t} tight={tight} {...item} />
+        ))}
+      </ul>
+    </div>
   );
 }
 

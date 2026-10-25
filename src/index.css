@@ -116,19 +116,32 @@
     transform: translateY(0) scale(0.98);
   }
 
-  /* CTA upsell — vert tableau VIP. */
+  /* CTA upsell /vente-10x — vert clair (proche Trustpilot). */
   .btn-vert {
-    @apply inline-flex items-center justify-center gap-2 px-6 py-3 min-h-[44px] rounded-full bg-emerald-600 text-white font-semibold text-sm tracking-tight;
+    @apply inline-flex items-center justify-center gap-2 px-6 py-3 min-h-[44px] rounded-full text-white font-semibold text-sm tracking-tight;
+    background: #00c37a;
     transition: all 320ms cubic-bezier(0.22, 1, 0.36, 1);
-    box-shadow: 0 2px 10px rgba(5, 150, 105, 0.28);
+    box-shadow: 0 2px 10px rgba(0, 195, 122, 0.32);
   }
   .btn-vert:hover {
-    @apply bg-emerald-700;
+    background: #00b067;
     transform: translateY(-2px) scale(1.02);
-    box-shadow: 0 10px 30px rgba(5, 150, 105, 0.35);
+    box-shadow: 0 10px 30px rgba(0, 195, 122, 0.4);
   }
   .btn-vert:active {
     transform: translateY(0) scale(0.98);
+  }
+  /* /vente-10x — CTA 10× qui rebondit. */
+  .btn-vert.btn-bounce {
+    animation: btn-bounce-vert 1.2s ease-in-out infinite;
+  }
+  .btn-vert.btn-bounce:hover {
+    animation: none;
+  }
+  @keyframes btn-bounce-vert {
+    0%, 100% { transform: translateY(0); }
+    40% { transform: translateY(-8px); }
+    55% { transform: translateY(0); }
   }
 
   /* Point live Systeme.io (onde rouge). */

@@ -215,10 +215,23 @@ export default function Layout() {
         <Navbar
           logoOnly={funnel}
           offsetTop={!flash && shouldShowLaunchBanner(pathname, search)}
-          offsetClass={flash ? 'top-16 md:top-20' : undefined}
+          // Sous le bandeau urgence (+ safe-area iOS).
+          offsetClass={
+            flash
+              ? 'top-[calc(4rem+env(safe-area-inset-top,0px))] md:top-[calc(5rem+env(safe-area-inset-top,0px))]'
+              : undefined
+          }
         />
       )}
-      <main className={flash ? 'pt-16 md:pt-20' : !bare && shouldShowLaunchBanner(pathname, search) ? 'pt-8' : ''}>
+      <main
+        className={
+          flash
+            ? 'relative z-0 pt-[calc(4rem+env(safe-area-inset-top,0px))] md:pt-[calc(5rem+env(safe-area-inset-top,0px))]'
+            : !bare && shouldShowLaunchBanner(pathname, search)
+              ? 'pt-8'
+              : ''
+        }
+      >
         {/* Suspense : fallback pendant le chargement des chunks de page (code-splitting) */}
         <Suspense fallback={<div className="min-h-screen" />}>
           <Outlet />

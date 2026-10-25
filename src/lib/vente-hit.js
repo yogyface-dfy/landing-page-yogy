@@ -1,7 +1,11 @@
 /** Ping identité : cookie, ?h=, ?email= (mails AC), IP unique côté serveur. */
 
 import { isFunnelPath } from './funnel'
-import { PREFILL_EMAIL_KEY, isValidEmail } from './stripe-checkout'
+import {
+  PREFILL_EMAIL_KEY,
+  isValidEmail,
+  readPrefillContact,
+} from './stripe-checkout'
 
 const VENTE_PATHS = new Set(['/vente', '/vente-vip', '/vente-10x', '/vente-6x'])
 const SKIP = new Set(['/liste-attente', '/merci-liste-attente'])
@@ -42,6 +46,14 @@ export function pingVenteHit(pathname) {
     url.searchParams.delete('email')
     url.searchParams.delete('prefilled_email')
     dirty = true
+  }
+  // Stash puis retire firstname/phone (comme l’email) — déjà lus par la page vente.
+  readPrefillContact(url.searchParams)
+  for (const key of ['firstname', 'first_name', 'prenom', 'phone', 'tel']) {
+    if (url.searchParams.has(key)) {
+      url.searchParams.delete(key)
+      dirty = true
+    }
   }
   if (dirty) {
     window.history.replaceState(window.history.state, '', `${url.pathname}${url.search}${url.hash}`)
