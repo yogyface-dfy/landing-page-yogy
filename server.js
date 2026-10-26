@@ -38,6 +38,7 @@ import {
   emailDomainErrorMessage,
 } from './lib/email-domain.js'
 import { ATTRIBUTION_KEYS } from './src/lib/attribution.js'
+import { isValidE164Phone } from './src/lib/phone-countries.js'
 import { setHidCookie, readHidCookie } from './lib/hid-cookie.js'
 
 // En local les secrets sont dans .env.local (convention Vite).
@@ -408,11 +409,14 @@ app.post('/api/airtable', async (req, res) => {
       }
       if (!cleanFields['Prénom']) cleanFields['Prénom'] = '—'
     }
-    // Atelier : téléphone obligatoire (WhatsApp). Liste d'attente reste optionnelle.
+    // Atelier : mobile obligatoire (WhatsApp). Liste d'attente reste optionnelle.
     if (table === 'Atelier gratuit') {
       const phone = String(cleanFields.Phone || '').trim()
-      if (!phone || !/^\+[1-9]\d{6,14}$/.test(phone)) {
-        return res.status(400).json({ error: 'Téléphone requis' })
+      const iso = String(cleanFields.Country || '').trim().toUpperCase()
+      if (!isValidE164Phone(phone, { iso, mobileOnly: true })) {
+        return res.status(400).json({
+          error: 'Indique un numéro de mobile valide pour ce pays.',
+        })
       }
       cleanFields.Phone = phone
       // Domaine e-mail : typos ciblées + MX (plus de “correction” IA post-optin).

@@ -191,12 +191,150 @@ export function flagEmoji(iso) {
     .replace(/./g, (c) => String.fromCodePoint(127397 + c.charCodeAt(0)))
 }
 
-/** Normalise en E.164 (+336…), pour le champ Airtable Phone. */
-export function toE164(dial, raw) {
+/**
+ * Longueur du numéro national (sans 0, sans indicatif) — [min, max].
+ * Pays non listés → DEFAULT. Pas une lib libphonenumber : bornes pragmatiques.
+ */
+const NSN_LEN = {
+  FR: [9, 9],
+  BE: [8, 9],
+  CH: [9, 9],
+  LU: [8, 9],
+  MC: [8, 9],
+  AD: [6, 9],
+  DE: [10, 11],
+  ES: [9, 9],
+  IT: [9, 10],
+  PT: [9, 9],
+  GB: [10, 10],
+  IE: [9, 9],
+  NL: [9, 9],
+  AT: [10, 11],
+  PL: [9, 9],
+  RO: [9, 9],
+  CZ: [9, 9],
+  SE: [9, 10],
+  NO: [8, 8],
+  DK: [8, 8],
+  FI: [9, 10],
+  GR: [10, 10],
+  TR: [10, 10],
+  MA: [9, 9],
+  TN: [8, 8],
+  DZ: [9, 9],
+  SN: [9, 9],
+  CI: [8, 10],
+  CM: [8, 9],
+  CA: [10, 10],
+  US: [10, 10],
+  BR: [10, 11],
+  MX: [10, 10],
+  AR: [10, 10],
+  AU: [9, 9],
+  NZ: [8, 10],
+  JP: [10, 10],
+  CN: [11, 11],
+  IN: [10, 10],
+  RE: [9, 9],
+  GP: [9, 9],
+  MQ: [9, 9],
+  GF: [9, 9],
+  YT: [9, 9],
+  DEFAULT: [6, 12],
+}
+
+/** Préfixe mobile (WhatsApp) quand on le connaît — sinon seule la longueur compte. */
+const MOBILE_PREFIX = {
+  FR: /^[67]/,
+  BE: /^4/,
+  CH: /^7/,
+  LU: /^6/,
+  DE: /^1[5-7]/,
+  ES: /^[67]/,
+  IT: /^3/,
+  PT: /^[9]/,
+  GB: /^7/,
+  NL: /^6/,
+  PL: /^[45]/,
+  MA: /^[67]/,
+  TN: /^[2459]/,
+  DZ: /^[567]/,
+  RE: /^[67]/,
+  GP: /^[67]/,
+  MQ: /^[67]/,
+  GF: /^[67]/,
+  YT: /^[67]/,
+  US: /^[2-9]/,
+  CA: /^[2-9]/,
+}
+
+function nsnRule(iso) {
+  const key = String(iso || '').toUpperCase()
+  const [min, max] = NSN_LEN[key] || NSN_LEN.DEFAULT
+  return { min, max, mobile: MOBILE_PREFIX[key] || null }
+}
+
+/** ISO depuis l’indicatif (+33 → FR). Ambigu (+1) → ''. */
+export function isoFromDial(dial) {
+  const d = String(dial || '')
+  const hits = PHONE_COUNTRIES.filter((c) => c.dial === d)
+  return hits.length === 1 ? hits[0].iso : ''
+}
+
+/**
+ * Chiffres nationaux (sans 0 initial, sans indicatif).
+ * @param {string} dial
+ * @param {string} raw
+ */
+export function nationalDigits(dial, raw) {
   let digits = String(raw || '').replace(/\D/g, '')
   if (!digits) return ''
-  if (digits.startsWith(dial)) digits = digits.slice(dial.length)
+  const d = String(dial || '')
+  if (d && digits.startsWith(d)) digits = digits.slice(d.length)
   if (digits.startsWith('0')) digits = digits.slice(1)
+  return digits
+}
+
+/**
+ * Normalise en E.164 (+336…).
+ * Longueur = règle du pays. mobileOnly → préfixe mobile si connu (ex. FR 06/07).
+ * @param {string} dial
+ * @param {string} raw
+ * @param {{ iso?: string, mobileOnly?: boolean }} [opts]
+ */
+export function toE164(dial, raw, opts = {}) {
+  const digits = nationalDigits(dial, raw)
+  if (!digits) return ''
+  const iso = String(opts.iso || isoFromDial(dial) || '').toUpperCase()
+  const { min, max, mobile } = nsnRule(iso)
+  if (digits.length < min || digits.length > max) return ''
+  if (opts.mobileOnly && mobile && !mobile.test(digits)) return ''
   const e164 = `+${dial}${digits}`
+  // E.164 max 15 chiffres après le +
   return e164.length >= 8 && e164.length <= 16 ? e164 : ''
+}
+
+/** E.164 déjà formé (serveur) — même règles pays / mobile. */
+export function isValidE164Phone(phone, { iso = '', mobileOnly = false } = {}) {
+  const p = String(phone || '').trim()
+  if (!/^\+[1-9]\d{6,14}$/.test(p)) return false
+  let code = String(iso || '').toUpperCase()
+  let dial = ''
+  if (code) {
+    dial = PHONE_COUNTRIES.find((c) => c.iso === code)?.dial || ''
+  }
+  if (!dial) {
+    // Plus long indicatif d’abord (590 avant 59…).
+    const sorted = [...PHONE_COUNTRIES].sort((a, b) => b.dial.length - a.dial.length)
+    const hit = sorted.find((c) => p.startsWith(`+${c.dial}`))
+    if (!hit) return false
+    dial = hit.dial
+    if (!code) code = hit.iso
+  }
+  if (!p.startsWith(`+${dial}`)) return false
+  const digits = p.slice(1 + dial.length)
+  const { min, max, mobile } = nsnRule(code)
+  if (digits.length < min || digits.length > max) return false
+  if (mobileOnly && mobile && !mobile.test(digits)) return false
+  return true
 }

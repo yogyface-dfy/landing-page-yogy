@@ -68,10 +68,10 @@ export default function FunnelOptinModal({ open, onClose }) {
     if (submitting.current) return
     if (!form.prenom || !form.email || !form.consent) return
     const dial = PHONE_COUNTRIES.find((c) => c.iso === form.iso)?.dial || '33'
-    const phone = toE164(dial, form.phone)
-    // Téléphone obligatoire (rappel WhatsApp) — plus d’inscription sans numéro.
+    // Longueur + préfixe mobile selon le pays (FR 06/07, BE 04…, etc.).
+    const phone = toE164(dial, form.phone, { iso: form.iso, mobileOnly: true })
     if (!phone) {
-      setError('Indique un numéro de téléphone valide.')
+      setError('Indique un numéro de mobile valide pour ce pays.')
       return
     }
     submitting.current = true
