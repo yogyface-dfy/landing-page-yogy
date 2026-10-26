@@ -207,6 +207,8 @@ export async function enrollAtelier({ email, prenom, phone, country } = {}) {
   // Nom logique : le serveur mappe vers tblgeGEVgkZnDxwfR (autre base).
   const result = await createRecord('Atelier gratuit', fields)
   rememberPrefillEmail(email)
+  // Fiche déjà sur ce webi : pas de 2ᵉ Lead Meta / analytics.
+  if (result?.existing) return result
   captureEvent('atelier_optin')
   // Après Airtable OK — CAPI hash l'email côté serveur (pixel 604268118937812).
   fireAtelierLead({ email, phone, firstName: prenom })

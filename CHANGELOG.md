@@ -1,11 +1,18 @@
 # Changelog
 
+## 2026-10-26
+
+### 🐛 Fixed
+
+- **Atelier opt-in** : spinner + lock sync sur le bouton (anti double-clic) ; refus d’une 2ᵉ fiche Airtable même email sur le même webi Studio (plus de Lead Meta en doublon).
+
 ## 2026-10-25
 
 ### ✨ Added
 
 - **Checkout vente** : `?firstname=` + `?phone=` → metadata Stripe + Customer (name/phone). Email déjà géré.
 - **Témoignages vidéo** : posters locaux (Marie, Sandrine, Julie 38, Fanny, Agathe, Julia) extraits des MP4.
+- **Docs** : `docs/stripe-checkout-guideline.md` — guide réutilisable Checkout / Nx / upsell / webhooks / prefill.
 
 ### 🔧 Changed
 

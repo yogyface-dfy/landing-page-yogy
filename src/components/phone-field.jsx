@@ -11,6 +11,7 @@ export default function PhoneField({
   onPhoneChange,
   hint,
   required = false,
+  disabled = false,
 }) {
   const selected = PHONE_COUNTRIES.find((c) => c.iso === iso) || PHONE_COUNTRIES[0]
 
@@ -27,8 +28,9 @@ export default function PhoneField({
         <select
           id="waitlist-country"
           value={selected.iso}
+          disabled={disabled}
           onChange={(e) => onIsoChange(e.target.value)}
-          className="shrink-0 max-w-[42%] sm:max-w-[11.5rem] px-2.5 py-3 md:py-3.5 rounded-xl border border-noir/8 text-sm bg-white/80 focus:outline-none focus:border-corail focus:ring-2 focus:ring-corail/10 transition-all duration-300"
+          className="shrink-0 max-w-[42%] sm:max-w-[11.5rem] px-2.5 py-3 md:py-3.5 rounded-xl border border-noir/8 text-sm bg-white/80 focus:outline-none focus:border-corail focus:ring-2 focus:ring-corail/10 transition-all duration-300 disabled:opacity-60"
         >
           {PHONE_COUNTRIES.map((c) => (
             <option key={c.iso} value={c.iso}>
@@ -41,9 +43,10 @@ export default function PhoneField({
           inputMode="tel"
           autoComplete="tel-national"
           required={required}
+          disabled={disabled}
           value={phone}
           onChange={(e) => onPhoneChange(e.target.value)}
-          className="min-w-0 flex-1 px-4 py-3 md:py-3.5 rounded-xl border border-noir/8 text-sm focus:outline-none focus:border-corail focus:ring-2 focus:ring-corail/10 transition-all duration-300 bg-white/80"
+          className="min-w-0 flex-1 px-4 py-3 md:py-3.5 rounded-xl border border-noir/8 text-sm focus:outline-none focus:border-corail focus:ring-2 focus:ring-corail/10 transition-all duration-300 bg-white/80 disabled:opacity-60"
           placeholder="06 12 34 56 78"
           aria-label="Numéro de téléphone"
         />

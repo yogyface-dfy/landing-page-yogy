@@ -31,7 +31,7 @@ import {
 } from './lib/stripe-server.js'
 import { handleCapiEvent } from './lib/meta-capi.js'
 import { handleReplayYoutube } from './lib/replay-youtube.js'
-import { findStudioWebinarId } from './lib/atelier-webinar.js'
+import { findStudioWebinarId, studioWebinarName } from './lib/atelier-webinar.js'
 import { ATTRIBUTION_KEYS } from './src/lib/attribution.js'
 import { setHidCookie, readHidCookie } from './lib/hid-cookie.js'
 
@@ -260,6 +260,26 @@ async function findByEmail(table, email) {
   return data.records?.[0] || null
 }
 
+/** Atelier : même email déjà lié au webi Studio courant → pas de 2ᵉ fiche. */
+async function findAtelierOnCurrentWebinar(email) {
+  const name = studioWebinarName()
+  const formula =
+    `AND(LOWER({Email})=LOWER('${escapeFormula(email)}'),` +
+    `FIND('${escapeFormula(name)}',{Webinar Name}&''))`
+  const url =
+    `${inscriptionUrl()}?maxRecords=1&filterByFormula=${encodeURIComponent(formula)}`
+  const r = await fetch(url, { headers: { Authorization: `Bearer ${PAT}` } })
+  if (!r.ok) {
+    console.error('Airtable atelier dedupe error:', r.status)
+    return null
+  }
+  const data = await r.json().catch(() => ({}))
+  return data.records?.[0] || null
+}
+
+/** Évite 2 POSTs parallèles (double-clic) avant que Airtable ait la 1ʳᵉ fiche. */
+const atelierInflight = new Map()
+
 async function findWaitlistByEmail(email) {
   return findByEmail("Liste d'attente", email)
 }
@@ -392,7 +412,6 @@ app.post('/api/airtable', async (req, res) => {
       cleanFields.Phone = phone
     }
 
-    // Atelier : une fiche neuve à chaque submit (même email).
     if (table === "Liste d'attente") {
       const existing = await findByEmail(table, cleanFields.Email)
       if (existing) {
@@ -409,6 +428,74 @@ app.post('/api/airtable', async (req, res) => {
       const webinarId = await findStudioWebinarId({ baseId: ATELIER_BASE_ID, pat: PAT })
       if (webinarId) cleanFields.Webinars = [webinarId]
       else console.error('atelier webinar: aucun record pour', new Date().toISOString())
+
+      const emailKey = String(cleanFields.Email).trim().toLowerCase()
+      // Double-clic : le 2ᵉ POST attend le 1ᵉʳ plutôt que de recréer.
+      if (atelierInflight.has(emailKey)) {
+        const firstId = await atelierInflight.get(emailKey)
+        if (firstId) {
+          const out = await identifyWithWebi(cleanFields, {
+            ip: req.ip,
+            ua: req.headers['user-agent'],
+            airtableRecordId: firstId,
+          })
+          if (out?.hid) setHidCookie(res, out.hid, req)
+          if (out?.userId) patchAtelierHid(firstId, out.userId)
+          return res.json({ id: firstId, existing: true })
+        }
+      }
+
+      let resolveInflight = () => {}
+      atelierInflight.set(
+        emailKey,
+        new Promise((resolve) => {
+          resolveInflight = resolve
+        }),
+      )
+      try {
+        const existing = await findAtelierOnCurrentWebinar(cleanFields.Email)
+        if (existing?.id) {
+          resolveInflight(existing.id)
+          const out = await identifyWithWebi(cleanFields, {
+            ip: req.ip,
+            ua: req.headers['user-agent'],
+            airtableRecordId: existing.id,
+          })
+          if (out?.hid) setHidCookie(res, out.hid, req)
+          if (out?.userId) patchAtelierHid(existing.id, out.userId)
+          return res.json({ id: existing.id, existing: true })
+        }
+
+        const r = await fetch(
+          `https://api.airtable.com/v0/${baseId}/${encodeURIComponent(tableId)}`,
+          {
+            method: 'POST',
+            headers: {
+              Authorization: `Bearer ${PAT}`,
+              'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({ fields: cleanFields }),
+          },
+        )
+        const data = await r.json().catch(() => ({}))
+        if (!r.ok) {
+          resolveInflight(null)
+          console.error('Airtable error:', r.status, data?.error)
+          return res.status(502).json({ error: 'Enregistrement impossible' })
+        }
+        resolveInflight(data.id)
+
+        const out = await identifyWithWebi(cleanFields, {
+          ip: req.ip,
+          ua: req.headers['user-agent'],
+          airtableRecordId: data.id,
+        })
+        if (out?.hid) setHidCookie(res, out.hid, req)
+        if (out?.userId && data.id) patchAtelierHid(data.id, out.userId)
+        return res.json({ id: data.id })
+      } finally {
+        atelierInflight.delete(emailKey)
+      }
     }
 
     const r = await fetch(
@@ -428,17 +515,6 @@ app.post('/api/airtable', async (req, res) => {
       // On ne renvoie pas le détail Airtable au client (fuite d'info)
       console.error('Airtable error:', r.status, data?.error)
       return res.status(502).json({ error: 'Enregistrement impossible' })
-    }
-
-    if (table === 'Atelier gratuit') {
-      const out = await identifyWithWebi(cleanFields, {
-        ip: req.ip,
-        ua: req.headers['user-agent'],
-        airtableRecordId: data.id,
-      })
-      if (out?.hid) setHidCookie(res, out.hid, req)
-      // Champ texte `yf_hid` = users.id (même id que le cookie). Best-effort.
-      if (out?.userId && data.id) patchAtelierHid(data.id, out.userId)
     }
 
     return res.json({ id: data.id })

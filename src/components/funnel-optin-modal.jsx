@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import FunnelLiveDate from './funnel-live-date'
 import PhoneField from './phone-field'
@@ -20,13 +20,15 @@ export default function FunnelOptinModal({ open, onClose }) {
   })
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState('')
+  // Sync : setLoading seul laisse passer un 2ᵉ clic avant le re-render.
+  const submitting = useRef(false)
 
   useEffect(() => {
     if (!open) return
     const prev = document.body.style.overflow
     document.body.style.overflow = 'hidden'
     const onKey = (e) => {
-      if (e.key === 'Escape') onClose()
+      if (e.key === 'Escape' && !submitting.current) onClose()
     }
     window.addEventListener('keydown', onKey)
     return () => {
@@ -37,6 +39,7 @@ export default function FunnelOptinModal({ open, onClose }) {
 
   const handleSubmit = async (e) => {
     e.preventDefault()
+    if (submitting.current) return
     if (!form.prenom || !form.email || !form.consent) return
     const dial = PHONE_COUNTRIES.find((c) => c.iso === form.iso)?.dial || '33'
     const phone = toE164(dial, form.phone)
@@ -45,6 +48,7 @@ export default function FunnelOptinModal({ open, onClose }) {
       setError('Indique un numéro de téléphone valide.')
       return
     }
+    submitting.current = true
     setLoading(true)
     setError('')
     try {
@@ -58,7 +62,7 @@ export default function FunnelOptinModal({ open, onClose }) {
     } catch (err) {
       console.error('Atelier opt-in error:', err)
       setError('Une erreur est survenue. Réessaie ou écris à contact@yogyface.fr')
-    } finally {
+      submitting.current = false
       setLoading(false)
     }
   }
@@ -76,13 +80,19 @@ export default function FunnelOptinModal({ open, onClose }) {
         type="button"
         className="absolute inset-0 bg-noir/50"
         aria-label="Fermer"
-        onClick={onClose}
+        disabled={loading}
+        onClick={() => {
+          if (!submitting.current) onClose()
+        }}
       />
       <div className="relative w-full max-w-[440px] rounded-3xl bg-white p-6 md:p-8 shadow-2xl">
         <button
           type="button"
-          onClick={onClose}
-          className="absolute top-4 right-4 w-8 h-8 rounded-full text-gris hover:bg-noir/5"
+          onClick={() => {
+            if (!submitting.current) onClose()
+          }}
+          disabled={loading}
+          className="absolute top-4 right-4 w-8 h-8 rounded-full text-gris hover:bg-noir/5 disabled:opacity-40"
           aria-label="Fermer"
         >
           ×
@@ -101,22 +111,25 @@ export default function FunnelOptinModal({ open, onClose }) {
             <input
               type="text"
               required
+              disabled={loading}
               value={form.prenom}
               onChange={(e) => setForm((v) => ({ ...v, prenom: e.target.value }))}
-              className="w-full px-4 py-3 rounded-full border border-noir/8 text-sm bg-white focus:outline-none focus:border-corail focus:ring-2 focus:ring-corail/10"
+              className="w-full px-4 py-3 rounded-full border border-noir/8 text-sm bg-white focus:outline-none focus:border-corail focus:ring-2 focus:ring-corail/10 disabled:opacity-60"
               placeholder="Ton prénom"
               autoFocus
             />
             <input
               type="email"
               required
+              disabled={loading}
               value={form.email}
               onChange={(e) => setForm((v) => ({ ...v, email: e.target.value }))}
-              className="w-full px-4 py-3 rounded-full border border-noir/8 text-sm bg-white focus:outline-none focus:border-corail focus:ring-2 focus:ring-corail/10"
+              className="w-full px-4 py-3 rounded-full border border-noir/8 text-sm bg-white focus:outline-none focus:border-corail focus:ring-2 focus:ring-corail/10 disabled:opacity-60"
               placeholder="Ton e-mail"
             />
             <PhoneField
               required
+              disabled={loading}
               iso={form.iso}
               phone={form.phone}
               onIsoChange={(iso) => setForm((v) => ({ ...v, iso }))}
@@ -128,6 +141,7 @@ export default function FunnelOptinModal({ open, onClose }) {
             <input
               type="checkbox"
               required
+              disabled={loading}
               checked={form.consent}
               onChange={(e) => setForm((v) => ({ ...v, consent: e.target.checked }))}
               className="mt-0.5 accent-corail"
@@ -137,9 +151,20 @@ export default function FunnelOptinModal({ open, onClose }) {
           <button
             type="submit"
             disabled={loading}
-            className="btn-corail w-full text-sm py-3.5 disabled:opacity-60"
+            aria-busy={loading}
+            className="btn-corail w-full text-sm py-3.5 disabled:opacity-60 disabled:cursor-wait inline-flex items-center justify-center gap-2"
           >
-            {loading ? 'Inscription…' : "S'inscrire au coaching — gratuitement"}
+            {loading ? (
+              <>
+                <span
+                  className="size-4 shrink-0 rounded-full border-2 border-white/35 border-t-white animate-spin"
+                  aria-hidden
+                />
+                Inscription…
+              </>
+            ) : (
+              "S'inscrire au coaching — gratuitement"
+            )}
           </button>
           {error && <p className="text-red-500 text-xs text-center mt-2">{error}</p>}
         </form>
