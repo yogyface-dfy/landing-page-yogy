@@ -1,6 +1,6 @@
 import { describe, it } from 'node:test'
 import assert from 'node:assert/strict'
-import { toE164, isValidE164Phone } from './phone-countries.js'
+import { toE164, isValidE164Phone, isLikelyFakePhoneDigits } from './phone-countries.js'
 
 describe('toE164 FR', () => {
   it('accepte un 06 classique', () => {
@@ -49,5 +49,25 @@ describe('isValidE164Phone', () => {
 
   it('BE ok via dial seul', () => {
     assert.equal(isValidE164Phone('+32470123456', { mobileOnly: true }), true)
+  })
+
+  it('refuse un bidon 06 00 00 00 00', () => {
+    assert.equal(isValidE164Phone('+33600000000', { iso: 'FR', mobileOnly: true }), false)
+  })
+})
+
+describe('isLikelyFakePhoneDigits', () => {
+  it('détecte répétitions / zéros / 060606', () => {
+    assert.equal(isLikelyFakePhoneDigits('333333333'), true)
+    assert.equal(isLikelyFakePhoneDigits('600000000'), true)
+    assert.equal(isLikelyFakePhoneDigits('606060606'), true)
+  })
+
+  it('laisse passer un vrai mobile', () => {
+    assert.equal(isLikelyFakePhoneDigits('633947899'), false)
+  })
+
+  it('toE164 refuse 06 33 33 33 33', () => {
+    assert.equal(toE164('33', '06 33 33 33 33', { iso: 'FR', mobileOnly: true }), '')
   })
 })

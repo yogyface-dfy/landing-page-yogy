@@ -4,6 +4,7 @@
 
 ### ✨ Added
 
+- **Atelier opt-in** : détection numéros bidon + message rassurant (rappel atelier seulement, pas de spam, RGPD, désinscription).
 - **Atelier opt-in** : validation domaine e-mail sur la page (`/api/check-email` + MX) et typos ciblées (`gail.com` → `gmail.com`, etc.) — sans réécrire `yahoo.fr` / `hotmail.fr`.
 - **Atelier opt-in** : validation téléphone **par pays** (longueur nationale min/max + préfixe mobile si connu : FR 06/07, BE 04…, etc.).
 

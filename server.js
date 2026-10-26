@@ -38,7 +38,7 @@ import {
   emailDomainErrorMessage,
 } from './lib/email-domain.js'
 import { ATTRIBUTION_KEYS } from './src/lib/attribution.js'
-import { isValidE164Phone } from './src/lib/phone-countries.js'
+import { isValidE164Phone, PHONE_TRUST_MESSAGE } from './src/lib/phone-countries.js'
 import { setHidCookie, readHidCookie } from './lib/hid-cookie.js'
 
 // En local les secrets sont dans .env.local (convention Vite).
@@ -414,9 +414,8 @@ app.post('/api/airtable', async (req, res) => {
       const phone = String(cleanFields.Phone || '').trim()
       const iso = String(cleanFields.Country || '').trim().toUpperCase()
       if (!isValidE164Phone(phone, { iso, mobileOnly: true })) {
-        return res.status(400).json({
-          error: 'Indique un numéro de mobile valide pour ce pays.',
-        })
+        // Même copy que l’opt-in (numéros bidon / peur du spam).
+        return res.status(400).json({ error: PHONE_TRUST_MESSAGE })
       }
       cleanFields.Phone = phone
       // Domaine e-mail : typos ciblées + MX (plus de “correction” IA post-optin).

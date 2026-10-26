@@ -296,6 +296,42 @@ export function nationalDigits(dial, raw) {
 }
 
 /**
+ * Numéros « bidon » (spam fear) : 0000, 3333…, 060606…, séquences, placeholders.
+ * @param {string} digits — NSN sans 0 initial
+ */
+export function isLikelyFakePhoneDigits(digits) {
+  const d = String(digits || '')
+  if (d.length < 6) return false
+  // Tout le même chiffre : 666666666
+  if (/^(\d)\1+$/.test(d)) return true
+  // 5+ identiques d’affilée (évite les 5555 US d’exemple)
+  if (/(\d)\1{4,}/.test(d)) return true
+  // Trop de zéros : 600000087
+  const zeros = (d.match(/0/g) || []).length
+  if (zeros >= 4 && zeros / d.length >= 0.45) return true
+  // Paire répétée : 06060606 → 606060606
+  if (d.length >= 6 && /^(\d{2})\1+$/.test(d)) return true
+  // Séquence ±1 (ex. 123456789 / 987654321)
+  if (d.length >= 7) {
+    let asc = true
+    let desc = true
+    for (let i = 1; i < d.length; i++) {
+      const a = Number(d[i - 1])
+      const b = Number(d[i])
+      if (b !== (a + 1) % 10) asc = false
+      if (b !== (a + 9) % 10) desc = false
+    }
+    if (asc || desc) return true
+  }
+  // Placeholders évidents (évite 612345678 — trop courant hors FR)
+  return d === '600000000' || d === '700000000' || d === '606060606' || d === '601020304'
+}
+
+/** Texte opt-in quand le mobile est invalide / bidon (peur du spam). */
+export const PHONE_TRUST_MESSAGE =
+  "Ce numéro ne semble pas correct. Pas d'inquiétude : on ne t'écrit que pour l'atelier (lien + rappel), aucun spam, respect du RGPD, désinscription à tout moment."
+
+/**
  * Normalise en E.164 (+336…).
  * Longueur = règle du pays. mobileOnly → préfixe mobile si connu (ex. FR 06/07).
  * @param {string} dial
@@ -309,6 +345,7 @@ export function toE164(dial, raw, opts = {}) {
   const { min, max, mobile } = nsnRule(iso)
   if (digits.length < min || digits.length > max) return ''
   if (opts.mobileOnly && mobile && !mobile.test(digits)) return ''
+  if (isLikelyFakePhoneDigits(digits)) return ''
   const e164 = `+${dial}${digits}`
   // E.164 max 15 chiffres après le +
   return e164.length >= 8 && e164.length <= 16 ? e164 : ''
@@ -336,5 +373,6 @@ export function isValidE164Phone(phone, { iso = '', mobileOnly = false } = {}) {
   const { min, max, mobile } = nsnRule(code)
   if (digits.length < min || digits.length > max) return false
   if (mobileOnly && mobile && !mobile.test(digits)) return false
+  if (isLikelyFakePhoneDigits(digits)) return false
   return true
 }

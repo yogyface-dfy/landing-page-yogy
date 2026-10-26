@@ -4,7 +4,7 @@ import FunnelLiveDate from './funnel-live-date'
 import PhoneField from './phone-field'
 import { enrollAtelier } from '../lib/funnel'
 import { checkEmailDomain } from '../lib/email-check'
-import { PHONE_COUNTRIES, toE164 } from '../lib/phone-countries'
+import { PHONE_COUNTRIES, PHONE_TRUST_MESSAGE, toE164 } from '../lib/phone-countries'
 
 /**
  * Popup d'inscription atelier.
@@ -68,10 +68,10 @@ export default function FunnelOptinModal({ open, onClose }) {
     if (submitting.current) return
     if (!form.prenom || !form.email || !form.consent) return
     const dial = PHONE_COUNTRIES.find((c) => c.iso === form.iso)?.dial || '33'
-    // Longueur + préfixe mobile selon le pays (FR 06/07, BE 04…, etc.).
+    // Longueur + préfixe mobile + anti-numéros bidon (peur du spam).
     const phone = toE164(dial, form.phone, { iso: form.iso, mobileOnly: true })
     if (!phone) {
-      setError('Indique un numéro de mobile valide pour ce pays.')
+      setError(PHONE_TRUST_MESSAGE)
       return
     }
     submitting.current = true
@@ -192,8 +192,12 @@ export default function FunnelOptinModal({ open, onClose }) {
               iso={form.iso}
               phone={form.phone}
               onIsoChange={(iso) => setForm((v) => ({ ...v, iso }))}
-              onPhoneChange={(phone) => setForm((v) => ({ ...v, phone }))}
-              hint="Pour le rappel WhatsApp — pas de spam."
+              onPhoneChange={(phone) => {
+                setForm((v) => ({ ...v, phone }))
+                // Efface le message anti-spam dès qu’elle retape.
+                if (error === PHONE_TRUST_MESSAGE) setError('')
+              }}
+              hint="Uniquement pour le rappel de l'atelier, pas de spam."
             />
           </div>
           <label className="flex items-start gap-2.5 mb-4 text-[13px] text-gris leading-relaxed cursor-pointer">
@@ -225,7 +229,18 @@ export default function FunnelOptinModal({ open, onClose }) {
               "S'inscrire au coaching — gratuitement"
             )}
           </button>
-          {error && <p className="text-red-500 text-xs text-center mt-2">{error}</p>}
+          {error && (
+            <p
+              className={
+                error === PHONE_TRUST_MESSAGE
+                  ? 'text-gris text-[12px] text-left leading-relaxed mt-3 rounded-2xl bg-corail/8 px-3.5 py-3 border border-corail/15'
+                  : 'text-red-500 text-xs text-center mt-2'
+              }
+              role="alert"
+            >
+              {error}
+            </p>
+          )}
         </form>
       </div>
     </div>
