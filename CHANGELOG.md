@@ -2,6 +2,10 @@
 
 ## 2026-10-26
 
+### ✨ Added
+
+- **Atelier opt-in** : validation domaine e-mail sur la page (`/api/check-email` + MX) et typos ciblées (`gail.com` → `gmail.com`, etc.) — sans réécrire `yahoo.fr` / `hotmail.fr`.
+
 ### 🐛 Fixed
 
 - **Atelier opt-in** : spinner + lock sync sur le bouton (anti double-clic) ; refus d’une 2ᵉ fiche Airtable même email sur le même webi Studio (plus de Lead Meta en doublon).

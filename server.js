@@ -32,6 +32,11 @@ import {
 import { handleCapiEvent } from './lib/meta-capi.js'
 import { handleReplayYoutube } from './lib/replay-youtube.js'
 import { findStudioWebinarId, studioWebinarName } from './lib/atelier-webinar.js'
+import {
+  handleCheckEmail,
+  validateEmailDomain,
+  emailDomainErrorMessage,
+} from './lib/email-domain.js'
 import { ATTRIBUTION_KEYS } from './src/lib/attribution.js'
 import { setHidCookie, readHidCookie } from './lib/hid-cookie.js'
 
@@ -410,6 +415,16 @@ app.post('/api/airtable', async (req, res) => {
         return res.status(400).json({ error: 'Téléphone requis' })
       }
       cleanFields.Phone = phone
+      // Domaine e-mail : typos ciblées + MX (plus de “correction” IA post-optin).
+      const emailCheck = await validateEmailDomain(cleanFields.Email)
+      if (!emailCheck.ok) {
+        return res.status(400).json({
+          error: emailDomainErrorMessage(emailCheck),
+          code: emailCheck.code,
+          ...(emailCheck.suggestion ? { suggestion: emailCheck.suggestion } : {}),
+        })
+      }
+      cleanFields.Email = emailCheck.email
     }
 
     if (table === "Liste d'attente") {
@@ -551,6 +566,7 @@ app.post('/api/vente-hit', async (req, res) => {
 })
 
 app.get('/api/replay', handleReplayYoutube)
+app.post('/api/check-email', handleCheckEmail)
 app.post('/api/capi-event', handleCapiEvent)
 app.post('/api/stripe/checkout', createCheckoutSession)
 app.get('/api/stripe/session', getCheckoutSession)

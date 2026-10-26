@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom'
 import FunnelLiveDate from './funnel-live-date'
 import PhoneField from './phone-field'
 import { enrollAtelier } from '../lib/funnel'
+import { checkEmailDomain } from '../lib/email-check'
 import { PHONE_COUNTRIES, toE164 } from '../lib/phone-countries'
 
 /**
@@ -20,6 +21,7 @@ export default function FunnelOptinModal({ open, onClose }) {
   })
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState('')
+  const [emailSuggestion, setEmailSuggestion] = useState('')
   // Sync : setLoading seul laisse passer un 2ᵉ clic avant le re-render.
   const submitting = useRef(false)
 
@@ -37,6 +39,30 @@ export default function FunnelOptinModal({ open, onClose }) {
     }
   }, [open, onClose])
 
+  const applyEmailSuggestion = () => {
+    if (!emailSuggestion) return
+    setForm((v) => ({ ...v, email: emailSuggestion }))
+    setEmailSuggestion('')
+    setError('')
+  }
+
+  const validateEmailField = async (raw) => {
+    const result = await checkEmailDomain(raw)
+    if (result.ok) {
+      setEmailSuggestion('')
+      setError('')
+      return result.email
+    }
+    if (result.code === 'typo' && result.suggestion) {
+      setEmailSuggestion(result.suggestion)
+      setError(result.message)
+      return null
+    }
+    setEmailSuggestion('')
+    setError(result.message || 'E-mail invalide')
+    return null
+  }
+
   const handleSubmit = async (e) => {
     e.preventDefault()
     if (submitting.current) return
@@ -52,8 +78,17 @@ export default function FunnelOptinModal({ open, onClose }) {
     setLoading(true)
     setError('')
     try {
+      const email = await validateEmailField(form.email)
+      if (!email) {
+        submitting.current = false
+        setLoading(false)
+        return
+      }
+      if (email !== form.email.trim()) {
+        setForm((v) => ({ ...v, email }))
+      }
       await enrollAtelier({
-        email: form.email,
+        email,
         prenom: form.prenom,
         phone,
         country: form.iso,
@@ -61,7 +96,12 @@ export default function FunnelOptinModal({ open, onClose }) {
       navigate('/confirmation-inscription')
     } catch (err) {
       console.error('Atelier opt-in error:', err)
-      setError('Une erreur est survenue. Réessaie ou écris à contact@yogyface.fr')
+      const msg = String(err?.message || '')
+      setError(
+        msg && !msg.startsWith('Erreur ')
+          ? msg
+          : 'Une erreur est survenue. Réessaie ou écris à contact@yogyface.fr',
+      )
       submitting.current = false
       setLoading(false)
     }
@@ -118,15 +158,34 @@ export default function FunnelOptinModal({ open, onClose }) {
               placeholder="Ton prénom"
               autoFocus
             />
-            <input
-              type="email"
-              required
-              disabled={loading}
-              value={form.email}
-              onChange={(e) => setForm((v) => ({ ...v, email: e.target.value }))}
-              className="w-full px-4 py-3 rounded-full border border-noir/8 text-sm bg-white focus:outline-none focus:border-corail focus:ring-2 focus:ring-corail/10 disabled:opacity-60"
-              placeholder="Ton e-mail"
-            />
+            <div>
+              <input
+                type="email"
+                required
+                disabled={loading}
+                value={form.email}
+                onChange={(e) => {
+                  setForm((v) => ({ ...v, email: e.target.value }))
+                  setEmailSuggestion('')
+                  if (error) setError('')
+                }}
+                onBlur={() => {
+                  if (form.email.trim()) validateEmailField(form.email)
+                }}
+                className="w-full px-4 py-3 rounded-full border border-noir/8 text-sm bg-white focus:outline-none focus:border-corail focus:ring-2 focus:ring-corail/10 disabled:opacity-60"
+                placeholder="Ton e-mail"
+                autoComplete="email"
+              />
+              {emailSuggestion && (
+                <button
+                  type="button"
+                  onClick={applyEmailSuggestion}
+                  className="mt-2 w-full text-left text-[12px] text-corail font-semibold hover:underline"
+                >
+                  Oui, utiliser {emailSuggestion}
+                </button>
+              )}
+            </div>
             <PhoneField
               required
               disabled={loading}
