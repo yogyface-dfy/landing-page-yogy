@@ -189,16 +189,25 @@ export default function FunnelOptinModal({ open, onClose }) {
             <PhoneField
               required
               disabled={loading}
+              invalid={error === PHONE_TRUST_MESSAGE}
               iso={form.iso}
               phone={form.phone}
-              onIsoChange={(iso) => setForm((v) => ({ ...v, iso }))}
+              onIsoChange={(iso) => {
+                setForm((v) => ({ ...v, iso }))
+                if (error === PHONE_TRUST_MESSAGE) setError('')
+              }}
               onPhoneChange={(phone) => {
                 setForm((v) => ({ ...v, phone }))
-                // Efface le message anti-spam dès qu’elle retape.
+                // Efface le message dès qu’elle retape.
                 if (error === PHONE_TRUST_MESSAGE) setError('')
               }}
               hint="Uniquement pour le rappel de l'atelier, pas de spam."
             />
+            {error === PHONE_TRUST_MESSAGE && (
+              <p className="text-red-500 text-[12px] text-left leading-relaxed mt-1.5" role="alert">
+                {error}
+              </p>
+            )}
           </div>
           <label className="flex items-start gap-2.5 mb-4 text-[13px] text-gris leading-relaxed cursor-pointer">
             <input
@@ -229,15 +238,8 @@ export default function FunnelOptinModal({ open, onClose }) {
               "S'inscrire au coaching — gratuitement"
             )}
           </button>
-          {error && (
-            <p
-              className={
-                error === PHONE_TRUST_MESSAGE
-                  ? 'text-gris text-[12px] text-left leading-relaxed mt-3 rounded-2xl bg-corail/8 px-3.5 py-3 border border-corail/15'
-                  : 'text-red-500 text-xs text-center mt-2'
-              }
-              role="alert"
-            >
+          {error && error !== PHONE_TRUST_MESSAGE && (
+            <p className="text-red-500 text-xs text-center mt-2" role="alert">
               {error}
             </p>
           )}
