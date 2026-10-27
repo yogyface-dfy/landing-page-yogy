@@ -490,15 +490,18 @@ export default function VenteUpsell() {
                   />
                 )}
                 <div className="min-w-0">
-                  <p className="font-display font-bold text-[16px] md:text-[18px] text-noir mb-1">
+                  <p className="font-display font-bold text-[15px] md:text-[17px] text-noir mb-2">
                     {offer.name}
                   </p>
-                  <p className="text-[13px] md:text-[14px] text-noir/70">
-                    Prix unitaire :{" "}
-                    <s className="text-noir/40 mr-1.5">
+                  {/* Prix en hero : barré + 69 € vert — première chose qu’on lit */}
+                  <p className="text-[11px] md:text-xs uppercase tracking-wider text-noir/45 mb-1">
+                    Prix unitaire
+                  </p>
+                  <p className="flex flex-wrap items-baseline gap-x-3 gap-y-1">
+                    <s className="font-display font-bold text-[1.55rem] md:text-[2.1rem] leading-none text-noir/35">
                       {euros(offer.compareAtCents)} €
                     </s>
-                    <span className="font-semibold text-bordeaux">
+                    <span className="font-display font-black text-[2.35rem] md:text-[3rem] leading-none tracking-tight text-[#00c37a]">
                       {euros(offer.amountCents)} €
                     </span>
                   </p>

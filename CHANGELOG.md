@@ -2,6 +2,10 @@
 
 ## 2026-10-27
 
+### 🚀 Improved
+
+- **`/vente-upsell`** : prix unitaire (359 barré + 69 €) beaucoup plus gros ; **69 €** en vert gras.
+
 ### 🔧 Changed
 
 - **Upsell pack** : **69 €** (au lieu de 99 €) — `amountCents` + libellé comparatif.
