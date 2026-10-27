@@ -9,6 +9,7 @@
 ### 🔧 Changed
 
 - **Upsell pack** : **69 €** (au lieu de 99 €) — `amountCents` + libellé comparatif.
+- **Upsell pack** : titre « Extension YoGyFace Studio 1 an » + sous-ligne « 6 mois initiaux + 6 mois d’extension ».
 
 ### 🐛 Fixed
 

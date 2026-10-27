@@ -182,7 +182,9 @@ export const UPSELL_VARIANTS = {
   pack: {
     amountCents: 6900,
     compareAtCents: 35999,
-    name: "Extension YoGyFace STUDIO — 1 an",
+    name: "Extension YoGyFace Studio 1 an",
+    // Sous-ligne UI (Stripe garde `name` seul).
+    nameSub: "6 mois initiaux + 6 mois d’extension",
     image: "/programme-montage.jpg",
     headline: "Félicitations, tu rejoins YoGyFace STUDIO",
     sub: "Une dernière question avant d’aller plus loin : veux-tu profiter de l’extension « YoGyFace STUDIO 1 an » ?",

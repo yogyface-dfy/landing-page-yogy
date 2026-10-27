@@ -307,7 +307,15 @@ function ConfirmDialog({ open, offer, busy, error, onClose, onConfirm }) {
         >
           Confirmer l’ajout
         </h2>
-        <p className="text-[14px] text-gris mb-1">{offer.name}</p>
+        <p className="text-[14px] text-gris mb-1">
+          {offer.name}
+          {offer.nameSub ? (
+            <>
+              <br />
+              {offer.nameSub}
+            </>
+          ) : null}
+        </p>
         <p className="font-display font-black text-3xl text-bordeaux mb-6">
           {euros(offer.amountCents)} €
         </p>
@@ -490,8 +498,16 @@ export default function VenteUpsell() {
                   />
                 )}
                 <div className="min-w-0">
-                  <p className="font-display font-bold text-[15px] md:text-[17px] text-noir mb-2">
+                  <p className="font-display font-bold text-[15px] md:text-[17px] text-noir mb-2 leading-snug">
                     {offer.name}
+                    {offer.nameSub ? (
+                      <>
+                        <br />
+                        <span className="font-semibold text-[13px] md:text-[15px] text-noir/75">
+                          {offer.nameSub}
+                        </span>
+                      </>
+                    ) : null}
                   </p>
                   {/* Prix en hero : barré + 69 € vert — première chose qu’on lit */}
                   <p className="text-[11px] md:text-xs uppercase tracking-wider text-noir/45 mb-1">
