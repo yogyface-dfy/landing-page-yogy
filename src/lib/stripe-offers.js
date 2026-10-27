@@ -180,7 +180,7 @@ export function checkoutSubmitType(_mode = "payment") {
 /** Offre complémentaire live — pack uniquement. */
 export const UPSELL_VARIANTS = {
   pack: {
-    amountCents: 9900,
+    amountCents: 6900,
     compareAtCents: 35999,
     name: "Extension YoGyFace STUDIO — 1 an",
     image: "/programme-montage.jpg",
@@ -193,7 +193,7 @@ export const UPSELL_VARIANTS = {
       "+ 12h de coaching live",
       "+ 6 mois de suivi photo",
     ],
-    withLabel: "Ce que tu peux avoir pour 99 €",
+    withLabel: "Ce que tu peux avoir pour 69 €",
     withoutLabel: "Ce que tu as acheté pour 359,99 €",
     compare: [
       {

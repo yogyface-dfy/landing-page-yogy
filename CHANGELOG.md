@@ -2,6 +2,10 @@
 
 ## 2026-10-27
 
+### 🔧 Changed
+
+- **Upsell pack** : **69 €** (au lieu de 99 €) — `amountCents` + libellé comparatif.
+
 ### 🐛 Fixed
 
 - **`/vente`** : retour depuis Stripe (bouton Back) → les CTA checkout ne restent plus grisés sur « Redirection… ».
