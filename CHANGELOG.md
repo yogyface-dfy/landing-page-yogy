@@ -1,5 +1,11 @@
 # Changelog
 
+## 2026-10-27
+
+### 🐛 Fixed
+
+- **`/vente`** : retour depuis Stripe (bouton Back) → les CTA checkout ne restent plus grisés sur « Redirection… ».
+
 ## 2026-10-26
 
 ### ✨ Added

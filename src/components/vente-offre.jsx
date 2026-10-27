@@ -579,6 +579,23 @@ export default function VenteOffre({ variant }) {
     setPhone(c.phone);
   }, [searchParams]);
 
+  // Retour navigateur depuis Stripe (bfcache) : « Redirection… » restait collé.
+  useEffect(() => {
+    const unlock = () => setPayLoading(null);
+    const onShow = (e) => {
+      if (e.persisted) unlock();
+    };
+    const onVisible = () => {
+      if (document.visibilityState === "visible") unlock();
+    };
+    window.addEventListener("pageshow", onShow);
+    document.addEventListener("visibilitychange", onVisible);
+    return () => {
+      window.removeEventListener("pageshow", onShow);
+      document.removeEventListener("visibilitychange", onVisible);
+    };
+  }, []);
+
   // Pointillés : --p = portion visible depuis le haut (gris → corail), sans re-render.
   useEffect(() => {
     const spine = spineRef.current;
