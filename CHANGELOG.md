@@ -1,5 +1,18 @@
 # Changelog
 
+## 2026-11-03
+
+### 🔧 Changed
+
+- **Upsell** : caché (`UPSELL_ENABLED = false`). Après paiement Studio → `/confirmation-achat-bienvenue` directement. `/vente-upsell` redirige aussi.
+- **`/vente` et `/vente-6x`** : prix barré Studio **699 €** (au lieu de 899 €). Le prix payé reste 359,99 €.
+
+## 2026-10-30
+
+### ✨ Added
+
+- **Docs** : `docs/mots-bannis-chat-webinaire.csv` — filtre chat webinaire soft (insultes graves + focus arnaques en ligne, accès pirate, phishing, spam).
+
 ## 2026-10-27
 
 ### 🚀 Improved

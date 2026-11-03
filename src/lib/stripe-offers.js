@@ -147,8 +147,8 @@ export function purchaseContentName(plan) {
   return "YoGyFace";
 }
 
-/** true = après checkout Studio, Stripe envoie sur /vente-upsell (pack). */
-export const UPSELL_ENABLED = true;
+/** false = après checkout Studio, confirmation directe. true = /vente-upsell (pack). */
+export const UPSELL_ENABLED = false;
 
 /** Studio (/vente, /vente-6x, /vente-10x) → pack. Pas VIP. */
 export function shouldShowUpsell(plan) {

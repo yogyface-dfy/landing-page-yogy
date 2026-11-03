@@ -57,7 +57,7 @@ const OFFERS = {
     once: {
       plan: "studio-once",
       price: "359,99",
-      was: 899,
+      was: 699,
     },
     installments: [
       { plan: "studio-4x", times: 4, amount: "89,99" },
@@ -81,7 +81,7 @@ const OFFERS = {
     once: {
       plan: "studio-6x",
       price: "359,99",
-      was: 899,
+      was: 699,
     },
     installments: [
       { plan: "studio-4x", times: 4, amount: "89,99" },
@@ -109,7 +109,7 @@ const VIP_BONUSES = [
 ];
 
 // VIP / lancement public (plus de colonne « après lancement »).
-// Ancre marketing : VIP 299 € / Studio public 359,99 € (899 € barré).
+// Ancre marketing : VIP 299 € / Studio public 359,99 € (699 € barré).
 const COMPARE = [
   { label: "Prix du programme", vip: "299 €", was: "999 €", public: "359,99 €" },
   {
