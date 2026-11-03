@@ -6,6 +6,7 @@
 
 - **Upsell** : caché (`UPSELL_ENABLED = false`). Après paiement Studio → `/confirmation-achat-bienvenue` directement. `/vente-upsell` redirige aussi.
 - **`/vente` et `/vente-6x`** : prix barré Studio **699 €** (au lieu de 899 €). Le prix payé reste 359,99 €.
+- **Pages vente** : section « Des résultats visibles, dans le miroir » remontée juste sous le tableau « Tout ce que tu reçois ».
 
 ## 2026-10-30
 

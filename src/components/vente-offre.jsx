@@ -763,7 +763,7 @@ export default function VenteOffre({ variant }) {
             </div>
           </div>
 
-          <div className="order-2 text-center md:text-left">
+          <div className="order-2 min-w-0 text-center md:text-left">
             {/* Pastille / accroche : VIP seulement (/vente + /vente-10x allégés). */}
             {isVip && (
               <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-corail/10 text-corail text-[11px] font-semibold uppercase tracking-widest mb-4">
@@ -900,10 +900,15 @@ export default function VenteOffre({ variant }) {
             {!isVip && studioClosed && (
               <PayCta {...pay} onceLabel={joinLabel} alignClass="md:mx-0" />
             )}
-            {/* Mobile : stacked value juste avant l'encart prix. */}
+            {/* Mobile : stacked value, puis avant/après, puis l'encart prix. */}
             {!isVip && !studioClosed && (
               <div className="md:hidden mb-5 text-left">
                 <VenteValeur price={offer.once.price} compact />
+              </div>
+            )}
+            {!isVip && !studioClosed && (
+              <div className="md:hidden mb-6 min-w-0 max-w-full">
+                <VenteResultats cta={<PayCta {...pay} onceLabel={joinLabel} />} />
               </div>
             )}
             {!isVip && !studioClosed && (
@@ -969,6 +974,10 @@ export default function VenteOffre({ variant }) {
       {/* Desktop : stacked value à sa place d'origine. Mobile : déjà dans le hero. */}
       <div className="hidden md:block">
         <VenteValeur price={offer.once.price} />
+      </div>
+      {/* Avant/après juste sous le tableau. Sur mobile Studio, il est déjà dans le hero. */}
+      <div className={!isVip && !studioClosed ? "hidden md:block" : undefined}>
+        <VenteResultats cta={<PayCta {...pay} onceLabel={joinLabel} />} />
       </div>
       <VenteGarantie />
 
@@ -1157,8 +1166,6 @@ export default function VenteOffre({ variant }) {
           </div>
         </div>
       </section>
-
-      <VenteResultats cta={<PayCta {...pay} onceLabel={joinLabel} />} />
 
       <VenteTemoignagesVideo />
 

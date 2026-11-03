@@ -43,7 +43,11 @@ export default function VenteResultats({ cta, proof = '4.9/5 · 1200+ femmes dé
   useEffect(() => {
     const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches
     if (paused || reduce) return
-    const id = setInterval(() => goTo(indexRef.current + 1), INTERVAL_MS)
+    // La copie masquée (mobile ou desktop) ne doit pas faire défiler l'autre.
+    const id = setInterval(() => {
+      if (!scroller.current || scroller.current.getClientRects().length === 0) return
+      goTo(indexRef.current + 1)
+    }, INTERVAL_MS)
     return () => clearInterval(id)
   }, [paused])
 
