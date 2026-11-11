@@ -1,6 +1,36 @@
 # Changelog
 
+## 2026-11-11
+
+### 🐛 Fixed
+
+- **DataFast / Stripe** : avant checkout, flush + attente du `visitorId` cookieless (sinon ~1/3 des paiements sans goal `payment`).
+
+### 🚀 Improved
+
+- **DataFast** : `flushInterval` 1s + flush précoce à l’init cookieless ; warn serveur si checkout sans `datafast_visitor_id`.
+
+## 2026-11-07
+
+### 📚 Documentation
+
+- **Extracts Stripe** : fichiers Bechacq déplacés dans `docs/BECHACQ/` ; dossier vide `docs/IRINA/` prêt pour la même manip.
+- **Irina** : version filtrée (≥ 2026-04-10) dans `docs/IRINA/irina_extrat_pi_from_2026-04-10.json` (l’original doit être re-déposé en `irina_extrat_pi.json`).
+- **Irina** : résumé PI + listes IDs invoices (`irina-payment-intents-*.csv`, `irina-ids-*.csv`) — noms produit absents sur les PI (abos).
+- **Irina** : merge `irina-ids-factures_RESULTATS.json` → `irina_extrat_pi_enriched.json` + listes par produit (RECODE 4×/6×).
+- **Irina** : master unique `irina-master.json` (+ CSV transactions/clientes) et synthèse `irina-synthese.pdf`.
+
+## 2026-11-05
+
+### 📚 Documentation
+
+- **Avant/après** : `docs/charte-avant-apres.md` — image 1000×600 et pastilles / légende posées par le site.
+
 ## 2026-11-03
+
+### ✨ Added
+
+- **Script** : `scripts/send-wj-live-link.mjs` — mail « problème technique » avec le `wj_live_link` des inscrites `YOGYFACE - STUDIO - 03/11/2026`, envoyé par Resend (lots de 100, reprise sur 429/5xx, une adresse invalide n'arrête pas le reste). Défaut = dry run.
 
 ### 🔧 Changed
 

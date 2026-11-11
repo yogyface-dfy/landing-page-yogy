@@ -102,10 +102,20 @@ const loadDataFast = (cookieless) => {
       websiteId: DATAFAST_WEBSITE_ID,
       domain: DATAFAST_DOMAIN,
       cookieless,
+      // Cookieless : le visitorId serveur n’arrive qu’après flush — 1s > 5s défaut.
+      flushInterval: 1000,
       autoCapturePageviews: { captureInitialPageview: !migrated },
     })
     df = client
     dfCookieless = cookieless
+    // autoCapture enfile la pageview en async — petit délai puis flush pour l’id serveur.
+    if (cookieless && !migrated) {
+      sleep(200)
+        .then(() => client.flush?.())
+        .catch((err) => {
+          console.error('[analytics] DataFast early flush failed', err)
+        })
+    }
     return client
   }).catch((err) => {
     console.error('[analytics] DataFast init failed', err)
@@ -145,17 +155,67 @@ export const capturePageview = () => {
   if (ph) ph.capture('$pageview')
 }
 
-// IDs DataFast pour l'attribution Stripe (cookies après Accept, sinon le client).
+const sleep = (ms) => new Promise((resolve) => setTimeout(resolve, ms))
+
+// Cookie, sessionStorage cookieless, ou window.datafast.visitorId (SDK).
+function readDfId(name) {
+  try {
+    const raw = document.cookie.match(new RegExp(`(?:^|; )${name}=([^;]*)`))
+    if (raw) return decodeURIComponent(raw[1])
+  } catch {
+    /* ignore */
+  }
+  try {
+    const fromSession = sessionStorage.getItem(name)
+    if (fromSession) return fromSession
+  } catch {
+    /* ignore */
+  }
+  if (name === 'datafast_visitor_id') {
+    try {
+      const fromWindow = window.datafast?.visitorId
+      if (typeof fromWindow === 'string' && fromWindow) return fromWindow
+    } catch {
+      /* ignore */
+    }
+  }
+  return ''
+}
+
+// IDs DataFast pour l'attribution Stripe.
+// Cookieless : getVisitorId() reste null tant que le 1er flush n’a pas renvoyé l’id serveur.
 export async function getDataFastIds() {
   try {
+    if (!df && !dfPromise) {
+      loadDataFast(getConsent() !== 'granted')
+    }
     let client = df
     if (!client && dfPromise) client = await dfPromise
-    const readCookie = (name) => {
-      const raw = document.cookie.match(new RegExp(`(?:^|; )${name}=([^;]*)`))
-      return raw ? decodeURIComponent(raw[1]) : ''
+
+    let vid = client?.getVisitorId?.() || readDfId('datafast_visitor_id')
+    let sid = client?.getSessionId?.() || readDfId('datafast_session_id')
+
+    // Force le flush + poll court : sinon ~1/3 des checkouts partent sans metadata DF.
+    if (client && !vid) {
+      try {
+        await client.flush?.()
+        vid = client.getVisitorId?.() || readDfId('datafast_visitor_id')
+        // Queue vide (race pageview) → renvoie une pageview puis re-flush.
+        if (!vid && client.trackPageview) {
+          await client.trackPageview()
+          await client.flush?.()
+        }
+      } catch (err) {
+        console.error('[analytics] DataFast flush before ids failed', err)
+      }
+      const deadline = Date.now() + 2000
+      while (!vid && Date.now() < deadline) {
+        await sleep(100)
+        vid = client.getVisitorId?.() || readDfId('datafast_visitor_id')
+      }
+      sid = client.getSessionId?.() || readDfId('datafast_session_id') || sid
     }
-    const vid = client?.getVisitorId?.() || readCookie('datafast_visitor_id')
-    const sid = client?.getSessionId?.() || readCookie('datafast_session_id')
+
     return {
       ...(vid ? { datafast_visitor_id: vid } : {}),
       ...(sid ? { datafast_session_id: sid } : {}),
