@@ -66,12 +66,13 @@ export function readPrefillEmail(searchParams) {
   return sessionStorage.getItem(PREFILL_EMAIL_KEY) || ''
 }
 
-/** firstname + phone depuis l'URL (?firstname= & ?phone=) puis session. */
+/** firstname + phone depuis l'URL (?firstname= / ?name= & ?phone=) puis session. */
 export function readPrefillContact(searchParams) {
   const firstFromUrl =
     searchParams?.get('firstname') ||
     searchParams?.get('first_name') ||
     searchParams?.get('prenom') ||
+    searchParams?.get('name') ||
     ''
   const phoneFromUrl = searchParams?.get('phone') || searchParams?.get('tel') || ''
   const firstName = normalizeFirstName(firstFromUrl)

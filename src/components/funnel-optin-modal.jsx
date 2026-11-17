@@ -3,8 +3,10 @@ import { useNavigate } from 'react-router-dom'
 import FunnelLiveDate from './funnel-live-date'
 import PhoneField from './phone-field'
 import { enrollAtelier } from '../lib/funnel'
+import { rememberRecordId } from '../lib/funnel-track'
 import { checkEmailDomain } from '../lib/email-check'
 import { PHONE_COUNTRIES, PHONE_TRUST_MESSAGE, toE164 } from '../lib/phone-countries'
+import { readPrefillContact, readPrefillEmail } from '../lib/stripe-checkout'
 
 /**
  * Popup d'inscription atelier.
@@ -87,13 +89,27 @@ export default function FunnelOptinModal({ open, onClose }) {
       if (email !== form.email.trim()) {
         setForm((v) => ({ ...v, email }))
       }
-      await enrollAtelier({
+      const result = await enrollAtelier({
         email,
         prenom: form.prenom,
         phone,
         country: form.iso,
       })
-      navigate('/confirmation-inscription')
+      // Garde les query de la landing (utm…) + lead pour la suite du funnel.
+      const q = new URLSearchParams(window.location.search)
+      if (result?.id) {
+        rememberRecordId(result.id)
+        q.set('recordId', result.id)
+      }
+      if (email) q.set('email', email)
+      const prenom = String(form.prenom || '').trim()
+      if (prenom) q.set('firstname', prenom)
+      if (phone) q.set('phone', phone)
+      // Session : l’embed Custom One reprend name/email/phone même si l’URL est tronquée.
+      readPrefillEmail(q)
+      readPrefillContact(q)
+      const qs = q.toString()
+      navigate(qs ? `/confirmation-inscription?${qs}` : '/confirmation-inscription')
     } catch (err) {
       console.error('Atelier opt-in error:', err)
       const msg = String(err?.message || '')

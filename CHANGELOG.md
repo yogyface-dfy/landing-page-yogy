@@ -1,5 +1,51 @@
 # Changelog
 
+## 2026-11-18
+
+### 🐛 Fixed
+
+- **Meta Lead `/atelier-gratuit`** : plus de CAPI `Lead` en parallèle du Pixel — Prospects était ~2× Inscription/CRM (dédup Meta non fiable). Reste `fbq Lead` + conv. perso Inscription (thank-you). (Webi `/optin` aligné : CAPI Lead coupé aussi.)
+
+## 2026-11-17
+
+### ✨ Added
+
+- **Funnel → Airtable** : beacon client → `POST /api/funnel/track` → PATCH Inscriptions (`open` 1×, `watch` max, `cta` / `whatsapp` timestamp). Pages : confirmation-optin, video-01/02/03 (+ video-123 open), cadeau1–3, replay-gratuit, bonus-live.
+- **Opt-in** : `recordId` (+ email / firstname / phone) propagé vers `/confirmation-inscription` (session + query).
+- **`withLeadQuery` / `FunnelLink`** : chaque lien funnel reprend les query de l’URL (+ lead session).
+- **Quiz confirm** : `VITE_CONFIRM_QUIZ_URL` (Custom One) ; mock interactif si vide. Photo Jeanne `public/atelier/jeanne.jpg`.
+- **Custom One embed** : passe `name`/`firstname` + `email` + `phone` ; `bypass=1` seulement si les 3 sont là (saute le contact) ; opt-in stash session.
+
+### 🚀 Improved
+
+- **Confirm quiz** : plus d’air au-dessus de l’embed + iframe moins haute (720) ; `scroll-margin` pour le marquee sticky.
+
+### 🔧 Changed
+
+- **`/confirmation-inscription`** : « Mon assistante te contactera » → « Elle te contactera ».
+- **`FunnelPlayer`** : prop `trackPage` pour milestones watch HTML5 (25 %, pause, ended, pagehide).
+- **CTA funnel** (`FunnelCtaLink`, thumbs vidéo, nav cadeaux, webi, footer légal) : query portées page → page.
+- **`/confirmation-inscription`** : redesign (marquee, VSL étape 1, WhatsApp VIP + Jeanne, quiz profil visage) ; tracking open/watch/whatsapp conservé ; Navbar masquée.
+- **`/video-01|02|03`** : format Maydi (pill, titre script, lecteur + ✦, étapes espace perso → WhatsApp) ; `GET /api/calendar/atelier` (.ics).
+- **Vidéos bonus** : déblocage via `?max=1|2|3` (comme Maydi) — être sur N débloque 1…N ; les thumbs portent `max` pour revenir (03 → 01 → 03).
+
+## 2026-11-12
+
+### 🔧 Changed
+
+- **Paper #26** : redo exact `20A H-4 LAST CHANCE` (root `BC4-0` / fiche `11A-0`) — white card bordeaux, résultats, 6 témoignages, 3 CTAs.
+- **Paper #24** : redo exact `19A J+5 paiement 10x` (root `B7U-0` / fiche `ZQ-0`) — white card bordeaux, header Laury, stats, bonuses, garantie, CTAs.
+- **Paper #22** : redo exact STUDIO `18A J+4 FAQ absents` (root `B57-0` / fiche `Y6-0`) — garantie image, FAQ cards, green CTA, deadline.
+- **Paper #20** : redo exact STUDIO `17A J+3 dernier replay` (root `B3W-0` / fiche `WM-0`) — deadline, energy box, secrets, CTA, yellow surprise, PS.
+- **Paper #18** : redo exact STUDIO `16A J+2 détails absents` (root `B23-0` / fiche `V2-0`) — témoignages CTA, grey boxes, JE REJOINS, footer.
+- **Paper #16** : redo exact STUDIO `15A J+1 BONUS absents` (root `B0B-0` / fiche `TI-0`) — CTA, 3 bonus, 3 coral boxes, tagline.
+- **Paper #14** : redo exact STUDIO `14A J+1 replay absents` (root `AYU-0` / fiche `RY-0`) — dual CTAs, secrets, urgency 2j, PS.
+
+### 📚 Documentation
+
+- **Emails pre/post webi** : import de `emails-v2` (challenge show-up) dans `emails/pre-post-webi/` (01–09 + `review.html`).
+- **Emails pre/post webi v2** : export API ActiveCampaign auto `#30` (`YOGY- WEBI - MARDI`) → `emails/pre-post-webi-v2/` (37 HTML + meta + `_index.json`).
+
 ## 2026-11-11
 
 ### 🐛 Fixed

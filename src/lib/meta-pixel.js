@@ -193,28 +193,14 @@ export function fireWaitlistConversion(payload) {
 }
 
 /**
- * Lead atelier — pixel si chargé + CAPI (email hashé serveur).
- * Même event_id pour la dédup. CAPI part même si le bandeau est masqué.
+ * Lead atelier — Pixel only.
+ * On ne renvoie plus de Lead CAPI : Pixel + CAPI sans dédup Meta fiable
+ * gonflait Prospects ≈ 2× vs Inscription/CRM. PageView + Lead navigateur suffisent.
  */
 export function fireAtelierLead({ email, phone, firstName } = {}) {
   loadMetaPixel()
   const eventId = newEventId()
-  const { fbp, fbc } = getFbCookies()
   fbSetUser({ email, phone, firstName })
+  // eventID conservé au cas où on réactive la CAPI plus tard (dédup).
   fbTrack('Lead', { content_name: 'atelier-gratuit' }, { eventId })
-  fetch('/api/capi-event', {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({
-      eventName: 'Lead',
-      eventId,
-      pageUrl: `${window.location.origin}/atelier-gratuit`,
-      email,
-      phone: phone || '',
-      firstName: firstName || '',
-      fbp,
-      fbc,
-    }),
-    keepalive: true,
-  }).catch(() => {})
 }

@@ -1,8 +1,10 @@
-import { Link } from 'react-router-dom'
 import FunnelFooter from '../components/funnel-footer'
 import { FunnelYoutube } from '../components/funnel-player'
+import { FunnelCtaLink, FunnelOpenBeacon } from '../components/funnel-track'
 import SEO from '../components/SEO'
 import { LIVE_BONUSES } from '../lib/funnel'
+
+const PAGE = 'bonus-live'
 
 export default function BonusLive() {
   return (
@@ -13,6 +15,7 @@ export default function BonusLive() {
         path="/bonus-live"
         noindex
       />
+      <FunnelOpenBeacon page={PAGE} />
 
       <section className="relative pt-28 md:pt-32 pb-20 px-[5%] overflow-hidden">
         <div className="absolute inset-0 bg-gradient-to-b from-rose/25 via-white to-creme pointer-events-none" />
@@ -41,9 +44,14 @@ export default function BonusLive() {
           </div>
 
           <div className="text-center mt-14">
-            <Link to="/vente" className="btn-corail inline-flex text-sm md:text-base px-8 py-3.5">
+            <FunnelCtaLink
+              page={PAGE}
+              event="cta"
+              to="/vente"
+              className="btn-corail inline-flex text-sm md:text-base px-8 py-3.5"
+            >
               Studio : Découvrir la Méthode YoGyFace Studio
-            </Link>
+            </FunnelCtaLink>
           </div>
         </div>
       </section>

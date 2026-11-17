@@ -1,7 +1,8 @@
-import { Link, useLocation } from 'react-router-dom'
+import { useLocation } from 'react-router-dom'
 import FunnelFooter from '../components/funnel-footer'
 import FunnelLiveDate from '../components/funnel-live-date'
 import FunnelPlayer, { FunnelYoutube } from '../components/funnel-player'
+import { FunnelLink, FunnelOpenBeacon } from '../components/funnel-track'
 import SEO from '../components/SEO'
 import {
   GIFTS,
@@ -11,8 +12,15 @@ import {
 } from '../lib/funnel'
 
 function GiftBody({ gift }) {
+  // cadeau1 = MP4 tracké ; cadeau2/3 = open only (hosting HTML5 plus tard).
   if (gift.kind === 'video') {
-    return <FunnelPlayer src={gift.src} title={gift.title} />
+    return (
+      <FunnelPlayer
+        src={gift.src}
+        title={gift.title}
+        trackPage={`cadeau${gift.n}`}
+      />
+    )
   }
 
   if (gift.kind === 'ebook') {
@@ -89,14 +97,14 @@ function GiftNav({ unlocked, current }) {
           return (
             <li key={g.n}>
               {open ? (
-                <Link
+                <FunnelLink
                   to={g.path}
                   className={`block rounded-2xl border p-2 text-center ${
                     active ? 'border-corail bg-corail/8' : 'border-noir/8 bg-white'
                   }`}
                 >
                   {card}
-                </Link>
+                </FunnelLink>
               ) : (
                 <div className="block rounded-2xl border border-noir/8 bg-white/60 p-2 text-center">
                   {card}
@@ -115,6 +123,8 @@ export default function FunnelCadeau() {
   const all = pathname === '/cadeaux-123'
   const gift = giftFromPath(pathname)
   const unlocked = giftUnlockLevel(pathname)
+  // Open : slug cadeauN (pas cadeaux-123 — hors scope v1).
+  const openPage = all ? null : `cadeau${gift.n}`
 
   return (
     <>
@@ -128,6 +138,7 @@ export default function FunnelCadeau() {
         path={pathname}
         noindex
       />
+      {openPage ? <FunnelOpenBeacon page={openPage} /> : null}
 
       <section className="relative pt-28 md:pt-32 pb-20 px-[5%] overflow-hidden">
         <div className="absolute inset-0 bg-gradient-to-b from-rose/25 via-white to-creme pointer-events-none" />

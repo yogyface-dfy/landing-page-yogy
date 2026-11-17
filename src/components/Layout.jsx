@@ -64,8 +64,13 @@ const personJsonLd = {
 
 export default function Layout() {
   const { pathname, search } = useLocation()
-  // Tunnel upsell : Oui / Non uniquement — pas de nav, footer, cookies, ticker.
-  const bare = pathname === '/vente-upsell'
+  // Upsell + confirmation + vidéos bonus : chrome dédié (pas de Navbar logo).
+  const bare =
+    pathname === '/vente-upsell' ||
+    pathname === '/confirmation-inscription' ||
+    pathname === '/video-01' ||
+    pathname === '/video-02' ||
+    pathname === '/video-03'
   // Offre + liste fermée + légal depuis le tunnel : logo seul, pas de nav/footer.
   const flash = pathname === '/vente-10x'
   const funnel =

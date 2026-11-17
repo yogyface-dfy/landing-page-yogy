@@ -81,16 +81,30 @@ function parisParts(date) {
   }
 }
 
+/** Prochain mardi live (YMD + Date UTC noon) — après 20h Paris le mardi → +7. */
+export function nextTuesdayLiveParts(now = new Date()) {
+  const p = parisParts(now)
+  let add = (2 - p.weekday + 7) % 7
+  if (add === 0 && p.hour >= 20) add = 7
+  const target = new Date(Date.UTC(p.year, p.month - 1, p.day + add, 12))
+  const y = target.getUTCFullYear()
+  const m = target.getUTCMonth() + 1
+  const d = target.getUTCDate()
+  return {
+    y,
+    m,
+    d,
+    ymd: `${y}-${String(m).padStart(2, '0')}-${String(d).padStart(2, '0')}`,
+    target,
+  }
+}
+
 /**
  * Prochain mardi 20h (Paris). Dès que ce créneau est passé → mardi suivant.
  * Ex. « Mardi 13 octobre à 20h »
  */
 export function nextTuesdayLiveLabel(now = new Date()) {
-  const p = parisParts(now)
-  let add = (2 - p.weekday + 7) % 7
-  // Mardi déjà 20h (ou plus tard) → on bascule sur mardi + 7.
-  if (add === 0 && p.hour >= 20) add = 7
-  const target = new Date(Date.UTC(p.year, p.month - 1, p.day + add, 12))
+  const { target } = nextTuesdayLiveParts(now)
   const date = new Intl.DateTimeFormat('fr-FR', {
     timeZone: PARIS,
     weekday: 'long',
@@ -106,28 +120,52 @@ export const VIDEOS = [
   {
     slug: '01',
     path: '/video-01',
+    // Titre court (script) + résumé sous le hero — format Maydi.
+    shortTitle: 'Les lobbies',
     title: 'Les secrets cachés des lobbies cosmétiques et pharmaceutiques',
+    summary:
+      'Ce que l’industrie ne te dit pas — et pourquoi ton visage en paie le prix.',
     src: `${CF}/69f31aa8dfc219.23664402_videobonus1.mp4`,
     poster: '/videos/funnel-bonus-01.png',
   },
   {
     slug: '02',
     path: '/video-02',
+    shortTitle: 'Ma mission',
     title: "Comment j'ai transformé ma souffrance en mission de vie",
+    summary:
+      'Mon histoire, d’où je viens, et pourquoi j’ai créé YoGyFace.',
     src: `${CF}/69f329caa730c0.98540995_VIDEOBONUS2_compressed.mp4`,
     poster: '/videos/funnel-bonus-02.png',
   },
   {
     slug: '03',
     path: '/video-03',
+    shortTitle: 'La motivation',
     title: 'La vraie raison derrière ton manque de motivation',
+    summary:
+      'Pourquoi tu n’arrives pas à tenir — et comment sortir du mode survie.',
     src: `${CF}/69f32a17481c30.20770819_V1VIDEOBONUS31_compressed.mp4`,
     poster: '/videos/funnel-bonus-03.png',
   },
 ]
 
+/** Contact Gmail prérempli (étape « ajoute à tes contacts »). */
+export const ATELIER_CONTACT = {
+  email: 'contact@yogyface.fr',
+  givenName: 'Laury',
+  familyName: 'YoGyFace',
+  label: 'YoGyFace',
+}
+
 export const CONFIRM_VIDEO_SRC = `${CF}/6910b53c95f74_VALITADIONINSCRIPTIONSANSALICIA.mp4`
 export const CONFIRM_VIDEO_POSTER = '/videos/funnel-confirm.webp'
+export const CONFIRM_VIDEO_DURATION = '5 min 55'
+/** Quiz Custom One (override possible via VITE_CONFIRM_QUIZ_URL). */
+export const CONFIRM_QUIZ_URL = String(
+  import.meta.env.VITE_CONFIRM_QUIZ_URL || 'https://quiz.yogyface.fr/embed/86mk2x6zqy',
+).trim()
+export const CONFIRM_JEANNE_PHOTO = '/atelier/jeanne.jpg'
 
 export const YOUTUBE_LAURY = 'https://www.youtube.com/@LauryYoGyFace'
 

@@ -1,9 +1,11 @@
-import { useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
+import { sendFunnelTrack } from '../lib/funnel-track'
 import { youtubeIdFrom } from '../lib/youtube'
 
 /**
  * Lecteur landscape (façade play, puis <video>).
  * preload=metadata : les fichiers Systeme.io font 50–700 Mo.
+ * `trackPage` : slug funnel → watch% / watch_seconds Airtable.
  */
 export default function FunnelPlayer({
   src,
@@ -12,6 +14,7 @@ export default function FunnelPlayer({
   className = 'aspect-video',
   // Funnel posters Systeme.io ont déjà un play gravé. Les témoignages /vente, non.
   showPlay = false,
+  trackPage,
 }) {
   const [active, setActive] = useState(false)
   if (!src) return null
@@ -21,17 +24,7 @@ export default function FunnelPlayer({
   return (
     <div className={`relative ${className} w-full overflow-hidden rounded-2xl bg-noir shadow-lg`}>
       {active ? (
-        <video
-          className="absolute inset-0 h-full w-full"
-          src={src}
-          poster={poster}
-          controls
-          playsInline
-          autoPlay
-          preload="metadata"
-        >
-          Ton navigateur ne lit pas la vidéo.
-        </video>
+        <TrackedHtmlVideo src={src} poster={poster} trackPage={trackPage} />
       ) : (
         <button
           type="button"
@@ -55,6 +48,72 @@ export default function FunnelPlayer({
         </button>
       )}
     </div>
+  )
+}
+
+/** HTML5 video + beacons watch (milestones 25 %, pause, ended, pagehide). */
+function TrackedHtmlVideo({ src, poster, trackPage }) {
+  const ref = useRef(null)
+  const lastSentPct = useRef(0)
+
+  useEffect(() => {
+    const el = ref.current
+    if (!el || !trackPage) return
+
+    const report = (force = false) => {
+      const duration = el.duration
+      if (!Number.isFinite(duration) || duration <= 0) return
+      const sec = el.currentTime || 0
+      let pct = Math.round((sec / duration) * 100)
+      if (pct > 100) pct = 100
+      if (!force && pct < lastSentPct.current + 25) return
+      lastSentPct.current = Math.max(lastSentPct.current, pct)
+      sendFunnelTrack({
+        page: trackPage,
+        event: 'watch',
+        watchPct: pct,
+        watchSec: Math.round(sec),
+      })
+    }
+
+    const onTimeUpdate = () => report(false)
+    const onPause = () => report(true)
+    const onEnded = () => {
+      lastSentPct.current = 100
+      sendFunnelTrack({
+        page: trackPage,
+        event: 'watch',
+        watchPct: 100,
+        watchSec: Math.round(el.duration || el.currentTime || 0),
+      })
+    }
+    const onHide = () => report(true)
+
+    el.addEventListener('timeupdate', onTimeUpdate)
+    el.addEventListener('pause', onPause)
+    el.addEventListener('ended', onEnded)
+    window.addEventListener('pagehide', onHide)
+    return () => {
+      el.removeEventListener('timeupdate', onTimeUpdate)
+      el.removeEventListener('pause', onPause)
+      el.removeEventListener('ended', onEnded)
+      window.removeEventListener('pagehide', onHide)
+    }
+  }, [trackPage, src])
+
+  return (
+    <video
+      ref={ref}
+      className="absolute inset-0 h-full w-full"
+      src={src}
+      poster={poster}
+      controls
+      playsInline
+      autoPlay
+      preload="metadata"
+    >
+      Ton navigateur ne lit pas la vidéo.
+    </video>
   )
 }
 

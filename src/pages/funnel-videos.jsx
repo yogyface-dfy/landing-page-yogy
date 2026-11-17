@@ -1,6 +1,7 @@
 import FunnelFooter from '../components/funnel-footer'
 import FunnelLiveDate from '../components/funnel-live-date'
 import FunnelPlayer from '../components/funnel-player'
+import { FunnelOpenBeacon } from '../components/funnel-track'
 import SEO from '../components/SEO'
 import { VIDEOS } from '../lib/funnel'
 
@@ -13,6 +14,8 @@ export default function FunnelVideos() {
         path="/video-123"
         noindex
       />
+      {/* Open page agrégée ; watch par slot → colonnes video-01/02/03. */}
+      <FunnelOpenBeacon page="video-123" />
 
       <section className="relative pt-28 md:pt-32 pb-20 px-[5%] overflow-hidden">
         <div className="absolute inset-0 bg-gradient-to-b from-rose/25 via-white to-creme pointer-events-none" />
@@ -36,7 +39,12 @@ export default function FunnelVideos() {
                 <h2 className="font-display text-[clamp(1.25rem,3vw,1.7rem)] font-black leading-tight tracking-tight text-noir mb-4">
                   {v.title}
                 </h2>
-                <FunnelPlayer src={v.src} title={v.title} poster={v.poster} />
+                <FunnelPlayer
+                  src={v.src}
+                  title={v.title}
+                  poster={v.poster}
+                  trackPage={`video-${v.slug}`}
+                />
               </article>
             ))}
           </div>

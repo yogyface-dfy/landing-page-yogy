@@ -1,8 +1,10 @@
 import { useEffect, useState } from 'react'
-import { Link } from 'react-router-dom'
 import FunnelFooter from '../components/funnel-footer'
 import { FunnelYoutube } from '../components/funnel-player'
+import { FunnelCtaLink, FunnelOpenBeacon } from '../components/funnel-track'
 import SEO from '../components/SEO'
+
+const PAGE = 'replay-gratuit'
 
 /** Id YouTube via /api/replay (short link go.yogyface.fr/replay-yt). */
 function useReplayId() {
@@ -33,6 +35,7 @@ export default function ReplayGratuit() {
         path="/replay-gratuit"
         noindex
       />
+      <FunnelOpenBeacon page={PAGE} />
 
       <section className="relative min-h-[80vh] pt-28 md:pt-32 pb-20 px-[5%] overflow-hidden">
         <div className="absolute inset-0 bg-gradient-to-b from-rose/25 via-white to-creme pointer-events-none" />
@@ -55,9 +58,14 @@ export default function ReplayGratuit() {
           <FunnelYoutube id={youtubeId} title="Replay de l'atelier" />
 
           <div className="text-center mt-8">
-            <Link to="/vente" className="btn-corail inline-flex text-sm md:text-base px-8 py-3.5">
+            <FunnelCtaLink
+              page={PAGE}
+              event="cta"
+              to="/vente"
+              className="btn-corail inline-flex text-sm md:text-base px-8 py-3.5"
+            >
               Rejoindre le programme
-            </Link>
+            </FunnelCtaLink>
           </div>
         </div>
       </section>

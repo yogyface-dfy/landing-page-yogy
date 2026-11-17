@@ -16,6 +16,7 @@
  *   DATAFAST_BOT_TOKEN    — optionnel (dfbot_…) si auth Bot traffic activée
  *   REPLAY_SHORT_URL      — short link replay (défaut go.yogyface.fr/replay-yt)
  *   WEBI_APP_URL / INSCRIPTION_WEBHOOK_SECRET — identity cookie + ping /vente
+ *   Funnel track : POST /api/funnel/track → PATCH colonnes Inscriptions
  */
 import express from 'express'
 import fs from 'fs'
@@ -40,6 +41,8 @@ import {
 import { ATTRIBUTION_KEYS } from './src/lib/attribution.js'
 import { isValidE164Phone, PHONE_TRUST_MESSAGE } from './src/lib/phone-countries.js'
 import { setHidCookie, readHidCookie } from './lib/hid-cookie.js'
+import { upsertFunnelTrack } from './lib/funnel-track.js'
+import { buildStudioIcs } from './src/lib/studio-calendar.js'
 
 // En local les secrets sont dans .env.local (convention Vite).
 // Sur Railway, les variables sont déjà dans process.env : ces appels sont no-op.
@@ -565,6 +568,56 @@ app.post('/api/vente-hit', async (req, res) => {
   } catch (e) {
     console.error('vente-hit:', e)
     return res.json({ ok: true, known: false })
+  }
+})
+
+/** Beacon funnel (open / watch / cta / whatsapp) → PATCH Inscriptions. */
+app.post('/api/funnel/track', async (req, res) => {
+  try {
+    const body = req.body || {}
+    const page = String(body.page || '')
+    const event = String(body.event || '')
+    const recordId = String(body.recordId || body.rid || '')
+    const email = String(body.email || '').replace(/ /g, '+').trim()
+    const hid = body.h || body.hid || readHidCookie(req)
+    const userId = hidUserId(hid)
+    const result = await upsertFunnelTrack(
+      {
+        page,
+        event,
+        recordId,
+        email,
+        userId,
+        watchPct: body.watchPct,
+        watchSec: body.watchSec,
+      },
+      { pat: PAT, baseId: ATELIER_BASE_ID, tableId: ATELIER_TABLE_ID },
+    )
+    if (result.error === 'INVALID_PAGE' || result.error === 'INVALID_EVENT') {
+      return res.status(400).json({ error: result.error })
+    }
+    if (result.error === 'AIRTABLE_NOT_CONFIGURED') {
+      return res.status(500).json({ error: 'Serveur non configuré' })
+    }
+    // not_found / skip / ok → 200 (client fire-and-forget)
+    return res.json(result)
+  } catch (e) {
+    console.error('funnel track:', e)
+    return res.status(500).json({ error: 'Erreur serveur' })
+  }
+})
+
+/** .ics atelier Studio (mardi 20h Paris) — Apple / clients natifs. */
+app.get('/api/calendar/atelier', (_req, res) => {
+  try {
+    const ics = buildStudioIcs()
+    res.setHeader('Content-Type', 'text/calendar; charset=utf-8')
+    res.setHeader('Content-Disposition', 'attachment; filename="atelier-yogyface.ics"')
+    res.setHeader('Cache-Control', 'no-store')
+    return res.status(200).send(ics)
+  } catch (e) {
+    console.error('calendar ics:', e)
+    return res.status(500).type('text').send('ICS unavailable')
   }
 })
 
