@@ -2,6 +2,10 @@
 
 ## 2026-11-18
 
+### 🔧 Changed
+
+- **`/replay-gratuit`** : le short link `go.yogyface.fr/replay-yt` peut viser un YouTube ou un MP4 du bucket Médias. Lecteur YouTube ou HTML5 selon la destination.
+
 ### 🐛 Fixed
 
 - **Meta Lead `/atelier-gratuit`** : plus de CAPI `Lead` en parallèle du Pixel — Prospects était ~2× Inscription/CRM (dédup Meta non fiable). Reste `fbq Lead` + conv. perso Inscription (thank-you). (Webi `/optin` aligné : CAPI Lead coupé aussi.)

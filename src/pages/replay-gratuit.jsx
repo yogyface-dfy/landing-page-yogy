@@ -1,31 +1,32 @@
 import { useEffect, useState } from 'react'
 import FunnelFooter from '../components/funnel-footer'
-import { FunnelYoutube } from '../components/funnel-player'
+import FunnelPlayer, { FunnelYoutube } from '../components/funnel-player'
 import { FunnelCtaLink, FunnelOpenBeacon } from '../components/funnel-track'
 import SEO from '../components/SEO'
 
 const PAGE = 'replay-gratuit'
 
-/** Id YouTube via /api/replay (short link go.yogyface.fr/replay-yt). */
-function useReplayId() {
-  const [id, setId] = useState('')
+/** YouTube ou MP4 via /api/replay (short link go.yogyface.fr/replay-yt). */
+function useReplayMedia() {
+  const [media, setMedia] = useState({ id: '', src: '' })
   useEffect(() => {
     let cancelled = false
     fetch('/api/replay')
       .then((r) => r.json())
       .then((data) => {
-        if (!cancelled && data?.id) setId(data.id)
+        if (cancelled) return
+        setMedia({ id: data?.id || '', src: data?.src || '' })
       })
       .catch((err) => console.error('replay:', err))
     return () => {
       cancelled = true
     }
   }, [])
-  return id
+  return media
 }
 
 export default function ReplayGratuit() {
-  const youtubeId = useReplayId()
+  const { id: youtubeId, src: mp4Src } = useReplayMedia()
 
   return (
     <>
@@ -55,7 +56,11 @@ export default function ReplayGratuit() {
             </p>
           </div>
 
-          <FunnelYoutube id={youtubeId} title="Replay de l'atelier" />
+          {mp4Src ? (
+            <FunnelPlayer src={mp4Src} title="Replay de l'atelier" trackPage={PAGE} />
+          ) : (
+            <FunnelYoutube id={youtubeId} title="Replay de l'atelier" />
+          )}
 
           <div className="text-center mt-8">
             <FunnelCtaLink
