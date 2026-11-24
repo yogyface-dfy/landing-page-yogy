@@ -25,7 +25,7 @@ export default function Confidentialite() {
               <li><strong>Société :</strong> YGF LLC (Limited Liability Company)</li>
               <li><strong>Siège :</strong> 30 N Gould St Ste R, Sheridan, WY 82801-6317, États-Unis</li>
               <li><strong>Email :</strong> contact@yogyface.fr</li>
-              <li><strong>Sites et services concernés :</strong> yogyface.fr (site de présentation), www.yogyface.fr (pages d'inscription) et webi.yogyface.fr (application du parcours et de l'atelier)</li>
+              <li><strong>Sites et services concernés :</strong> yogyface.fr (site de présentation), www.yogyface.fr (pages d'inscription) et atelier.yogyface.fr (application du parcours et de l'atelier)</li>
             </ul>
           </div>
 
@@ -46,7 +46,7 @@ export default function Confidentialite() {
             <p>Adresse IP, navigateur, pages consultées, durée de visite, provenance, géolocalisation approximative.</p>
             <h3 className="font-semibold text-noir text-sm mt-3 mb-2">Lors de l'inscription/commande :</h3>
             <p>Nom, prénom, email, téléphone, données de paiement (traitées par Stripe, Klarna ou PayPal — nous ne conservons jamais vos données bancaires).</p>
-            <h3 className="font-semibold text-noir text-sm mt-3 mb-2">Dans le cadre du parcours et de l'atelier (application webi.yogyface.fr) :</h3>
+            <h3 className="font-semibold text-noir text-sm mt-3 mb-2">Dans le cadre du parcours et de l'atelier (application atelier.yogyface.fr) :</h3>
             <ul className="space-y-1.5 ml-4 list-disc">
               <li><strong>Vos réponses aux missions :</strong> âge, préoccupations concernant votre visage, type de peau, habitudes de vie, position et qualité de sommeil, niveau de stress, motivation, ainsi que les notes personnelles que vous rédigez librement.</li>
               <li><strong>Votre progression :</strong> missions terminées, score, contenus consultés, temps de visionnage des vidéos, présence et durée de participation à l'atelier en direct.</li>
@@ -129,7 +129,7 @@ export default function Confidentialite() {
                 promesse de consentement. Repasser en version "conforme" (traceurs
                 activés après consentement) une fois la bannière non-bloquante en place
                 côté app — cf. docs/consentement-meta-webi.md. */}
-            <h3 className="font-semibold text-noir text-sm mt-4 mb-2">Application du parcours (webi.yogyface.fr) :</h3>
+            <h3 className="font-semibold text-noir text-sm mt-4 mb-2">Application du parcours (atelier.yogyface.fr) :</h3>
             <p>L'application utilise également le <strong>pixel Meta</strong> et la <strong>Conversions API de Meta</strong> afin de mesurer l'efficacité de nos campagnes publicitaires. Ces traceurs déposent les cookies « _fbp » et « _fbc » et transmettent à Meta Platforms Ireland Ltd. votre adresse e-mail, votre numéro de téléphone et votre prénom sous forme <strong>hachée</strong> (SHA-256, non réversible en pratique), ainsi que votre adresse IP et votre navigateur.</p>
             <p className="mt-2">Vous pouvez vous opposer à ces traceurs via les réglages de votre navigateur et de votre appareil, ainsi que depuis vos préférences publicitaires Meta. Un stockage local technique (« yf_token ») conserve votre session de connexion, et un cookie first-party « yf_hid » (sous-domaine .yogyface.fr) relie le navigateur à votre inscription : ils sont nécessaires au fonctionnement du service et ne servent à aucune finalité publicitaire.</p>
           </div>

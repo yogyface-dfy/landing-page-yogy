@@ -5,7 +5,6 @@ import { FunnelCtaLink, FunnelLink, FunnelOpenBeacon } from '../components/funne
 import SEO from '../components/SEO'
 import {
   VIDEOS,
-  COMPUTER_REMINDER,
   WEBI_URL,
   WHATSAPP_GROUP,
   nextTuesdayLiveLabel,
@@ -184,9 +183,6 @@ export default function FunnelVideo() {
             />
             <p className="mb-4 max-w-[540px] text-left text-[15.5px] leading-relaxed text-gris">
               Prépare l&apos;atelier, découvre des exos en avant-première, et gagne des cadeaux.
-            </p>
-            <p className="mb-4 max-w-[540px] text-left text-[14px] leading-relaxed text-noir">
-              {COMPUTER_REMINDER}
             </p>
             <div className="relative isolate overflow-hidden rounded-[30px] bg-noir px-4 py-5 text-white sm:px-6 sm:py-6">
               <div

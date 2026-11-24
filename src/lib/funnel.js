@@ -53,8 +53,6 @@ export function legalTo(path, fromFunnel) {
 export const WHATSAPP_GROUP = 'https://go.yogyface.fr/whatsapp-group'
 /** Appli pré-webi. Ce n'est pas la salle du live. */
 export const WEBI_URL = 'https://atelier.yogyface.fr'
-/** Rappel quand la page parle du live. Absent de /atelier-gratuit. */
-export const COMPUTER_REMINDER = 'Viens sur ordinateur. Le téléphone sert au WhatsApp.'
 export const LIVE_LABEL = 'Mardi à 20h'
 
 const PARIS = 'Europe/Paris'

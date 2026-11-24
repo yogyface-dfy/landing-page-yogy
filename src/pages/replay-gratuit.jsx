@@ -4,7 +4,6 @@ import FunnelFooter from '../components/funnel-footer'
 import FunnelPlayer, { FunnelYoutube } from '../components/funnel-player'
 import { FunnelCtaLink, FunnelOpenBeacon } from '../components/funnel-track'
 import SEO from '../components/SEO'
-import { COMPUTER_REMINDER } from '../lib/funnel'
 
 const PAGE = 'replay-gratuit'
 
@@ -65,7 +64,6 @@ export default function ReplayGratuit() {
             {day ? (
               <p className="mt-3 text-[14px] font-semibold text-noir">Atelier du {day}</p>
             ) : null}
-            <p className="mt-3 text-[14px] leading-relaxed text-noir">{COMPUTER_REMINDER}</p>
           </div>
 
           {mp4Src ? (

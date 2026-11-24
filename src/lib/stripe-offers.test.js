@@ -32,6 +32,7 @@ test('upsell = guide 29 €, pas l’extension studio', () => {
   const offer = resolveUpsellOffer()
   assert.equal(offer.variant, 'guide')
   assert.equal(offer.amountCents, 2900)
+  assert.equal(offer.compareAtCents, 5900)
   assert.equal(offer.stripePriceId, 'price_1UfIHXAU0KXfGydpFI2wjmGp')
   const meta = upsellStripeMeta({ parentSessionId: 'cs_test', origEmail: 'A@B.CO' })
   assert.equal(meta.product_kind, 'guide_appareils')

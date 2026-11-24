@@ -6,6 +6,8 @@ test('normalizeFirstName', () => {
   assert.equal(normalizeFirstName('  Marin '), 'Marin')
   assert.equal(normalizeFirstName('x'), '')
   assert.equal(normalizeFirstName('test'), '')
+  assert.equal(normalizeFirstName('%FIRSTNAME%'), '')
+  assert.equal(normalizeFirstName('%firstname%'), '')
 })
 
 test('checkout return query', () => {

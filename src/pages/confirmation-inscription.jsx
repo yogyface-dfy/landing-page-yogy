@@ -8,7 +8,6 @@ import {
   CONFIRM_VIDEO_DURATION,
   CONFIRM_VIDEO_POSTER,
   CONFIRM_VIDEO_SRC,
-  COMPUTER_REMINDER,
   WHATSAPP_GROUP,
   legalTo,
 } from '../lib/funnel'
@@ -298,7 +297,6 @@ export default function ConfirmationInscription() {
                   Rejoins le groupe <em>WhatsApp VIP.</em>
                 </h2>
                 <p className="step-sub">C&apos;est là que tout se passe avant l&apos;atelier.</p>
-                <p className="step-sub">{COMPUTER_REMINDER}</p>
               </div>
             </div>
             <div className="vip">

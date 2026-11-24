@@ -191,17 +191,20 @@ export const UPSELL_STRIPE_PRICE_ID = "price_1UfIHXAU0KXfGydpFI2wjmGp";
 export const UPSELL_VARIANTS = {
   guide: {
     amountCents: 2900,
+    compareAtCents: 5900,
     stripeProductId: UPSELL_STRIPE_PRODUCT_ID,
     stripePriceId: UPSELL_STRIPE_PRICE_ID,
     name: "Guide des appareils beauté à domicile",
     nameSub: "Masques LED, stylos, appareils : on fait le tri",
+    image: "/upsell/guide-cover.jpg",
     headline: "Félicitations, tu rejoins YoGyFace STUDIO",
-    sub: "Une dernière question : veux-tu le guide des appareils beauté à domicile ?",
+    sub: "Une dernière question : avant d’acheter un masque ou un stylo, tu veux le guide où je fais le tri ?",
     bullets: [
-      "Masques LED, stylos, microcourants : ce qui marche vraiment, et ce qui est du marketing",
-      "L’avis de Laury, à côté de ce qu’on lit sur Internet",
+      "8 marques passées au crible, dont Nooance, MyBlend, Talika, CurrentBody, Lauvée et ZIIP",
+      "Pour chacune : mon avis de pro, à côté de ce qu’on lit sur Internet",
+      "Ce que j’ai vraiment testé, et ce que je n’ai pas testé",
       "Les 3 chiffres à vérifier avant d’acheter un masque LED",
-      "Codes partenaires inclus dans le guide",
+      "Codes partenaires inclus dans le PDF",
     ],
   },
 };

@@ -1,5 +1,20 @@
 # Changelog
 
+## 2026-11-25
+
+### 🔧 Changed
+
+- **Upsell** : les deux extraits du guide ont les deux tiers du bas floutés.
+- **Upsell** : montage en éventail devant les extraits, pour montrer les 21 pages.
+- **Upsell** : les deux pages nettes sont retirées. Les 21 pages restent en fond, floues.
+- **Upsell** : l’éventail des 21 pages est horizontal, flou un peu plus léger, fondu dans le fond sur les côtés.
+- **Upsell** : sur mobile, l’éventail est sur deux rangées.
+- **Upsell** : le prix indique 29 € en une fois, pas par mois.
+- **Upsell** : le bouton « Oui ! je le veux ! » reste collé en bas de l’écran.
+- **Upsell** : flou de l’éventail encore un peu plus léger.
+- **Upsell** : la mention « en une fois, pas par mois » est retirée.
+- **Upsell** : « Non merci » est un petit texte sous le bouton, plus un bouton.
+
 ## 2026-11-24
 
 ### 🔧 Changed
@@ -9,6 +24,7 @@
 - **Cadeaux** : même déblocage que les vidéos (`?max=1|2|3`, être sur N ouvre 1…N). `/cadeaux-123` redirige vers `/cadeau3`, query conservée.
 - **Upsell** : guide PDF « appareils beauté à domicile » à 29 € (`guide_appareils`, produit `prod_VgfcYNB8PYv8td`). Plus d’extension Studio. Activé après un checkout Studio.
 - **Upsell** : aperçu local `/vente-upsell?preview=1` (localhost seulement, aucun débit).
+- **Upsell** : page guide avec couverture, extraits et prix barré 59 € → 29 €.
 - **Emails pre/post webi v2** : les 8 noms de campagnes reprennent le préfixe ActiveCampaign (`00`, `00b`, `06.j-3`, `07bis. J-2`, `08bis. J-1`, `08bis .JJ`, `08bis.jj`, `09bis`).
 - **Emails pre/post webi v2** : le numéro d’ordre local devant le préfixe du mail est retiré des noms de fichiers (`01-03-j-6-…` → `03-j-6-…`).
 - **CGV** : le Vendeur et le titulaire de la propriété intellectuelle sont **YGF LLC** (plus Laury Anater).
@@ -27,6 +43,18 @@
 - **Rules** : les pages du funnel s’écrivent `https://www.yogyface.fr` (avec `www`).
 - **Plan pages funnel** : écarts rule vs code, page par page, sans les appliquer (`docs/funnel-modifs.md`).
 - **`/atelier-gratuit`** : pas de phrase « viens sur ordinateur ». Ce rappel reste dans les emails.
+- **Rules emails** : `/video-123` et `/cadeaux-123` sont interdits dans un mail. Les 3 vidéos vont sur `/video-03`, les 3 cadeaux sur `/cadeau3`.
+- **Emails pre/post webi v2** : rules appliquées (Coucou, query complète sur les pages `www`, `/video-123` vers `/video-03`, appli `atelier.yogyface.fr`, rappel ordinateur, tutoiement, garantie sous conditions des CGV).
+- **Domaine appli** : `webi.yogyface.fr` est remplacé par `https://atelier.yogyface.fr` dans les mails (y compris l’image de la mission 1), la politique de confidentialité, et l’URL par défaut `WEBI_APP_URL`.
+- **Mails de vente** : l’offre s’appelle Studio. Le prix à payer est 359,99 €, le barré est 699 €, la valeur totale est 1 499 €.
+- **Mail de confirmation** : même découpe que la page (bandeau, pastille, vidéo, WhatsApp), couleurs crème et corail. Pas d’étape profil visage, pas d’image Nifty.
+- **Confirmation** : un tag `%FIRSTNAME%` non fusionné n’est plus affiché comme prénom. Le bandeau défilant ne pousse plus la page hors de l’écran.
+- **Rappel ordinateur** : seulement quand on dit de rejoindre le live. Retiré du WhatsApp, des missions, des vidéos, du replay et des bonus.
+- **Logo des mails** : `https://www.yogyface.fr/logo-yogyface-dark.png`, le même que le mail de confirmation.
+- **Boutons vers l’appli** : `https://atelier.yogyface.fr` porte la même query lead que les pages du funnel.
+- **Tous les CTA des mails** : query lead aussi sur WhatsApp, la salle (`%LIVEROOMLINK%`) et le replay (`%REPLAYROOMLINK%`). Instagram et les réseaux de la société restent sans.
+- **Rules** : Laury parle à la première personne. Jamais « Laury va… ».
+- **Mails v2** : les phrases qui parlaient de Laury à la troisième personne passent en « je ». Les signatures et les témoignages clients restent.
 - **Tiret long** : le titre d’onglet compte, comme le texte de la page.
 
 ## 2026-11-18

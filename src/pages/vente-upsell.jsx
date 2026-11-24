@@ -79,6 +79,56 @@ function Countdown() {
   );
 }
 
+/** Les 21 pages, en fond. Floues : le texte et les codes ne se lisent pas. */
+const GUIDE_PILE = Array.from(
+  { length: 21 },
+  (_, i) => `/upsell/pile/p${String(i + 1).padStart(2, "0")}.jpg`,
+);
+
+/** Une rangée d’éventail. `spread` = écart horizontal, en % du cadre. */
+function GuideFan({ pages, className, cardClass, spread = 36 }) {
+  return (
+    <div className={className}>
+      {pages.map((src, i) => {
+        const t = pages.length < 2 ? 0 : (i / (pages.length - 1)) * 2 - 1;
+        return (
+          <div
+            key={src}
+            className={`absolute bottom-1 overflow-hidden rounded-md bg-white shadow-[0_10px_18px_rgba(40,20,10,0.16)] ring-1 ring-black/10 ${cardClass}`}
+            style={{
+              left: `calc(50% + ${t * spread}%)`,
+              transform: `translateX(-50%) rotate(${t * 6}deg)`,
+              transformOrigin: "center bottom",
+              zIndex: i,
+            }}
+          >
+            <img src={src} alt="" className="w-full scale-105 blur-[1px]" />
+          </div>
+        );
+      })}
+    </div>
+  );
+}
+
+const GUIDE_POINTS = [
+  [
+    "8 marques au crible",
+    "Nooance, MyBlend, Talika, CurrentBody, Lauvée, ZIIP, My SOS Beauty, et d’autres.",
+  ],
+  [
+    "Mon avis, puis Internet",
+    "Ce que j’en pense en tant que pro, à côté de ce qu’on lit en ligne. Les deux ne disent pas toujours la même chose.",
+  ],
+  [
+    "Testé, ou pas",
+    "Je dis ce que j’ai eu entre les mains, et ce que je n’ai pas testé.",
+  ],
+  [
+    "Avant d’acheter",
+    "Les 3 chiffres qui séparent un vrai masque LED d’une belle pub.",
+  ],
+];
+
 /** Colonne verte : `\n` = saut de ligne sous sm ; une ligne dès 640px. */
 function WithValue({ row }) {
   const text = row.bonus || row.with || "";
@@ -331,7 +381,7 @@ function ConfirmDialog({ open, offer, busy, error, onClose, onConfirm }) {
           onClick={onConfirm}
           className={`btn-vert w-full justify-center text-sm md:text-base px-7 py-3.5 ${busy ? "opacity-60" : ""}`}
         >
-          {busy ? "Paiement…" : `Confirmer, ${euros(offer.amountCents)} €`}
+          {busy ? "Paiement…" : `Confirmer, ${euros(offer.amountCents)} € en une fois`}
         </button>
         <button
           type="button"
@@ -508,44 +558,116 @@ export default function VenteUpsell() {
 
               <Countdown />
 
-              <div className="rounded-2xl bg-[#f6ebda] px-4 py-4 md:px-5 md:py-5 mb-10 text-left flex gap-4 items-center">
-                {offer.image && (
-                  <img
-                    src={offer.image}
-                    alt=""
-                    className="w-[7.5rem] h-[7.5rem] md:w-40 md:h-40 rounded-xl object-contain bg-white shrink-0"
-                  />
-                )}
-                <div className="min-w-0">
-                  <p className="font-display font-bold text-[15px] md:text-[17px] text-noir mb-2 leading-snug">
+              <div className="rounded-3xl bg-[#f6ebda] p-4 md:p-6 mb-10 text-left flex flex-col sm:flex-row gap-5 md:gap-7 items-center">
+                <img
+                  src={offer.image || "/upsell/guide-cover.jpg"}
+                  alt="Couverture du guide des appareils beauté à domicile"
+                  className="w-[200px] sm:w-[230px] rounded-xl shadow-[0_18px_40px_rgba(88,16,40,0.28)] shrink-0"
+                />
+                <div className="min-w-0 text-center sm:text-left">
+                  <p className="text-[11px] uppercase tracking-[0.16em] text-bordeaux/70 mb-2">
+                    PDF · novembre 2026
+                  </p>
+                  <p className="font-display font-black text-[1.25rem] md:text-[1.55rem] text-noir leading-tight mb-2">
                     {offer.name}
-                    {offer.nameSub ? (
-                      <>
-                        <br />
-                        <span className="font-semibold text-[13px] md:text-[15px] text-noir/75">
-                          {offer.nameSub}
-                        </span>
-                      </>
-                    ) : null}
                   </p>
+                  {offer.nameSub && (
+                    <p className="text-[14px] md:text-[15px] text-noir/75 leading-snug mb-4">
+                      {offer.nameSub}
+                    </p>
+                  )}
                   <p className="text-[11px] md:text-xs uppercase tracking-wider text-noir/45 mb-1">
-                    Prix
+                    Aujourd’hui
                   </p>
-                  <p className="flex flex-wrap items-baseline gap-x-3 gap-y-1">
+                  <p className="flex flex-wrap items-baseline justify-center sm:justify-start gap-x-3 gap-y-1">
                     {offer.compareAtCents > offer.amountCents && (
-                      <s className="font-display font-bold text-[1.55rem] md:text-[2.1rem] leading-none text-noir/35">
+                      <s className="font-display font-bold text-[1.7rem] md:text-[2.2rem] leading-none text-noir/35">
                         {euros(offer.compareAtCents)} €
                       </s>
                     )}
-                    <span className="font-display font-black text-[2.35rem] md:text-[3rem] leading-none tracking-tight text-[#00c37a]">
+                    <span className="font-display font-black text-[2.6rem] md:text-[3.2rem] leading-none tracking-tight text-[#00c37a]">
                       {euros(offer.amountCents)} €
                     </span>
+                  </p>
+                  <p className="mt-2 text-[13px] text-noir/55">
+                    au lieu de {euros(offer.compareAtCents || offer.amountCents)} €
                   </p>
                 </div>
               </div>
 
+              <p className="text-[15px] md:text-[17px] text-noir/80 leading-relaxed max-w-[640px] mx-auto mb-8">
+                Un masque ou un stylo peut coûter 80 € comme 600 €. Ce guide
+                te dit ce qui marche vraiment, ce qui est du marketing, et quel
+                appareil choisir selon ta peau. Avec mon avis, et ce que disent
+                les études.
+              </p>
+
+              {/* Plein cadre, fondu sur les côtés. Mobile : deux rangées. */}
+              <div
+                className="relative left-1/2 mb-3 h-[300px] w-screen -translate-x-1/2 sm:h-[270px]"
+                aria-hidden
+                style={{
+                  maskImage:
+                    "linear-gradient(to right, transparent 0%, #000 12%, #000 88%, transparent 100%)",
+                  WebkitMaskImage:
+                    "linear-gradient(to right, transparent 0%, #000 12%, #000 88%, transparent 100%)",
+                }}
+              >
+                <div className="pointer-events-none absolute bottom-6 left-1/2 h-10 w-[62%] -translate-x-1/2 rounded-full bg-noir/10 blur-2xl sm:bottom-2" />
+                <GuideFan
+                  pages={GUIDE_PILE.slice(0, 11)}
+                  className="absolute inset-x-0 top-0 h-[165px] sm:hidden"
+                  cardClass="w-[72px]"
+                  spread={42}
+                />
+                <GuideFan
+                  pages={GUIDE_PILE.slice(11)}
+                  className="absolute inset-x-0 bottom-0 h-[165px] sm:hidden"
+                  cardClass="w-[76px]"
+                  spread={42}
+                />
+                <GuideFan
+                  pages={GUIDE_PILE}
+                  className="absolute inset-x-0 bottom-0 hidden h-full sm:block"
+                  cardClass="w-[108px]"
+                />
+              </div>
+              <p className="mb-10 text-[12px] md:text-[13px] uppercase tracking-[0.18em] text-noir/45">
+                21 pages
+              </p>
+
+              <h2 className="font-display font-black text-[clamp(1.25rem,3.4vw,1.8rem)] text-bordeaux mb-5">
+                Dans le guide
+              </h2>
+              <div className="grid sm:grid-cols-2 gap-3 mb-8 text-left">
+                {GUIDE_POINTS.map(([title, text]) => (
+                  <div
+                    key={title}
+                    className="rounded-2xl bg-white/80 border border-noir/5 px-4 py-4"
+                  >
+                    <p className="font-display font-bold text-[15px] text-noir mb-1">
+                      {title}
+                    </p>
+                    <p className="text-[13px] md:text-[14px] text-noir/70 leading-relaxed">
+                      {text}
+                    </p>
+                  </div>
+                ))}
+              </div>
+
+              <blockquote className="max-w-[640px] mx-auto mb-10 rounded-2xl bg-[#841435] text-white px-5 py-5 md:px-7 md:py-6 text-left">
+                <p className="font-serif italic text-[1.05rem] md:text-[1.2rem] leading-snug">
+                  « Une lumière, un appareil, ne va pas régler à lui seul
+                  toutes tes problématiques. Il faut vraiment l’adapter à tes
+                  besoins. »
+                </p>
+                <p className="mt-3 text-[12px] uppercase tracking-[0.14em] text-white/70">
+                  Laury · dans le guide
+                </p>
+              </blockquote>
+
               <h2 className="font-display font-black text-[clamp(1.2rem,3.4vw,1.7rem)] text-bordeaux mb-5">
-                Cette offre contient :
+                Cette offre contient
               </h2>
               <ul className="text-left max-w-[560px] mx-auto space-y-3 mb-10">
                 {(offer.bullets || []).map((b) => (
@@ -553,28 +675,30 @@ export default function VenteUpsell() {
                     key={b}
                     className="flex items-start gap-2.5 text-[14px] md:text-[15px] text-noir/80 leading-relaxed"
                   >
-                    <span className="text-bordeaux font-bold mt-0.5">✓</span>
+                    <span className="text-[#00c37a] font-bold mt-0.5">✓</span>
                     {b}
                   </li>
                 ))}
               </ul>
 
               <UpsellCompare offer={offer} />
+              <div className="h-16" aria-hidden />
 
-              <button
-                type="button"
-                disabled={busy}
-                onClick={openConfirm}
-                className="btn-vert min-w-[220px] justify-center text-sm md:text-base px-10 py-3.5"
-              >
-                Oui ! je le veux !
-              </button>
-              <div>
+              {/* Reste collé en bas pendant le scroll. */}
+              <div className="fixed inset-x-0 bottom-0 z-40 flex flex-col items-center px-[5%] pt-8 pb-[max(0.75rem,env(safe-area-inset-bottom))] bg-gradient-to-t from-[#fff8ec] from-55% to-transparent">
+                <button
+                  type="button"
+                  disabled={busy}
+                  onClick={openConfirm}
+                  className="btn-vert min-w-[220px] justify-center text-sm md:text-base px-10 py-3.5"
+                >
+                  Oui ! je le veux !
+                </button>
                 <button
                   type="button"
                   disabled={busy}
                   onClick={skip}
-                  className="mt-3 inline-flex min-w-[220px] justify-center rounded-full border border-noir/20 bg-white px-10 py-3 text-sm text-noir/70 hover:border-noir/40"
+                  className="mt-2 text-[12px] text-noir/45 underline-offset-2 hover:text-noir/70 hover:underline disabled:opacity-50"
                 >
                   Non merci
                 </button>

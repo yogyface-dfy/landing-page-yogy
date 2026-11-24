@@ -22,6 +22,8 @@ export function normalizeFirstName(value) {
     .slice(0, 60)
   if (s.length < 2) return ''
   if (/^(ygf|test|stripe|customer)$/i.test(s)) return ''
+  // Tag ActiveCampaign non fusionné (%FIRSTNAME%) : ce n'est pas un prénom.
+  if (/%[^%\s]+%/.test(s)) return ''
   return s
 }
 
@@ -83,7 +85,7 @@ export function readPrefillContact(searchParams) {
     return { firstName, phone }
   }
   return {
-    firstName: firstName || sessionStorage.getItem(PREFILL_FIRSTNAME_KEY) || '',
+    firstName: firstName || normalizeFirstName(sessionStorage.getItem(PREFILL_FIRSTNAME_KEY)) || '',
     phone: phone || sessionStorage.getItem(PREFILL_PHONE_KEY) || '',
   }
 }

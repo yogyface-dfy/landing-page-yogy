@@ -155,7 +155,7 @@ const BASE_ID = process.env.AIRTABLE_BASE_ID
 // Tunnel atelier : autre base que la liste d'attente.
 const ATELIER_BASE_ID = process.env.AIRTABLE_ATELIER_BASE_ID || 'appSz9eVZWu6PoA2A'
 const ATELIER_TABLE_ID = process.env.AIRTABLE_ATELIER_TABLE_ID || 'tblgeGEVgkZnDxwfR'
-const WEBI_APP_URL = (process.env.WEBI_APP_URL || 'https://webi.yogyface.fr').replace(/\/$/, '')
+const WEBI_APP_URL = (process.env.WEBI_APP_URL || 'https://atelier.yogyface.fr').replace(/\/$/, '')
 const IDENTIFY_SECRET = process.env.INSCRIPTION_WEBHOOK_SECRET || ''
 
 /** Upsert users côté webi + hid à poser en cookie. Timeout court : l'Airtable atelier reste la source. */
