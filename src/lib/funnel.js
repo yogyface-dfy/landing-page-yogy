@@ -14,10 +14,12 @@ export const FUNNEL_PATHS = [
   '/video-01',
   '/video-02',
   '/video-03',
+  // Redirection seule vers /video-03. Reste dans le chrome funnel le temps du replace.
   '/video-123',
   '/cadeau1',
   '/cadeau2',
   '/cadeau3',
+  // Redirection seule vers /cadeau3. Chrome funnel le temps du replace.
   '/cadeaux-123',
   '/replay-gratuit',
   '/bonus-live',
@@ -49,7 +51,10 @@ export function legalTo(path, fromFunnel) {
 }
 
 export const WHATSAPP_GROUP = 'https://go.yogyface.fr/whatsapp-group'
-export const WEBI_URL = 'https://webi.yogyface.fr'
+/** Appli pré-webi. Ce n'est pas la salle du live. */
+export const WEBI_URL = 'https://atelier.yogyface.fr'
+/** Rappel quand la page parle du live. Absent de /atelier-gratuit. */
+export const COMPUTER_REMINDER = 'Viens sur ordinateur. Le téléphone sert au WhatsApp.'
 export const LIVE_LABEL = 'Mardi à 20h'
 
 const PARIS = 'Europe/Paris'
@@ -124,7 +129,7 @@ export const VIDEOS = [
     shortTitle: 'Les lobbies',
     title: 'Les secrets cachés des lobbies cosmétiques et pharmaceutiques',
     summary:
-      'Ce que l’industrie ne te dit pas — et pourquoi ton visage en paie le prix.',
+      'Ce que l’industrie ne te dit pas, et pourquoi ton visage en paie le prix.',
     src: `${CF}/69f31aa8dfc219.23664402_videobonus1.mp4`,
     poster: '/videos/funnel-bonus-01.png',
   },
@@ -144,7 +149,7 @@ export const VIDEOS = [
     shortTitle: 'La motivation',
     title: 'La vraie raison derrière ton manque de motivation',
     summary:
-      'Pourquoi tu n’arrives pas à tenir — et comment sortir du mode survie.',
+      'Pourquoi tu n’arrives pas à tenir, et comment sortir du mode survie.',
     src: `${CF}/69f32a17481c30.20770819_V1VIDEOBONUS31_compressed.mp4`,
     poster: '/videos/funnel-bonus-03.png',
   },
@@ -169,7 +174,7 @@ export const CONFIRM_JEANNE_PHOTO = '/atelier/jeanne.jpg'
 
 export const YOUTUBE_LAURY = 'https://www.youtube.com/@LauryYoGyFace'
 
-/** Cadeaux drip (emails) : #2/#3 se déverrouillent page après page. */
+/** Cadeaux : être sur N débloque 1…N. `?max=` peut monter plus haut (voir lesson-progress). */
 export const GIFTS = [
   {
     n: 1,
@@ -203,13 +208,6 @@ export const GIFTS = [
 
 export function giftFromPath(pathname) {
   return GIFTS.find((g) => g.path === pathname) || GIFTS[0]
-}
-
-/** /cadeau1 → 1, /cadeau2 → 2, /cadeau3 et /cadeaux-123 → 3. */
-export function giftUnlockLevel(pathname) {
-  if (pathname === '/cadeau3' || pathname === '/cadeaux-123') return 3
-  if (pathname === '/cadeau2') return 2
-  return 1
 }
 
 export { youtubeIdFrom } from './youtube'

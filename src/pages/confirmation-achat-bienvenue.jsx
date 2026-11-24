@@ -13,7 +13,7 @@ const STEPS = [
   {
     n: '2',
     t: "Rien après 15 minutes ?",
-    d: 'Écris à laury@yogyface.fr — objet : Accès programme YoGyFace + ton prénom et nom. On te renvoie l’accès.',
+    d: 'Écris à laury@yogyface.fr, objet : Accès programme YoGyFace + ton prénom et nom. On te renvoie l’accès.',
   },
   {
     n: '3',
@@ -60,7 +60,7 @@ export default function ConfirmationAchatBienvenue() {
           </h1>
           <p className="text-gris text-[15px] md:text-[17px] leading-relaxed mb-10">
             Et maintenant, voici la suite
-            {withUpsell ? ' — l’offre complémentaire est bien enregistrée' : ''}.
+            {withUpsell ? '. L’offre complémentaire est bien enregistrée' : ''}.
           </p>
 
           <div className="text-left space-y-3 mb-10">

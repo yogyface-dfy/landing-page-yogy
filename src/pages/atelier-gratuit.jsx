@@ -11,21 +11,21 @@ import { legalTo } from '../lib/funnel'
 const LEARN = [
   {
     photo: '/atelier/hero-left.png',
-    alt: 'Mains sur le front — rides d’expression',
+    alt: 'Mains sur le front, rides d’expression',
     title: 'Reprogrammer ton front',
     desc: "Comment il arrête enfin de se contracter et de creuser tes rides d'expression.",
   },
   {
     photo: '/atelier/hero-3yogy.png',
-    alt: 'Mains sur les joues — muscle caché',
+    alt: 'Mains sur les joues, muscle caché',
     title: 'Un muscle caché',
     desc: 'La clé pour lifter naturellement le bas du visage et atténuer tes sillons.',
   },
   {
     photo: '/atelier/hero-right.png',
-    alt: 'Crèmes et soins — erreurs qui sabotent',
+    alt: 'Crèmes et soins, erreurs qui sabotent',
     title: 'Les erreurs qui sabotent',
-    desc: 'Ce que tu fais probablement en prenant soin de ton visage — et qui annule tes efforts.',
+    desc: 'Ce que tu fais probablement en prenant soin de ton visage, et qui annule tes efforts.',
   },
 ]
 
@@ -85,7 +85,7 @@ export default function AtelierGratuit() {
   return (
     <>
       <SEO
-        title="Atelier gratuit — Reprends le contrôle"
+        title="Atelier gratuit. Reprends le contrôle"
         description="Conférence en ligne offerte. Reprends le contrôle sur ton vieillissement cutané, sans crème miracle ni chirurgie."
         path="/atelier-gratuit"
         noindex
@@ -120,7 +120,7 @@ export default function AtelierGratuit() {
             </span>
           </h1>
           <p className="text-gris text-[15px] md:text-[17px] leading-relaxed mb-5 max-w-xl mx-auto">
-            Une méthode naturelle — sans crème miracle, sans chirurgie, en
+            Une méthode naturelle, sans crème miracle, sans chirurgie, en
             8 minutes par jour.
           </p>
           <div className="flex flex-wrap justify-center gap-2 mb-8">

@@ -44,7 +44,7 @@ export default function VenteLectureIntro({ profile, className = '' }) {
               <span className="mt-[7px] h-1.5 w-1.5 shrink-0 rounded-full bg-corail" aria-hidden />
               <span>
                 <strong className="font-semibold text-noir">{item.label}</strong>
-                <span className="text-noir/70"> — {item.note}</span>
+                <span className="text-noir/70">. {item.note}</span>
               </span>
             </li>
           ))}

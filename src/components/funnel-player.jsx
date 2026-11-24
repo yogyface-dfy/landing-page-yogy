@@ -134,7 +134,7 @@ function YoutubePlaceholder({ title }) {
           <PlayIcon />
         </span>
         <p className="text-white/80 text-sm font-medium">
-          {title ? `${title} — bientôt en ligne` : 'Vidéo bientôt disponible'}
+          {title ? `${title}. Bientôt en ligne` : 'Vidéo bientôt disponible'}
         </p>
       </div>
     </div>

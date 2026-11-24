@@ -1,6 +1,6 @@
 /**
- * Déblocage vidéos bonus via l’URL : `?max=2` ou `?max=3`.
- * Être sur la vidéo N débloque au moins 1…N.
+ * Déblocage vidéos bonus et cadeaux : `?max=2` ou `?max=3`.
+ * Être sur l’item N débloque au moins 1…N.
  * Les liens conservent `max` pour pouvoir revenir (ex. 03 → 01 → 03).
  */
 
@@ -13,8 +13,8 @@ export function resolveLessonMax(currentNumber, raw) {
 }
 
 /**
- * Lien vers une vidéo en gardant `max` (FunnelLink / withLeadQuery porte le lead).
- * @param {string} path — ex. `/video-01`
+ * Lien vers une vidéo ou un cadeau en gardant `max` (FunnelLink porte le lead).
+ * @param {string} path — ex. `/video-01` ou `/cadeau1`
  * @param {number} maxReached
  */
 export function lessonHref(path, maxReached) {

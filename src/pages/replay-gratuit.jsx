@@ -1,8 +1,10 @@
 import { useEffect, useState } from 'react'
+import { useSearchParams } from 'react-router-dom'
 import FunnelFooter from '../components/funnel-footer'
 import FunnelPlayer, { FunnelYoutube } from '../components/funnel-player'
 import { FunnelCtaLink, FunnelOpenBeacon } from '../components/funnel-track'
 import SEO from '../components/SEO'
+import { COMPUTER_REMINDER } from '../lib/funnel'
 
 const PAGE = 'replay-gratuit'
 
@@ -27,11 +29,17 @@ function useReplayMedia() {
 
 export default function ReplayGratuit() {
   const { id: youtubeId, src: mp4Src } = useReplayMedia()
+  const [searchParams] = useSearchParams()
+  const [day, setDay] = useState('')
+  // day seulement s'il est dans l'URL. Pas de date inventée au premier rendu SSG.
+  useEffect(() => {
+    setDay((searchParams.get('day') || '').trim().slice(0, 80))
+  }, [searchParams])
 
   return (
     <>
       <SEO
-        title="Replay gratuit — Atelier YoGyFace"
+        title="Replay gratuit. Atelier YoGyFace"
         description="Replay à durée limitée. Reprends le contrôle sur ton vieillissement cutané, sans crème miracle ni chirurgie."
         path="/replay-gratuit"
         noindex
@@ -54,6 +62,10 @@ export default function ReplayGratuit() {
             <p className="text-gris text-[15px] leading-relaxed max-w-xl mx-auto">
               Sans crème miracle. Sans chirurgie. En 8 minutes par jour.
             </p>
+            {day ? (
+              <p className="mt-3 text-[14px] font-semibold text-noir">Atelier du {day}</p>
+            ) : null}
+            <p className="mt-3 text-[14px] leading-relaxed text-noir">{COMPUTER_REMINDER}</p>
           </div>
 
           {mp4Src ? (

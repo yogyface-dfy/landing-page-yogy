@@ -2,7 +2,8 @@ import { Fragment, useEffect, useState } from "react";
 import { Link, useNavigate, useSearchParams } from "react-router-dom";
 import SEO from "../components/SEO";
 import { captureEvent } from "../lib/analytics";
-import { UPSELL_ENABLED } from "../lib/stripe-offers";
+import { UPSELL_ENABLED, resolveUpsellOffer } from "../lib/stripe-offers";
+import { withLeadQuery } from "../lib/lead-query";
 
 function euros(cents) {
   return (cents / 100).toLocaleString("fr-FR", {
@@ -330,7 +331,7 @@ function ConfirmDialog({ open, offer, busy, error, onClose, onConfirm }) {
           onClick={onConfirm}
           className={`btn-vert w-full justify-center text-sm md:text-base px-7 py-3.5 ${busy ? "opacity-60" : ""}`}
         >
-          {busy ? "Paiement…" : `Confirmer — ${euros(offer.amountCents)} €`}
+          {busy ? "Paiement…" : `Confirmer, ${euros(offer.amountCents)} €`}
         </button>
         <button
           type="button"
@@ -345,12 +346,22 @@ function ConfirmDialog({ open, offer, busy, error, onClose, onConfirm }) {
   );
 }
 
+/** Aperçu sans session Stripe. Localhost seulement : aucun débit. */
+function isLocalPreview(searchParams) {
+  if (typeof window === "undefined") return false;
+  if (searchParams.get("preview") !== "1") return false;
+  const host = window.location.hostname;
+  return host === "localhost" || host === "127.0.0.1";
+}
+
 /** Upsell 2 clics — OTO Systeme.io + dialog de confirmation. */
 export default function VenteUpsell() {
   const [searchParams] = useSearchParams();
   const navigate = useNavigate();
   const sessionId =
     searchParams.get("cs") || searchParams.get("session_id") || "";
+  // Garde email, day, quiz… en quittant l'upsell. `upsell=1` de la destination gagne.
+  const carry = (path) => withLeadQuery(path, {}, searchParams);
   const [state, setState] = useState({
     status: "loading",
     offer: null,
@@ -360,8 +371,12 @@ export default function VenteUpsell() {
   const [confirmOpen, setConfirmOpen] = useState(false);
 
   useEffect(() => {
+    if (isLocalPreview(searchParams)) {
+      setState({ status: "ready", offer: resolveUpsellOffer(), error: "" });
+      return;
+    }
     if (!UPSELL_ENABLED) {
-      navigate("/confirmation-achat-bienvenue", { replace: true });
+      navigate(carry("/confirmation-achat-bienvenue"), { replace: true });
       return;
     }
     if (!sessionId.startsWith("cs_")) {
@@ -382,11 +397,11 @@ export default function VenteUpsell() {
       .then((data) => {
         if (cancelled) return;
         if (!data.upsell) {
-          navigate("/confirmation-achat-bienvenue", { replace: true });
+          navigate(carry("/confirmation-achat-bienvenue"), { replace: true });
           return;
         }
         if (data.upsell.alreadyTaken) {
-          navigate("/confirmation-achat-bienvenue?upsell=1", { replace: true });
+          navigate(carry("/confirmation-achat-bienvenue?upsell=1"), { replace: true });
           return;
         }
         setState({ status: "ready", offer: data.upsell, error: "" });
@@ -399,11 +414,11 @@ export default function VenteUpsell() {
     return () => {
       cancelled = true;
     };
-  }, [sessionId, navigate]);
+  }, [sessionId, navigate, searchParams]);
 
   const skip = () => {
     captureEvent("upsell_skip", { variant: state.offer?.variant });
-    navigate("/confirmation-achat-bienvenue", { replace: true });
+          navigate(carry("/confirmation-achat-bienvenue"), { replace: true });
   };
 
   const openConfirm = () => {
@@ -412,6 +427,10 @@ export default function VenteUpsell() {
   };
 
   const accept = async () => {
+    if (isLocalPreview(searchParams)) {
+      setState((s) => ({ ...s, error: "Aperçu local : aucun débit." }));
+      return;
+    }
     setBusy(true);
     setState((s) => ({ ...s, error: "" }));
     captureEvent("upsell_accept", { variant: state.offer?.variant });
@@ -427,7 +446,7 @@ export default function VenteUpsell() {
       });
       const data = await res.json().catch(() => ({}));
       if (!res.ok) throw new Error(data.error || "Paiement refusé");
-      navigate("/confirmation-achat-bienvenue?upsell=1", { replace: true });
+      navigate(carry("/confirmation-achat-bienvenue?upsell=1"), { replace: true });
     } catch (err) {
       setState((s) => ({ ...s, error: err.message }));
       setBusy(false);
@@ -462,11 +481,11 @@ export default function VenteUpsell() {
                 Ton paiement est bien passé.
               </h1>
               <p className="text-gris text-[15px] mb-8">
-                On n’a pas pu charger l’offre complémentaire. Tu peux continuer
-                — ton accès n’est pas perdu.
+                On n’a pas pu charger l’offre complémentaire. Tu peux continuer,
+                ton accès n’est pas perdu.
               </p>
               <Link
-                to="/confirmation-achat-bienvenue"
+                to={carry("/confirmation-achat-bienvenue")}
                 className="btn-bordeaux inline-flex text-sm px-6 py-3"
               >
                 Continuer
@@ -509,14 +528,15 @@ export default function VenteUpsell() {
                       </>
                     ) : null}
                   </p>
-                  {/* Prix en hero : barré + 69 € vert — première chose qu’on lit */}
                   <p className="text-[11px] md:text-xs uppercase tracking-wider text-noir/45 mb-1">
-                    Prix unitaire
+                    Prix
                   </p>
                   <p className="flex flex-wrap items-baseline gap-x-3 gap-y-1">
-                    <s className="font-display font-bold text-[1.55rem] md:text-[2.1rem] leading-none text-noir/35">
-                      {euros(offer.compareAtCents)} €
-                    </s>
+                    {offer.compareAtCents > offer.amountCents && (
+                      <s className="font-display font-bold text-[1.55rem] md:text-[2.1rem] leading-none text-noir/35">
+                        {euros(offer.compareAtCents)} €
+                      </s>
+                    )}
                     <span className="font-display font-black text-[2.35rem] md:text-[3rem] leading-none tracking-tight text-[#00c37a]">
                       {euros(offer.amountCents)} €
                     </span>

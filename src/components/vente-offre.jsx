@@ -24,6 +24,7 @@ import {
   TRUSTPILOT_SCORE,
 } from "../lib/trustpilot-reviews";
 import { STUDIO_SALES_OPEN, VIP_SALES_OPEN } from "../lib/stripe-offers";
+import { placesFromWebinarDate, placesLabel, saleLeadLine } from "../lib/workshop-places";
 import TrustpilotStars from "./trustpilot-stars";
 import FunnelFooter from "./funnel-footer";
 
@@ -143,7 +144,7 @@ const COMPARE = [
     hint: "pour travailler de nouvelles zones",
     public: "Initial seulement",
   },
-  { label: "Bonus exclusifs", vip: "Inclus", public: "—" },
+  { label: "Bonus exclusifs", vip: "Inclus", public: "Non" },
 ];
 
 const BRANDS = [
@@ -442,6 +443,8 @@ function PayCta({
   error,
   dark = false,
   scarcity = null,
+  /** Prénom et day, seulement s'ils sont dans l'URL. */
+  foot = "",
   /** Desktop : coller les CTA au titre (mx-auto les centre dans la colonne). */
   alignClass = "",
   closed = false,
@@ -535,6 +538,13 @@ function PayCta({
           {error}
         </p>
       )}
+      {foot ? (
+        <p
+          className={`text-center text-[13px] leading-snug ${dark ? "text-white/60" : "text-gris"}`}
+        >
+          {foot}
+        </p>
+      ) : null}
     </div>
   );
 }
@@ -580,6 +590,8 @@ export default function VenteOffre({ variant, lecture = false }) {
   const [payError, setPayError] = useState("");
   // null au premier rendu : le HTML SSG n'a pas les query, on les lit après l'hydratation.
   const [lectureProfile, setLectureProfile] = useState(null);
+  // Places et ligne sous le CTA : après hydratation, pour ne pas inventer un chiffre au SSG.
+  const [workshop, setWorkshop] = useState({ places: null, foot: "", day: "" });
   const spineRef = useRef(null);
 
   // Query / session uniquement au mount (SSG n'a pas les params).
@@ -589,6 +601,11 @@ export default function VenteOffre({ variant, lecture = false }) {
     setFirstName(c.firstName);
     setPhone(c.phone);
     setLectureProfile(lecture ? readLecture(searchParams) : null);
+    setWorkshop({
+      places: placesFromWebinarDate(searchParams.get("webinarDate")),
+      foot: saleLeadLine(searchParams),
+      day: (searchParams.get("day") || "").trim().slice(0, 80),
+    });
   }, [lecture, searchParams]);
 
   // Retour navigateur depuis Stripe (bfcache) : « Redirection… » restait collé.
@@ -666,16 +683,13 @@ export default function VenteOffre({ variant, lecture = false }) {
       isVip && STUDIO_SALES_OPEN ? "Voir l'offre Studio" : "Retour à l'accueil",
     // CTA principal : vert + bounce (/vente + /vente-10x).
     onceBounce: studioLite && !salesClosed,
-    scarcity: salesClosed
+    // VIP : pas de rareté figée. Studio : places depuis webinarDate, sinon rien.
+    scarcity: salesClosed || isVip
       ? null
       : isDix
-        ? ["Plus que 2 places sur 20", "Fermeture à minuit"]
-        : isVip
-          ? [
-              "Plus que 2 places disponibles",
-              "Fermeture lundi soir 14 septembre, 00h",
-            ]
-          : null,
+        ? [placesLabel(workshop.places), "Fermeture à minuit"].filter(Boolean)
+        : placesLabel(workshop.places) || null,
+    foot: workshop.foot,
     installments: lecture
       ? [
           { plan: "studio-4x", label: "Payer en 4 × 89,99 €" },
@@ -727,7 +741,7 @@ export default function VenteOffre({ variant, lecture = false }) {
             : studioClosed
               ? "Les ventes YoGyFace Studio sont fermées."
               : isDix
-                ? "Programme YoGyFace Studio : 359,99 € en 1×, 6 × 59,99 € ou 10 × 35,99 €. Plus que 2 places sur 20, fermeture à minuit."
+                ? "Programme YoGyFace Studio : 359,99 € en 1×, 6 × 59,99 € ou 10 × 35,99 €. Fermeture à minuit."
                 : isSix
                   ? "Programme YoGyFace Studio : 359,99 € en 1×, 4 × 89,99 € ou 6 × 59,99 €."
                   : "Programme YoGyFace Studio : 359,99 € en 1×, 4 × 89,99 € ou 6 × 59,99 €."
@@ -799,6 +813,11 @@ export default function VenteOffre({ variant, lecture = false }) {
                 {vipClosed
                   ? "Vente privée close"
                   : "Offre exceptionnelle, inscrites liste d'attente"}
+              </div>
+            )}
+            {isDix && workshop.day && !studioClosed && (
+              <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-corail/10 text-corail text-[11px] font-semibold uppercase tracking-widest mb-4">
+                Atelier du {workshop.day}
               </div>
             )}
             {studioClosed && (
@@ -1624,7 +1643,7 @@ export default function VenteOffre({ variant, lecture = false }) {
                 : studioClosed
                   ? "Les inscriptions sont closes."
                   : isDix
-                    ? "Plus que 2 places sur 20. 1×, 6× ou 10 × 35,99 €. Fermeture à minuit."
+                    ? `${placesLabel(workshop.places) ? `${placesLabel(workshop.places)}. ` : ""}1×, 6× ou 10 × 35,99 €. Fermeture à minuit.`
                     : "Le programme Studio, sans les bonus ni l'accès anticipé de la liste."}
           </p>
           {offer.once.price && !salesClosed && (

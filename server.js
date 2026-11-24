@@ -637,6 +637,9 @@ const LEGACY_REDIRECTS = {
   '/yogyface-reset': '/programme',
   '/pol-co': '/',
   '/vente-upsell-test': '/vente',
+  // Pages empilées retirées : l’item 3 débloque déjà 1, 2 et 3.
+  '/video-123': '/video-03',
+  '/cadeaux-123': '/cadeau3',
   // Diagnostic Typeform / outil externe (sans email ni UTM).
   '/diagnosticrevelateurygf': 'https://diagnostic.yogyface.fr/fw3rd9m9d',
 }

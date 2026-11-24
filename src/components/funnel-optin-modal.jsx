@@ -251,7 +251,7 @@ export default function FunnelOptinModal({ open, onClose }) {
                 Inscription…
               </>
             ) : (
-              "S'inscrire au coaching — gratuitement"
+              "S'inscrire au coaching, gratuitement"
             )}
           </button>
           {error && error !== PHONE_TRUST_MESSAGE && (

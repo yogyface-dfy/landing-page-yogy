@@ -1,6 +1,6 @@
 /**
  * Offres Stripe. Le serveur est la source de vérité pour les montants
- * (le client n'envoie jamais le prix). Upsell live = pack (Studio).
+ * (le client n'envoie jamais le prix). Upsell live = guide PDF 29 €.
  */
 export const VIP_ONCE_CENTS = 29900;
 export const VIP_3X_CENTS = 9999;
@@ -147,10 +147,10 @@ export function purchaseContentName(plan) {
   return "YoGyFace";
 }
 
-/** false = après checkout Studio, confirmation directe. true = /vente-upsell (pack). */
-export const UPSELL_ENABLED = false;
+/** false = après checkout Studio, confirmation directe. true = /vente-upsell. */
+export const UPSELL_ENABLED = true;
 
-/** Studio (/vente, /vente-6x, /vente-10x) → pack. Pas VIP. */
+/** Studio (/vente, /vente-6x, /vente-10x) → guide. Pas VIP. */
 export function shouldShowUpsell(plan) {
   return UPSELL_ENABLED && PLANS[plan]?.offer === "studio";
 }
@@ -177,62 +177,41 @@ export function checkoutSubmitType(_mode = "payment") {
   return undefined;
 }
 
-/** Offre complémentaire live — pack uniquement. */
+/**
+ * Kind lu par l’app. Ne pas remettre `studio_extension` :
+ * ce kind crédite +12 h, +6 mois et un ticket diag.
+ */
+export const GUIDE_APPAREILS_KIND = "guide_appareils";
+
+/** Produit / prix live Stripe (29 €). Le débit reprend ce price. */
+export const UPSELL_STRIPE_PRODUCT_ID = "prod_VgfcYNB8PYv8td";
+export const UPSELL_STRIPE_PRICE_ID = "price_1UfIHXAU0KXfGydpFI2wjmGp";
+
+/** Offre complémentaire live — guide PDF, pas l’extension Studio. */
 export const UPSELL_VARIANTS = {
-  pack: {
-    amountCents: 6900,
-    compareAtCents: 35999,
-    name: "Extension YoGyFace Studio 1 an",
-    // Sous-ligne UI (Stripe garde `name` seul).
-    nameSub: "6 mois initiaux + 6 mois d’extension",
-    image: "/programme-montage.jpg",
+  guide: {
+    amountCents: 2900,
+    stripeProductId: UPSELL_STRIPE_PRODUCT_ID,
+    stripePriceId: UPSELL_STRIPE_PRICE_ID,
+    name: "Guide des appareils beauté à domicile",
+    nameSub: "Masques LED, stylos, appareils : on fait le tri",
     headline: "Félicitations, tu rejoins YoGyFace STUDIO",
-    sub: "Une dernière question avant d’aller plus loin : veux-tu profiter de l’extension « YoGyFace STUDIO 1 an » ?",
+    sub: "Une dernière question : veux-tu le guide des appareils beauté à domicile ?",
     bullets: [
-      "+ 6 mois d’accompagnement",
-      "Renouvellement de ton programme après 6 mois",
-      "Renouvellement de ton diagnostic personnalisé au bout de 6 mois",
-      "+ 12h de coaching live",
-      "+ 6 mois de suivi photo",
-    ],
-    withLabel: "Ce que tu peux avoir pour 69 €",
-    withoutLabel: "Ce que tu as acheté pour 359,99 €",
-    compare: [
-      {
-        label: "Accompagnement",
-        with: "12 mois",
-        without: "6 mois",
-      },
-      {
-        label: "Programme",
-        with: "Renouvellement de ton\nprogramme après 6 mois",
-        without: "Programme initial de 6 mois seulement",
-      },
-      {
-        label: "Diagnostic",
-        with: "Renouvellement de ton\ndiagnostic après 6 mois",
-        without: "Diagnostic de départ seulement",
-      },
-      { label: "Coaching live", with: "12h", bonus: "+12h", without: "12h" },
-      {
-        label: "Suivi photo",
-        with: "Jusqu’à 12 mois de suivis",
-        without: "6 premiers mois",
-      },
+      "Masques LED, stylos, microcourants : ce qui marche vraiment, et ce qui est du marketing",
+      "L’avis de Laury, à côté de ce qu’on lit sur Internet",
+      "Les 3 chiffres à vérifier avant d’acheter un masque LED",
+      "Codes partenaires inclus dans le guide",
     ],
   },
 };
 
 export function resolveUpsellOffer() {
-  return { ...UPSELL_VARIANTS.pack, variant: "pack" };
+  return { ...UPSELL_VARIANTS.guide, variant: "guide" };
 }
 
-/** Kind webi : +12 h lives, +6 mois, ticket diag. Doit matcher l’app. */
-export const STUDIO_EXTENSION_KIND = "studio_extension";
-export const STUDIO_EXTENSION_HOURS = 12;
-
-/** Metadata Stripe (PI 1 clic + Checkout 3DS) lue par le webhook webi. */
-export function studioExtensionStripeMeta({
+/** Metadata du PaymentIntent. L’app livre le PDF sur `product_kind`. */
+export function upsellStripeMeta({
   parentSessionId,
   origEmail = "",
   extra = {},
@@ -241,13 +220,14 @@ export function studioExtensionStripeMeta({
   const em = String(origEmail || "").trim().toLowerCase();
   return {
     kind: "upsell",
-    product_id: STUDIO_EXTENSION_KIND,
-    product_kind: STUDIO_EXTENSION_KIND,
+    product_id: GUIDE_APPAREILS_KIND,
+    product_kind: GUIDE_APPAREILS_KIND,
     product_label: offer.name,
+    stripe_product_id: offer.stripeProductId,
+    stripe_price_id: offer.stripePriceId,
     qty: "1",
     unit_amount_cents: String(offer.amountCents),
     amount_cents: String(offer.amountCents),
-    coaching_hours: String(STUDIO_EXTENSION_HOURS),
     upsell_variant: offer.variant,
     parent_session: parentSessionId,
     ...(em ? { orig_email: em, user_email: em } : {}),

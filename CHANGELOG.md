@@ -4,9 +4,30 @@
 
 ### 🔧 Changed
 
+- **Pages funnel** : places depuis `webinarDate` (5, 4, 3, 2, 1, rien si la date manque), prénom et `day` sous les CTA s’ils sont dans l’URL, pastille « Atelier du … » sur `/vente-10x`, rappel ordinateur sauf `/atelier-gratuit`, tirets longs retirés du copy et des titres d’onglet, bouton espace perso vers `https://atelier.yogyface.fr`.
+- **`/video-123`** : page retirée. `/video-03` débloque déjà les 3 vidéos (`?max` ou le simple fait d’être sur la 03). Ancienne URL → `/video-03`, query conservée. Plus de slug Airtable `video-123`.
+- **Cadeaux** : même déblocage que les vidéos (`?max=1|2|3`, être sur N ouvre 1…N). `/cadeaux-123` redirige vers `/cadeau3`, query conservée.
+- **Upsell** : guide PDF « appareils beauté à domicile » à 29 € (`guide_appareils`, produit `prod_VgfcYNB8PYv8td`). Plus d’extension Studio. Activé après un checkout Studio.
+- **Upsell** : aperçu local `/vente-upsell?preview=1` (localhost seulement, aucun débit).
+- **Emails pre/post webi v2** : les 8 noms de campagnes reprennent le préfixe ActiveCampaign (`00`, `00b`, `06.j-3`, `07bis. J-2`, `08bis. J-1`, `08bis .JJ`, `08bis.jj`, `09bis`).
+- **Emails pre/post webi v2** : le numéro d’ordre local devant le préfixe du mail est retiré des noms de fichiers (`01-03-j-6-…` → `03-j-6-…`).
 - **CGV** : le Vendeur et le titulaire de la propriété intellectuelle sont **YGF LLC** (plus Laury Anater).
 - **Pages de vente** : footer minimal Mentions légales · Confidentialité · CGV (`FunnelFooter`).
 - **Pages légales (`?from=funnel`)** : le lien « Retour » reprend la page précédente (vente ou atelier).
+
+### 📚 Documentation
+
+- **Rules emails et pages** : Coucou, places J+0 = 5 puis 4, 3, 2, 1, query complète sur les boutons, Poppins, zéro tiret long (`docs/RULES_EMAILS.md`, `docs/RULES_PAGES.md`).
+- **Rules emails** : les 48 champs custom ActiveCampaign sont ceux du compte (ajout de `%TOSETTEO%` et `%SETTEOID%`).
+- **Rules emails** : la query des boutons inclut les champs AC 36 à 49 (quiz), `recordId` restant le champ 43.
+- **Checkout Stripe** : `success_url` et `cancel_url` recopient la query de la page de vente. L'upsell la garde jusqu'à la confirmation.
+- **Rules pages** : le retour Stripe (succès, annulation, sortie d'upsell) garde la query. `cs` n'est pas recopié depuis l'ancienne page.
+- **Rules copy** : un mail ou une page qui parle du live rappelle de venir sur ordinateur.
+- **Rules emails** : `https://atelier.yogyface.fr` est l’appli pré-webi. La salle du live est uniquement `%LIVEROOMLINK%`.
+- **Rules** : les pages du funnel s’écrivent `https://www.yogyface.fr` (avec `www`).
+- **Plan pages funnel** : écarts rule vs code, page par page, sans les appliquer (`docs/funnel-modifs.md`).
+- **`/atelier-gratuit`** : pas de phrase « viens sur ordinateur ». Ce rappel reste dans les emails.
+- **Tiret long** : le titre d’onglet compte, comme le texte de la page.
 
 ## 2026-11-18
 

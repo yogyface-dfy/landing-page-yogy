@@ -1,15 +1,11 @@
-import { useLocation } from 'react-router-dom'
+import { Navigate, useLocation, useSearchParams } from 'react-router-dom'
 import FunnelFooter from '../components/funnel-footer'
 import FunnelLiveDate from '../components/funnel-live-date'
 import FunnelPlayer, { FunnelYoutube } from '../components/funnel-player'
 import { FunnelLink, FunnelOpenBeacon } from '../components/funnel-track'
 import SEO from '../components/SEO'
-import {
-  GIFTS,
-  YOUTUBE_LAURY,
-  giftFromPath,
-  giftUnlockLevel,
-} from '../lib/funnel'
+import { GIFTS, YOUTUBE_LAURY, giftFromPath } from '../lib/funnel'
+import { lessonHref, resolveLessonMax } from '../lib/lesson-progress'
 
 function GiftBody({ gift }) {
   // cadeau1 = MP4 tracké ; cadeau2/3 = open only (hosting HTML5 plus tard).
@@ -98,7 +94,7 @@ function GiftNav({ unlocked, current }) {
             <li key={g.n}>
               {open ? (
                 <FunnelLink
-                  to={g.path}
+                  to={lessonHref(g.path, unlocked)}
                   className={`block rounded-2xl border p-2 text-center ${
                     active ? 'border-corail bg-corail/8' : 'border-noir/8 bg-white'
                   }`}
@@ -119,26 +115,26 @@ function GiftNav({ unlocked, current }) {
 }
 
 export default function FunnelCadeau() {
-  const { pathname } = useLocation()
-  const all = pathname === '/cadeaux-123'
+  const { pathname, search } = useLocation()
+  const [searchParams] = useSearchParams()
+  // Ancienne page empilée. /cadeau3 débloque déjà 1, 2 et 3.
+  if (pathname === '/cadeaux-123') {
+    return <Navigate to={`/cadeau3${search}`} replace />
+  }
   const gift = giftFromPath(pathname)
-  const unlocked = giftUnlockLevel(pathname)
-  // Open : slug cadeauN (pas cadeaux-123 — hors scope v1).
-  const openPage = all ? null : `cadeau${gift.n}`
+  // Être sur N ouvre 1…N. ?max= peut ouvrir plus haut (retour 3 → 1 → 3).
+  const unlocked = resolveLessonMax(gift.n, searchParams.get('max'))
+  const openPage = `cadeau${gift.n}`
 
   return (
     <>
       <SEO
-        title={all ? 'Tes 3 cadeaux' : `Cadeau ${gift.n} — ${gift.title}`}
-        description={
-          all
-            ? 'Routine skincare, ebook médecine chinoise et podcast.'
-            : gift.subtitle || gift.title
-        }
+        title={`Cadeau ${gift.n}. ${gift.title}`}
+        description={gift.subtitle || gift.title}
         path={pathname}
         noindex
       />
-      {openPage ? <FunnelOpenBeacon page={openPage} /> : null}
+      <FunnelOpenBeacon page={openPage} />
 
       <section className="relative pt-28 md:pt-32 pb-20 px-[5%] overflow-hidden">
         <div className="absolute inset-0 bg-gradient-to-b from-rose/25 via-white to-creme pointer-events-none" />
@@ -148,42 +144,16 @@ export default function FunnelCadeau() {
               <span className="live-dot" aria-hidden="true" />
               Coaching live · <FunnelLiveDate />
             </div>
-            {all ? (
-              <h1 className="font-display text-[clamp(1.6rem,4.5vw,2.6rem)] font-black leading-[1] tracking-tighter text-noir">
-                Tes 3 cadeaux
-              </h1>
-            ) : (
-              <>
-                <p className="text-[11px] font-semibold uppercase tracking-[0.18em] text-corail mb-2">
-                  Cadeau {gift.n}
-                </p>
-                <h1 className="font-display text-[clamp(1.6rem,4.5vw,2.6rem)] font-black leading-[1] tracking-tighter text-noir">
-                  {gift.title}
-                </h1>
-              </>
-            )}
+            <p className="text-[11px] font-semibold uppercase tracking-[0.18em] text-corail mb-2">
+              Cadeau {gift.n}
+            </p>
+            <h1 className="font-display text-[clamp(1.6rem,4.5vw,2.6rem)] font-black leading-[1] tracking-tighter text-noir">
+              {gift.title}
+            </h1>
           </div>
 
-          {all ? (
-            <div className="grid gap-14">
-              {GIFTS.map((g) => (
-                <article key={g.n}>
-                  <p className="text-[11px] font-semibold uppercase tracking-[0.18em] text-corail mb-2 text-center">
-                    Cadeau {g.n}
-                  </p>
-                  <h2 className="font-display text-[clamp(1.25rem,3vw,1.7rem)] font-black leading-tight tracking-tight text-noir text-center mb-5">
-                    {g.title}
-                  </h2>
-                  <GiftBody gift={g} />
-                </article>
-              ))}
-            </div>
-          ) : (
-            <>
-              <GiftBody gift={gift} />
-              <GiftNav unlocked={unlocked} current={pathname} />
-            </>
-          )}
+          <GiftBody gift={gift} />
+          <GiftNav unlocked={unlocked} current={pathname} />
         </div>
       </section>
 

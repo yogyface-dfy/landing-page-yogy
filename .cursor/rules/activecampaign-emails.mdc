@@ -35,7 +35,8 @@ Dans le HTML : `https://yogyface.fr/email/launch/{filename}` (jamais de `data:im
 - Preheader hidden = **les 2 premières lignes du body** (voir `email-spam-compliance.mdc`). Pas le teaser d’objet s’il diverge.
 - **Copy sacro-saint** : ne pas reformuler le sens ni le ton oral. Signal spam « méga sensible » → prévenir Marin, ne pas réécrire.
 - **Ne jamais Prettier / format-on-save** sur `emails/**/*.html` (l’indentation explose le ratio whitespace → ZeroBounce).
-- Police Arial/Helvetica, 16px body. Cadre unique : carte blanche, logo, signature Laury (`signature-laury.jpg`). Pas de nouveau design / palette.
+- Police **Poppins**, fallback Arial/Helvetica, 16px body. Un bloc encore en Arial seul passe en Poppins. Cadre unique : carte blanche, logo, signature Laury (`signature-laury.jpg`). Pas de nouveau design / palette.
+- Ouverture : **Coucou**. Zéro tiret long (`—`).
 
 ## Formatage (faire tout seul, ne pas demander)
 

@@ -32,7 +32,7 @@ export default function CookieConsent() {
       <p className="text-sm leading-relaxed text-white/85">
         On utilise quelques cookies pour voir ce qui t'aide vraiment ici, et
         rendre tes prochaines visites plus simples. Tu peux accepter ou
-        refuser — ça ne change rien à ta lecture.{' '}
+        refuser, ça ne change rien à ta lecture.{' '}
         <Link
           to={legalTo('/confidentialite', isFunnelChrome(pathname, search))}
           className="underline underline-offset-2 hover:text-corail"

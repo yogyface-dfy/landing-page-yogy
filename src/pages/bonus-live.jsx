@@ -2,7 +2,7 @@ import FunnelFooter from '../components/funnel-footer'
 import { FunnelYoutube } from '../components/funnel-player'
 import { FunnelCtaLink, FunnelOpenBeacon } from '../components/funnel-track'
 import SEO from '../components/SEO'
-import { LIVE_BONUSES } from '../lib/funnel'
+import { COMPUTER_REMINDER, LIVE_BONUSES } from '../lib/funnel'
 
 const PAGE = 'bonus-live'
 
@@ -10,7 +10,7 @@ export default function BonusLive() {
   return (
     <>
       <SEO
-        title="Tes bonus — Live YoGyFace"
+        title="Tes bonus. Live YoGyFace"
         description="Les 3 bonus du live : rééducation du front, routine SCM, théorie des muscles."
         path="/bonus-live"
         noindex
@@ -27,6 +27,7 @@ export default function BonusLive() {
             <h1 className="font-display text-[clamp(1.8rem,5vw,3rem)] font-black leading-[0.95] tracking-tighter text-noir">
               TES BONUS
             </h1>
+            <p className="mt-4 text-[14px] leading-relaxed text-noir">{COMPUTER_REMINDER}</p>
           </div>
 
           <div className="grid gap-12">

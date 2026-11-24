@@ -1,4 +1,7 @@
+import { useEffect, useState } from "react";
+import { useSearchParams } from "react-router-dom";
 import { useMidnightCountdown } from "../lib/midnight-countdown";
+import { placesFromWebinarDate, placesLabel } from "../lib/workshop-places";
 
 /** Un bloc du chrono (heures / minutes / secondes). */
 function Tick({ value }) {
@@ -12,6 +15,12 @@ function Tick({ value }) {
 /** Bandeau flash /vente-10x : bordeaux + chrono minuit bien visible. */
 export default function VenteUrgenceBanner() {
   const { h, m, s } = useMidnightCountdown();
+  const [searchParams] = useSearchParams();
+  const [places, setPlaces] = useState("");
+  // Pas de chiffre tant que webinarDate n'est pas lu (évite un nombre inventé).
+  useEffect(() => {
+    setPlaces(placesLabel(placesFromWebinarDate(searchParams.get("webinarDate"))));
+  }, [searchParams]);
 
   return (
     // z + translateZ : sur iOS le hero (shadow/z-10) passait au-dessus du fixed.
@@ -23,10 +32,16 @@ export default function VenteUrgenceBanner() {
       <div className="h-16 md:h-20 flex items-center justify-center px-3">
         <div className="flex items-center justify-center gap-3 sm:gap-5">
           <p className="font-display font-black text-[10px] sm:text-[12px] uppercase tracking-[0.16em] leading-tight text-right">
-            Plus que 2 places sur 20
-            <span className="block sm:inline sm:ml-2 opacity-90">
-              Fermeture à minuit
-            </span>
+            {places ? (
+              <>
+                {places}
+                <span className="block sm:inline sm:ml-2 opacity-90">
+                  Fermeture à minuit
+                </span>
+              </>
+            ) : (
+              "Fermeture à minuit"
+            )}
           </p>
           <p className="flex items-center gap-1 sm:gap-1.5" aria-label={`Fermeture dans ${h} heures ${m} minutes ${s} secondes`}>
             <Tick value={h} />

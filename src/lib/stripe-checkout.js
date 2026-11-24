@@ -88,6 +88,36 @@ export function readPrefillContact(searchParams) {
   }
 }
 
+/**
+ * Query à recoller sur success_url / cancel_url.
+ * `cs` et `session_id` restent réservés au retour Stripe.
+ * @param {string} raw
+ */
+export function checkoutReturnSearch(raw) {
+  const input = new URLSearchParams(
+    typeof raw === 'string' ? raw.replace(/^\?/, '') : '',
+  )
+  const out = new URLSearchParams()
+  for (const [key, value] of input) {
+    if (key === 'cs' || key === 'session_id') continue
+    if (!/^[A-Za-z][A-Za-z0-9_]{0,40}$/.test(key)) continue
+    if (!value || value.length > 400) continue
+    out.append(key, value)
+    if (out.toString().length > 1600) {
+      out.delete(key)
+      break
+    }
+  }
+  return out.toString()
+}
+
+/** Ajoute la query sans toucher au placeholder `{CHECKOUT_SESSION_ID}`. */
+export function withReturnSearch(url, raw) {
+  const extra = checkoutReturnSearch(raw)
+  if (!extra || !url) return url
+  return url.includes('?') ? `${url}&${extra}` : `${url}?${extra}`
+}
+
 /** Ajoute prefilled_email + locale=fr. Pas de client_reference_id (webi = code marraine). */
 export function withStripePrefill(url, email) {
   if (!url || !url.includes('buy.stripe.com')) return url
@@ -127,6 +157,7 @@ export async function startCheckoutSession({
       firstName: normalizeFirstName(firstName),
       phone: normalizePhone(phone),
       cancelPath,
+      returnSearch: typeof window !== 'undefined' ? window.location.search : '',
       meta_event_id: eventId,
       ...getFbCookies(),
       ...(await getDataFastIds()),
