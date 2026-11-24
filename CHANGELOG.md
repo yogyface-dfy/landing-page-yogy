@@ -1,9 +1,27 @@
 # Changelog
 
-## 2026-11-18
+## 2026-11-24
 
 ### 🔧 Changed
 
+- **CGV** : le Vendeur et le titulaire de la propriété intellectuelle sont **YGF LLC** (plus Laury Anater).
+- **Pages de vente** : footer minimal Mentions légales · Confidentialité · CGV (`FunnelFooter`).
+- **Pages légales (`?from=funnel`)** : le lien « Retour » reprend la page précédente (vente ou atelier).
+
+## 2026-11-18
+
+### ✨ Added
+
+- **`/vente-lecture`** : copie de `/vente` qui reprend les query du quiz (âge, zone, détail, depuis, essais, résultat, habitude, envie, temps, prénom) dans le hero, l’encart, le diagnostic, la routine et le bandeau final.
+
+### 📚 Documentation
+
+- **Quiz lecture visage** : clés et codes query du funnel (`docs/funnel-query-params.md`), alignés sur le custom `86mk2x6zqy`.
+
+### 🔧 Changed
+
+- **`/vente-lecture`** : la phrase « bon moment » est en noir et en gras. La ligne de résultat n’est plus affichée.
+- **`/vente-lecture`** : prix affiché en 59,99 € /mois pendant 6 mois, avec la comparaison institut / botox.
 - **`/replay-gratuit`** : le short link `go.yogyface.fr/replay-yt` peut viser un YouTube ou un MP4 du bucket Médias. Lecteur YouTube ou HTML5 selon la destination.
 
 ### 🐛 Fixed

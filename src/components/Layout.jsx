@@ -75,6 +75,7 @@ export default function Layout() {
   const flash = pathname === '/vente-10x'
   const funnel =
     pathname === '/vente' ||
+    pathname === '/vente-lecture' ||
     pathname === '/vente-vip' ||
     pathname === '/vente-6x' ||
     flash ||
@@ -246,6 +247,7 @@ export default function Layout() {
       {/* Checkout + opt-in atelier : pas de bandeau (le formulaire d'inscription suffit). */}
       {!bare &&
         pathname !== '/vente' &&
+        pathname !== '/vente-lecture' &&
         pathname !== '/vente-vip' &&
         pathname !== '/vente-10x' &&
         pathname !== '/vente-6x' &&

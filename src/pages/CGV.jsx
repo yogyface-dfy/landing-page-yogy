@@ -22,7 +22,7 @@ export default function CGV() {
         <div className="space-y-10 text-[15px] text-gris leading-relaxed break-words">
           <div>
             <h2 className="font-display font-black text-xl tracking-tight text-noir mb-3">Article 1 — Objet</h2>
-            <p>Les présentes CGV régissent l'ensemble des relations contractuelles entre <strong>Laury Anater</strong> (« le Vendeur ») et toute personne souhaitant acquérir le programme numérique de yoga du visage YoGyFace proposé sur <strong>www.yogyface.fr</strong>. Le fait de passer commande implique l'acceptation sans réserve des présentes CGV.</p>
+            <p>Les présentes CGV régissent l'ensemble des relations contractuelles entre <strong>YGF LLC</strong> (« le Vendeur ») et toute personne souhaitant acquérir le programme numérique de yoga du visage YoGyFace proposé sur <strong>www.yogyface.fr</strong>. Le fait de passer commande implique l'acceptation sans réserve des présentes CGV.</p>
           </div>
 
           <div>
@@ -96,7 +96,7 @@ export default function CGV() {
 
           <div>
             <h2 className="font-display font-black text-xl tracking-tight text-noir mb-3">Article 9 — Propriété intellectuelle</h2>
-            <p>L'ensemble du contenu est la propriété exclusive de <strong>Laury Anater</strong>. La Cliente acquiert uniquement un droit d'accès personnel, non cessible et non transférable. Sont strictement interdits : reproduction, diffusion, enregistrement des sessions Zoom, partage du lien personnel, utilisation commerciale.</p>
+            <p>L'ensemble du contenu est la propriété exclusive de <strong>YGF LLC</strong>. La Cliente acquiert uniquement un droit d'accès personnel, non cessible et non transférable. Sont strictement interdits : reproduction, diffusion, enregistrement des sessions Zoom, partage du lien personnel, utilisation commerciale.</p>
           </div>
 
           <div id="garantie">

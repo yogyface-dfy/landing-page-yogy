@@ -8,6 +8,8 @@ import VentePlateforme from "./vente-plateforme";
 import VenteTemoignagesVideo from "./vente-temoignages-video";
 import VenteValeur from "./vente-valeur";
 import VenteGarantie from "./vente-garantie";
+import VenteLectureIntro from "./vente-lecture-intro";
+import { readLecture } from "../lib/lecture-query";
 import {
   isValidEmail,
   readPrefillContact,
@@ -23,6 +25,7 @@ import {
 } from "../lib/trustpilot-reviews";
 import { STUDIO_SALES_OPEN, VIP_SALES_OPEN } from "../lib/stripe-offers";
 import TrustpilotStars from "./trustpilot-stars";
+import FunnelFooter from "./funnel-footer";
 
 /**
  * Pages de vente privées (non indexées).
@@ -30,6 +33,7 @@ import TrustpilotStars from "./trustpilot-stars";
  * variant "public" → offre classique
  * variant "dix"   → Studio 359,99 €, 10× / 6× / 1× (/vente-10x)
  * variant "six"   → Studio 359,99 €, 1× / 4× / 6 × 59,99 € (/vente-6x)
+ * lecture        → copie /vente-lecture : mêmes prix, texte tiré des query du quiz
  */
 const OFFERS = {
   vip: {
@@ -536,9 +540,9 @@ function PayCta({
 }
 
 /**
- * @param {{ variant: 'vip' | 'public' | 'dix' | 'six' }} props
+ * @param {{ variant: 'vip' | 'public' | 'dix' | 'six', lecture?: boolean }} props
  */
-export default function VenteOffre({ variant }) {
+export default function VenteOffre({ variant, lecture = false }) {
   const isVip = variant === "vip";
   const isDix = variant === "dix";
   const isSix = variant === "six";
@@ -548,27 +552,34 @@ export default function VenteOffre({ variant }) {
   const salesClosed = vipClosed || studioClosed;
   // Même polish UX que /vente-10x (CTA vert, hero allégé).
   const studioLite = isDix || isPublic;
-  const path = isVip
-    ? "/vente-vip"
-    : isDix
-      ? "/vente-10x"
-      : isSix
-        ? "/vente-6x"
-        : "/vente";
+  const path = lecture
+    ? "/vente-lecture"
+    : isVip
+      ? "/vente-vip"
+      : isDix
+        ? "/vente-10x"
+        : isSix
+          ? "/vente-6x"
+          : "/vente";
   const offer = OFFERS[variant];
-  const joinLabel = isDix
-    ? "Payer en 10 × 35,99 €"
-    : isSix
-      ? "Payer en 6 × 59,99 €"
-      : isVip
-        ? `Rejoindre l'offre VIP, ${offer.once.price} €`
-        : `Rejoindre Studio, ${offer.once.price} €`;
+  // /vente-lecture : on ancre le prix sur 6 × 59,99 € (même total Studio).
+  const joinLabel = lecture
+    ? "Payer en 6 × 59,99 €"
+    : isDix
+      ? "Payer en 10 × 35,99 €"
+      : isSix
+        ? "Payer en 6 × 59,99 €"
+        : isVip
+          ? `Rejoindre l'offre VIP, ${offer.once.price} €`
+          : `Rejoindre Studio, ${offer.once.price} €`;
   const [searchParams] = useSearchParams();
   const [email, setEmail] = useState("");
   const [firstName, setFirstName] = useState("");
   const [phone, setPhone] = useState("");
   const [payLoading, setPayLoading] = useState(null);
   const [payError, setPayError] = useState("");
+  // null au premier rendu : le HTML SSG n'a pas les query, on les lit après l'hydratation.
+  const [lectureProfile, setLectureProfile] = useState(null);
   const spineRef = useRef(null);
 
   // Query / session uniquement au mount (SSG n'a pas les params).
@@ -577,7 +588,8 @@ export default function VenteOffre({ variant }) {
     const c = readPrefillContact(searchParams);
     setFirstName(c.firstName);
     setPhone(c.phone);
-  }, [searchParams]);
+    setLectureProfile(lecture ? readLecture(searchParams) : null);
+  }, [lecture, searchParams]);
 
   // Retour navigateur depuis Stripe (bfcache) : « Redirection… » restait collé.
   useEffect(() => {
@@ -644,7 +656,7 @@ export default function VenteOffre({ variant }) {
   };
 
   const pay = {
-    oncePlan: offer.once.plan,
+    oncePlan: lecture ? "studio-6x" : offer.once.plan,
     onPay: startPay,
     closed: salesClosed,
     closedLabel: isVip ? "Ventes VIP fermées" : "Ventes fermées",
@@ -664,13 +676,22 @@ export default function VenteOffre({ variant }) {
               "Fermeture lundi soir 14 septembre, 00h",
             ]
           : null,
-    installments: offer.installments.map((i) => ({
-      plan: i.plan,
-      label: i.label || `Payer en ${i.times} × ${i.amount} €`,
-    })),
+    installments: lecture
+      ? [
+          { plan: "studio-4x", label: "Payer en 4 × 89,99 €" },
+          { plan: "studio-once", label: "Payer 359,99 € en 1 fois" },
+        ]
+      : offer.installments.map((i) => ({
+          plan: i.plan,
+          label: i.label || `Payer en ${i.times} × ${i.amount} €`,
+        })),
     loading: payLoading,
     error: payError,
   };
+
+  // Intro seule sur /vente-lecture. Le reste de la page est identique à /vente.
+  const profile = lecture ? lectureProfile : null;
+  const hasIntro = Boolean(profile);
 
   const installmentHint = isDix
     ? "1 fois · 6 × 59,99 € · 10 × 35,99 €"
@@ -692,7 +713,9 @@ export default function VenteOffre({ variant }) {
                 ? "YoGyFace Studio, 10 × 35,99 €"
                 : isSix
                   ? "YoGyFace Studio, 6 × 59,99 €"
-                  : "YoGyFace Studio, Programme"
+                  : lecture
+                ? "YoGyFace Studio, ta lecture"
+                : "YoGyFace Studio, Programme"
         }
         description={
           isVip
@@ -734,14 +757,19 @@ export default function VenteOffre({ variant }) {
               </p>
             )}
             {!isVip && (
-              <h1 className="md:hidden text-center mb-5">
-                <span className="block font-display font-black tracking-tighter text-noir text-[1.45rem] uppercase leading-none">
-                  {studioClosed ? "Ventes" : "Accompagnement"}
-                </span>
-                <span className="block font-serif italic text-corail font-semibold text-[1.35rem] mt-1">
-                  {studioClosed ? "fermées" : "YoGyFace Studio"}
-                </span>
-              </h1>
+              <div className="md:hidden text-center mb-5">
+                <h1>
+                  <span className="block font-display font-black tracking-tighter text-noir text-[1.45rem] uppercase leading-none">
+                    {studioClosed ? "Ventes" : "Accompagnement"}
+                  </span>
+                  <span className="block font-serif italic text-corail font-semibold text-[1.35rem] mt-1">
+                    {studioClosed ? "fermées" : "YoGyFace Studio"}
+                  </span>
+                </h1>
+                {hasIntro && (
+                  <VenteLectureIntro profile={profile} className="text-left mt-5" />
+                )}
+              </div>
             )}
             <div className="relative max-w-[480px] mx-auto md:mx-0">
               <div className="absolute -inset-3 bg-gradient-to-br from-corail/10 to-bleu/10 rounded-3xl blur-2xl pointer-events-none hidden md:block" />
@@ -802,6 +830,12 @@ export default function VenteOffre({ variant }) {
                     : "YoGyFace Studio"}
               </span>
             </h1>
+            {hasIntro && (
+              <VenteLectureIntro
+                profile={profile}
+                className="hidden md:block text-left mb-5 max-w-lg"
+              />
+            )}
             {isVip && !vipClosed && (
               <p className="font-serif italic text-corail text-[16px] md:text-[18px] mb-3">
                 Crée les bonnes habitudes et supprime les causes de ton
@@ -914,21 +948,43 @@ export default function VenteOffre({ variant }) {
             {!isVip && !studioClosed && (
               <div className="text-left max-w-md mx-auto md:mx-0 rounded-2xl border border-noir/8 bg-creme/80 p-5 md:p-6">
                 {offer.once.price && (
-                  <p className="mb-4">
-                    {offer.once.was && (
-                      <span className="text-gris/45 line-through text-lg mr-2">
-                        {offer.once.was} €
-                      </span>
+                  <div className="mb-4">
+                    {lecture ? (
+                      <>
+                        <p className="flex flex-wrap items-baseline gap-x-2 gap-y-1">
+                          <span className="font-display font-black text-4xl tracking-tight text-noir">
+                            59,99 €
+                          </span>
+                          <span className="font-display font-black text-xl tracking-tight text-noir">
+                            /mois
+                          </span>
+                          <span className="text-gris/50 text-[13px]">
+                            pendant 6 mois
+                          </span>
+                        </p>
+                        <p className="text-gris text-[13px] leading-snug mt-2">
+                          Moins cher qu'un soin en institut et moins cher qu'une
+                          séance botox
+                        </p>
+                      </>
+                    ) : (
+                      <p>
+                        {offer.once.was && (
+                          <span className="text-gris/45 line-through text-lg mr-2">
+                            {offer.once.was} €
+                          </span>
+                        )}
+                        <span className="font-display font-black text-4xl tracking-tight text-noir">
+                          {offer.once.price} €
+                        </span>
+                        {offer.once.priceNote && (
+                          <span className="block text-gris text-[14px] mt-1 font-medium">
+                            {offer.once.priceNote}
+                          </span>
+                        )}
+                      </p>
                     )}
-                    <span className="font-display font-black text-4xl tracking-tight text-noir">
-                      {offer.once.price} €
-                    </span>
-                    {offer.once.priceNote && (
-                      <span className="block text-gris text-[14px] mt-1 font-medium">
-                        {offer.once.priceNote}
-                      </span>
-                    )}
-                  </p>
+                  </div>
                 )}
                 <ul className="space-y-2 mb-5">
                   {[
@@ -936,7 +992,9 @@ export default function VenteOffre({ variant }) {
                     "12h de coaching · 6 mois d'accompagnement",
                     ...(isDix
                       ? ["Paiement en 1×, 6× ou 10 × 35,99 €"]
-                      : ["Paiement en 1×, 4× ou 6 × 59,99 €"]),
+                      : lecture
+                        ? ["Paiement en 6 × 59,99 €, 4× ou 1 fois"]
+                        : ["Paiement en 1×, 4× ou 6 × 59,99 €"]),
                   ].map((l) => (
                     <li
                       key={l}
@@ -1570,35 +1628,55 @@ export default function VenteOffre({ variant }) {
                     : "Le programme Studio, sans les bonus ni l'accès anticipé de la liste."}
           </p>
           {offer.once.price && !salesClosed && (
-            <p className="text-white mb-6">
-              {offer.once.was && (
-                <span className="text-white/35 line-through mr-2">
-                  {offer.once.was} €
-                </span>
+            <div className="text-white mb-6">
+              {lecture ? (
+                <>
+                  <p className="flex flex-wrap items-baseline justify-center gap-x-2 gap-y-1">
+                    <span className="font-display font-black text-3xl">
+                      59,99 €
+                    </span>
+                    <span className="font-display font-black text-xl">/mois</span>
+                    <span className="text-white/40 text-[13px]">
+                      pendant 6 mois
+                    </span>
+                  </p>
+                  <p className="text-white/45 text-[13px] mt-2">
+                    Moins cher qu'un soin en institut et moins cher qu'une séance
+                    botox
+                  </p>
+                </>
+              ) : (
+                <p>
+                  {offer.once.was && (
+                    <span className="text-white/35 line-through mr-2">
+                      {offer.once.was} €
+                    </span>
+                  )}
+                  <span className="font-display font-black text-3xl">
+                    {offer.once.price} €
+                  </span>
+                  {offer.once.priceNote && (
+                    <span className="block text-white/50 text-sm mt-1">
+                      {offer.once.priceNote}
+                    </span>
+                  )}
+                  {offer.installments.length > 0 && !isDix && !isSix && (
+                    <span className="block text-white/40 text-sm mt-1">
+                      ou {installmentHint}
+                    </span>
+                  )}
+                </p>
               )}
-              <span className="font-display font-black text-3xl">
-                {offer.once.price} €
-              </span>
-              {offer.once.priceNote && (
-                <span className="block text-white/50 text-sm mt-1">
-                  {offer.once.priceNote}
-                </span>
-              )}
-              {offer.installments.length > 0 && !isDix && !isSix && (
-                <span className="block text-white/40 text-sm mt-1">
-                  ou {installmentHint}
-                </span>
-              )}
-            </p>
+            </div>
           )}
           <PayCta
             {...pay}
             dark
             onceLabel={
-              isDix
-                ? "Payer en 10 × 35,99 € →"
-                : isSix
-                  ? "Payer en 6 × 59,99 € →"
+              lecture || isSix
+                ? "Payer en 6 × 59,99 € →"
+                : isDix
+                  ? "Payer en 10 × 35,99 € →"
                   : isVip
                     ? `Payer ${offer.once.price} € en 1 fois →`
                     : `Payer Studio, ${offer.once.price} € en 1 fois →`
@@ -1616,6 +1694,9 @@ export default function VenteOffre({ variant }) {
           </p>
         </div>
       </section>
+
+      {/* Liens légaux seuls — pas le footer site (Layout le masque déjà en funnel). */}
+      <FunnelFooter />
     </>
   );
 }

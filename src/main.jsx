@@ -32,6 +32,7 @@ export const routes = [
       // Pages privées (emails / liste d'attente) : noindex, hors sitemap, hors nav.
       { path: 'merci-liste-attente', lazy: page(() => import('./pages/merci-liste-attente')) },
       { path: 'vente', lazy: page(() => import('./pages/vente')) },
+      { path: 'vente-lecture', lazy: page(() => import('./pages/vente-lecture')) },
       { path: 'vente-vip', lazy: page(() => import('./pages/vente-vip')) },
       { path: 'vente-10x', lazy: page(() => import('./pages/vente-10x')) },
       { path: 'vente-6x', lazy: page(() => import('./pages/vente-6x')) },

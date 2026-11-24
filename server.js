@@ -14,7 +14,7 @@
  *   META_PIXEL_ID         — 604268118937812 (défaut)
  *   META_TEST_EVENT_CODE  — vide en prod ; TEST… en QA
  *   DATAFAST_BOT_TOKEN    — optionnel (dfbot_…) si auth Bot traffic activée
- *   REPLAY_SHORT_URL      — short link replay (défaut go.yogyface.fr/replay-yt)
+ *   REPLAY_SHORT_URL      — short link replay (YouTube ou MP4 Médias, défaut go.yogyface.fr/replay-yt)
  *   WEBI_APP_URL / INSCRIPTION_WEBHOOK_SECRET — identity cookie + ping /vente
  *   Funnel track : POST /api/funnel/track → PATCH colonnes Inscriptions
  */
@@ -85,6 +85,7 @@ const NOINDEX_PATHS = [
   '/merci-liste-attente',
   '/merci-achat',
   '/vente',
+  '/vente-lecture',
   '/vente-vip',
   '/vente-10x',
   '/vente-6x',

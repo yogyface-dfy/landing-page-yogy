@@ -16,6 +16,8 @@ function urlEmail(url) {
 }
 
 export function pingVenteHit(pathname) {
+  // Copie de test : on garde les query du quiz, et on n'écrit pas l'inscription.
+  if (pathname === '/vente-lecture') return
   if (typeof window === 'undefined' || SKIP.has(pathname)) return
   const url = new URL(window.location.href)
   const h = url.searchParams.get('h') || ''
